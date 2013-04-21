@@ -42,4 +42,4 @@ Features:
   2.0).
 
 
-See ./doc/cmb-manual.pdf for more information.
+Go to https://multiswap.net/about/ for more information.
