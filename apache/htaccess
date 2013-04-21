@@ -1,0 +1,35 @@
+##########################################################
+# Put the content of this file into the .htaccess file   #
+# (notice the dot) in the Web Root directory of your     #
+# shared hosting account.                                #
+#                                                        #
+# Do not forget to replace "yourdomainname.foo" below    #
+# with your real DNS domain name!                        #
+##########################################################
+
+Options -Indexes +Includes
+DirectoryIndex index.shtml  
+AddType text/html .shtml
+AddOutputFilter INCLUDES .shtml
+
+Header set Strict-Transport-Security "max-age=16070400; includeSubDomains"
+
+# You may need to uncomment one of the following lines:
+#AddHandler fastcgi-script .fcgi
+#AddHandler fcgid-script .fcgi
+
+RewriteEngine On
+RewriteCond %{HTTP_HOST} !=yourdomainname.foo
+RewriteRule ^(.*)$ https://yourdomainname.foo/$1 [QSA,R=permanent,L]
+
+# Comment the following five lines if you  
+# want to do tests with insecure connections (bare HTTP):
+RewriteCond %{HTTPS} =off
+RewriteCond $1 !^mobile
+RewriteCond $1 !^static
+RewriteCond $1 !^cmbarter\.fcgi
+RewriteRule ^(.*)$ https://yourdomainname.foo/$1 [QSA,R=permanent,L]
+
+RewriteRule ^doc - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ cmbarter.fcgi/$1 [QSA,L]

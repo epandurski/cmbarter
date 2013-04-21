@@ -1,0 +1,53 @@
+{% extends "base_has_profile.html" %}
+{% load i18n %}
+{% load myfilters %}
+{% block page_id %}my-order-page{% endblock %}
+
+{% block help_context %}#my-delivery-orders{% endblock %}
+{% block breadcrumbs %}
+<a href="/{{user.trader_id}}/shopping-list/">{{user.username|escape}}</a> &middot;
+<a href="/{{user.trader_id}}/orders/">{% trans "My payment orders" %}</a> &middot;
+<span>{% blocktrans with order.order_id as orderid %}#{{orderid}}{% endblocktrans %}</span>
+{% endblock %}
+
+{% block main %}
+<h2>{% blocktrans with order.order_id as orderid %}My payment order #{{orderid}}{% endblocktrans %}</h2>
+<dl>
+  <dt>{% trans "Product" %}:</dt>
+  <dd>
+    <a href="/{{user.trader_id}}/traders/{{order.issuer_id}}/products/{{order.promise_id}}/?backref=/{{user.trader_id}}/orders/{{order.order_id}}/" title="{{order.summary|escape}}">&quot;{{order|product|escape}}&quot;</a> 
+    {% if order.name %}
+    {% trans "from" %} <a href="/{{user.trader_id}}/partners/{{order.issuer_id}}/" title="{{order.comment|escape}} ({% trans "Trader" %} {{order.issuer_id|traderid}})">&quot;{{order.name|escape}}&quot;</a>
+    {% else %}
+    {% trans "from trader" %} <a href="/{{user.trader_id}}/traders/{{order.issuer_id}}/" title="{% trans "Trader" %} {{order.issuer_id|traderid}}">&laquo;{{order.issuer_id|traderid}}&raquo;</a>
+    {% endif %}
+  </dd>
+  <dt>{% trans "Recipient" %}:</dt><dd>{% if order.is_a_payment %}{% if order.payee_name %}<a href="/{{user.trader_id}}/partners/{{order.carrier}}/" title="{{order.payee_comment|escape}} ({% trans "Trader" %} {{order.carrier}})">{{order.payee_name|escape}}</a>{% else %}<a href="/{{user.trader_id}}/traders/{{order.carrier}}/" title="{% trans "Trader" %} {{order.carrier}}">&laquo;{{order.carrier}}&raquo;{% endif %}</a>{% else %}{{order.carrier|escape}}{% endif %}</dd>
+  <dt>{% trans "Amount" %}:</dt><dd><abbr dir="ltr" title="{{order.amount}}">{% truncate_amount order.amount order.epsilon %}</abbr></dd>
+  {% if order.instructions %}
+  <dt>{% trans "Comment" %}:</dt><dd>{{order.instructions|force_escape|linebreaks}}</dd>
+  {% endif %}
+  <dt>{% trans "Date and time of issue" %}:</dt><dd>{% dealts order.insertion_ts user.time_zone %}</dd>
+  <dt>{% trans "Status" %}:</dt><dd class="order-status">
+    {% if order.execution_ts %}
+    <img src="/static/green_accept.gif" alt="">
+    <div>{% if order.issuer_message %}{{order.issuer_message}}{% else %}{% trans "COMPLETED AT" %} {% dealts order.execution_ts user.time_zone %}{% endif %}</div>
+    {% else %}{% if order.issuer_message == None %}
+    <img src="/static/blue_exclamation.gif" alt="">
+    <div>{% trans "PENDING" %}</div>
+    {% else %}
+    <img src="/static/red_reject.gif" alt="">
+    <div>{% if order.issuer_message %}{{order.issuer_message}}{% else %}{% trans "FAILED" %}{% endif %}</div>
+    {% endif %}{% endif %}
+  </dd>
+</dl>
+<div class="appended-form">
+<form method="post" action="">{% csrf_token %}
+  {{form.as_p}}
+  <p class="submit">
+    {% if order.is_a_payment and order.issuer_message == None %}<input type="hidden" name="pending_payment" value="yes">{% endif %}
+    <input type="submit" value="{% trans "OK" %}">
+  </p>
+</form>
+</div>
+{% endblock %}

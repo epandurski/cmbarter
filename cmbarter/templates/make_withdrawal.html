@@ -1,0 +1,42 @@
+{% extends "base_trader.html" %}
+{% load i18n %}
+{% load myfilters %}
+{% block page_id %}make-withdrawal-page{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript" src="/static/common.js"></script>
+<script type="text/javascript">
+  <!--
+  function focusAmount() {
+    amount_field = document.getElementById('id_amount')
+    if (amount_field) amount_field.focus();
+  }
+  addEvent(window, 'load', focusAmount);
+  //-->
+</script>
+{% endblock %}
+
+{% block help_context %}#make-withdrawal{% endblock %}
+{% block breadcrumbs %}
+<a href="/{{user.trader_id}}/shopping-list/">{{user.username|escape}}</a> &middot;
+{% if user.trader_id != trader.trader_id %}
+<a href="/{{user.trader_id}}/traders/">{% trans "Find trader" %}</a> &middot;
+<a href="/{{user.trader_id}}/traders/{{trader.trader_id}}/">{{trader.trader_id|traderid}}</a> &middot;
+<a href="/{{user.trader_id}}/traders/{{trader.trader_id}}/deposits/">{% trans "Owned items" %}</a> &middot;
+{% else %}
+<a href="/{{user.trader_id}}/traders/{{trader.trader_id}}/deposits/">{% trans "My items for sale" %}</a> &middot;
+{% endif %}
+<span>{% blocktrans with product|product|escape as product %}Withdraw "{{product}}"{% endblocktrans %}</span>
+{% endblock %}
+
+{% block trader_main %}
+<h3>{% blocktrans with product|product|escape as product %}Withdraw "{{product}}"{% endblocktrans %}</h3>
+<form method="post" action="">{% csrf_token %}
+  <p class="legend">
+    {% if product.summary %}<span class="verbose">{{product.summary|escape}}&nbsp;&nbsp;</span>{% endif %} <a class="noprint" href="/{{user.trader_id}}/traders/{{user.trader_id}}/products/{{product.promise_id}}/" style="white-space:nowrap">{% trans "see details" %} &raquo;</a>
+  </p>
+  {% if form.insufficient_amount %}<ul class="errorlist"><li>{% trans "ERROR: The amount you requested is not available." %}</li></ul>{% endif %}
+  {{form.as_p}}
+  <p class="submit"><input type="submit" value="{% trans "Submit" %}"></p>
+</form>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "base_trader.html" %}
+{% load i18n %}
+{% load myfilters %}
+{% block page_id %}add-partner-page{% endblock %}
+
+{% block help_context %}#my-partners{% endblock %}
+{% block breadcrumbs %}
+<a href="/{{user.trader_id}}/shopping-list/">{{user.username|escape}}</a> &middot;
+<a href="/{{user.trader_id}}/traders/">{% trans "Find trader" %}</a> &middot;
+<a href="/{{user.trader_id}}/traders/{{trader.trader_id}}/">{{trader.trader_id|traderid}}</a> &middot;
+<span>{% trans "Add to my partners list" %}</span>
+{% endblock %}
+
+{% block trader_main %}
+<h3>{% blocktrans with trader.trader_id|traderid as traderid %} Add trader {{traderid}} to my partners{% endblocktrans %}</h3>
+<form method="post" action="">{% csrf_token %}
+  <p class="legend">
+    {% blocktrans %}
+    Choose a name, and a short summary for your partner.  You may see
+    this name many times in the future, so try to pick one that is
+    easy to remember.
+    {% endblocktrans %}
+  </p>
+  {% if form.name_collision %}<ul class="errorlist"><li>{% trans "ERROR: The name is already in use." %}</li></ul>{% endif %}
+  {{form.as_p}}
+  <p class="submit"><input type="submit" value="{% trans "Submit" %}"></p>
+  <p class="remark">
+    {% blocktrans %}
+    <strong>Note:</strong> Messages from your trading partners will be
+    automatically forwarded to your email.
+    {% endblocktrans %}
+  </p>
+</form>
+{% endblock %}

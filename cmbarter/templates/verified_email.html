@@ -1,0 +1,13 @@
+{% extends "base_signup.html" %}
+{% load i18n %}
+{% block page_id %}verified-email-page{% endblock %}
+
+{% block main %}
+<h2>{% trans "Your email address has been confirmed to be correct!" %}</h2>
+<p>
+  {% blocktrans %}
+  Now you can receive messages from your trading partners, as well as
+  to send messages to your customers.
+  {% endblocktrans %}
+</p>
+{% endblock %}

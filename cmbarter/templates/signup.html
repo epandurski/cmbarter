@@ -1,0 +1,47 @@
+{% extends "base_signup.html" %}
+{% load i18n %}
+{% load myfilters %}
+{% block page_id %}signup-page{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+  <!--
+  var RecaptchaOptions = { theme : 'white', lang : 'en' };
+  //-->
+</script>
+{% endblock %}
+
+{% block breadcrumbs %}
+<span>{% trans "Sign up" %}</span>
+{% endblock %}
+
+{% block main %}
+<h2>{% trans "Sign up" %}</h2>
+<form method="post" action="">{% csrf_token %}
+  {% if form.invalid_regkey %}<ul class="errorlist"><li>{% trans "ERROR: Invalid registration key." %}</li></ul>{% endif %}
+  {% if form.username_taken %}<ul class="errorlist"><li>{% trans "ERROR: The username you requested is already taken." %}</li></ul>{% endif %}
+  {% for error in form.non_field_errors %}<ul class="errorlist"><li>{{error}}</li></ul>{% endfor %}
+
+  {% if settings.CMBARTER_REGISTRATION_KEY_IS_REQUIRED %}
+  {{form.registration_key.errors}}
+  <p><label for="id_registration_key">{{form.registration_key.label}}:</label> {{form.registration_key}}{% if settings.CMBARTER_REGISTRATION_KEY_HELP_URL %} <a id="obtain-regkey-link" href="{{settings.CMBARTER_REGISTRATION_KEY_HELP_URL}}" target="_blank">{% trans "obtain a registration key" %}</a>{% endif %}</p>
+  <p>&nbsp;</p>
+  {% endif %}
+  
+  {{form.username.errors}}
+  <p><label for="id_username">{{form.username.label}}:</label> {{form.username}} {{form.username.help_text}}</p>
+
+  {{form.password.errors}}
+  <p><label for="id_password">{{form.password.label}}:</label> <input id="id_password" type="password" name="password" /> {{form.password.help_text}} &mdash; <strong>{% trans "be tricky!" %}</strong></p>
+
+  {{form.password2.errors}}
+  <p><label for="id_password2">{{form.password2.label}}:</label> <input id="id_password2" type="password" name="password2" />  {{form.password2.help_text}}</p>
+
+  {% if settings.CMBARTER_SHOW_CAPTCHA_ON_SIGNUP %}
+  {% show_captcha captcha_error %}
+  <p>{% trans "Enter the above two words, separated by a space, into the box." %}</p>
+  {% endif %}
+  
+  <p class="submit"><input type="submit" value="{% trans "Submit" %}"></p>
+</form>
+{% endblock %}

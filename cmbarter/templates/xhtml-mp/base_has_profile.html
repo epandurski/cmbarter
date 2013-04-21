@@ -1,0 +1,20 @@
+{% extends "xhtml-mp/base_generic.html" %}{% load i18n %}{% load myfilters %}
+{% block navigation %}
+{% if user.unconfirmed_deal_count or user.unconfirmed_transaction_count or user.unconfirmed_receipt_count %}
+<h3>{% trans "Notices" %}</h3>
+<ul>{% if user.unconfirmed_receipt_count %}
+<li><a href="/mobile/{{secret}}/receipt/"><strong>{% trans "New receipt" %}</strong></a></li>{% endif %}{% if user.unconfirmed_deal_count %}
+<li><a href="/mobile/{{secret}}/completed-deals/">{% trans "Completed deals" %}&nbsp;<strong>({{user.unconfirmed_deal_count}})</strong></a></li>{% endif %}{% if user.unconfirmed_transaction_count %}
+<li><a href="/mobile/{{secret}}/unconfirmed-transactions/">{% trans "Transaction notices" %}&nbsp;<strong>({{user.unconfirmed_transaction_count}})</strong></a></li>{% endif %}
+</ul>{% endif %}
+<h3>{% trans "Navigation" %}</h3>
+<ol>
+<li><a href="/mobile/{{secret}}/shopping-list/" accesskey="1">{% trans "Shopping list <!--menu-->" %}</a></li>
+<li><a href="/mobile/{{secret}}/partners/" accesskey="2">{% trans "My partners <!--menu-->" %}</a></li>
+<li><a href="/mobile/{{secret}}/orders/" accesskey="3">{% trans "My payment orders <!--menu-->" %}</a></li>
+<li><a href="/mobile/{{secret}}/traders/{{user.trader_id}}/" accesskey="4">{% trans "My business card <!--menu-->" %}</a></li>
+<li><a href="/mobile/{{secret}}/traders/{{user.trader_id}}/deposits/" accesskey="5">{% trans "My items for sale <!--menu-->" %}</a></li>
+<li><a href="/mobile/{{secret}}/find-customer/" accesskey="6">{% trans "Find customer" %}</a></li>
+<li><a href="/mobile/{{secret}}/logout/" accesskey="7">{% trans "Logout" %}</a></li>
+</ol>
+{% endblock %}

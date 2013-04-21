@@ -1,0 +1,36 @@
+/*
+ A minimalictic printing layout
+*/
+
+body { background: white; font-size: 12pt; }
+
+#top, #bottom, #footer, #clear, #header, #breadcrumbs, #navigation, #yourself { display: none; }
+.noprint, .linklist, .prev-next-box, .remark { display: none; }
+
+a { text-decoration: none; color: black; }
+ul { list-style-type: none; padding-left: 0; padding-right: 0; }
+dt { font-weight: bold; color: #666666; margin-top: 0.5em; }
+label { display: block; font-weight: bold; color: #666666; }
+input { font-size: 12pt; }
+
+table { width: 100%; border-collapse: collapse; }
+th, td { vertical-align: baseline; border-bottom: 1px solid #666666; padding: 0.33em; }
+th { font-weight: bold; text-decoration: underline; }
+#wrap-ltr th { padding-left: 0; text-align: left; }
+#wrap-rtl th { padding-right: 0; text-align: right; }
+tfoot { display: none; }
+table img { display: none; }
+table input { width: 90%; }
+
+#receipt-signature { width: 80%; height: 5em; border-bottom: 1px dotted black; }
+
+#wrap-ltr .legend { margin-left: 1em; }
+#wrap-rtl .legend { margin-right: 1em; }
+.errorlist { font-weight: bold; margin-top: 0.5em; color: #CC3333; }
+
+#pricelist-page table input { font-weight: bold; border: none; }
+#transaction-commit-page h3, #unconfirmed-receipt-page h2 { font-size: 1.4em; }
+
+#about-page #wrap-ltr #main ul { margin-left: 1.33em; }
+#about-page #wrap-rtl #main ul { margin-right: 1.33em; }
+#about-page #main li { list-style-type: disc; padding-bottom: 0.5em; }

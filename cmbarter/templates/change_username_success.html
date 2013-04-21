@@ -1,0 +1,15 @@
+{% extends "base_has_profile.html" %}
+{% load i18n %}
+{% block page_id %}change-username-success-page{% endblock %}
+
+{% block help_context %}#change-username{% endblock %}
+{% block breadcrumbs %}
+<a href="/{{user.trader_id}}/shopping-list/">{{user.username|escape}}</a> &middot;
+<a href="/{{user.trader_id}}/traders/{{user.trader_id}}/">{% trans "My business card" %}</a> &middot;
+<span>{% trans "Change username" %}</span>
+{% endblock %}
+
+{% block main %}
+<h2>{% trans "Change your username" %}</h2>
+<p class="legend">{% trans "Your username has been successfully changed." %}</p>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "xhtml-mp/base_has_profile.html" %}{% load i18n %}{% load myfilters %}
+
+{% block breadcrumbs %}
+<a href="/mobile/{{secret}}/shopping-list/">{{user.username|escape}}</a>
+{% endblock %}
+
+{% block main %}
+<h3>{% trans "Completed deals" %}</h3>
+{% if deals %}
+<form method="post" action="/mobile/{{secret}}/completed-deals/">
+<div class="itemlist">{% for row in deals %}
+<div class="{% cycle 'dark' 'light' %}">{% if row.name %}{{row.name|escape}}{% else %}{% if user.trader_id == row.issuer_id %}{% trans "YOURSELF" %}{% else %}{{row.issuer_id|traderid}}{% endif %}{% endif %}&nbsp;&middot; {{row|product|escape}} <strong>({% truncate_amount row.amount row.epsilon %})</strong><input type="hidden" name="deal-{{row.turn_id}}-{{row.issuer_id}}-{{row.promise_id}}" value="confirmed" /></div>{% endfor %}</div>
+<p class="submit"><input type="submit" value="{% trans "I acknowledge" %}" style="-wap-accesskey:0" /></p>
+</form>
+{% else %}
+<p><em>{% trans "No deals" %}</em></p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends "base_has_profile.html" %}
+{% load i18n %}
+{% load myfilters %}
+{% block page_id %}partner-pricelist-page{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript" src="/static/common.js"></script>
+<script type="text/javascript" src="/static/css.js"></script>
+<script type="text/javascript" src="/static/standardista-table-sorting.js"></script>
+{% endblock %}
+
+{% block help_context %}#my-partners{% endblock %}
+{% block breadcrumbs %}
+<a href="/{{user.trader_id}}/shopping-list/">{{user.username|escape}}</a> &middot;
+<a href="/{{user.trader_id}}/partners/">{% trans "My partners" %}</a> &middot;
+<span>&quot;{{trust.name|escape}}&quot;</span>
+{% endblock %}
+
+{% block main %}
+<h2>{% blocktrans with trust.name|escape as partner %}My partner "{{partner}}"{% endblocktrans %}</h2>
+{% if trust.comment %}<p class="legend">{{trust.comment|escape}}</p>{% endif %}
+<ul class="linklist noprint">
+  <li><a href="/{{user.trader_id}}/traders/{{trust.issuer_id}}/">{% trans "contact" %}&nbsp;&raquo;</a></li>
+  <li><a href="/{{user.trader_id}}/partners/{{trust.issuer_id}}/suggested-partners/">{% trans "view trusted traders" %}&nbsp;&raquo;</a></li>
+  <li><a href="/{{user.trader_id}}/partners/{{trust.issuer_id}}/transactions/">{% trans "view committed transactions" %}&nbsp;&raquo;</a></li>
+  <li><a href="/{{user.trader_id}}/partners/{{trust.issuer_id}}/remove/">{% trans "remove" %}&nbsp;&raquo;</a></li>
+</ul>
+<h3>{% trans "List of offered products" %}</h3>
+{% if products %}
+<table cellspacing="0" width="100%" class="fixed sortable">
+  <col width="40%"><col width="30%"><col width="30%">
+  <thead>
+    <tr class="verbose">
+      <th title="{% trans "A short description of the product" %}" class="removethisprefixto_sort-onload">{% trans "Product" %}</th>
+      <th abbr="{% trans "Amount" %}" title="{% trans "This is the total amount of product that your partner is able to deliver. It includes the amount that is not sold, plus everything that is already sold to customers but is not delivered yet." %}">{% trans "Available amount" %}</th>
+      <th title="{% trans "The price announced by your partner" %}" abbr="{% trans "Price" %}">{% trans "Price per unit" %}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for row in products %}
+    <tr>
+      <td scope="row">
+	{% if row.is_chosen %}
+	<img src="/static/orange_star.gif" alt="(Y)">
+	<div><a href="/{{user.trader_id}}/traders/{{trust.issuer_id}}/products/{{row.offer.promise_id}}/" title="{{row.offer.summary|escape}}">{{row.offer|product|escape}}</a></div>
+	{% else %}
+	<img src="/static/white_star.gif" alt="(N)">
+	<div><a href="/{{user.trader_id}}/traders/{{trust.issuer_id}}/products/{{row.offer.promise_id}}/?actionref=/{{user.trader_id}}/partners/{{trust.issuer_id}}/" title="{{row.offer.summary|escape}}{% if row.amount > 0.0 %} ({% blocktrans with row|partner_deposit_truncate_amount as amount %}{{amount}} units are deposited to your account{% endblocktrans %}){% endif %}">{{row.offer|product|escape}}</a></div>
+	{% endif %}
+      </td>
+      <td><abbr dir="ltr" title="{{row.offer.amount}}">{% truncate_amount row.offer.amount row.offer.epsilon %}</abbr></td>
+      <td>{% if row.offer.price %}{{row.offer.price}}{% else %}{% trans "N/A"%}{% endif %}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p class="legend"><em>{% trans "No products" %}</em></p>
+{% endif %}
+{% endblock %}

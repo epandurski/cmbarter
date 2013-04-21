@@ -1,0 +1,11 @@
+{% extends "xhtml-mp/base_has_profile.html" %}{% load i18n %}{% load myfilters %}
+{% block breadcrumbs %}
+<a href="/mobile/{{secret}}/shopping-list/">{{user.username|escape}}</a>
+{% endblock %}
+
+{% block main %}
+<h3>{% trans "Partners" %}</h3>
+<p><a href="/mobile/{{secret}}/find-partner/" style="text-transform:uppercase;-wap-accesskey:0">{% trans "Find partner" %}</a></p>
+{% if partners %}<div class="itemlist">{% for trust in partners %}
+<div class="{% cycle 'dark' 'light' %}"><a href="/mobile/{{secret}}/partners/{{trust.issuer_id}}/">{{trust.name|escape}}</a></div>{% endfor %}</div>{% endif %}
+{% endblock %}

@@ -1,0 +1,51 @@
+{% load i18n %}
+{% load myfilters %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_available_languages as LANGUAGES %}
+
+{% autoescape off %}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html dir="{% default_direction %}" lang="{{LANGUAGE_CODE}}">
+<head>
+  <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="initial-scale=1.0">
+  <title>{{settings.CMBARTER_HOST}}</title>
+  <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="/static/screen.css" type="text/css" media="screen">
+  <![endif]-->
+  <link rel="stylesheet" href="/static/screen.css" type="text/css" media="screen and (min-width: 999px), projection">
+  <link rel="stylesheet" href="/static/handheld.css" type="text/css" media="handheld, tv, only screen and (max-width: 998px)">
+  <link rel="stylesheet" href="/static/print.css" type="text/css" media="print">
+  <link rel="help" href="{{settings.CMBARTER_DOC_ROOT_URL}}/{{LANGUAGE_CODE}}/" type="text/html">
+  <script type="text/javascript">
+    <!--
+    if (top && self && top != self) top.location.replace(self.location.href);
+    i18n = {'na': '{% trans "N/A" %}', 'click': '{% trans "(click to sort)" %}' };
+    //-->
+  </script>
+  {% block javascript %}{% endblock %}
+</head>
+<body id="{% block page_id %}page{% endblock %}">
+  <div id="wrap-{% default_direction %}">
+    <div id="top"></div>
+    <div id="content">
+      <div id="header">{% block logoutbutton %}{% endblock %}
+	<h1 dir="ltr"><img src="/static/logo.gif" alt="">{{settings.CMBARTER_HOST}}</h1>
+	<h2>{% trans "Reinventing free trade" %}</h2>
+	<div id="hotmenu">{% block hotmenu %}&nbsp;{% endblock%}</div>
+      </div>
+      <div id="breadcrumbs"><strong>{% trans "Your location in the site:" %} </strong>{% block breadcrumbs %}&nbsp;{% endblock %}</div>
+      <div id="main">{% block main %}&nbsp;{% endblock %}</div>
+      <div id="navigation">{% block navigation %}&nbsp;{% endblock %}</div>
+      <div id="clear"></div>
+    </div>
+    <div id="bottom"></div>
+  </div>
+  <div id="footer">{% block footer %}{% blocktrans with settings.CMBARTER_ABOUT_US_URL as url %}More <a href="{{url}}" target="_blank">about us</a>{% endblocktrans %}{% endblock %}</div>
+</body>
+</html>
+{% endautoescape %}

@@ -1,0 +1,35 @@
+{% extends "base_has_profile.html" %}
+{% load i18n %}
+{% block page_id %}create-product-page{% endblock %}
+
+{% block help_context %}#new-product{% endblock %}
+{% block breadcrumbs %}
+<a href="/{{user.trader_id}}/shopping-list/">{{user.username|escape}}</a> &middot;
+<a href="/{{user.trader_id}}/pricelist/">{% trans "My pricelist" %}</a> &middot;
+<span>{% trans "Add product" %}</span>
+{% endblock %}
+
+{% block main %}
+<h2>{% trans "Please describe your new product" %}</h2>
+<form method="post" action="">{% csrf_token %}
+  <p class="legend">
+    {% blocktrans %}
+    <strong>Please, be careful:</strong> Make sure you have described
+    your product as clearly as possible. Your customers will hesitate
+    to buy an ambiguously described product. Also, make sure "unit of
+    measurement" and "roundoff amount" are correct. <em>It is very
+    important to make your description and units as clearly
+    understandable as possible!</em>
+    {% endblocktrans %}
+  </p>
+  {{form.as_p}}
+  <p class="submit"><input type="submit" value="{% trans "Submit" %}"></p>
+  <p class="remark verbose">
+    {% blocktrans %}
+    <strong>Note:</strong> To be fair to other users, you won't be
+    able to change this information after it's been submitted.  To
+    change it you have to delete the whole item and re-enter it.
+    {% endblocktrans %}
+  </p>
+</form>
+{% endblock %}

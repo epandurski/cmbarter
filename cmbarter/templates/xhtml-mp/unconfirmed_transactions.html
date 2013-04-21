@@ -1,0 +1,37 @@
+{% extends "xhtml-mp/base_has_profile.html" %}{% load i18n %}{% load myfilters %}
+
+{% block breadcrumbs %}
+<a href="/mobile/{{secret}}/shopping-list/">{{user.username|escape}}</a>
+{% endblock %}
+
+{% block main %}
+<h3>{% trans "Transaction notices" %}</h3>
+{% if pending_payments_link %}<p><a href="{{pending_payments_link|escape}}?method=GET" style="-wap-accesskey:0;text-transform:uppercase">{% trans "back" %}</a></p>{% endif %}
+{% if transactions %}
+<form method="post" action="/mobile/{{secret}}/unconfirmed-transactions/"><div class="itemlist">{% for row in transactions %}
+<div class="{% cycle 'dark' 'light' %}">
+<p><strong>{% if row.amount < 0.0 %}<img src="/static/mred_minus.gif" alt="(-)" width="16" height="16" />{% else %}<img src="/static/mgreen_plus.gif" alt="(+)" width="16" height="16" />{% endif %} {% dealts row.ts user.time_zone %}</strong></p>
+
+{% if row.amount < 0.0 %}{% if row.is_a_payment %}
+<p><a href="/mobile/{{secret}}/orders/{{row.payment_order_id}}/">{% trans "Completed payment order" %}:</a></p>{% if row.payment_reason %}<p><em>{{row.payment_reason|escape}}</em></p>{% endif %}
+{% else %}
+<p><a href="/mobile/{{secret}}/partners/{{row.issuer_id}}/">{% blocktrans with row.name|escape as trader %}A withdrawal from your account at &quot;{{trader}}&quot;{% endblocktrans %}:</a></p>{% if row.reason %}<p><em>{{row.reason|escape}}</em></p>{% endif %}
+{% endif %}
+<p>{% blocktrans with row|transaction_truncate_abs_amount as amount and row|product|escape as product and row.name|escape as trader %}{{amount}} of &quot;{{product}}&quot; have been withdrawn from your account at &quot;{{trader}}&quot;.{% endblocktrans %}</p>
+
+{% else %}{% if row.is_a_payment %}
+<p><a href="/mobile/{{secret}}/traders/{{row.payment_payer_id}}/">{% blocktrans with row.payment_payer_name|escape as payer %}Accepted payment from &quot;{{payer}}&quot;{% endblocktrans %}:</a></p>{% if row.payment_reason %}<p><em>{{row.payment_reason|escape}}</em></p>{% endif %}
+{% else %}
+<p><a href="/mobile/{{secret}}/partners/{{row.issuer_id}}/">{% blocktrans with row.name|escape as trader %}A deposit to your account at &quot;{{trader}}&quot;{% endblocktrans %}:</a></p>{% if row.reason %}<p><em>{{row.reason|escape}}</em></p>{% endif %}
+{% endif %}
+<p>{% blocktrans with row|transaction_truncate_abs_amount as amount and row|product|escape as product and row.name|escape as trader %}{{amount}} of &quot;{{product}}&quot; have been deposited to your account at &quot;{{trader}}&quot;.{% endblocktrans %}</p>
+{% endif %}
+<p><input type="checkbox" name="trx-{{row.id}}" value="confirmed" /></p>
+</div>{% endfor %}
+</div>
+<p class="submit"><input type="submit" value="{% trans "Submit" %}" style="-wap-accesskey:0" /></p>
+</form>
+{% else %}
+<p><em>{% trans "No transactions" %}</em></p>
+{% endif %}
+{% endblock %}

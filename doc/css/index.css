@@ -1,0 +1,8 @@
+@import url(../css/html4css1.css);
+@import url(../css/figures.css);
+@import url(../css/printer.css) print;
+@import url(../css/lightblue.css) screen and (min-width: 999px), projection;
+@import url(../css/tinyblue.css) handheld, tv, only screen and (max-width: 998px);
+
+p:first-letter { text-transform: uppercase; }
+.ssi-allcaps { text-transform: uppercase;  }

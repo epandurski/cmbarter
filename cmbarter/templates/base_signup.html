@@ -1,0 +1,19 @@
+{% extends "base_generic.html" %}
+{% load i18n %}
+
+{% block navigation %}
+<h2>{% trans "Navigation" %}</h2>
+<ul>
+  <li><a href="/login/">{% trans "Login" %}</a></li>
+  <li><a href="/about/">{% trans "About" %}</a></li>
+  <li><a href="/signup/">{% trans "Sign up" %}</a></li>
+</ul>
+{% if LANGUAGES|length > 1 %}
+<h2>{% trans "Language" %}</h2>
+<ul>
+  {% for lang in LANGUAGES %}
+  <li><a href="/about/{{lang.0}}/">{{lang.1|capfirst}}</a></li>
+  {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "xhtml-mp/base_has_profile.html" %}{% load i18n %}{% load myfilters %}
+
+{% block page_css %}
+#id_carrier { -wap-input-format: "NNNNNNNNN"; -wap-input-required: true; }
+#id_amount { -wap-input-format: "*n"; -wap-input-required: true; }
+{% endblock %}
+
+{% block breadcrumbs %}
+<a href="/mobile/{{secret}}/shopping-list/">{{user.username|escape}}</a> &gt;
+{% trans "My partners" %} &gt;
+{{trust.name|escape}} &gt;
+<a href="/mobile/{{secret}}/traders/{{product.issuer_id}}/products/{{product.promise_id}}/">{{product|product|escape}}</a>
+{% endblock %}
+
+{% block main %}
+<h3>{% trans "Payment order" %}</h3>
+<form method="post" action="/mobile/{{secret}}/traders/{{product.issuer_id}}/products/{{product.promise_id}}/order/">
+{% if form.insufficient_amount %}<ul class="errorlist"><li>{% if form.show_avl_amount %}{% blocktrans with form.avl_amount as max_amount %}ERROR: The amount you requested is not available. (it exceeds {{max_amount}}){% endblocktrans %}{% else %}{% trans "ERROR: The amount you requested is not available." %}{% endif %}</li></ul>{% endif %}
+{{form.carrier.errors}}<p><label for="id_carrier" style="-wap-accesskey:0">{{form.carrier.label}}:</label> {{form.carrier}}</p>
+{{form.amount.errors}}<p><label for="id_amount">{% trans "Amount:"%}</label> {{form.amount}}</p>
+{{form.instruction.errors}}<p><label for="id_instruction">{{form.instruction.label}}:</label> <input type="text" name="instruction" id="id_instruction" /></p>
+<p class="submit"><input type="submit" value="{% trans "Submit" %}" style="-wap-accesskey:8" /></p>
+</form>
+{% endblock %}

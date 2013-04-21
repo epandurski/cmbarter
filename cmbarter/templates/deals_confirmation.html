@@ -1,0 +1,24 @@
+{% extends "base_has_profile.html" %}
+{% load i18n %}
+{% block page_id %}deals-confirmation-page{% endblock %}
+
+{% block help_context %}#unconfirmed-deals{% endblock %}
+{% block breadcrumbs %}
+<a href="/{{user.trader_id}}/shopping-list/">{{user.username|escape}}</a> &middot;
+<span>{% trans "Completed deals" %}</span>
+{% endblock %}
+
+{% block main %}
+<h2>{% trans "Completed deals" %}</h2>
+<p class="legend">
+{% if count == 0 %}
+  {% trans "No deals have been acknowledged." %}
+{% else %}
+  {% blocktrans count count as count %}
+    {{count}} new deal has been acknowledged.
+  {% plural %}
+    {{count}} new deals have been acknowledged.
+  {% endblocktrans %}
+{% endif %}
+</p>
+{% endblock %}

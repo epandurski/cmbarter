@@ -1,0 +1,21 @@
+{% extends "xhtml-mp/base_has_profile.html" %}{% load i18n %}{% load myfilters %}
+
+{% block breadcrumbs %}
+<a href="/mobile/{{secret}}/shopping-list/">{{user.username|escape}}</a>
+{% endblock %}
+
+{% block main %}
+<h3>{% trans "Trader" %} {{trader.trader_id|traderid}}</h3>
+<dl>
+<dt>{% trans "Full name" %}:</dt><dd>{{trader.full_name|escape}}</dd>
+{% if trader.email or email_verification.email %}<dt>{% trans "Email" %}:</dt><dd>{% filter force_escape %}{% firstof trader.email email_verification.email %}{% endfilter %}</dd>{% endif %}
+{% if trader.www %}<dt>{% trans "Home page" %}:</dt><dd>{{trader.www|lower|escape}}</dd>{% endif %}
+{% if trader.phone %}<dt>{% trans "Phone" %}:</dt><dd><a href="tel:{{trader.phone|phonenumber|escape}}">{{trader.phone|phonenumber|escape}}</a></dd>{% endif %}
+{% if trader.fax %}<dt>{% trans "Fax" %}:</dt><dd>{{trader.fax|escape}}</dd>{% endif %}
+{% if trader.address %}<dt>{% trans "Address" %}:</dt><dd>{{trader.address|force_escape|linebreaksbr}}</dd>{% endif %}
+{% if trader.postal_code %}<dt>{% trans "Postal code" %}:</dt><dd>{{trader.postal_code|escape}}</dd>{% endif %}
+{% if trader.country %}<dt>{% trans "Country" %}:</dt><dd>{{trader.country|escape}}</dd>{% endif %}
+{% if user.trader_id == trader.trader_id %}<dt>{% trans "Time zone" %}:</dt><dd>{{user.time_zone|escape}}</dd>{% endif %}
+</dl>
+<p>{% if user.trader_id == trader.trader_id %}<a href="/mobile/{{secret}}/edit-profile/" style="text-transform:uppercase;-wap-accesskey:0">{% trans "Edit your contact information" %}</a>{% else %}<a href="/mobile/{{secret}}/traders/{{trader.trader_id}}/add-to-partners/" style="text-transform:uppercase;-wap-accesskey:0">{% trans "Add to my partners list" %}</a>{% endif %}</p>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "base_has_profile.html" %}
+{% load i18n %}
+{% load myfilters %}
+{% block page_id %}unconfirmed-deals-page{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript" src="/static/common.js"></script>
+<script type="text/javascript" src="/static/css.js"></script>
+<script type="text/javascript" src="/static/standardista-table-sorting.js"></script>
+{% endblock %}
+
+{% block help_context %}#unconfirmed-deals{% endblock %}
+{% block breadcrumbs %}
+<a href="/{{user.trader_id}}/shopping-list/">{{user.username|escape}}</a> &middot;
+<span>{% trans "Completed deals" %}</span>
+{% endblock %}
+
+{% block main %}
+<h2>{% trans "Completed deals" %}</h2>
+{% if deals %}
+<form method="post" action="">{% csrf_token %}
+<table cellspacing="0" width="100%" class="fixed sortable">
+  <col width="22%"><col width="20%"><col width="28%"><col width="15%"><col width="15%">
+  <thead>
+    <tr class="verbose">
+      <th title="{% trans "Date and time of commit" %}">{% trans "Timestamp" %}</th>
+      <th title="{% trans "The name of the partner of yours who is offering the product" %}">{% trans "Partner" %}</th>
+      <th title="{% trans "A short description of the product" %}">{% trans "Product" %}</th>
+      <th title="{% trans "A negative number indicates that the amount you own has been decreased. A positive number indicates that the amount you own has been increased." %}">{% trans "Amount" %}</th>
+      <th title="{% trans "The value of the purchase" %}" abbr="{% trans "Value" %}">{% trans "Value" %}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for row in deals %}
+    <tr>
+      <td scope="row"><strong>{% dealts row.ts user.time_zone %}</strong><input type="hidden" name="deal-{{row.turn_id}}-{{row.issuer_id}}-{{row.promise_id}}" value="confirmed"></td>
+      <td>{% if row.name %}<a href="/{{user.trader_id}}/partners/{{row.issuer_id}}/" title="{{row.comment|truncatechars:130|escape}} ({% trans "Trader" %} {{row.issuer_id|traderid}})">{{row.name|escape}}</a>{% else %}<a href="/{{user.trader_id}}/traders/{{row.issuer_id}}/" title="{% trans "Trader" %} {{row.issuer_id|traderid}}">&laquo;{% if user.trader_id == row.issuer_id %}{% trans "YOURSELF" %}{% else %}{{row.issuer_id|traderid}}{% endif %}&raquo;</a>{% endif %}</td>
+      <td><a href="/{{user.trader_id}}/traders/{{row.issuer_id}}/products/{{row.promise_id}}/?backref=/{{user.trader_id}}/completed-deals/" title="{{row.summary|truncatechars:130|escape}}">{{row|product|escape}}</a></td>
+      <td><abbr dir="ltr" title="{{row.amount}}">{% truncate_amount row.amount row.epsilon %}</abbr></td>
+      <td>{% deal_value row.amount row.price %}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<p class="submit noprint"><input type="submit" value="{% trans "I acknowledge" %}"></p>
+<p class="remark verbose">
+  {% blocktrans %}
+  All amounts were carefully calculated by the system to arrange for
+  the aggregate values of exchanged products to be in perfect balance.
+  {% endblocktrans %}
+</p>
+</form>
+{% else %}
+<p class="legend"><em>{% trans "No deals" %}</em></p>
+{% endif %}
+{% endblock %}

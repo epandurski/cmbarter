@@ -1,0 +1,21 @@
+{% extends "base_has_profile.html" %}
+{% load i18n %}
+{% block page_id %}email-customers-success-page{% endblock %}
+
+{% block help_context %}#email-customers{% endblock %}
+{% block breadcrumbs %}
+<a href="/{{user.trader_id}}/shopping-list/">{{user.username|escape}}</a> &middot;
+<span>{% trans "Email my customers" %}</span>
+{% endblock %}
+
+{% block main %}
+<h2>{% trans "Email my customers" %}</h2>
+<p class="legend">{% trans "Your message has been received." %}</p>
+<p>
+  {% blocktrans %}
+  <strong>Note: </strong> Your message will be
+  forwarded to all traders who have added you to their list of trading
+  partners.
+  {% endblocktrans %}
+</p>
+{% endblock %}

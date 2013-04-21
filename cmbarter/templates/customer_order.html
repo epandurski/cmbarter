@@ -1,0 +1,55 @@
+{% extends "base_trader.html" %}
+{% load i18n %}
+{% load myfilters %}
+{% block page_id %}customer-order-page{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript" src="/static/common.js"></script>
+<script type="text/javascript" src="/static/css.js"></script>
+<script type="text/javascript" src="/static/standardista-table-sorting.js"></script>
+{% endblock %}
+
+{% block help_context %}#customer-orders{% endblock %}
+{% block breadcrumbs %}
+<a href="/{{user.trader_id}}/shopping-list/">{{user.username|escape}}</a> &middot;
+<a href="/{{user.trader_id}}/traders/">{% trans "Find trader" %}</a> &middot;
+<a href="/{{user.trader_id}}/traders/{{trader.trader_id}}/">{{trader.trader_id|traderid}}</a> &middot;
+<a href="/{{user.trader_id}}/traders/{{trader.trader_id}}/orders/">{% trans "Payment orders" %}</a> &middot;
+<span>{% blocktrans with order.order_id as orderid %}#{{orderid}}{% endblocktrans %}</span>
+{% endblock %}
+
+{% block trader_main %}
+<h3>{% blocktrans with order.order_id as orderid %}Payment order #{{orderid}}{% endblocktrans %}</h3>
+<dl>
+  <dt>{% trans "Product" %}:</dt><dd><a href="/{{user.trader_id}}/traders/{{order.issuer_id}}/products/{{order.promise_id}}/?backref=/{{user.trader_id}}/traders/{{trader.trader_id}}/orders/{{order.order_id}}/" title="{{order.summary|escape}}">&quot;{{order|product|escape}}&quot;</a></dd>
+  <dt>{% trans "Recipient" %}:</dt><dd>{{order.carrier|escape}}</dd>
+  <dt>{% trans "Amount" %}:</dt><dd><abbr dir="ltr" title="{{order.amount}}">{% truncate_amount order.amount order.epsilon %}</abbr></dd>
+  {% if order.instructions %}
+  <dt>{% trans "Comment" %}:</dt><dd>{{order.instructions|force_escape|linebreaks}}</dd>
+  {% endif %}
+  <dt>{% trans "Date and time of issue" %}:</dt><dd>{% dealts order.insertion_ts user.time_zone %}</dd>
+  <dt>{% trans "Status" %}:</dt><dd class="order-status">
+    {% if order.execution_ts %}
+    <img src="/static/green_accept.gif" alt="">
+    <div>{% if order.issuer_message %}{{order.issuer_message}}{% else %}{% trans "COMPLETED AT" %} {% dealts order.execution_ts user.time_zone %}{% endif %}</div>
+    {% else %}{% if order.issuer_message == None %}
+    <img src="/static/blue_exclamation.gif" alt="">
+    <div>{% trans "PENDING" %}</div>
+    {% else %}
+    <img src="/static/red_reject.gif" alt="">
+    <div>{% if order.issuer_message %}{{order.issuer_message}}{% else %}{% trans "FAILED" %}{% endif %}</div>
+    {% endif %}{% endif %}
+  </dd>
+</dl>
+{% if not order.is_a_payment and order.issuer_message == None %}
+<p class="linklist">
+  <a href="/{{user.trader_id}}/traders/{{order.recipient_id}}/deposits/{{order.promise_id}}/?backref=/{{user.trader_id}}/traders/{{trader.trader_id}}/orders/{{order.order_id}}/&amount={% truncate_amount_for_url order.amount order.epsilon %}&reason={% filter urlencode|iriencode %}{% blocktrans with order.order_id as orderid %}Payment order #{{orderid}}{% endblocktrans %}{% endfilter %}" id="order-withdraw-link">
+    <strong>{% trans "MAKE A WITHDRAWAL" %}&nbsp;&raquo;</strong>
+  </a>
+</p>
+<form method="post" action="">{% csrf_token %}
+  {{form.as_p}}
+  <p class="submit"><input type="submit" value="{% trans "OK" %}"></p>
+</form>
+{% endif %}
+{% endblock %}

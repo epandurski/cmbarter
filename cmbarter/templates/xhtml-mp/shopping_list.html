@@ -1,0 +1,15 @@
+{% extends "xhtml-mp/base_has_profile.html" %}{% load i18n %}{% load myfilters %}
+
+{% block breadcrumbs %}
+{{user.username|escape}}
+{% endblock %}
+
+{% block main %}
+<h3>{% trans "Shopping list" %}</h3>
+<p><a href="/mobile/{{secret}}/find-customer/" style="text-transform:uppercase;-wap-accesskey:0">{% trans "Find customer" %}</a></p>
+{% if items %}
+<div class="itemlist">{% for row in items %}
+<div class="{% cycle 'dark' 'light' %}">{% if row.issuer_price %}<a href="/mobile/{{secret}}/traders/{{row.issuer_id}}/products/{{row.promise_id}}/">{{row.name|escape}}&nbsp;&middot; {{row|product|escape}}</a>{% else %}{{row.name|escape}}&nbsp;&middot; {{row|product|escape}}{% endif %} <strong>({% truncate_amount row.have_amount row.epsilon %})</strong></div>{% endfor %}
+</div>
+{% endif %}
+{% endblock %}

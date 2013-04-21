@@ -1,0 +1,55 @@
+{% extends "base_has_profile.html" %}
+{% load i18n %}
+{% load myfilters %}
+{% block page_id %}partners-page{% endblock %}
+
+{% block help_context %}#my-partners{% endblock %}
+{% block breadcrumbs %}
+<a href="/{{user.trader_id}}/shopping-list/">{{user.username|escape}}</a> &middot;
+<span>{% trans "My partners" %}</span>
+{% endblock %}
+
+{% block main %}
+<h2>{% trans "My partners" %}</h2>
+{% if not partners %}
+<p class="legend">
+  {% blocktrans %}
+  You have to list your suppliers of goods and services as your
+  partners, to indicate that you trust them.  For your protection, the
+  system will arrange purchases for you only from traders who are
+  already on your list.
+  {% endblocktrans %}
+</p>
+<p class="linklist"><a href="/{{user.trader_id}}/find-partner/"><b>{% trans "ADD PARTNER" %} &raquo;</b></a></p>
+{% else %}
+<table cellspacing="0" width="100%" class="fixed">
+  <col width="40%"><col width="30%"><col width="30%">
+  <thead>
+    <tr class="verbose">
+      <th id="partner" title="{% trans "The name of your partner" %}">{% trans "Partner" %}</th>
+      <th abbr="{% trans "Activities" %}" colspan="2" title="{% trans "Actions and information related to your partner" %}"><span class="noprint">{% trans "Related links" %}</span></th>
+    </tr>
+    <tr id="add-partner-link-row" class="noprint">
+      <td colspan="3" headers="partner"><a href="/{{user.trader_id}}/find-partner/"><b>{% trans "ADD NEW PARTNER" %} &raquo;</b></a></td>
+    </tr>
+  </thead>
+  <tbody>
+    {% for trust in partners %}
+    <tr>
+      <td scope="row"><a href="/{{user.trader_id}}/partners/{{trust.issuer_id}}/" title="{{trust.comment|truncatechars:130|escape}} ({% trans "Trader" %} {{trust.issuer_id|traderid}})">{{trust.name|escape}}</a></td>
+      <td><a class="noprint" href="/{{user.trader_id}}/traders/{{trust.issuer_id}}/">{% trans "contact" %} &raquo;</a></td>
+      <td>{% if user.use_simplified_ui %}&nbsp;{% else %}<a class="noprint" href="/{{user.trader_id}}/traders/{{trust.issuer_id}}/deposits/">{% trans "owned items" %} &raquo;</a>{% endif %}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<p class="remark verbose">
+  {% blocktrans %}
+  A click on your partner's name will bring her/his list of offered
+  products to you, from which you can choose items to add to your
+  shopping list.
+  {% endblocktrans %}
+</p>
+{% endif %}
+{% endblock %}

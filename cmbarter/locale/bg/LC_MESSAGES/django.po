@@ -1,0 +1,2650 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Evgeni Pandurski <epandurski@gmail.com>, 2011, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cmbarter-1.7\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-03-21 15:02+0200\n"
+"PO-Revision-Date: 2012-11-29 19:20+0200\n"
+"Last-Translator: Evgeni Pandurski <epandurski@gmail.com>\n"
+"Language-Team: Bulgarian <epandurski@gmail.com>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#: deposits/forms.py:43 profiles/forms.py:41
+msgid "Trader ID"
+msgstr "ID на търговеца"
+
+#: deposits/forms.py:44 profiles/forms.py:42
+msgid "Enter a valid value."
+msgstr "Въведете валидна стойност."
+
+#: deposits/forms.py:52 templates/customer_order.html:24
+#: templates/customer_transactions.html:30 templates/deposits.html:30
+#: templates/my_deals.html:27 templates/my_order.html:16
+#: templates/my_orders.html:27 templates/partner_pricelist.html:34
+#: templates/partner_transactions.html:28 templates/pricelist.html:48
+#: templates/shopping_list.html:39 templates/transaction_commit.html:47
+#: templates/unconfirmed_deals.html:28 templates/unconfirmed_receipt.html:28
+#: templates/xhtml-mp/my_order.html:11
+msgid "Product"
+msgstr "Продукт"
+
+#: deposits/forms.py:56
+msgid "Amount to deposit"
+msgstr "Количество за внасяне"
+
+#: deposits/forms.py:57 deposits/forms.py:78 deposits/forms.py:86
+#: deposits/forms.py:99 orders/forms.py:36 orders/forms.py:53
+msgid "Enter a valid amount."
+msgstr "Въведете валидно количество."
+
+#: deposits/forms.py:60
+msgid "Withdraw the same amount from \"My items for sale\""
+msgstr "Изтегли същото количество от \"Стока за продан\""
+
+#: deposits/forms.py:66 deposits/forms.py:91 orders/forms.py:46
+#: templates/customer_order.html:28 templates/my_order.html:28
+#: templates/xhtml-mp/my_order.html:14
+msgid "Comment"
+msgstr "Коментар"
+
+#: deposits/forms.py:68 deposits/forms.py:93 orders/forms.py:47
+#: products/forms.py:68 profiles/forms.py:197
+msgid "optional"
+msgstr " "
+
+#: deposits/forms.py:85
+msgid "Amount to withdraw"
+msgstr "Количество за изтегляне"
+
+#: deposits/views.py:158 mobile/views.py:697
+msgid "Choose a product..."
+msgstr "Изберете продукт..."
+
+#: deposits/views.py:217 mobile/views.py:757
+#, python-format
+msgid "may not exceed %(amount)s"
+msgstr "не повече от %(amount)s"
+
+#: modules/messages.py:37
+msgid "Email address verification"
+msgstr "Потвърждаване на e-mail адрес"
+
+#: modules/messages.py:39
+#, python-format
+msgid ""
+"You have a registered user account on %(site_domain)s, and you have "
+"specified this address (%(email)s) as user contact.\n"
+"\n"
+"If you did not do this, please ignore this message.\n"
+"\n"
+"To confirm that this address is correct, please follow this link:\n"
+"\n"
+"https://%(site_domain)s/confirm/%(traderid)s/%(secret_code)s/\n"
+"\n"
+"Regards,\n"
+"The %(site_domain)s team\n"
+msgstr ""
+"Вие сте регистриран като потребител в %(site_domain)s. Посочили сте този "
+"адрес (%(email)s) за контакт.\n"
+"\n"
+"Ако не помните да сте правили това, моля не обръщайте повече внимание на "
+"това писмо. Някой, вероятно погрешка, е въвел вашият e-mail адрес.\n"
+"\n"
+"За да потвърдите, че вашият e-mail адрес е въведен правилно, моля кликнете "
+"върху връзката по-долу:\n"
+"\n"
+"https://%(site_domain)s/confirm/%(traderid)s/%(secret_code)s/\n"
+"\n"
+"С уважение,\n"
+"Екипът на %(site_domain)s\n"
+
+#: modules/messages.py:49
+#, python-format
+msgid ""
+"You received this message because you have a user account on "
+"%(site_domain)s, and you have added %(partner_name)s to your list of trading "
+"partners. If you do not want to receive any more messages from "
+"%(site_domain)s, please follow this link and unsubscribe:\n"
+"https://%(site_domain)s/cancel/%(traderid)s/%(secret_code)s/\n"
+msgstr ""
+"Вие получавате това писмо, защото сте регистриран като потребител в "
+"%(site_domain)s, и сте добавили %(partner_name)s като ваш доставчик. Ако не "
+"желаете да получавате повече писма от %(site_domain)s, моля кликнете върху "
+"връзката по долу:\n"
+"https://%(site_domain)s/cancel/%(traderid)s/%(secret_code)s/\n"
+
+#: modules/messages.py:58
+msgid "Transaction notification"
+msgstr "Известие за извършени транзакции"
+
+#: modules/messages.py:60
+#, python-format
+msgid ""
+"There are one or more new transactions on your user account at "
+"%(site_domain)s.\n"
+"\n"
+"Please, log in to your account and examine the new transactions.\n"
+"\n"
+"https://%(site_domain)s/login/\n"
+"\n"
+"\n"
+"-- \n"
+"You received this message because you have a user account on "
+"%(site_domain)s. If you do not want to receive any more messages from "
+"%(site_domain)s, please follow this link and unsubscribe:\n"
+"https://%(site_domain)s/cancel/%(traderid)s/%(secret_code)s/\n"
+msgstr ""
+"Имате една или повече нови транзакции по вашата сметка в %(site_domain)s.\n"
+"\n"
+"Моля влезте във вашият акаунт, и вижте вашите нови транзакции.\n"
+"\n"
+"https://%(site_domain)s/login/\n"
+"\n"
+"\n"
+"-- \n"
+"Вие получавате това писмо, защото сте регистриран като потребител в "
+"%(site_domain)s. Ако не желаете да получавате повече писма от "
+"%(site_domain)s, моля кликнете върху връзката по долу:\n"
+"https://%(site_domain)s/cancel/%(traderid)s/%(secret_code)s/\n"
+
+#: orders/forms.py:35
+msgid "Amount of product"
+msgstr "Количество от продукта"
+
+#: orders/forms.py:40 templates/customer_order.html:25
+#: templates/customer_orders.html:28 templates/my_order.html:25
+#: templates/my_orders.html:29 templates/xhtml-mp/my_order.html:12
+msgid "Recipient"
+msgstr "Получател"
+
+#: orders/forms.py:62 products/forms.py:75 products/forms.py:83
+#: products/forms.py:90 profiles/forms.py:104 profiles/forms.py:111
+#: profiles/forms.py:184 profiles/forms.py:204 profiles/forms.py:233
+#: profiles/forms.py:240 users/forms.py:73 users/forms.py:94
+#: users/forms.py:155 users/forms.py:162
+msgid "This field is required."
+msgstr "Това поле е задължително."
+
+#: orders/forms.py:68
+msgid "Delete this payment order"
+msgstr "Изтрий това платежно нареждане"
+
+#: orders/forms.py:74
+msgid "This payment order has been completed"
+msgstr "Плащането е изпълнено успешно"
+
+#: products/forms.py:41 templates/product.html:57
+msgid "Title"
+msgstr "Име на продукта"
+
+#: products/forms.py:42
+msgid "preferably in plural form, e.g. \"Music lessons\" or \"Cars\""
+msgstr ""
+"За предпочитане е името да бъде в множествено число. Например:\n"
+"\"Сирене\", \"Уроци по математика\", \"Компютри\""
+
+#: products/forms.py:46 templates/product.html:58
+msgid "Unit of measurement"
+msgstr "Измервателна единица"
+
+#: products/forms.py:47
+msgid "preferably in singular form, e.g. \"hour\" or \"one\""
+msgstr ""
+"За предпочитане е измервателната единица да бъде в единствено число.\n"
+"Например: \"кг\", \"час\", или просто \"един\""
+
+#: products/forms.py:52 templates/product.html:59
+#: templates/xhtml-mp/product.html:23
+msgid "Short summary"
+msgstr "Кратко описание"
+
+#: products/forms.py:56 templates/product.html:60
+#: templates/xhtml-mp/product.html:24
+msgid "Roundoff amount"
+msgstr "Пренебрежимо количество"
+
+#: products/forms.py:57
+msgid ""
+"\n"
+"          An amount in units of this product that's small enough that\n"
+"          it can be neglected, e.g. \"0.001\". This is used when rounding "
+"off numbers\n"
+"          for display.\n"
+"        "
+msgstr ""
+"\n"
+"Количество продукт, в зададената измервателна единица, което има\n"
+"пренебрежимо малка материална стойност за вас (например 0.001). Това е\n"
+"необходимо, за да знае системата как да закръглява числата, които ви\n"
+"показва."
+
+#: products/forms.py:67 templates/product.html:61
+#: templates/xhtml-mp/product.html:25
+msgid "A more detailed description"
+msgstr "Подробно описание"
+
+#: products/forms.py:96
+msgid "Ensure this value is greater than zero."
+msgstr "Това поле трябва да бъде по-голямо от нула."
+
+#: products/forms.py:107 templates/product.html:104
+msgid "Add this product to my shopping list"
+msgstr "Добави този продукт към списъка с покупки"
+
+#: products/forms.py:113 templates/product.html:95
+msgid "Remove this product from my pricelist"
+msgstr "Изтрий този продукт от моята ценова листа"
+
+#: profiles/forms.py:52 templates/contact_information.html:20
+#: templates/xhtml-mp/contact_information.html:10 users/forms.py:100
+msgid "Full name"
+msgstr "Име"
+
+#: profiles/forms.py:54 users/forms.py:105
+msgid "A short summary about you or your business"
+msgstr "Накратко за вас или вашата фирма"
+
+#: profiles/forms.py:58 templates/contact_information.html:21
+#: templates/xhtml-mp/contact_information.html:11 users/forms.py:110
+msgid "Email"
+msgstr "E-mail адрес"
+
+#: profiles/forms.py:65 templates/contact_information.html:22
+#: templates/xhtml-mp/contact_information.html:12 users/forms.py:118
+msgid "Home page"
+msgstr "Интернет адрес"
+
+#: profiles/forms.py:69 templates/contact_information.html:23
+#: templates/xhtml-mp/contact_information.html:13 users/forms.py:122
+msgid "Phone"
+msgstr "Телефон"
+
+#: profiles/forms.py:74 templates/contact_information.html:24
+#: templates/xhtml-mp/contact_information.html:14 users/forms.py:127
+msgid "Fax"
+msgstr "Факс"
+
+#: profiles/forms.py:79 templates/contact_information.html:25
+#: templates/xhtml-mp/contact_information.html:15 users/forms.py:132
+msgid "Address"
+msgstr "Адрес"
+
+#: profiles/forms.py:84 templates/contact_information.html:26
+#: templates/xhtml-mp/contact_information.html:16 users/forms.py:137
+msgid "Postal code"
+msgstr "Пощенски код"
+
+#: profiles/forms.py:89 templates/contact_information.html:27
+#: templates/xhtml-mp/contact_information.html:17 users/forms.py:142
+msgid "Country"
+msgstr "Държава"
+
+#: profiles/forms.py:94
+msgid "Allow other traders to see your partners list"
+msgstr "Разрешавате на други търговци да разглеждат вашия списък с доставчици"
+
+#: profiles/forms.py:96 templates/contact_information.html:28
+#: templates/xhtml-mp/contact_information.html:18 users/forms.py:146
+msgid "Time zone"
+msgstr "Часова зона"
+
+#: profiles/forms.py:136
+msgid "Image file"
+msgstr "Изберете файл"
+
+#: profiles/forms.py:143 profiles/forms.py:152 profiles/forms.py:176
+#: users/forms.py:48 users/forms.py:86
+msgid "Ensure this value has at most 64 characters."
+msgstr "Това поле може да има най-много 64 символа."
+
+#: profiles/forms.py:144
+msgid "Enter your old password"
+msgstr "Въведете старата парола"
+
+#: profiles/forms.py:150
+msgid "Choose a new password"
+msgstr "Изберете нова парола"
+
+#: profiles/forms.py:151 users/forms.py:47
+#, python-format
+msgid "Ensure this value has at least %(min_length)s characters."
+msgstr "Това поле трябва да има най-малко %(min_length)s символа."
+
+#: profiles/forms.py:153 users/forms.py:49
+#, python-format
+msgid "at least %(min_length)s characters"
+msgstr "поне %(min_length)s символа"
+
+#: profiles/forms.py:157
+msgid "Re-enter the new password"
+msgstr "Въведете новата парола отново"
+
+#: profiles/forms.py:164
+msgid "ERROR: New passwords do not match."
+msgstr "ГРЕШКА: Новите пароли не съвпадат."
+
+#: profiles/forms.py:171
+msgid "Choose a new username"
+msgstr "Изберете ново потребителско име"
+
+#: profiles/forms.py:177
+msgid "Enter your password"
+msgstr "Въведете вашата парола"
+
+#: profiles/forms.py:190
+msgid "Name"
+msgstr "Име"
+
+#: profiles/forms.py:196
+msgid "Summary"
+msgstr "Кратка информация"
+
+#: profiles/forms.py:212 templates/transaction_commit.html:63
+#: templates/unconfirmed_receipt.html:44
+#: templates/xhtml-mp/unconfirmed_receipt.html:20
+msgid "I confirm"
+msgstr "Потвърждавам"
+
+#: profiles/forms.py:214 users/forms.py:188
+msgid "You must confirm your wish before submitting."
+msgstr "Трябва да потвърдите намерението си преди да натиснете \"Изпрати\"."
+
+#: profiles/forms.py:221
+msgid "Subject"
+msgstr "Тема"
+
+#: profiles/forms.py:226
+msgid "Write your message here"
+msgstr "Напишете тук вашето съобщение"
+
+#: profiles/views.py:168 users/views.py:335
+msgid "Select your time zone"
+msgstr "Изберете вашата часова зона"
+
+#: templates/about.html:6 templates/base_signup.html:8
+msgid "About"
+msgstr "За сайта"
+
+#: templates/about.html:10
+#, python-format
+msgid "What is \"%(host)s\"?"
+msgstr "Какво е \"%(host)s\"?"
+
+#: templates/about.html:12
+#, python-format
+msgid ""
+"\n"
+"  %(host)s is an open platform for\n"
+"  <strong>circular barter exchange</strong>.  It gives you the\n"
+"  concreteness of ordinary two-person barter along with the\n"
+"  flexibility of being able to give to and receive from two different\n"
+"  people.  That is: you supply goods <em>to customers who trust\n"
+"  you</em>, and you receive goods <em>from partners whom you\n"
+"  trust.</em>\n"
+msgstr ""
+"\n"
+"%(host)s е сайт за <strong>кръгова разменна\n"
+"търговия</strong>. С нас вие получавате всички предимства на\n"
+"обикновената разменна търговия, заедно с възможността да давате стоки\n"
+"на един търговец, а в замяна, да получавате стоки от друг\n"
+"търговец. Най-просто казано: вие доставяте стоки <em>на клиенти които\n"
+"ви вярват</em>, а получавате стоки <em>от доставчици на които вие\n"
+"вярвате.</em> \n"
+
+#: templates/about.html:22
+msgid "Why barter?"
+msgstr "Защо разменна търговия?"
+
+#: templates/about.html:24
+msgid ""
+"\n"
+"  Barter can facilitate trade even when cash flow is tight.  People\n"
+"  are interested in trading products (goods and services) for other\n"
+"  products even when they can not afford to buy the products with\n"
+"  money.\n"
+msgstr ""
+"\n"
+"Разменната търговия работи безотказно, дори и когато потокът на пари в\n"
+"икономиката е слаб. Хората могат да разменят продукти (стоки и услуги)\n"
+"помежду си, даже и да нямат възможността да си ги купят с пари.\n"
+
+#: templates/about.html:31
+msgid "Why circular?"
+msgstr "Защо кръгова?"
+
+#: templates/about.html:33
+msgid ""
+"\n"
+"  Conventional two-way barter can only happen when there is a\n"
+"  coincidence of wants: \"A\" wants what \"B\" has while at the same time\n"
+"  B wants what A has.  Circular barter allows for a lot more\n"
+"  flexibility: A wants what B has; B probably wants what someone else\n"
+"  has, and that person in turn probably wants what a fourth person\n"
+"  has.  Eventually it's likely that the chain will loop back on\n"
+"  itself, so that a circular trade can be arranged:\n"
+msgstr ""
+"\n"
+"Обикновената разменна търговия може да се осъществи само тогава,\n"
+"когато има съвпадение на желанията: \"А\" иска това което \"Б\" има; и в\n"
+"същото време, Б иска това което А има.  Кръговата разменна търговия ви\n"
+"дава много повече възможности: \"А\" иска това което \"Б\" има; Б вероятно\n"
+"иска нещо, което някой друг има; този някой друг от своя страна, също\n"
+"иска нещо, което четвърти търговец има. Рано или късно, веригата ще се\n"
+"затвори и ще може да се уреди такава кръгова сделка, която да е\n"
+"изгодна за всички: \n"
+
+#: templates/about.html:44
+msgid "An example circular trade"
+msgstr "Примерна кръгова сделка"
+
+#: templates/about.html:47
+msgid ""
+"\n"
+"  In a circular trade, you know exactly what you're going to receive\n"
+"  and exactly what you're going to give.  The products are not\n"
+"  actually delivered at the same moment, but <em>the deal is made in\n"
+"  one instant</em>: the agreement to deliver one product, and the\n"
+"  agreement to receive another product.  Where, when, and how the\n"
+"  actual delivery of goods will happen depends on the concrete\n"
+"  arrangements you make with each one of your partners.  Remember, you\n"
+"  should choose people you trust as your partners!\n"
+msgstr ""
+"\n"
+"Във всяка кръгова сделка, вие знаете точно какво ще получите, и точно\n"
+"какво ще трябва да дадете в замяна. Стоките не се доставят веднага, но\n"
+"\"ръцете са стиснати\" и отговорностите са поети: Вие давате обещание да\n"
+"доставите една стока, и получавате обещание, че ще ви бъде доставена\n"
+"друга стока. Къде, кога и как реално ще стане доставката на стоките,\n"
+"ще зависи от това какво сте се договорили с вашите\n"
+"доставчици. Запомнете, че не е необходимо да познавате, или вярвате,\n"
+"на всичките търговци по веригата &ndash; единственото условие е да\n"
+"имате доверие на вашите преки доставчици.  \n"
+
+#: templates/about.html:58
+msgid "How does it work in practice?"
+msgstr "Как работи това на практика?"
+
+#: templates/about.html:60
+#, python-format
+msgid ""
+"\n"
+"  Although, in theory, with %(host)s the lack of money shouldn't\n"
+"  be a problem at all, in reality, you often need certain products\n"
+"  right away, so you can't wait for a circular deal to happen.  In\n"
+"  order to avoid needlessly spending your money, you should, in\n"
+"  advance, collect delivery promises for sufficient amounts of these\n"
+"  products that you are likely to need in the near future.  That\n"
+"  is: <em>you buy a bulk of products which you, later on, receive in\n"
+"  portions.</em>  If you do so, your partners will be committed to\n"
+"  provide you with the goods and services you need, at the moment you\n"
+"  need them.\n"
+msgstr ""
+"\n"
+"Често, няма да можете да си позволите да чакате кръгова сделка, защото\n"
+"ще имате спешна нужда от дадена стока или услуга.  Ако все пак искате\n"
+"да намалите харченето на пари до минимум, <em>вие можете да \"купите\"\n"
+"стоките от които имате нужда предварително, а да ги получите от\n"
+"доставчика тогава, когато ви потрябват.</em> С %(host)s, колкото\n"
+"и чужда стока да купувате в кръгови сделки, вие не харчите пари, а\n"
+"същевременно продавате ваша стока!  \n"
+
+#: templates/about.html:73
+msgid "But there is more!"
+msgstr "Освен това, вие можете:"
+
+#: templates/about.html:76
+msgid ""
+"\n"
+"  You can make payments to other users, transferring to them products\n"
+"  that you own.\n"
+"  "
+msgstr ""
+"\n"
+"  Да правите директни плащания към други потребители, като им \n"
+"  прехвърляте стоки които притежавате.\n"
+"  "
+
+#: templates/about.html:82
+msgid ""
+"\n"
+"  You can sell back products that you have bought if you do not need\n"
+"  them anymore.\n"
+"  "
+msgstr ""
+"\n"
+"  Да продавате обратно стоки които сте купили, но вече не ви трябват.\n"
+"  "
+
+#: templates/about.html:88
+msgid ""
+"\n"
+"  You can send messages to your customers, as well as receive messages\n"
+"  from your partners.\n"
+"  "
+msgstr ""
+"\n"
+"  Да изпращате съобщения до вашите клиенти, както и да\n"
+"  получавате съобщения от вашите доставчици.\n"
+"  "
+
+#: templates/about.html:94
+#, python-format
+msgid ""
+"\n"
+"  You can use <strong>%(host)s/mobile/</strong>\n"
+"  from any Internet-connected cell phone.\n"
+"  "
+msgstr ""
+"\n"
+"  Да използвате <strong>%(host)s/mobile/</strong>\n"
+"  от всеки мобилен телефон, който има връзка с Интернет.\n"
+"  "
+
+#: templates/about.html:100
+msgid ""
+"\n"
+"  You can start a local exchange trading system.\n"
+"  "
+msgstr ""
+"\n"
+"  Да организирате локална система за разменна търговия.\n"
+"  "
+
+#: templates/about.html:106
+msgid "learn more"
+msgstr "още"
+
+#: templates/add_partner.html:9 templates/contact_information.html:12
+#: templates/customer_order.html:15 templates/customer_orders.html:15
+#: templates/customer_transactions.html:16 templates/deposits.html:16
+#: templates/find_partner.html:22 templates/find_partner.html.py:26
+#: templates/find_trader.html:21 templates/find_trader.html.py:25
+#: templates/make_deposit.html:25 templates/make_withdrawal.html:23
+#: templates/product.html:31 templates/unknown_product.html:11
+msgid "Find trader"
+msgstr "Търсене на търговец"
+
+#: templates/add_partner.html:11 templates/xhtml-mp/add_partner.html:13
+#: templates/xhtml-mp/contact_information.html:20
+msgid "Add to my partners list"
+msgstr "Добавяне към списъка с доставчици"
+
+#: templates/add_partner.html:15
+#, python-format
+msgid " Add trader %(traderid)s to my partners"
+msgstr "Добавяне на търговец %(traderid)s като доставчик"
+
+#: templates/add_partner.html:18
+msgid ""
+"\n"
+"    Choose a name, and a short summary for your partner.  You may see\n"
+"    this name many times in the future, so try to pick one that is\n"
+"    easy to remember.\n"
+"    "
+msgstr ""
+"\n"
+"Въведете име и кратка информация за доставчика. Вероятно ще виждате\n"
+"това име често, затова изберете нещо, което ще си спомните лесно."
+
+#: templates/add_partner.html:24 templates/xhtml-mp/add_partner.html:15
+msgid "ERROR: The name is already in use."
+msgstr "ГРЕШКА: Това име вече се използва."
+
+#: templates/add_partner.html:26 templates/cancel_email.html:9
+#: templates/change_password.html:34 templates/change_username.html:32
+#: templates/create_order.html:94 templates/create_product.html:26
+#: templates/create_profile.html:14 templates/edit_contact_information.html:16
+#: templates/email_customers.html:25 templates/find_customer.html:29
+#: templates/find_partner.html:37 templates/find_trader.html:29
+#: templates/login_captcha.html:30 templates/make_deposit.html:55
+#: templates/make_withdrawal.html:40 templates/remove_partner.html:18
+#: templates/signup.html:45 templates/unconfirmed_transactions.html:72
+#: templates/upload_photograph.html:18 templates/xhtml-mp/add_partner.html:18
+#: templates/xhtml-mp/create_order.html:22
+#: templates/xhtml-mp/edit_contact_information.html:17
+#: templates/xhtml-mp/find_customer.html:16
+#: templates/xhtml-mp/find_partner.html:17
+#: templates/xhtml-mp/make_deposit.html:22
+#: templates/xhtml-mp/make_withdrawal.html:20
+#: templates/xhtml-mp/unconfirmed_transactions.html:32
+msgid "Submit"
+msgstr "Изпрати"
+
+#: templates/add_partner.html:28
+msgid ""
+"\n"
+"    <strong>Note:</strong> Messages from your trading partners will be\n"
+"    automatically forwarded to your email.\n"
+"    "
+msgstr ""
+"\n"
+"  <strong>Забележка:</strong> Известия от вашите доставчици ще бъдат \n"
+"  автоматично препращани на вашият e-mail адрес.\n"
+"  "
+
+#: templates/base_generic.html:27 templates/partner_pricelist.html:52
+#: templates/shopping_list.html:64
+msgid "N/A"
+msgstr "—"
+
+#: templates/base_generic.html:27
+msgid "(click to sort)"
+msgstr "(Кликнете за подреждане!)"
+
+#: templates/base_generic.html:38
+msgid "Reinventing free trade"
+msgstr "Да преоткрием честната търговия"
+
+#: templates/base_generic.html:41
+msgid "Your location in the site:"
+msgstr "Вашата позиция на сайта:"
+
+#: templates/base_generic.html:48 templates/signup_success.html:38
+#, python-format
+msgid "More <a href=\"%(url)s\" target=\"_blank\">about us</a>"
+msgstr "Повече <a href=\"%(url)s\" target=\"_blank\">за нас</a>"
+
+#: templates/base_has_profile.html:7 templates/base_logged_in.html:6
+#: templates/xhtml-mp/base_has_profile.html:18
+#: templates/xhtml-mp/logout.html:8
+msgid "Logout"
+msgstr "Изход"
+
+#: templates/base_has_profile.html:13
+#: templates/xhtml-mp/base_has_profile.html:6
+msgid "New receipt"
+msgstr "Касова бележка"
+
+#: templates/base_has_profile.html:14 templates/deals_confirmation.html:8
+#: templates/deals_confirmation.html:12 templates/unconfirmed_deals.html:15
+#: templates/unconfirmed_deals.html:19
+#: templates/xhtml-mp/base_has_profile.html:7
+#: templates/xhtml-mp/unconfirmed_deals.html:8
+msgid "Completed deals"
+msgstr "Осъществени сделки"
+
+#: templates/base_has_profile.html:15
+#: templates/transactions_confirmation.html:8
+#: templates/transactions_confirmation.html:12
+#: templates/unconfirmed_transactions.html:22
+#: templates/unconfirmed_transactions.html:26
+#: templates/xhtml-mp/base_has_profile.html:8
+#: templates/xhtml-mp/unconfirmed_transactions.html:8
+msgid "Transaction notices"
+msgstr "Известия за транзакции"
+
+#: templates/base_has_profile.html:16 templates/find_customer.html:21
+#: templates/find_customer.html.py:25
+#: templates/xhtml-mp/base_has_profile.html:17
+#: templates/xhtml-mp/find_customer.html:12
+#: templates/xhtml-mp/shopping_list.html:9
+msgid "Find customer"
+msgstr "Търсене на клиент"
+
+#: templates/base_has_profile.html:17
+msgid "Help!"
+msgstr "Помощ!"
+
+#: templates/base_has_profile.html:22 templates/base_signup.html:5
+#: templates/xhtml-mp/base_has_profile.html:10
+msgid "Navigation"
+msgstr "Навигация"
+
+#: templates/base_has_profile.html:24
+#: templates/xhtml-mp/base_has_profile.html:12
+msgid "Shopping list <!--menu-->"
+msgstr "Списък с покупки"
+
+#: templates/base_has_profile.html:25
+#: templates/xhtml-mp/base_has_profile.html:13
+msgid "My partners <!--menu-->"
+msgstr "Доставчици"
+
+#: templates/base_has_profile.html:26
+#: templates/xhtml-mp/base_has_profile.html:14
+msgid "My payment orders <!--menu-->"
+msgstr "Платежни нареждания"
+
+#: templates/base_has_profile.html:27
+msgid "My deals <!--menu-->"
+msgstr "Cделки"
+
+#: templates/base_has_profile.html:28
+#: templates/xhtml-mp/base_has_profile.html:15
+msgid "My business card <!--menu-->"
+msgstr "Визитна картичка"
+
+#: templates/base_has_profile.html:31
+msgid "Products"
+msgstr "Продукти"
+
+#: templates/base_has_profile.html:33
+msgid "My pricelist <!--menu-->"
+msgstr "Ценова листа"
+
+#: templates/base_has_profile.html:34
+#: templates/xhtml-mp/base_has_profile.html:16
+msgid "My items for sale <!--menu-->"
+msgstr "Стока за продан"
+
+#: templates/base_has_profile.html:35
+msgid "Email my customers <!--menu-->"
+msgstr "Известие до килентите"
+
+#: templates/base_has_profile.html:40
+#, python-format
+msgid "The next trading turn will be launched at %(ts)s"
+msgstr "Следващата разменна сесия ще започне на %(ts)s"
+
+#: templates/base_signup.html:7 templates/login.html:19
+#: templates/login.html.py:23 templates/login.html:34
+#: templates/login_captcha.html:15 templates/login_captcha.html.py:19
+#: templates/xhtml-mp/login.html:22
+msgid "Login"
+msgstr "Вход"
+
+#: templates/base_signup.html:9 templates/create_profile.html:6
+#: templates/signup.html:15 templates/signup.html.py:19
+#: templates/signup_success.html:7
+msgid "Sign up"
+msgstr "Регистрация"
+
+#: templates/base_signup.html:12 templates/xhtml-mp/login.html:28
+msgid "Language"
+msgstr "Език"
+
+#: templates/base_trader.html:6 templates/customer_deals.html:37
+#: templates/my_deals.html:36 templates/my_order.html:20
+#: templates/my_order.html.py:22 templates/my_order.html:25
+#: templates/my_orders.html:56 templates/my_orders.html.py:58
+#: templates/my_orders.html:63 templates/partners.html:39
+#: templates/pending_payments.html:103 templates/product.html:77
+#: templates/search.html:23 templates/shopping_list.html:54
+#: templates/suggested_partners.html:32 templates/transaction_commit.html:54
+#: templates/unconfirmed_deals.html:37 templates/unconfirmed_receipt.html:35
+#: templates/xhtml-mp/add_partner.html:9
+#: templates/xhtml-mp/contact_information.html:8
+#: templates/xhtml-mp/deposits.html:7
+#: templates/xhtml-mp/edit_contact_information.html:10
+#: templates/xhtml-mp/make_deposit.html:9
+#: templates/xhtml-mp/make_withdrawal.html:9
+#: templates/xhtml-mp/unknown_product.html:5
+msgid "Trader"
+msgstr "Търговец"
+
+#: templates/base_trader.html:6
+msgid "yourself"
+msgstr "това е вашето ID"
+
+#: templates/base_trader.html:13
+msgid "Contact information"
+msgstr "Визитна картичка"
+
+#: templates/base_trader.html:14 templates/deposits.html:18
+#: templates/make_deposit.html:27 templates/make_withdrawal.html:25
+#: templates/xhtml-mp/deposits.html:11 templates/xhtml-mp/make_deposit.html:10
+#: templates/xhtml-mp/make_withdrawal.html:10
+msgid "Owned items"
+msgstr "Притежавани стоки"
+
+#: templates/base_trader.html:15 templates/customer_order.html:17
+#: templates/customer_orders.html:17 templates/xhtml-mp/my_order.html:5
+#: templates/xhtml-mp/my_order_deleted.html:5
+#: templates/xhtml-mp/my_order_executed.html:5
+#: templates/xhtml-mp/my_orders.html:8
+msgid "Payment orders"
+msgstr "Платежни нареждания"
+
+#: templates/base_trader.html:16 templates/customer_transactions.html:19
+msgid "Recent transactions"
+msgstr "Последни транзакции"
+
+#: templates/cancel_email.html:6
+#, python-format
+msgid "Stop sending messages to &quot;%(email)s&quot;"
+msgstr ""
+"Изключване на автоматичното изпращане на известия до &quot;%(email)s&quot;"
+
+#: templates/cancel_email_success.html:6
+msgid "Emails have been disabled for your user account!"
+msgstr "Автоматичното изпращане на известия е изключено!"
+
+#: templates/cancel_email_success.html:8
+#, python-format
+msgid ""
+"\n"
+"  <strong>Note: </strong> If you have registered multiple user\n"
+"  accounts on %(host)s, you may need to repeat this step for each\n"
+"  one of them.\n"
+"  "
+msgstr ""
+"\n"
+"  <strong>Забележка: </strong> Ако сте регистрирали няколко потребителски\n"
+"  акаунта в %(host)s, може да се наложи да направите същото за всеки един от "
+"тях.\n"
+"  "
+
+#: templates/change_password.html:8 templates/change_password_success.html:8
+#: templates/change_username.html:8 templates/change_username_success.html:8
+#: templates/contact_information.html:10 templates/contact_information.html:18
+#: templates/edit_contact_information.html:8
+#: templates/email_not_verified.html:7 templates/upload_photograph.html:9
+msgid "My business card"
+msgstr "Вашата визитна картичка"
+
+#: templates/change_password.html:9 templates/change_password_success.html:9
+msgid "Change password"
+msgstr "Смяна на паролата"
+
+#: templates/change_password.html:13 templates/change_password_success.html:13
+#: templates/contact_information.html:35
+msgid "Change your password"
+msgstr "Смяна на паролата"
+
+#: templates/change_password.html:16
+msgid ""
+"\n"
+"    <strong>Please, be extremely careful:</strong> If you forget or\n"
+"    mistype your new password, you may end up being unable to access\n"
+"    your account.\n"
+"    "
+msgstr ""
+"\n"
+"<strong>Бъдете изключително внимателни:</strong> Ако забравите новата\n"
+"си парола, или я въведете грешно, може завинаги да загубите достъп до\n"
+"вашите данни!"
+
+#: templates/change_password.html:22
+msgid "ERROR: The old password that you supplied is incorrect."
+msgstr "ГРЕШКА: Старата парола е въведена грешно."
+
+#: templates/change_password_success.html:14
+msgid "Your password has been successfully changed."
+msgstr "Паролата ви е сменена успешно."
+
+#: templates/change_username.html:9 templates/change_username_success.html:9
+msgid "Change username"
+msgstr "Смяна на потребителското име"
+
+#: templates/change_username.html:13 templates/change_username_success.html:13
+#: templates/contact_information.html:34
+msgid "Change your username"
+msgstr "Смяна на потребителското име"
+
+#: templates/change_username.html:16
+msgid ""
+"\n"
+"    <strong>Please, be extremely careful:</strong> If you forget or\n"
+"    mistype your new username, you may end up being unable to access\n"
+"    your account.\n"
+"    "
+msgstr ""
+"\n"
+"<strong>Бъдете изключително внимателни:</strong> Ако забравите новото\n"
+"си потребителско име, или го въведете грешно, може завинаги да загубите "
+"достъп до\n"
+"вашите данни!"
+
+#: templates/change_username.html:22
+msgid "ERROR: The password that you supplied is incorrect."
+msgstr "ГРЕШКА: Паролата е въведена грешно."
+
+#: templates/change_username.html:23 templates/signup.html:22
+msgid "ERROR: The username you requested is already taken."
+msgstr "ГРЕШКА: Избраното от вас потребителско име е заето."
+
+#: templates/change_username_success.html:14
+msgid "Your username has been successfully changed."
+msgstr "Потребителското ви име е сменено успешно."
+
+#: templates/contact_information.html:18
+msgid "Contact information for this trader"
+msgstr "Визитна картичка"
+
+#: templates/contact_information.html:32
+#: templates/edit_contact_information.html:13
+#: templates/xhtml-mp/contact_information.html:20
+#: templates/xhtml-mp/edit_contact_information.html:14
+msgid "Edit your contact information"
+msgstr "Редактирайте своята визитна картичка"
+
+#: templates/contact_information.html:33 templates/upload_photograph.html:14
+msgid "Upload your photograph"
+msgstr "Качете своя снимка"
+
+#: templates/contact_information.html:38
+msgid "ADD THIS TRADER TO MY PARTNERS"
+msgstr "ДОБАВИ КАТО ДОСТАВЧИК"
+
+#: templates/create_order.html:12
+msgid "Choose a recipient..."
+msgstr "Изберете получател..."
+
+#: templates/create_order.html:41
+msgid "choose from your partners"
+msgstr "изберете някой от вашите доставчици"
+
+#: templates/create_order.html:47
+msgid "type a trader ID or a name"
+msgstr "напишете име или ID на търговец"
+
+#: templates/create_order.html:80 templates/partner_pricelist.html:15
+#: templates/partner_transactions.html:15 templates/partners.html:9
+#: templates/partners.html.py:13 templates/pending_payments.html:71
+#: templates/product.html:28 templates/remove_partner.html:9
+#: templates/suggested_partners.html:22
+#: templates/xhtml-mp/create_order.html:10
+#: templates/xhtml-mp/pending_payments.html:5
+msgid "My partners"
+msgstr "Вашите доставчици"
+
+#: templates/create_order.html:83 templates/xhtml-mp/create_order.html:16
+msgid "Payment order"
+msgstr "Платежно нареждане"
+
+#: templates/create_order.html:87
+#, python-format
+msgid "Payment order: \"%(product)s\" from \"%(partner)s\""
+msgstr "Платежно нареждане: \"%(product)s\" от \"%(partner)s\""
+
+#: templates/create_order.html:89 templates/xhtml-mp/create_order.html:18
+#, python-format
+msgid ""
+"ERROR: The amount you requested is not available. (it exceeds %(max_amount)s)"
+msgstr ""
+"ГРЕШКА: Количеството което искате да прехвърлите не е налично. (надвишава "
+"%(max_amount)s)"
+
+#: templates/create_order.html:89 templates/make_deposit.html:37
+#: templates/make_withdrawal.html:38 templates/xhtml-mp/create_order.html:18
+#: templates/xhtml-mp/make_deposit.html:16
+#: templates/xhtml-mp/make_withdrawal.html:17
+msgid "ERROR: The amount you requested is not available."
+msgstr "ГРЕШКА: Количеството което искате да изтеглите не е налично."
+
+#: templates/create_order.html:91
+msgid ""
+"If you enter a valid trader ID here, your payment order will show up as an "
+"incoming payment in the respective trader's account."
+msgstr ""
+"Ако въведете валидно ID на търговец, вашето платежно нареждане ще бъде\n"
+"обработено като входящо плащане към съответния търговец."
+
+#: templates/create_product.html:8 templates/create_product_success.html:8
+#: templates/create_product_success.html:12 templates/pricelist.html:16
+#: templates/pricelist.html.py:20 templates/pricelist_success.html:8
+#: templates/pricelist_success.html:12 templates/product.html:25
+#: templates/unknown_product.html:9
+msgid "My pricelist"
+msgstr "Вашата ценова листа"
+
+#: templates/create_product.html:9
+msgid "Add product"
+msgstr "Добавяне на продукт"
+
+#: templates/create_product.html:13
+msgid "Please describe your new product"
+msgstr "Моля опишете вашият продукт"
+
+#: templates/create_product.html:16
+msgid ""
+"\n"
+"    <strong>Please, be careful:</strong> Make sure you have described\n"
+"    your product as clearly as possible. Your customers will hesitate\n"
+"    to buy an ambiguously described product. Also, make sure \"unit of\n"
+"    measurement\" and \"roundoff amount\" are correct. <em>It is very\n"
+"    important to make your description and units as clearly\n"
+"    understandable as possible!</em>\n"
+"    "
+msgstr ""
+"\n"
+"<strong>Бъдете внимателни:</strong> Проверете дали сте описали вашия\n"
+"продукт ясно, точно и вярно. Клиентите ви не биха купили неясно описан\n"
+"продукт. Също така, проверете дали сте въвели правилно полетата\n"
+"\"Измервателна единица\" и \"Пренебрежимо количество\". <em>Преди да\n"
+"натиснете \"Изпрати\", внимателно прочетете всичко, което сте\n"
+"въвели!</em>"
+
+#: templates/create_product.html:28
+msgid ""
+"\n"
+"    <strong>Note:</strong> To be fair to other users, you won't be\n"
+"    able to change this information after it's been submitted.  To\n"
+"    change it you have to delete the whole item and re-enter it.\n"
+"    "
+msgstr ""
+"\n"
+"<strong>Забележка:</strong> За да сме коректни към вашите клиенти,\n"
+"няма да можете да променяте тази информация, след като тя бъде\n"
+"изпратена. За да направите промяна, ще трябва да изтриете продукта и\n"
+"да го въведете отново."
+
+#: templates/create_product_success.html:15
+msgid ""
+"\n"
+"    A new product has been added to your pricelist. Don't forget to\n"
+"    enter a price for it, and don't forget to register your spare\n"
+"    goods for sale!\n"
+"    "
+msgstr ""
+"\n"
+"Новият продукт е добавен във вашата ценова листа. Не забравяйте да\n"
+"въведете неговата цена, както и да обявите за продан вашите налични\n"
+"количества от продукта!"
+
+#: templates/create_product_success.html:21 templates/customer_order.html:52
+#: templates/email_not_verified.html:21 templates/my_order.html:49
+#: templates/pending_payments.html:94 templates/product.html:96
+#: templates/product.html.py:105 templates/xhtml-mp/logout.html:10
+msgid "OK"
+msgstr "OK"
+
+#: templates/create_profile.html:10
+msgid "Please complete your profile"
+msgstr "Моля въведете информация за вас или вашата фирма"
+
+#: templates/create_profile.html:12
+msgid "Your customers will need this information in order to reach you."
+msgstr ""
+"Вашите клиенти ще имат нужда от тази информация за да се свържат с вас."
+
+#: templates/customer_deals.html:15
+msgid "Customer deals"
+msgstr "Сделки на клиенти"
+
+#: templates/customer_deals.html:19
+#, python-format
+msgid "Customer deals for %(date)s"
+msgstr "Сделки на клиенти за %(date)s"
+
+#: templates/customer_deals.html:19
+msgid "view my deals"
+msgstr "вашите сделки"
+
+#: templates/customer_deals.html:25 templates/customer_transactions.html:29
+#: templates/my_deals.html:25 templates/partner_transactions.html:27
+#: templates/unconfirmed_deals.html:26
+msgid "Date and time of commit"
+msgstr "Това е датата и часа на извършване."
+
+#: templates/customer_deals.html:25 templates/customer_transactions.html:29
+#: templates/my_deals.html:25 templates/partner_transactions.html:27
+#: templates/unconfirmed_deals.html:26
+msgid "Timestamp"
+msgstr "Дата и час"
+
+#: templates/customer_deals.html:26 templates/customer_transactions.html:30
+#: templates/deposits.html:30 templates/pricelist.html:48
+#: templates/transaction_commit.html:47 templates/unconfirmed_receipt.html:28
+msgid "A short description of your product"
+msgstr "Това е кратко описание на вашия продукт."
+
+#: templates/customer_deals.html:26
+msgid "Your product"
+msgstr "Ваш продукт"
+
+#: templates/customer_deals.html:27 templates/product.html:70
+msgid "Customer's name or trader ID"
+msgstr "Това е името или ID-то на вашия клиент."
+
+#: templates/customer_deals.html:27 templates/product.html:70
+#: templates/transaction_commit.html:46 templates/unconfirmed_receipt.html:27
+msgid "Customer"
+msgstr "Клиент"
+
+# html-tooltip
+#: templates/customer_deals.html:28
+msgid ""
+"A negative number indicates that the amount your customer owns has been "
+"decreased. A positive number indicates that the amount your customer owns "
+"has been increased."
+msgstr ""
+"Ако числото е отрицателно, това означава, че количеството което вашият "
+"клиент притежава е намаляло. Ако числото е положително, това означава, че "
+"количеството което вашият клиент притежава се е увеличило."
+
+#: templates/customer_deals.html:28 templates/customer_order.html:26
+#: templates/customer_transactions.html:31 templates/deposits.html:31
+#: templates/my_deals.html:28 templates/my_order.html:26
+#: templates/my_orders.html:28 templates/partner_pricelist.html:35
+#: templates/partner_transactions.html:29 templates/pricelist.html:49
+#: templates/product.html:71 templates/transaction_commit.html:48
+#: templates/unconfirmed_deals.html:29 templates/unconfirmed_receipt.html:29
+msgid "Amount"
+msgstr "Колич-во"
+
+#: templates/customer_deals.html:29 templates/my_deals.html:29
+#: templates/unconfirmed_deals.html:30
+msgid "The value of the purchase"
+msgstr "Стойност на покупката"
+
+#: templates/customer_deals.html:29 templates/my_deals.html:29
+#: templates/unconfirmed_deals.html:30
+msgid "Value"
+msgstr "Стойност"
+
+#: templates/customer_deals.html:37 templates/my_deals.html:36
+#: templates/product.html:77 templates/transaction_commit.html:54
+#: templates/unconfirmed_deals.html:37 templates/unconfirmed_receipt.html:35
+#: templates/xhtml-mp/unconfirmed_deals.html:12
+#: templates/xhtml-mp/unconfirmed_receipt.html:17
+msgid "YOURSELF"
+msgstr "ВИЕ"
+
+#: templates/customer_deals.html:45
+msgid "There is no information about the customer deals on this day."
+msgstr "Липсва информация за сделки на клиенти за този ден."
+
+#: templates/customer_deals.html:45 templates/my_deals.html:45
+#: templates/unconfirmed_deals.html:54
+#: templates/xhtml-mp/unconfirmed_deals.html:16
+msgid "No deals"
+msgstr "Няма сделки"
+
+#: templates/customer_deals.html:49 templates/my_deals.html:49
+msgid "FOLLOWING DAY"
+msgstr "СЛЕДВАЩ ДЕН"
+
+#: templates/customer_deals.html:50 templates/my_deals.html:50
+msgid "PRECEDING DAY"
+msgstr "ПРЕДИШЕН ДЕН"
+
+#: templates/customer_order.html:18 templates/my_order.html:10
+#: templates/my_order_deleted.html:10 templates/my_order_executed.html:10
+#, python-format
+msgid "#%(orderid)s"
+msgstr "№%(orderid)s"
+
+#: templates/customer_order.html:22 templates/customer_order.html.py:46
+#, python-format
+msgid "Payment order #%(orderid)s"
+msgstr "Платежно нареждане №%(orderid)s"
+
+#: templates/customer_order.html:30 templates/my_order.html:30
+msgid "Date and time of issue"
+msgstr "Дата и час на издаване на нареждането"
+
+#: templates/customer_order.html:31 templates/my_order.html:31
+#: templates/xhtml-mp/my_order.html:16
+msgid "Status"
+msgstr "Текущо състояние"
+
+#: templates/customer_order.html:34 templates/my_order.html:34
+#: templates/xhtml-mp/my_order.html:18
+msgid "COMPLETED AT"
+msgstr "ПЛАЩАНЕТО Е ИЗВЪРШЕНО НА"
+
+#: templates/customer_order.html:37 templates/my_order.html:37
+#: templates/my_orders.html:48 templates/xhtml-mp/my_order.html:20
+msgid "PENDING"
+msgstr "ЧАКА ИЗПЪЛНЕНИЕ"
+
+#: templates/customer_order.html:40 templates/my_order.html:40
+#: templates/my_orders.html:51 templates/xhtml-mp/my_order.html:22
+msgid "FAILED"
+msgstr "ПЛАЩАНЕТО Е НЕУСПЕШНО"
+
+#: templates/customer_order.html:47
+msgid "MAKE A WITHDRAWAL"
+msgstr "ИЗТЕГЛИ"
+
+#: templates/customer_orders.html:21
+msgid "Payment orders from this trader"
+msgstr "Платежни нареждания от този търговец"
+
+#: templates/customer_orders.html:27
+msgid "Along with the trader ID, uniquely identifies each item."
+msgstr "Това е идентификационният номер на платежното нареждане."
+
+#: templates/customer_orders.html:27 templates/my_orders.html:25
+msgid "Order #"
+msgstr "№"
+
+#: templates/customer_orders.html:28 templates/my_orders.html:29
+msgid "The person or organization entitled to receive the goods"
+msgstr "Това е лицето или фирмата, на които трябва да се достави стоката."
+
+#: templates/customer_orders.html:42
+#, python-format
+msgid "%(amount)s of \"%(product)s\""
+msgstr "%(amount)s от \"%(product)s\""
+
+#: templates/customer_orders.html:50
+msgid ""
+"\n"
+"  Each order in this table authorizes a particular person or\n"
+"  organization to receive a limited amount of goods or services on\n"
+"  behalf of the trader.\n"
+"  "
+msgstr ""
+"\n"
+"Всяко от нарежданията в тази таблица, разрешава на дадено лице или\n"
+"фирма, да получи определено количество стока от сметката на\n"
+"търговеца."
+
+#: templates/customer_orders.html:58 templates/my_orders.html:76
+#: templates/xhtml-mp/my_orders.html:19
+msgid "No orders"
+msgstr "Няма нареждания"
+
+#: templates/customer_transactions.html:23
+msgid "Recent transactions with this trader"
+msgstr "Последни транзакции с този търговец"
+
+# html-tooltip
+#: templates/customer_transactions.html:31
+#: templates/transaction_commit.html:48 templates/unconfirmed_receipt.html:29
+msgid ""
+"A negative number indicates that the amount your customer owns has been "
+"decreased (a withdrawal). A positive number indicates that the amount your "
+"customer owns has been increased (a deposit)."
+msgstr ""
+"Ако числото е отрицателно, това означава, че количеството което вашият "
+"клиент притежава е намаляло (изтегляне). Ако числото е положително, това "
+"означава, че количеството което вашият клиент притежава се е увеличило "
+"(внасяне)."
+
+#: templates/customer_transactions.html:45
+#: templates/partner_transactions.html:47
+#: templates/unconfirmed_transactions.html:75
+#: templates/xhtml-mp/unconfirmed_transactions.html:35
+msgid "No transactions"
+msgstr "Няма транзакции"
+
+#: templates/deals_confirmation.html:15
+msgid "No deals have been acknowledged."
+msgstr "Не бяха потвърдени сделки."
+
+#: templates/deals_confirmation.html:17
+#, python-format
+msgid ""
+"\n"
+"    %(count)s new deal has been acknowledged.\n"
+"  "
+msgid_plural ""
+"\n"
+"    %(count)s new deals have been acknowledged.\n"
+"  "
+msgstr[0] ""
+"\n"
+"%(count)s нова сделка беше потвърдена. "
+msgstr[1] ""
+"\n"
+"%(count)s нови сделки бяха потвърдени."
+
+#: templates/deposits.html:20 templates/deposits.html.py:25
+#: templates/make_deposit.html:29 templates/make_withdrawal.html:27
+msgid "My items for sale"
+msgstr "Вашата стока за продан"
+
+#: templates/deposits.html:25
+msgid "Items owned by this trader"
+msgstr "Стоки притежавани от този търговец"
+
+#: templates/deposits.html:31
+msgid "The amount of product that you offer"
+msgstr "Това е количеството, което предлагате."
+
+#: templates/deposits.html:31
+msgid "The amount of product that is owned by the trader"
+msgstr "Това е количеството, което търговецът притежава."
+
+#: templates/deposits.html:35 templates/deposits.html.py:42
+#: templates/deposits.html:49 templates/xhtml-mp/deposits.html:15
+msgid "MAKE A DEPOSIT"
+msgstr "ВНЕСИ"
+
+#: templates/deposits.html:35 templates/deposits.html.py:42
+#: templates/deposits.html:49
+msgid "MAKE A DEPOSIT TO THIS TRADER'S ACCOUNT"
+msgstr "ВНЕСИ В СМЕТКАТА НА ТЪРГОВЕЦА"
+
+#: templates/deposits.html:56 templates/product.html:79
+msgid "withdraw"
+msgstr "изтегли"
+
+#: templates/deposits.html:64
+msgid ""
+"\n"
+"  All items listed here are being actively offered to your customers at\n"
+"  their respective prices in your pricelist.  Click on \"make a\n"
+"  deposit\" link to register your spare goods for sale.\n"
+msgstr ""
+"\n"
+"Стоките в тази таблица се предлагат на вашите клиенти, по актуалните\n"
+"им цени във вашата ценова листа. Кликнете на връзката \"ВНЕСИ\", за да\n"
+"обявите за продан ваша налична стока.  \n"
+
+#: templates/deposits.html:70
+msgid ""
+"\n"
+"  This table shows all the amounts of your offered products that this\n"
+"  trader owns.\n"
+msgstr ""
+"\n"
+"Тази таблица показва количествата ваши продукти, които този търговец\n"
+"притежава.\n"
+
+#: templates/edit_contact_information.html:9
+msgid "Edit contact information"
+msgstr "Редактирайте своята визитна картичка"
+
+#: templates/email_customers.html:8 templates/email_customers.html.py:12
+#: templates/email_customers_success.html:8
+#: templates/email_customers_success.html:12
+msgid "Email my customers"
+msgstr "Известие до вашите клиенти"
+
+#: templates/email_customers.html:14
+msgid ""
+"\n"
+"  You can send messages to your customers, so that they are aware of\n"
+"  new information that is important to them.  Accordingly, important\n"
+"  messages from your trading partners will be automatically forwarded\n"
+"  to your email.\n"
+"  "
+msgstr ""
+"\n"
+"  Можете да изпращате съобщения до вашите клиенти, за да ги осведомявате за\n"
+"  нова, важна за тях информация. Съответно, съобщенията от вашите "
+"доставчици,\n"
+"  ще бъдат автоматично препращани на вашият e-mail адрес.\n"
+"  "
+
+#: templates/email_customers.html:23
+msgid "ERROR: You have exceeded your message quota for the month."
+msgstr ""
+"ГРЕШКА: Превишили сте максималният брой съобщения, които можете да изпратите "
+"за 1 месец."
+
+#: templates/email_customers.html:27
+msgid ""
+"\n"
+"    <strong>Important notice: </strong> You should not email your\n"
+"    customers more often than is strictly necessary!\n"
+"    "
+msgstr ""
+"\n"
+"  <strong>Важно: </strong> Трябва да изпращате известия само тогава,\n"
+"  когато това е наистина необходимо!\n"
+"  "
+
+#: templates/email_customers.html:35
+#, python-format
+msgid ""
+"\n"
+"  <strong>Note: </strong> You will receive a confirmation email from\n"
+"  %(host)s.  Please follow the confirmation link in the email.\n"
+"  "
+msgstr ""
+"\n"
+"  <strong>Забележка: </strong> Ще получите писмо от %(host)s за "
+"потвърждаване\n"
+"  на вашият e-mail адрес.  Трябва да кликнете върху връзката, която ще\n"
+"  намерите в това писмо.\n"
+"  "
+
+#: templates/email_customers_success.html:13
+msgid "Your message has been received."
+msgstr "Вашето съобщение беше получено."
+
+#: templates/email_customers_success.html:15
+msgid ""
+"\n"
+"  <strong>Note: </strong> Your message will be\n"
+"  forwarded to all traders who have added you to their list of trading\n"
+"  partners.\n"
+"  "
+msgstr ""
+"\n"
+"  <strong>Забележка: </strong> Вашето известие ще бъде препратено до\n"
+"  всички  търговци, които са ви добавили в своя списък с доставчици.\n"
+"  "
+
+#: templates/email_not_verified.html:11
+msgid "Email verification failure"
+msgstr "Непотвърден e-mail адрес"
+
+#: templates/email_not_verified.html:14
+#, python-format
+msgid ""
+"\n"
+"    You have specified <b>%(email)s</b> as your email address.\n"
+"    Unfortunately, we can not verify that this address is correct.\n"
+"    Please, specify your correct email address in your contact\n"
+"    information.\n"
+"    "
+msgstr ""
+"\n"
+"  Посочили сте <b>%(email)s</b> като ваш e-mail адрес.\n"
+"  За съжаление, не може да бъде потвърдено, че този адрес е верен.\n"
+"  Моля посочете вашият точен e-mail адрес във вашата \"визитна картичка\".\n"
+"  "
+
+#: templates/find_customer.html:27 templates/find_partner.html:34
+#: templates/find_trader.html:27 templates/xhtml-mp/find_customer.html:14
+#: templates/xhtml-mp/find_partner.html:15
+msgid "ERROR: Trader not found."
+msgstr "ГРЕШКА: Няма такъв търговец."
+
+#: templates/find_partner.html:29
+msgid ""
+"\n"
+"    <strong>Please, be careful: </strong> Make sure you are entering\n"
+"    the genuine trader ID of your partner.\n"
+"    "
+msgstr ""
+"\n"
+"<strong>Бъдете внимателни: </strong> Трябва да сте сигурни, че\n"
+"въвеждате истинското ID на търговеца."
+
+#: templates/find_partner.html:36
+msgid "search among our trusted traders"
+msgstr "търсене измежду нашите доверени търговци"
+
+#: templates/login.html:25 templates/xhtml-mp/login.html:9
+msgid "ERROR: Invalid username or password."
+msgstr "ГРЕШКА: Грешно потребителско име или парола."
+
+#: templates/login_captcha.html:22 templates/xhtml-mp/login.html:11
+msgid ""
+"\n"
+"    Someone has been persistently trying to guess your password!  In\n"
+"    order to protect your account from being compromised, we should\n"
+"    perform an additional verification before letting you in.\n"
+"    "
+msgstr ""
+"\n"
+"Някой упорито се е опитвал да отгатне паролата ви! Затова, преди да\n"
+"влезете в системата, трябва да преминете през съвсем проста проверка."
+
+#: templates/login_captcha.html:29 templates/signup.html:42
+msgid "Enter the above two words, separated by a space, into the box."
+msgstr "Въведете горните две думи, разделени с интервал!"
+
+#: templates/make_deposit.html:31 templates/make_deposit.html.py:35
+#: templates/xhtml-mp/make_deposit.html:14
+msgid "Make a deposit"
+msgstr "Внеси"
+
+#: templates/make_withdrawal.html:29 templates/make_withdrawal.html.py:33
+#: templates/xhtml-mp/make_withdrawal.html:14
+#, python-format
+msgid "Withdraw \"%(product)s\""
+msgstr "Изтегли \"%(product)s\""
+
+#: templates/make_withdrawal.html:36
+#: templates/xhtml-mp/make_withdrawal.html:15
+msgid "see details"
+msgstr "подробности"
+
+#: templates/my_deals.html:15
+msgid "My deals"
+msgstr "Вашите сделки"
+
+#: templates/my_deals.html:19
+#, python-format
+msgid "My deals for %(date)s"
+msgstr "Вашите сделки за %(date)s"
+
+#: templates/my_deals.html:19
+msgid "view customer deals"
+msgstr "сделки на клиенти"
+
+#: templates/my_deals.html:26 templates/my_orders.html:26
+#: templates/shopping_list.html:38 templates/unconfirmed_deals.html:27
+msgid "The name of the partner of yours who is offering the product"
+msgstr "Това е името на доставчикът, който предлага продукта."
+
+#: templates/my_deals.html:26 templates/my_orders.html:26
+#: templates/partners.html:29 templates/shopping_list.html:38
+#: templates/unconfirmed_deals.html:27
+msgid "Partner"
+msgstr "Доставчик"
+
+#: templates/my_deals.html:27 templates/my_orders.html:27
+#: templates/partner_pricelist.html:34 templates/partner_transactions.html:28
+#: templates/shopping_list.html:39 templates/unconfirmed_deals.html:28
+msgid "A short description of the product"
+msgstr "Това е кратко описание на продукта."
+
+# html-tooltip
+#: templates/my_deals.html:28
+msgid ""
+"A negative number indicates that the amount you own have been decreased. A "
+"positive number indicates that the amount you own have been increased."
+msgstr ""
+"Ако числото е отрицателно, това означава, че количеството което притежавате "
+"е намаляло. Ако числото е положително, това означава, че количеството което "
+"притежавате се е увеличило."
+
+#: templates/my_deals.html:45
+msgid "There is no information about your deals on this day."
+msgstr "Липсва информация за ваши сделки на този ден."
+
+#: templates/my_order.html:9 templates/my_order_deleted.html:9
+#: templates/my_order_executed.html:9 templates/my_orders.html:15
+#: templates/my_orders.html.py:19
+msgid "My payment orders"
+msgstr "Вашите платежни нареждания"
+
+#: templates/my_order.html:14 templates/my_order_deleted.html:14
+#: templates/my_order_executed.html:14
+#, python-format
+msgid "My payment order #%(orderid)s"
+msgstr "Ваше платежно нареждане №%(orderid)s"
+
+#: templates/my_order.html:20 templates/pending_payments.html:103
+#: templates/xhtml-mp/pending_payments.html:25
+msgid "from"
+msgstr "от"
+
+#: templates/my_order.html:22
+msgid "from trader"
+msgstr "от търговец"
+
+#: templates/my_order_deleted.html:16 templates/my_order_executed.html:16
+#: templates/xhtml-mp/my_order_deleted.html:10
+msgid "This payment order has been deleted."
+msgstr "Това платежно нареждане е изтрито."
+
+#: templates/my_order_executed.html:19
+#: templates/transactions_confirmation.html:24
+#: templates/xhtml-mp/my_order_executed.html:10
+msgid "Important notice:"
+msgstr "Важно:"
+
+#: templates/my_order_executed.html:20
+#: templates/xhtml-mp/my_order_executed.html:11
+msgid ""
+"\n"
+"  This payment order was completed prior to its deletion!\n"
+"  "
+msgstr ""
+"\n"
+"  Това платежно нареждане беше изпълнено преди да го изтриете!\n"
+"  "
+
+#: templates/my_orders.html:25
+msgid "Along with your trader ID, uniquely identifies each item."
+msgstr "Това е идентификационният номер на вашето платежно нареждане."
+
+#: templates/my_orders.html:28
+msgid "The amount of product that is ordered"
+msgstr "Това е количеството продукт, което трябва да бъде доставено."
+
+#: templates/my_orders.html:35
+msgid "ADD NEW ORDER"
+msgstr "НОВО НАРЕЖДАНЕ"
+
+#: templates/my_orders.html:45
+msgid "COMPLETED"
+msgstr "ПЛАЩАНЕТО Е ИЗВЪРШЕНО"
+
+#: templates/my_orders.html:69
+msgid ""
+"\n"
+"  Click on the number of the payment order to see details, or to\n"
+"  delete the order.\n"
+"  "
+msgstr ""
+"\n"
+"Кликнете върху номера на платежното нареждане за да видите подробности\n"
+"за него, или за да го изтриете."
+
+#: templates/my_orders.html:78
+msgid "ADD PAYMENT ORDER"
+msgstr "ПЛАТЕЖНО НАРЕЖДАНЕ"
+
+#: templates/partner_pricelist.html:20
+#, python-format
+msgid "My partner \"%(partner)s\""
+msgstr "Доставчик \"%(partner)s\""
+
+#: templates/partner_pricelist.html:23 templates/partners.html:40
+msgid "contact"
+msgstr "визитна картичка"
+
+#: templates/partner_pricelist.html:24
+msgid "view trusted traders"
+msgstr "доверени търговци"
+
+#: templates/partner_pricelist.html:25
+msgid "view committed transactions"
+msgstr "извършени транзакции"
+
+#: templates/partner_pricelist.html:26
+msgid "remove"
+msgstr "изтрий от списъка"
+
+#: templates/partner_pricelist.html:28
+msgid "List of offered products"
+msgstr "Предлагани продукти"
+
+#: templates/partner_pricelist.html:35
+msgid ""
+"This is the total amount of product that your partner is able to deliver. It "
+"includes the amount that is not sold, plus everything that is already sold "
+"to customers but is not delivered yet."
+msgstr ""
+"Това е общото количество от продукта, което вашият доставчик може да "
+"достави. То включва както непродадената стока, така и продадената стока, "
+"която все още не е доставена на клиентите."
+
+#: templates/partner_pricelist.html:35 templates/pricelist.html:49
+msgid "Available amount"
+msgstr "Налично количество"
+
+#: templates/partner_pricelist.html:36
+msgid "The price announced by your partner"
+msgstr "Това е актуалната цена, обявена от доставчика."
+
+#: templates/partner_pricelist.html:36 templates/pricelist.html:50
+#: templates/shopping_list.html:42
+msgid "Price"
+msgstr "Цена"
+
+#: templates/partner_pricelist.html:36 templates/pricelist.html:50
+msgid "Price per unit"
+msgstr "Единична цена"
+
+#: templates/partner_pricelist.html:48
+#, python-format
+msgid "%(amount)s units are deposited to your account"
+msgstr "притежавате %(amount)s единици от този продукт"
+
+#: templates/partner_pricelist.html:58
+msgid "No products"
+msgstr "Няма продукти"
+
+#: templates/partner_transactions.html:17
+msgid "Committed transactions"
+msgstr "Извършени транзакции"
+
+#: templates/partner_transactions.html:21
+#, python-format
+msgid "Transactions committed by \"%(partner)s\""
+msgstr "Транзакции извършени от \"%(partner)s\""
+
+# html-tooltip
+#: templates/partner_transactions.html:29
+msgid ""
+"A negative number indicates that the amount you own has been decreased (a "
+"withdrawal). A positive number indicates that the amount you own has been "
+"increased (a deposit)."
+msgstr ""
+"Ако числото е отрицателно, това означава, че количеството което притежавате "
+"е намаляло (изтегляне). Ако числото е положително, това означава, че "
+"количеството което притежавате се е увеличило (внасяне)."
+
+#: templates/partner_transactions.html:36
+#, python-format
+msgid "Accepted payment from &quot;%(payer)s&quot;: &quot;%(reason)s&quot;"
+msgstr "Прието плащане от &quot;%(payer)s&quot;: &quot;%(reason)s&quot;"
+
+#: templates/partner_transactions.html:36
+#: templates/unconfirmed_transactions.html:58
+#: templates/xhtml-mp/unconfirmed_transactions.html:23
+#, python-format
+msgid "Accepted payment from &quot;%(payer)s&quot;"
+msgstr "Прието плащане от &quot;%(payer)s&quot;"
+
+#: templates/partner_transactions.html:36
+#, python-format
+msgid "Completed payment order: &quot;%(reason)s&quot;"
+msgstr "Изпълнено платежно нареждане: &quot;%(reason)s&quot;"
+
+#: templates/partner_transactions.html:36
+#: templates/unconfirmed_transactions.html:48
+#: templates/xhtml-mp/unconfirmed_transactions.html:16
+msgid "Completed payment order"
+msgstr "Изпълнено платежно нареждане"
+
+#: templates/partners.html:16
+msgid ""
+"\n"
+"  You have to list your suppliers of goods and services as your\n"
+"  partners, to indicate that you trust them.  For your protection, the\n"
+"  system will arrange purchases for you only from traders who are\n"
+"  already on your list.\n"
+"  "
+msgstr ""
+"\n"
+"  Трябва да добавите търговците които ви снабдяват със стоки и услуги, в\n"
+"  списъка с ваши доставчици, за да укажете че им вярвате. Системата\n"
+"  ще урежда за вас покупки, само от търговци, които са в този списък.\n"
+"  "
+
+#: templates/partners.html:23
+msgid "ADD PARTNER"
+msgstr "ДОБАВЕТЕ ДОСТАВЧИК"
+
+#: templates/partners.html:29
+msgid "The name of your partner"
+msgstr "Това е името на доставчика."
+
+#: templates/partners.html:30
+msgid "Activities"
+msgstr "Действия"
+
+#: templates/partners.html:30
+msgid "Actions and information related to your partner"
+msgstr "Това са връзки към информация свързана с доставчика."
+
+#: templates/partners.html:30
+msgid "Related links"
+msgstr "Бързи връзки"
+
+#: templates/partners.html:33
+msgid "ADD NEW PARTNER"
+msgstr "НОВ ДОСТАВЧИК"
+
+#: templates/partners.html:41
+msgid "owned items"
+msgstr "притежавани стоки"
+
+#: templates/partners.html:48
+msgid ""
+"\n"
+"  A click on your partner's name will bring her/his list of offered\n"
+"  products to you, from which you can choose items to add to your\n"
+"  shopping list.\n"
+"  "
+msgstr ""
+"\n"
+"Кликнете върху името на доставчика, за да видите неговата \n"
+"ценова листа. От нея, ще можете да изберете продукти, който да \n"
+"добавите към вашия списък с покупки."
+
+#: templates/pending_payments.html:34
+msgid "open"
+msgstr "отвори"
+
+#: templates/pending_payments.html:44
+msgid "close"
+msgstr "затвори"
+
+#: templates/pending_payments.html:74
+#: templates/xhtml-mp/pending_payments.html:11
+msgid "Incoming payments"
+msgstr "Входящи плащания"
+
+#: templates/pending_payments.html:78
+#, python-format
+msgid "Incoming payments: \"%(product)s\" from \"%(partner)s\""
+msgstr "Входящи плащания: \"%(product)s\" от \"%(partner)s\""
+
+#: templates/pending_payments.html:83
+#: templates/xhtml-mp/pending_payments.html:13
+msgid "ERROR:"
+msgstr "ГРЕШКА:"
+
+#: templates/pending_payments.html:85
+#: templates/xhtml-mp/pending_payments.html:14
+msgid "The payment amount is not available."
+msgstr "ГРЕШКА: Количеството не е налично."
+
+#: templates/pending_payments.html:87
+#: templates/xhtml-mp/pending_payments.html:15
+msgid "The payment has been canceled."
+msgstr "Плащането е отменено."
+
+#: templates/pending_payments.html:89
+#: templates/xhtml-mp/pending_payments.html:16
+msgid "Payments have been temporarily disabled."
+msgstr "Плащанията са временно спрени."
+
+#: templates/pending_payments.html:91
+#: templates/xhtml-mp/pending_payments.html:17
+msgid "Unidentified problem have occurred."
+msgstr "Възникнал е някакъв проблем."
+
+#: templates/pending_payments.html:110
+msgid "I accept this payment"
+msgstr "Приемам това плащане"
+
+#: templates/pending_payments.html:118
+#: templates/xhtml-mp/pending_payments.html:38
+msgid "No incoming payments"
+msgstr "Няма входящи плащания"
+
+#: templates/pricelist.html:23
+msgid ""
+"\n"
+"  Your pricelist is the place where you advertise the products that\n"
+"  you offer, together with their respective prices.\n"
+"  "
+msgstr ""
+"\n"
+"Във вашата ценова листа, вие описвате всички продукти, които\n"
+"предлагате, и обявявате техните актуални цени."
+
+#: templates/pricelist.html:29
+msgid ""
+"\n"
+"  <strong>Important notice: </strong>In your pricelist, you should\n"
+"  list only products that are suitable for use as currency.  That is:\n"
+"  people have to be willing to buy your product, or be paid with it,\n"
+"  over and over.  \"My old laptop\", for example, isn't a good product,\n"
+"  because it represents a single indivisible item.  \"Music lessons\",\n"
+"  on the other hand, can be an excellent product, as long as there is\n"
+"  at least one person willing to buy it, or be paid with it. If you do\n"
+"  not offer products suitable for use as currency &mdash; leave your\n"
+"  pricelist empty.\n"
+"  "
+msgstr ""
+"\n"
+"<strong>Важно: </strong>Във вашата ценова листа трябва да въвеждате\n"
+"само продукти, които могат да бъдат използвани като платежно средство.\n"
+"Това означава хората да желаят да купуват вашите продукти, или да им\n"
+"бъде заплащано с тях, отново и отново. \"Старият ми лаптоп\", например,\n"
+"не е подходящ продукт за ценовата ви листа, защото представлява\n"
+"един-единствен предмет. \"Уроци по музика\", от друга страна, би могъл\n"
+"да бъде прекрасен продукт, при условие че има поне един човек, който\n"
+"желае да взема музикални уроци от вас, отново и отново. Ако не\n"
+"предлагате продукти, които могат да бъдат използвани като разменно\n"
+"средство, оставете ценовата си листа празна."
+
+#: templates/pricelist.html:41
+msgid "ADD PRODUCT"
+msgstr "ДОБАВЕТЕ ПРОДУКТ"
+
+# html-tooltip
+#: templates/pricelist.html:49
+msgid ""
+"This is the total amount of product that is deposited for sale. It includes "
+"all your items, plus everything owned by your customers that is not "
+"delivered to them yet. Make sure you are able to actually deliver this "
+"entire amount, or otherwise you are putting your reputation at risk."
+msgstr ""
+"Това е общото количество от продукта, което трябва да можете да доставите. "
+"То включва както вашата непродадена стока, която е обявена за продан, така и "
+"всички направени продажби, които все още не са доставени на клиентите."
+
+#: templates/pricelist.html:50
+msgid "Normally, this should be the market price of your product."
+msgstr "Това е пазарната цена на вашия продукт."
+
+#: templates/pricelist.html:55
+msgid "ADD NEW PRODUCT"
+msgstr "НОВ ПРОДУКТ"
+
+#: templates/pricelist.html:65
+msgid "The price is missing."
+msgstr "Липсва цена."
+
+#: templates/pricelist.html:72 templates/shopping_list.html:74
+msgid "Submit changes"
+msgstr "Изпрати промените"
+
+#: templates/pricelist.html:73 templates/shopping_list.html:75
+msgid "Discard changes"
+msgstr "Отхвърли промените"
+
+#: templates/pricelist.html:76
+msgid ""
+"\n"
+"  <em>You are committing to having these amounts of these items\n"
+"  available.</em>  Click on the name of your product to see its list\n"
+"  of deposited items, or to remove a product with no deposited items\n"
+"  left.  Visit \"My items for sale\" link on the right to register your\n"
+"  spare goods for sale.\n"
+"  "
+msgstr ""
+"\n"
+"<em>Трябва да можете да доставите дадените количества от вашите\n"
+"продукти!</em> Кликнете върху името на продукта, за да видите\n"
+"по-подробна справка за наличните количества, или да изтриете продукт,\n"
+"който няма такива. Кликнете \"Стока за продан\" (в дясно), за да обявите\n"
+"за продажба нови наличности."
+
+#: templates/pricelist_success.html:13
+msgid "Your pricelist has been updated."
+msgstr "Вашата ценова листа е обновена."
+
+#: templates/pricelist_success.html:16 templates/shopping_list_success.html:15
+msgid "Warning:"
+msgstr "Внимание:"
+
+#: templates/pricelist_success.html:17
+#, python-format
+msgid ""
+"\n"
+"    One of the fields contained an invalid price.\n"
+"  "
+msgid_plural ""
+"\n"
+"    %(count)s of the fields contained invalid prices.\n"
+"  "
+msgstr[0] ""
+"\n"
+"Едно от полетата съдържаше невалидна цена."
+msgstr[1] ""
+"\n"
+"%(count)s от полетата съдържаха невалидни цени."
+
+#: templates/product.html:41
+#, python-format
+msgid "My product \"%(product)s\""
+msgstr "Ваш продукт \"%(product)s\""
+
+#: templates/product.html:43
+#, python-format
+msgid "My partner \"%(partner)s\" offers \"%(product)s\""
+msgstr "Доставчик \"%(partner)s\" предлага \"%(product)s\""
+
+#: templates/product.html:45
+#, python-format
+msgid "Trader %(traderid)s offers \"%(product)s\""
+msgstr "Търговец %(traderid)s предлага \"%(product)s\""
+
+#: templates/product.html:51
+msgid "make a payment order"
+msgstr "платежно нареждане"
+
+#: templates/product.html:52
+msgid "view incoming payments"
+msgstr "входящи плащания"
+
+#: templates/product.html:65
+msgid "Deposited items"
+msgstr "Налични количества"
+
+#: templates/product.html:71
+msgid "The amount of product that is owned by your customer"
+msgstr "Това е количеството продукт, което вашият клиент притежава."
+
+#: templates/product.html:71
+msgid "Deposited amount"
+msgstr "Количество"
+
+#: templates/product.html:77
+msgid "OTHERS"
+msgstr "ДРУГИ"
+
+#: templates/product.html:85
+#, python-format
+msgid ""
+"\n"
+"  This table lists the traders whom you owe \"%(product)s\", and\n"
+"  yourself for items you've registered but not yet sold.\n"
+"  "
+msgstr ""
+"\n"
+"Тази таблица показва количествата от вашия продукт \"%(product)s\",\n"
+"които дължите на клиенти. Наличните, но все още непродадени\n"
+"количества, се показват под името &laquo;ВИЕ&raquo;."
+
+#: templates/product.html:107
+msgid ""
+"\n"
+"    After adding the product to your shopping list, you will be able\n"
+"    to indicate the amount you wish to purchase at \"Shopping list\".\n"
+"    "
+msgstr ""
+"\n"
+"След като добавите този продукт към вашия списък с покупки, вие ще\n"
+"можете, допълнително да зададете количеството, което искате да\n"
+"купите."
+
+#: templates/receipt_confirmation.html:8
+#: templates/receipt_confirmation.html:12 templates/transaction_commit.html:38
+#: templates/unconfirmed_receipt.html:15 templates/unconfirmed_receipt.html:19
+#: templates/xhtml-mp/unconfirmed_receipt.html:13
+msgid "Receipt"
+msgstr "Касова бележка"
+
+#: templates/receipt_confirmation.html:13
+msgid "The receipt has been confirmed."
+msgstr "Касовата бележка беше потвърдена."
+
+#: templates/remove_partner.html:11
+msgid "Remove"
+msgstr "Изтрий от списъка"
+
+#: templates/remove_partner.html:15
+#, python-format
+msgid "Remove \"%(partner)s\" from my partners list"
+msgstr "Изтрий \"%(partner)s\" от списъка с доставчици"
+
+#: templates/remove_partner.html:20
+#, python-format
+msgid ""
+"\n"
+"    The products offered by \"%(partner)s\" will be automatically\n"
+"    removed from your shopping list.\n"
+"    "
+msgstr ""
+"\n"
+"<strong>Забележка: </strong>Всички продукти, които \"%(partner)s\"\n"
+"предлага, ще бъдат премахнати от вашия списък с покупки.  "
+
+#: templates/search.html:20
+msgid "Search results"
+msgstr "Резултати от търсенето"
+
+#: templates/search.html:21 templates/suggested_partners.html:30
+msgid "Search"
+msgstr "Търси"
+
+#: templates/search.html:22
+#, python-format
+msgid "%(first)s-%(last)s of %(total_count)s results"
+msgstr "%(first)s-%(last)s от %(total_count)s резултата"
+
+#: templates/search.html:22
+#, python-format
+msgid "%(total_count)s result"
+msgid_plural "%(total_count)s results"
+msgstr[0] "%(total_count)s резултат"
+msgstr[1] "%(total_count)s резултата"
+
+#: templates/search.html:24 templates/suggested_partners.html:33
+msgid "Prev"
+msgstr "Назад"
+
+#: templates/search.html:24 templates/suggested_partners.html:33
+msgid "Next"
+msgstr "Напред"
+
+#: templates/shopping_list.html:19 templates/shopping_list_success.html:11
+#: templates/xhtml-mp/shopping_list.html:8
+msgid "Shopping list"
+msgstr "Списък с покупки"
+
+#: templates/shopping_list.html:22
+msgid ""
+"\n"
+"  Your shopping list is your place for listing things that other\n"
+"  people are offering which you are interested in having.  But more\n"
+"  importantly, it \"contains\" all the goods that you've already got.\n"
+"  So, whenever you want to buy something, sell something back, make a\n"
+"  payment, or receive a payment &mdash; your shopping list is the\n"
+"  place to go.\n"
+"  "
+msgstr ""
+"\n"
+"  Вашият списък с покупки е мястото където добавяте продукти, предлагани\n"
+"  от други търговци, към които имате интерес.  Но най-важното е, че тук "
+"можете да\n"
+"  видите какво и колко вече имате, можете да обявите какво и колко искате\n"
+"  да купите или продадете обратно, както и да наредите или потвърдите "
+"плащане.\n"
+"  "
+
+#: templates/shopping_list.html:31
+msgid "ADD ITEM"
+msgstr "ДОБАВЕТЕ ПРОДУКТ"
+
+#: templates/shopping_list.html:40
+msgid "The amount of product that you own"
+msgstr "Това е количеството продукт, което притежавате."
+
+#: templates/shopping_list.html:40
+msgid "I have"
+msgstr "Имате"
+
+# html-tooltip
+#: templates/shopping_list.html:41
+msgid ""
+"This is the amount of product that you actually need. TO BUY &ndash; say "
+"that you need more than you own. TO SELL BACK &ndash; say that you need less "
+"than you own."
+msgstr ""
+"Това е количеството продукт, от което реално имате нужда. ЗА ДА КУПИТЕ "
+"&ndash; обявете, че искате повече, отколкото имате. ЗА ДА ПРОДАДЕТЕ &ndash; "
+"обявете, че искате по-малко, отколкото имате."
+
+#: templates/shopping_list.html:41
+msgid "I need"
+msgstr "Искате"
+
+#: templates/shopping_list.html:42
+msgid "This is the current price per unit of product."
+msgstr "Това е актуалната единична цена на продукта."
+
+#: templates/shopping_list.html:42
+msgid "Current price"
+msgstr "Текуща цена"
+
+# html-tooltip
+#: templates/shopping_list.html:43
+msgid ""
+"This is the price per unit that is fine by you. Your bid will be considered "
+"only when the current price is compatible with your price. Deals are always "
+"carried out at current prices, not at your prices!"
+msgstr ""
+"Това е единичната цена, която би била приемлива за вас. Ако актуалната цена "
+"не е съвместима с вашата цена, обявата ви временно е невалидна. Сделките "
+"винаги се сключват по актуалните цени, а не по вашите!"
+
+#: templates/shopping_list.html:43
+msgid "My price"
+msgstr "Ваша цена"
+
+#: templates/shopping_list.html:48
+msgid "ADD NEW ITEM"
+msgstr "НОВ ПРОДУКТ"
+
+#: templates/shopping_list.html:78
+#, python-format
+msgid ""
+"\n"
+"  <strong>Note: </strong>Make sure you have\n"
+"  read <a href=\"%(manual)s/%(lang)s/#my-shopping-list\" target=\"_blank"
+"\"> \n"
+"  the manual</a> before making your bids!  To remove an item from your\n"
+"  shopping list &mdash; enter \"REMOVE\" in its \"My price\" field.  To\n"
+"  make a payment order, or accept an incoming payment &mdash; click on\n"
+"  the name of the product.\n"
+"  "
+msgstr ""
+"\n"
+"<strong>Забележка: </strong>Преди да направите своите поръчки, моля\n"
+"прочетете <a href=\"%(manual)s/%(lang)s/#my-shopping-list\" target=\"_blank"
+"\"> \n"
+"упътването</a>.  За да махнете продукт от списъка &mdash;\n"
+"въведете \"REMOVE\" в полето \"Ваша цена\".  За да наредите или потвърдите\n"
+"плащане &mdash; кликнете върху името на продукта."
+
+#: templates/shopping_list_success.html:12
+msgid "Your shopping list has been updated."
+msgstr "Вашият списък с покупки е обновен."
+
+#: templates/shopping_list_success.html:16
+#, python-format
+msgid ""
+"\n"
+"    One of the fields contained an invalid value.\n"
+"  "
+msgid_plural ""
+"\n"
+"    %(count)s of the fields contained invalid values.\n"
+"  "
+msgstr[0] ""
+"\n"
+"Едно от полетата съдържаше невалидна стойност."
+msgstr[1] ""
+"\n"
+"%(count)s от полетата съдържаха невалидни стойности."
+
+#: templates/signup.html:21
+msgid "ERROR: Invalid registration key."
+msgstr "ГРЕШКА: Невалиден код за регистрация."
+
+#: templates/signup.html:27
+msgid "obtain a registration key"
+msgstr "получаване на код за регистрация"
+
+#: templates/signup.html:35
+msgid "be tricky!"
+msgstr "бъдете изобретателни!"
+
+#: templates/signup_success.html:11
+#, python-format
+msgid "Welcome to %(host)s! "
+msgstr "Добре дошли в %(host)s!"
+
+#: templates/signup_success.html:13
+#, python-format
+msgid ""
+"\n"
+"  You will probably like to know that your newly created account\n"
+"  is <em>as powerful as any other account in the system</em>.  That\n"
+"  is: there are no \"limited\", nor \"super\" traders.  Before you start\n"
+"  building your network of trading peers, you may find it useful to\n"
+"  read <a href=\"%(url)s/%(lang)s/\" target=\"_blank\">a short\n"
+"  introduction to %(host)s</a>.\n"
+"  "
+msgstr ""
+"\n"
+"Вие вече сте пълноправен търговец в нашия сайт. Преди да започнете да\n"
+"изграждате своята мрежа от търговски партньори, моля прочетете \n"
+"<a href=\"%(url)s/%(lang)s/\" target=\"_blank\">кратко въведение в %(host)s</"
+"a>."
+
+#: templates/signup_success.html:24
+#, python-format
+msgid ""
+"\n"
+"  <strong>Disclaimer:</strong> The system is intended to facilitate\n"
+"  communication between people who may want to trade with each other.\n"
+"  While efforts have been made to design it well, no guarantee is made\n"
+"  about the correct or continuing functioning of the system.  No\n"
+"  guarantee is made about the quality of delivery of products among\n"
+"  people who use this system.  In no event, unless required by\n"
+"  applicable law or agreed to in writing, shall %(host)s, or any\n"
+"  person be liable for any loss, expense or damage, of any type or\n"
+"  nature arising out of the use of, or inability to use this website.\n"
+"  "
+msgstr ""
+"\n"
+"<strong>ПРЕДУПРЕЖДЕНИЕ:</strong> Целта на този сайт е да подпомага\n"
+"комуникацията между лица или фирми, желаещи доброволно да търгуват\n"
+"помежду си. Екипът на %(host)s по никакъв начин не е отговорен за\n"
+"евентуални преки или косвени загуби, които потребителите на сайта биха\n"
+"могли да понесат в следствие на използването, или на невъзможността да\n"
+"използват сайта. %(host)s е система за честна и законна\n"
+"търговия. Търговци, които използвайки сайта, нарушават законите на\n"
+"страната, носят съответната административна и наказателна\n"
+"отговорност."
+
+#: templates/suggested_partners.html:24
+msgid "Trusted traders"
+msgstr "Доверени търговци"
+
+#: templates/suggested_partners.html:28
+#, python-format
+msgid "Traders trusted by \"%(partner)s\""
+msgstr "Търговци на които \"%(partner)s\" вярва"
+
+#: templates/suggested_partners.html:31
+#, python-format
+msgid "%(first)s-%(last)s of %(total_count)s traders"
+msgstr "%(first)s-%(last)s от %(total_count)s търговеца"
+
+#: templates/suggested_partners.html:31
+#, python-format
+msgid "%(total_count)s trader"
+msgid_plural "%(total_count)s traders"
+msgstr[0] "%(total_count)s търговец"
+msgstr[1] "%(total_count)s търговеца"
+
+#: templates/suggested_partners.html:35
+msgid "No traders"
+msgstr "Няма търговци"
+
+#: templates/transaction_commit.html:24 templates/transaction_commit.html:28
+msgid "Transaction commit"
+msgstr "Извършена транзакция"
+
+#: templates/transaction_commit.html:30
+msgid ""
+"\n"
+"  Your transaction has been recorded in our database!  To finalize the\n"
+"  transaction, make sure the receipt that follows\n"
+"  <em>precisely represents the operation you are performing</em>.\n"
+"  Click \"I confirm\" if everything is committed correctly, or try to\n"
+"  reverse the transaction if something has gone wrong.\n"
+"  "
+msgstr ""
+"\n"
+"Вашата транзакция беше успешно записана в нашата база данни!\n"
+"Проверете дали касовата бележка, дадена по-долу, <em>вярно описва\n"
+"операцията която извършвате</em>. Натиснете \"Потвърждавам\", ако това е\n"
+"така, или сторнирайте операцията, ако нещо се е объркало."
+
+#: templates/transaction_commit.html:39 templates/unconfirmed_receipt.html:20
+#, python-format
+msgid "Issued by %(issuer)s at %(ts)s"
+msgstr "Издадена от %(issuer)s на %(ts)s"
+
+#: templates/transaction_commit.html:46 templates/unconfirmed_receipt.html:27
+msgid "Customer's trader ID"
+msgstr "Това е ID-то на вашия клиент."
+
+#: templates/transaction_commit.html:64
+msgid "Commit one more transaction."
+msgstr "Извършване на нова транзакция"
+
+#: templates/transaction_commit.html:69 templates/unconfirmed_receipt.html:49
+#: templates/xhtml-mp/unconfirmed_receipt.html:24
+msgid "No items"
+msgstr "Няма стоки"
+
+#: templates/transactions_confirmation.html:14
+msgid "No transactions have been confirmed."
+msgstr "Не бяха потвърдени транзакции."
+
+#: templates/transactions_confirmation.html:17
+#, python-format
+msgid ""
+"\n"
+"    %(count)s transaction has been confirmed.\n"
+"  "
+msgid_plural ""
+"\n"
+"    %(count)s transactions have been confirmed.\n"
+"  "
+msgstr[0] ""
+"\n"
+"%(count)s транзакция беше потвърдена."
+msgstr[1] ""
+"\n"
+"%(count)s транзакции бяха потвърдени."
+
+#: templates/transactions_confirmation.html:25
+msgid ""
+"\n"
+"    Even though the confirmed transaction changed one of the <em>\"I\n"
+"    have\"</em>-amounts in your shopping list, the corresponding <em>\"I\n"
+"    need\"</em>-amount remained the same.  If for some reason this is\n"
+"    not what you want, you should go to your shopping list and correct\n"
+"    the amount.\n"
+"  "
+msgid_plural ""
+"\n"
+"    Even though the confirmed transactions changed some of the <em>\"I\n"
+"    have\"</em>-amounts in your shopping list, the corresponding <em>\"I\n"
+"    need\"</em>-amounts remained the same.  If for some reason this is\n"
+"    not what you want, you should go to your shopping list and correct\n"
+"    the amounts.\n"
+"  "
+msgstr[0] ""
+"\n"
+"Потвърдената транзакция промени количеството което <em>\"имате\"</em> във \n"
+"вашия списък с покупки. Количеството което <em>\"искате\"</em>, обаче, "
+"остава\n"
+"същото. Ако по някаква причина това не ви удовлетворява, кликнете \"списък "
+"с\n"
+"покупки\" и задайте новото количество, което искате да купите.\n"
+"  "
+msgstr[1] ""
+"\n"
+"Потвърдените транзакции промениха количествата които <em>\"имате\"</em> "
+"във \n"
+"вашия списък с покупки. Количествата които <em>\"искате\"</em>, обаче, "
+"остават\n"
+"същите. Ако по някаква причина това не ви удовлетворява, кликнете \"списък "
+"с\n"
+"покупки\" и задайте новите количества, които искате да купите.\n"
+"  "
+
+#: templates/turn_is_running.html:6 templates/xhtml-mp/turn_is_running.html:4
+msgid "The system is currently busy!"
+msgstr "В момента системата е заета!"
+
+#: templates/turn_is_running.html:7 templates/xhtml-mp/turn_is_running.html:5
+msgid ""
+"You can repeat your request by clicking the refresh button of your browser."
+msgstr "Моля, повторете заявката си по-късно."
+
+#: templates/turn_is_running.html:10
+msgid "A trading turn is running..."
+msgstr "Провежда се разменна сесия..."
+
+# html-tooltip
+#: templates/unconfirmed_deals.html:29
+msgid ""
+"A negative number indicates that the amount you own has been decreased. A "
+"positive number indicates that the amount you own has been increased."
+msgstr ""
+"Ако числото е отрицателно, това означава, че количеството което притежавате "
+"е намаляло. Ако числото е положително, това означава, че количеството което "
+"притежавате се е увеличило."
+
+#: templates/unconfirmed_deals.html:45
+#: templates/xhtml-mp/unconfirmed_deals.html:13
+msgid "I acknowledge"
+msgstr "Потвърждавам"
+
+#: templates/unconfirmed_deals.html:47
+msgid ""
+"\n"
+"  All amounts were carefully calculated by the system to arrange for\n"
+"  the aggregate values of exchanged products to be in perfect balance.\n"
+"  "
+msgstr ""
+"\n"
+"Количеството на продуктите е изчислено така, че общата стойност на\n"
+"стоките които получавате, е точно равна, на общата стойност на стоките\n"
+"които давате."
+
+#: templates/unconfirmed_transactions.html:26
+msgid "back to incoming payments"
+msgstr "обратно към входящи плащания"
+
+#: templates/unconfirmed_transactions.html:33
+msgid "An explanation of the transaction"
+msgstr "Това е описание на транзакцията."
+
+#: templates/unconfirmed_transactions.html:33
+msgid "Description"
+msgstr "Описание"
+
+#: templates/unconfirmed_transactions.html:34
+msgid ""
+"You need to confirm that the transaction have been rightfully committed."
+msgstr "Трябва да потвърдите, че транзакцията е извършена коректно."
+
+#: templates/unconfirmed_transactions.html:34
+msgid "Confirmation"
+msgstr "Потвърждение"
+
+#: templates/unconfirmed_transactions.html:50
+#: templates/xhtml-mp/unconfirmed_transactions.html:18
+#, python-format
+msgid "A withdrawal from your account at &quot;%(trader)s&quot;"
+msgstr "Изтегляне от вашата сметка при &quot;%(trader)s&quot;"
+
+#: templates/unconfirmed_transactions.html:53
+#, python-format
+msgid ""
+"<abbr title=\"%(amount_info)s\">%(amount)s</abbr> of &quot;<a href=\"/"
+"%(user_id)s/traders/%(trader_id)s/products/%(product_id)s/\" title="
+"\"%(product_info)s\">%(product)s</a>&quot; have been withdrawn from your "
+"account at &quot;<a href=\"/%(user_id)s/partners/%(trader_id)s/\" title="
+"\"%(trader_info)s (Trader %(trader_id)s)\">%(trader)s</a>&quot;."
+msgstr ""
+"<abbr title=\"%(amount_info)s\">%(amount)s</abbr> от &quot;<a href=\"/"
+"%(user_id)s/traders/%(trader_id)s/products/%(product_id)s/\" title="
+"\"%(product_info)s\">%(product)s</a>&quot; бяха изтеглени от вашата сметка "
+"при &quot;<a href=\"/%(user_id)s/partners/%(trader_id)s/\" title="
+"\"%(trader_info)s (Търговец %(trader_id)s)\">%(trader)s</a>&quot;."
+
+#: templates/unconfirmed_transactions.html:60
+#: templates/xhtml-mp/unconfirmed_transactions.html:25
+#, python-format
+msgid "A deposit to your account at &quot;%(trader)s&quot;"
+msgstr "Внасяне във вашата сметка при &quot;%(trader)s&quot;"
+
+#: templates/unconfirmed_transactions.html:63
+#, python-format
+msgid ""
+"<abbr title=\"%(amount_info)s\">%(amount)s</abbr> of &quot;<a href=\"/"
+"%(user_id)s/traders/%(trader_id)s/products/%(product_id)s/\" title="
+"\"%(product_info)s\">%(product)s</a>&quot; have been deposited to your "
+"account at &quot;<a href=\"/%(user_id)s/partners/%(trader_id)s/\" title="
+"\"%(trader_info)s (Trader %(trader_id)s)\">%(trader)s</a>&quot;."
+msgstr ""
+"<abbr title=\"%(amount_info)s\">%(amount)s</abbr> от &quot;<a href=\"/"
+"%(user_id)s/traders/%(trader_id)s/products/%(product_id)s/\" title="
+"\"%(product_info)s\">%(product)s</a>&quot; бяха внесени във вашата сметка "
+"при &quot;<a href=\"/%(user_id)s/partners/%(trader_id)s/\" title="
+"\"%(trader_info)s (Търговец %(trader_id)s)\">%(trader)s</a>&quot;."
+
+#: templates/unknown_product.html:14 templates/unknown_product.html.py:18
+#: templates/xhtml-mp/unknown_product.html:9
+msgid "Unknown product"
+msgstr "Неизвестен продукт"
+
+#: templates/unknown_product.html:21
+#: templates/xhtml-mp/unknown_product.html:11
+msgid "This product has been removed from your pricelist."
+msgstr "Този продукт е изтрит от вашата ценова листа."
+
+#: templates/unknown_product.html:23
+#: templates/xhtml-mp/unknown_product.html:12
+msgid "This product has been removed from trader's pricelist."
+msgstr "Този продукт е изтрит от ценовата листа на търговеца."
+
+#: templates/upload_photograph.html:10
+msgid "Upload photograph"
+msgstr "Качете снимка"
+
+#: templates/upload_photograph.html:16
+#, python-format
+msgid "ERROR: The file should be no bigger than %(max_size)sMB."
+msgstr "ГРЕШКА: Файлът не може да е по-голям от %(max_size)sMB."
+
+#: templates/verified_email.html:6
+msgid "Your email address has been confirmed to be correct!"
+msgstr "Вашият е-mail адрес беше успешно потвърден!"
+
+#: templates/verified_email.html:8
+msgid ""
+"\n"
+"  Now you can receive messages from your trading partners, as well as\n"
+"  to send messages to your customers.\n"
+"  "
+msgstr ""
+"\n"
+"  Вече можете да получавате известия от вашите доставчици, като и да\n"
+"  изпращате известия до вашите клиенти.\n"
+"  "
+
+#: templates/xhtml-mp/base_has_profile.html:4
+msgid "Notices"
+msgstr "Известия"
+
+#: templates/xhtml-mp/create_order.html:20
+#: templates/xhtml-mp/make_deposit.html:19
+#: templates/xhtml-mp/make_withdrawal.html:18
+#: templates/xhtml-mp/my_order.html:13
+msgid "Amount:"
+msgstr "Количество:"
+
+#: templates/xhtml-mp/find_partner.html:9
+#: templates/xhtml-mp/partner_pricelist.html:5
+#: templates/xhtml-mp/partners.html:7 templates/xhtml-mp/product.html:9
+#: templates/xhtml-mp/product.html.py:13
+msgid "Partners"
+msgstr "Доставчици"
+
+#: templates/xhtml-mp/find_partner.html:13 templates/xhtml-mp/partners.html:8
+msgid "Find partner"
+msgstr "Търсене на доставчик"
+
+#: templates/xhtml-mp/login.html:16 templates/xhtml-mp/no_profile.html:4
+#, python-format
+msgid "\"Please go to %(host)s/login/ and log in there.\" "
+msgstr ""
+"Моля отидете на %(host)s/login/ и там въведете вашето потребителско име и "
+"парола."
+
+#: templates/xhtml-mp/login.html:20
+msgid "Username:"
+msgstr "Потребител:"
+
+#: templates/xhtml-mp/login.html:21
+msgid "Password:"
+msgstr "Парола:"
+
+#: templates/xhtml-mp/login.html:23
+msgid "switch to encrypted connection"
+msgstr "премини към кодирана връзка"
+
+#: templates/xhtml-mp/make_deposit.html:20
+msgid "Deduct from my items:"
+msgstr "Извади от стоката за продан:"
+
+#: templates/xhtml-mp/my_order.html:15
+msgid "Issued at:"
+msgstr "Издадено на:"
+
+#: templates/xhtml-mp/my_order.html:29
+msgid "Delete"
+msgstr "Изтрий"
+
+#: templates/xhtml-mp/my_orders.html:15
+#, python-format
+msgid "%(amount)s of %(partner)s&nbsp;&middot; %(product)s"
+msgstr "%(amount)s от %(partner)s&nbsp;&middot; %(product)s"
+
+#: templates/xhtml-mp/partner_pricelist.html:11
+msgid "CONTACT"
+msgstr "ВИЗИТКА"
+
+#: templates/xhtml-mp/pending_payments.html:18
+#: templates/xhtml-mp/product.html:34
+#: templates/xhtml-mp/unconfirmed_transactions.html:9
+msgid "back"
+msgstr "назад"
+
+#: templates/xhtml-mp/pending_payments.html:21
+msgid "refresh"
+msgstr "обнови"
+
+#: templates/xhtml-mp/pending_payments.html:31
+msgid "I accept"
+msgstr "Приемам"
+
+#: templates/xhtml-mp/product.html:20
+msgid "MAKE PAYMENT"
+msgstr "НАПРАВИ ПЛАЩАНЕ"
+
+#: templates/xhtml-mp/product.html:20
+msgid "ACCEPT PAYMENT"
+msgstr "ПРИЕМИ ПЛАЩАНЕ"
+
+#: templates/xhtml-mp/product.html:30
+msgid "Add"
+msgstr "Добави"
+
+#: templates/xhtml-mp/trader_not_found.html:8
+msgid "Unknown trader"
+msgstr "Неизвестен търговец"
+
+#: templates/xhtml-mp/trader_not_found.html:9
+msgid "This trader can not be found in our database."
+msgstr "Търговецът не може да бъде намерен в нашата база данни."
+
+#: templates/xhtml-mp/unconfirmed_transactions.html:20
+#, python-format
+msgid ""
+"%(amount)s of &quot;%(product)s&quot; have been withdrawn from your account "
+"at &quot;%(trader)s&quot;."
+msgstr ""
+"%(amount)s от &quot;%(product)s&quot; бяха изтеглени от вашата сметка при "
+"&quot;%(trader)s&quot;."
+
+#: templates/xhtml-mp/unconfirmed_transactions.html:27
+#, python-format
+msgid ""
+"%(amount)s of &quot;%(product)s&quot; have been deposited to your account at "
+"&quot;%(trader)s&quot;."
+msgstr ""
+"%(amount)s от &quot;%(product)s&quot; бяха внесени във вашата сметка при "
+"&quot;%(trader)s&quot;."
+
+#: users/forms.py:40
+msgid "Choose a username"
+msgstr "Изберете потребителско име"
+
+#: users/forms.py:46
+msgid "Choose a password"
+msgstr "Изберете парола"
+
+#: users/forms.py:53
+msgid "Re-enter the password"
+msgstr "Въведете паролата отново"
+
+#: users/forms.py:58
+msgid "Enter your registration key"
+msgstr "Въведете вашият код за регистрация"
+
+#: users/forms.py:65
+msgid "ERROR: Passwords do not match."
+msgstr "ГРЕШКА: Паролите не съвпадат."
+
+#: users/forms.py:81
+msgid "Your username"
+msgstr "Вашето потребителско име"
+
+#: users/forms.py:87
+msgid "Your password"
+msgstr "Вашата парола"
+
+#: users/forms.py:186
+#, python-format
+msgid "I do not want to receive emails from %(host)s"
+msgstr "Не искам да получавам повече писма от %(host)s"

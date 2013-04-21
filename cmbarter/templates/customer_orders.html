@@ -1,0 +1,61 @@
+{% extends "base_trader.html" %}
+{% load i18n %}
+{% load myfilters %}
+{% block page_id %}customer-orders-page{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript" src="/static/common.js"></script>
+<script type="text/javascript" src="/static/css.js"></script>
+<script type="text/javascript" src="/static/standardista-table-sorting.js"></script>
+{% endblock %}
+
+{% block help_context %}#customer-orders{% endblock %}
+{% block breadcrumbs %}
+<a href="/{{user.trader_id}}/shopping-list/">{{user.username|escape}}</a> &middot;
+<a href="/{{user.trader_id}}/traders/">{% trans "Find trader" %}</a> &middot;
+<a href="/{{user.trader_id}}/traders/{{trader.trader_id}}/">{{trader.trader_id|traderid}}</a> &middot;
+<span>{% trans "Payment orders" %}</span>
+{% endblock %}
+
+{% block trader_main %}
+<h3>{% trans "Payment orders from this trader" %}</h3>
+{% if orders %}
+<table cellspacing="0" width="100%" class="fixed sortable">
+  <col width="50%"><col width="50%">
+  <thead>
+    <tr class="verbose">
+      <th title="{% trans "Along with the trader ID, uniquely identifies each item." %}">{% trans "Order #" %}</th>
+      <th title="{% trans "The person or organization entitled to receive the goods" %}">{% trans "Recipient" %}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for row in orders %}
+    <tr>
+      <td scope="row">
+	{% if row.execution_ts %}
+	<img src="/static/green_accept.gif" alt="(V)">
+	{% else %}{% if row.issuer_message == None %}
+	<img src="/static/blue_exclamation.gif" alt="(!)">
+	{% else %}
+	<img src="/static/red_reject.gif" alt="(X)">
+	{% endif %}{% endif %}
+	<div><a href='/{{user.trader_id}}/traders/{{trader.trader_id}}/orders/{{row.order_id}}/' title='{% blocktrans with row|order_truncate_amount as amount and row|product|escape as product %}{{amount}} of "{{product}}"{% endblocktrans %}'><strong>{{row.order_id}}</strong></a></div>
+      </td>
+      <td><span{% if row.instructions %} title="{{row.instructions|truncatechars:130|escape}}"{% endif %}>{{row.carrier|escape}}</span></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<p class="remark verbose">
+  {% blocktrans %}
+  Each order in this table authorizes a particular person or
+  organization to receive a limited amount of goods or services on
+  behalf of the trader.
+  {% endblocktrans %}
+</p>
+{% else %}
+<p class="legend">
+  <em>{% trans "No orders" %}</em>
+</p>
+{% endif %}
+{% endblock %}

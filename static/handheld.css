@@ -1,0 +1,165 @@
+/*
+Tema: Blue freedom - a minimalictic layout
+*/
+
+* { padding: 0; margin: 0; line-height: 1.06; }
+
+#top, #bottom, #footer, #clear { display: none; }
+
+#header { line-height: 1; padding: 3px; background: #6695ED url('/static/hidr.jpg') repeat-x; color: white; }
+#header input { float: right; }
+#header img { padding-right: 0.33em; }
+#header h1 { text-align: left; white-space: nowrap; overflow: hidden; }
+#header h2 { display: none; }
+
+#hotmenu ul { padding: 3px 0; }
+#hotmenu li { display: inline; white-space: nowrap; }
+#hotmenu li.verbose { display: none; }
+#wrap-ltr #hotmenu li { margin-right: 1em; }
+#wrap-rtl #hotmenu li { margin-left: 1em; }
+#hotmenu a { color: white; }
+#hotmenu strong { font-weight: bold; }
+
+#breadcrumbs { background-color: #F6F9FB; border-bottom: 1px solid #E1E1E1; padding: 3px; }
+#breadcrumbs strong { display: none; }
+
+#main { padding: 3px; }
+
+#navigation { padding: 1em 3px; color: black; background-color: #F6F9FB; border-top: 1px solid #E1E1E1; }
+
+/*
+  Elements' styles
+*/
+
+body { font: 1em sans-serif; background-color: white; color: black; overflow-wrap: break-word; word-wrap: break-word; }
+
+a { text-decoration: underline; color: #3B6EBF; }
+
+input, select, textarea { max-width: 95%; }
+textarea { max-height: 4em; }
+
+h2, h3, p, dl, ul { padding: 3px 0; }
+
+h1 { font-size: 1.4em; }
+h2 { font-size: 1.3em; }
+h3 { font-size: 1.2em; }
+
+li { list-style-type: none; }
+
+dl dt { color: #666666; font-weight: bold; margin-top: 0.25em; }
+dl dd { padding: 3px 0; }
+#wrap-ltr dl dd { margin-left: 0.75em; }
+#wrap-rtl dl dd { margin-right: 0.75em; }
+
+form label { display: block; font-weight: bold; color: #666666; }
+form .errorlist { color: #CC3333; font-weight: bold; padding: 0;  margin-top: 0.5em;}
+form input.highlighted { background-color: #FFFFCC; color: black; }
+
+table.fixed { width: 100%; }
+table.fixed, .fixed caption, .fixed tbody, .fixed tfoot, .fixed tr, .fixed td { display: block; border: none; }
+.fixed thead { display: none; }
+.fixed tr { margin: 0.5em; margin-bottom: 2em; border: 1px solid #C0C0C0;}
+.fixed tr { overflow: hidden; }  /* Circumvents an obscure bug in Mozilla. */
+.fixed tr.verbose { display: none; } 
+.fixed th, .fixed td { padding: 3px; }
+.fixed th { font-weight: bold; }
+.fixed td { font-weight: normal; }
+
+@media all and (max-width: 330px) {
+    #personal-summary img { width: 100%; }
+}
+#personal-summary img { max-width: 100%; }
+
+/*
+  Miscellaneous styles
+*/
+
+#recaptcha_widget_div { margin-top: 1.5em; }
+#recaptcha_widget_div label { font-weight: normal; } 
+
+ul.prev-next-box { padding: 0.5em 0; }
+#wrap-ltr ul.prev-next-box .prev { float: left; margin-right: 1.5em; }
+#wrap-rtl ul.prev-next-box .prev { float: right; margin-left: 1.5em; }
+#wrap-ltr ul.prev-next-box .next { float: right; }
+#wrap-rtl ul.prev-next-box .next { float: left; }
+ul.prev-next-box:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+
+.printonly { display: none; }
+.verbose { display: none; }
+.highlighted { color: #CC3333; }
+.order-status img { vertical-align: middle; }
+.order-status div { display: inline; }
+#wrap-ltr .legend { margin-left: 0.75em; }
+#wrap-rtl .legend { margin-right: 0.75em; }
+
+#yourself { display: none; }
+#deals-swaplink, #back-to-payments-link { font-size: 66%; }
+#personal-summary, #personal-details { margin-top: 1em; }
+
+/*
+  Individual pages' styles
+*/
+
+#about-page #main p:first-letter { text-transform: uppercase; }
+#about-page #main img { max-width: 100%; }
+#about-page #wrap-ltr #main ul { margin-left: 1.33em; }
+#about-page #wrap-rtl #main ul { margin-right: 1.33em; }
+#about-page #main li { list-style-type: disc; padding-bottom: 0.5em; }
+
+#pricelist-page table tbody td:first-child + td + td { background-color: #E8E8E8; }
+#pricelist-page table tbody td span { color: #CC3333; }
+
+#product-page #main .linklist li { font-weight: bold; margin-bottom: 0.25em; }
+
+#partners-page table thead { display: block; }
+#partners-page table tbody td:first-child + td { background-color: #E8E8E8; }
+#partners-page table tbody td:first-child + td + td { background-color: #E8E8E8; }
+
+#partner-pricelist-page table tbody td:first-child + td + td { background-color: #E8E8E8; }
+
+#transaction-commit-page #wrap-ltr table + p a { float: right; }
+#transaction-commit-page #wrap-rtl table + p a { float: left; }
+
+#shopping-list-page table tbody td:first-child + td + td + td + td { background-color: #E8E8E8; }
+#shopping-list-page table tbody td:first-child + td + td + td + td + td { background-color: #E8E8E8; }
+#shopping-list-page table tbody td span { color: #CC3333; }
+#shopping-list-page .remark strong { display: none; }
+#shopping-list-page .remark a { white-space: nowrap; }
+
+#my-deals-page table tbody td:first-child + td + td + td + td { background-color: #E8E8E8; }
+
+#customer-deals-page table tbody td:first-child + td + td + td + td { background-color: #E8E8E8; }
+
+#unconfirmed-deals-page table tbody td:first-child + td + td + td + td { background-color: #E8E8E8; }
+
+#pending-payments-page h3 a { color: black; }
+#pending-payments-page a.open, #pending-payments-page a.close { display: none; }
+#pending-payments-page .payment { border: 2px solid #CCCCCC; margin: 1em 0.5em 3em 0.5em; padding: 0.5em; }
+#pending-payments-page .first-payment { background-color: #f2ebce; }
+
+#unconfirmed-transactions-page i { font-style: normal; color: #999999; }
+#unconfirmed-transactions-page table tbody a { text-decoration: none; color: black; }
+#unconfirmed-transactions-page table tbody a.trx-descr { text-decoration: underline; color: black; }
+
+#search-page #search_results dt { font-weight: normal; margin-top: 1em; }
+#search-page #wrap-ltr #search_results dd { margin-left: 0; }
+#search-page #wrap-rtl #search_results dd { margin-right: 0; }
+#search-page #search_results dd { font-size: 90%; padding: 0; }
+#search-page h3 { color: #A0A0A0; font-size: 1em; font-weight: normal; }
+#search-page #wrap-ltr #previous_page { padding-left: 0 }
+#search-page #wrap-rtl #previous_page { padding-right: 0 }
+#search-page #current_page { background-color: #ECECEC; }
+#search-page #page_navigation_strip { margin-top: 1.66em; margin-bottom: 0.5em; }
+#search-page #page_navigation_strip a, #search-page #page_navigation_strip span { padding: 0.25em 0.25em; }
+
+#make-deposit-page #main h2 { display: none; }
+#make-deposit-page #personal-summary { display: none; }
+#make-deposit-page #personal-details { margin-top: 0; }
+
+#make-withdrawal-page #main h2 { display: none; }
+#make-withdrawal-page #personal-summary { display: none; }
+#make-withdrawal-page #personal-details { margin-top: 0; }
+
+#add-partner-page #main h2 { display: none; }
+#add-partner-page #personal-summary { display: none; }
+#add-partner-page #personal-details { margin-top: 0; }

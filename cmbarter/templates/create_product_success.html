@@ -1,0 +1,23 @@
+{% extends "base_has_profile.html" %}
+{% load i18n %}
+{% block page_id %}create-product-success-page{% endblock %}
+
+{% block help_context %}#my-pricelist{% endblock %}
+{% block breadcrumbs %}
+<a href="/{{user.trader_id}}/shopping-list/">{{user.username|escape}}</a> &middot;
+<span>{% trans "My pricelist" %}</span>
+{% endblock %}
+
+{% block main %}
+<h2>{% trans "My pricelist" %}</h2>
+<form method="get" action="/{{user.trader_id}}/pricelist/">
+  <p class="legend">
+    {% blocktrans %}
+    A new product has been added to your pricelist. Don't forget to
+    enter a price for it, and don't forget to register your spare
+    goods for sale!
+    {% endblocktrans %}
+  </p>
+  <p class="submit"><input type="submit" value="{% trans "OK" %}"></p>
+</form>
+{% endblock %}

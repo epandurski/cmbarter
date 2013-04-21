@@ -1,0 +1,10 @@
+{% extends "base_logged_in.html" %}
+{% load i18n %}
+{% block page_id %}turn-is-running-page{% endblock %}
+
+{% block main %}
+<h2>{% trans "The system is currently busy!" %}</h2>
+<p>{% trans "You can repeat your request by clicking the refresh button of your browser." %}</p>
+{% endblock %}
+
+{% block footer %}<em>{% trans "A trading turn is running..." %}</em>{% endblock %}

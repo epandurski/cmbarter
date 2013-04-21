@@ -1,0 +1,10 @@
+%(head_prefix)s
+<meta name="HandheldFriendly" content="True" />
+<meta name="viewport" content="initial-scale=1.0" />
+%(head)s
+%(stylesheet)s
+%(body_prefix)s
+%(body_pre_docinfo)s
+%(docinfo)s
+%(body)s
+%(body_suffix)s

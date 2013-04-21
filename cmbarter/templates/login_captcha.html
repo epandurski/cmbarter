@@ -1,0 +1,32 @@
+{% extends "base_signup.html" %}
+{% load i18n %}
+{% load myfilters %}
+{% block page_id %}login-captcha-page{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+  <!--
+  var RecaptchaOptions = { theme : 'white', lang : 'en' };
+  //-->
+</script>
+{% endblock %}
+
+{% block breadcrumbs %}
+<span>{% trans "Login" %}</span>
+{% endblock %}
+
+{% block main %}
+<h2>{% trans "Login" %}</h2>
+<form method="post" action="">{% csrf_token %}
+  <p class="legend">
+    {% blocktrans %}
+    Someone has been persistently trying to guess your password!  In
+    order to protect your account from being compromised, we should
+    perform an additional verification before letting you in.
+    {% endblocktrans %}
+  </p>
+  {% show_captcha captcha_error %}
+  <p>{% trans "Enter the above two words, separated by a space, into the box." %}</p>
+  <p class="submit"><input type="submit" value="{% trans "Submit" %}"></p>
+</form>
+{% endblock %}

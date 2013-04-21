@@ -1,0 +1,24 @@
+{% extends "xhtml-mp/base_has_profile.html" %}{% load i18n %}{% load myfilters %}
+
+{% block page_css %}
+#id_amount { -wap-input-format: "*n"; -wap-input-required: true; }
+{% endblock %}
+
+{% block breadcrumbs %}
+<a href="/mobile/{{secret}}/shopping-list/">{{user.username|escape}}</a> &gt;
+<a href="/mobile/{{secret}}/traders/{{trader.trader_id}}/">{% trans "Trader" %} {{trader.trader_id|traderid}}</a> &gt;
+<a href="/mobile/{{secret}}/traders/{{trader.trader_id}}/deposits/">{% trans "Owned items" %}</a>
+{% endblock %}
+
+{% block main %}
+<h3>{% trans "Make a deposit" %}</h3>
+<form method="post" action="/mobile/{{secret}}/traders/{{trader.trader_id}}/deposits/new/?backref=/mobile/{{secret}}/traders/{{trader.trader_id}}/deposits/">
+{% if form.insufficient_amount %}<ul class="errorlist"><li>{% trans "ERROR: The amount you requested is not available." %}</li></ul>{% endif %}
+{% for error in form.non_field_errors %}<ul class="errorlist"><li>{{error}}</li></ul>{% endfor %}
+{{form.promise_id.errors}}<p><label for="id_promise_id" style="-wap-accesskey:0">{{form.promise_id.label}}:</label> {{form.promise_id}}</p>
+{{form.amount.errors}}<p><label for="id_amount">{% trans "Amount:" %}</label> {{form.amount}}</p>
+{% if user.trader_id != trader.trader_id %}{{form.subtract.errors}}<p><label for="id_subtract">{% trans "Deduct from my items:" %}</label> {{form.subtract}}</p>{% endif %}
+{{form.reason.errors}}<p><label for="id_reason">{{form.reason.label}}:</label> <input type="text" name="reason" id="id_reason" /></p>
+<p class="submit"><input type="submit" value="{% trans "Submit" %}" /></p>
+</form>
+{% endblock %}

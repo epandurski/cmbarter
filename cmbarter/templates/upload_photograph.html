@@ -1,0 +1,20 @@
+{% extends "base_has_profile.html" %}
+{% load i18n %}
+{% load myfilters %}
+{% block page_id %}upload-photograph-page{% endblock %}
+
+{% block help_context %}#my-business-card{% endblock %}
+{% block breadcrumbs %}
+<a href="/{{user.trader_id}}/shopping-list/">{{user.username|escape}}</a> &middot;
+<a href="/{{user.trader_id}}/traders/{{user.trader_id}}/">{% trans "My business card" %}</a> &middot;
+<span>{% trans "Upload photograph" %}</span>
+{% endblock %}
+
+{% block main %}
+<h2>{% trans "Upload your photograph" %}</h2>
+<form method="post" enctype="multipart/form-data" action="">{% csrf_token %}
+  {% if form.file_too_big %}<ul class="errorlist"><li>{% blocktrans with settings.CMBARTER_MAX_IMAGE_SIZE|megabytes|floatformat as max_size %}ERROR: The file should be no bigger than {{max_size}}MB.{% endblocktrans %}</li></ul>{% endif %}
+  {{form.as_p}}
+  <p class="submit"><input type="submit" value="{% trans "Submit" %}"></p>
+</form>
+{% endblock %}

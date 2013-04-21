@@ -1,0 +1,36 @@
+{% extends "xhtml-mp/base_has_profile.html" %}{% load i18n %}{% load myfilters %}
+
+{% block title %}{{product|product|escape}}{% endblock %}
+
+{% block breadcrumbs %}
+<a href="/mobile/{{secret}}/shopping-list/">{{user.username|escape}}</a>
+{% if trust %}{% if allow_addition_to_shopping_list %}
+&gt;
+<a href="/mobile/{{secret}}/partners/">{% trans "Partners" %}</a> &gt;
+<a href="/mobile/{{secret}}/partners/{{trust.issuer_id}}/">{{trust.name|escape}}</a>
+{% else %}
+&gt;
+{% trans "Partners" %} &gt;
+{{trust.name|escape}}
+{% endif %}{% endif %}
+{% endblock %}
+
+{% block main %}
+<h3>{{product|product|escape}}</h3>
+{% if trust and not allow_addition_to_shopping_list %}<p><a href="/mobile/{{secret}}/traders/{{product.issuer_id}}/products/{{product.promise_id}}/order/" style="-wap-accesskey:8">{% trans "MAKE PAYMENT" %}</a><br /><a href="/mobile/{{secret}}/traders/{{product.issuer_id}}/products/{{product.promise_id}}/payments/" style="-wap-accesskey:9">{% trans "ACCEPT PAYMENT" %}</a></p>{% endif %}
+
+<dl>
+<dt>{% trans "Short summary" %}:</dt><dd>{{product.summary|escape}}</dd>
+<dt>{% trans "Roundoff amount" %}:</dt><dd>{{product.epsilon}}</dd>
+{% if product.description %}<dt>{% trans "A more detailed description" %}:</dt><dd>{{product.description|truncatechars:600|force_escape|linebreaks}}</dd>{% endif %}
+</dl>
+
+{% if allow_addition_to_shopping_list %}
+<form method="post" action="/mobile/{{secret}}/traders/{{product.issuer_id}}/products/{{product.promise_id}}/add/">
+<p class="submit"><input type="hidden" name="add" value="yes" /><input type="submit" value="{% trans "Add" %}" style="-wap-accesskey:0" /></p>
+</form>
+{% endif %}
+
+{% if product.issuer_id == user.trader_id %}<p><a href="/mobile/{{secret}}/traders/{{product.issuer_id}}/deposits/{{product.promise_id}}/?backref=/mobile/{{secret}}/traders/{{product.issuer_id}}/deposits/" style="text-transform:uppercase;-wap-accesskey:0">{% trans "back" %}</a></p>{% endif %}
+
+{% endblock %}

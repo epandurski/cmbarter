@@ -1,0 +1,80 @@
+{% extends "base_has_profile.html" %}
+{% load i18n %}
+{% load myfilters %}
+{% block page_id %}my-orders-page{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript" src="/static/common.js"></script>
+<script type="text/javascript" src="/static/css.js"></script>
+<script type="text/javascript" src="/static/standardista-table-sorting.js"></script>
+{% endblock %}
+
+{% block help_context %}#my-delivery-orders{% endblock %}
+{% block breadcrumbs %}
+<a href="/{{user.trader_id}}/shopping-list/">{{user.username|escape}}</a> &middot;
+<span>{% trans "My payment orders" %}</span>
+{% endblock %}
+
+{% block main %}
+<h2>{% trans "My payment orders" %}</h2>
+{% if orders %}
+<table cellspacing="0" width="100%" class="fixed sortable">
+  <col width="17%"><col width="20%"><col width="28%"><col width="13%"><col width="22%">
+  <thead>
+    <tr class="verbose">
+      <th id="order" title="{% trans "Along with your trader ID, uniquely identifies each item." %}">{% trans "Order #" %}</th>
+      <th title="{% trans "The name of the partner of yours who is offering the product" %}">{% trans "Partner" %}</th>
+      <th title="{% trans "A short description of the product" %}">{% trans "Product" %}</th>
+      <th title="{% trans "The amount of product that is ordered" %}">{% trans "Amount" %}</th>
+      <th title="{% trans "The person or organization entitled to receive the goods" %}">{% trans "Recipient" %}</th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+      <td colspan="5" headers="order">
+	<a href="/{{user.trader_id}}/shopping-list/"><b>{% trans "ADD NEW ORDER" %} &raquo;</b></a>
+      </td>
+    </tr>
+  </tfoot>
+  <tbody>
+    {% for row in orders %}
+    <tr>
+      <td scope="row">
+	{% if row.execution_ts %}
+	<img src="/static/green_accept.gif" alt="(V)">
+	<div><a href="/{{user.trader_id}}/orders/{{row.order_id}}/" title="{% if row.issuer_message %}{{row.issuer_message}}{% else %}{% trans "COMPLETED" %}{% endif %}"><strong>{{row.order_id}}</strong></a></div>
+	{% else %}{% if row.issuer_message == None %}
+	<img src="/static/blue_exclamation.gif" alt="(!)">
+	<div><a href="/{{user.trader_id}}/orders/{{row.order_id}}/" title="{% trans "PENDING" %}"><strong>{{row.order_id}}</strong></a></div>
+	{% else %}
+	<img src="/static/red_reject.gif" alt="(X)">
+	<div><a href="/{{user.trader_id}}/orders/{{row.order_id}}/" title="{% if row.issuer_message %}{{row.issuer_message}}{% else %}{% trans "FAILED" %}{% endif %}"><strong>{{row.order_id}}</strong></a></div>
+	{% endif %}{% endif %}
+      </td>
+      <td>
+	{% if row.name %}
+	<a href="/{{user.trader_id}}/partners/{{row.issuer_id}}/" title="{{row.comment|truncatechars:130|escape}} ({% trans "Trader" %} {{row.issuer_id|traderid}})">{{row.name|escape}}</a>
+	{% else %}
+	<a href="/{{user.trader_id}}/traders/{{row.issuer_id}}/" title="{% trans "Trader" %} {{row.issuer_id|traderid}}">&laquo;{{row.issuer_id|traderid}}&raquo;</a>
+	{% endif %}
+      </td>
+      <td><a href="/{{user.trader_id}}/traders/{{row.issuer_id}}/products/{{row.promise_id}}/?backref=/{{user.trader_id}}/orders/" title="{{row.summary|truncatechars:130|escape}}">{{row|product|escape}}</a></td>
+      <td><abbr dir="ltr" title="{{row.amount}}">{% truncate_amount row.amount row.epsilon %}</abbr></td>
+      <td>{% if row.is_a_payment %}{% if row.payee_name %}<a href="/{{user.trader_id}}/partners/{{row.carrier}}/" title="{{row.payee_comment|truncatechars:130|escape}} ({% trans "Trader" %} {{row.carrier}})">{{row.payee_name|escape}}</a>{% else %}<a href="/{{user.trader_id}}/traders/{{row.carrier}}/" title="{% trans "Trader" %} {{row.carrier}}">&laquo;{{row.carrier}}&raquo;</a>{% endif %}{% else %}{{row.carrier|escape}}{% endif %}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<p class="remark verbose">
+  {% blocktrans %}
+  Click on the number of the payment order to see details, or to
+  delete the order.
+  {% endblocktrans %}
+</p>
+{% else %}
+<p class="legend">
+  <em>{% trans "No orders" %}</em>
+</p>
+<p class="linklist"><a href="/{{user.trader_id}}/shopping-list/"><b>{% trans "ADD PAYMENT ORDER" %} &raquo;</b></a></p>
+{% endif %}
+{% endblock %}

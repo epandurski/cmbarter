@@ -1,0 +1,21 @@
+{% extends "xhtml-mp/base_has_profile.html" %}{% load i18n %}{% load myfilters %}
+
+{% block breadcrumbs %}
+<a href="/mobile/{{secret}}/shopping-list/">{{user.username|escape}}</a>
+{% endblock %}
+
+{% block main %}
+<h3>{% trans "Payment orders" %}</h3>
+{% if orders %}
+<div class="itemlist">{% for row in orders %}
+<div class="{% cycle 'dark' 'light' %}">
+{% if row.execution_ts %}<img src="/static/mgreen_acc.gif" alt="(V)" width="16" height="16" />
+{% else %}{% if row.issuer_message == None %}<img src="/static/mblue_excl.gif" alt="(!)" width="16" height="16" />
+{% else %}<img src="/static/mred_rej.gif" alt="(X)" width="16" height="16" />
+{% endif %}{% endif %}<a href="/mobile/{{secret}}/orders/{{row.order_id}}/">#{{row.order_id}}</a>{% if row.name %}<br />{% blocktrans with row|order_truncate_amount as amount and row.name|escape as partner and row|product|escape as product %}{{amount}} of {{partner}}&nbsp;&middot; {{product}}{% endblocktrans %}{% endif %}
+</div>{% endfor %}
+</div>
+{% else %}
+<p><em>{% trans "No orders" %}</em></p>
+{% endif %}
+{% endblock %}

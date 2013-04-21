@@ -1,0 +1,23 @@
+{% extends "base_has_profile.html" %}
+{% load i18n %}
+{% block page_id %}email-not-verified-page{% endblock %}
+
+{% block breadcrumbs %}
+<a href="/{{user.trader_id}}/shopping-list/">{{user.username|escape}}</a> &middot;
+<span>{% trans "My business card" %}</span>
+{% endblock %}
+
+{% block main %}
+<h2>{% trans "Email verification failure" %}</h2>
+<form method="get" action="/{{user.trader_id}}/edit-profile/">
+  <p class="legend">
+    {% blocktrans with wrong_email|escape as email %}
+    You have specified <b>{{email}}</b> as your email address.
+    Unfortunately, we can not verify that this address is correct.
+    Please, specify your correct email address in your contact
+    information.
+    {% endblocktrans %}
+  </p>
+  <p class="submit"><input type="submit" value="{% trans "OK" %}"></p>
+</form>
+{% endblock %}

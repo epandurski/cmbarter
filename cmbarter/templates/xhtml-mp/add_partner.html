@@ -1,0 +1,20 @@
+{% extends "xhtml-mp/base_has_profile.html" %}{% load i18n %}{% load myfilters %}
+
+{% block page_css %}
+#id_name { -wap-input-required: true; -wap-accesskey:0; }
+{% endblock %}
+
+{% block breadcrumbs %}
+<a href="/mobile/{{secret}}/shopping-list/">{{user.username|escape}}</a> &gt;
+<a href="/mobile/{{secret}}/traders/{{trader.trader_id}}/">{% trans "Trader" %} {{trader.trader_id|traderid}}</a>
+{% endblock %}
+
+{% block main %}
+<h3>{% trans "Add to my partners list" %}</h3>
+<form method="post" action="/mobile/{{secret}}/traders/{{trader.trader_id}}/add-to-partners/">
+{% if form.name_collision %}<ul class="errorlist"><li>{% trans "ERROR: The name is already in use." %}</li></ul>{% endif %}
+{{form.name.errors}}<p><label for="id_name">{{form.name.label}}:</label> {{form.name}}</p>
+{{form.comment.errors}}<p><label for="id_comment">{{form.comment.label}}:</label> {{form.comment}}</p>
+<p class="submit"><input type="submit" value="{% trans "Submit" %}" /></p>
+</form>
+{% endblock %}

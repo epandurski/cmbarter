@@ -1,0 +1,14 @@
+{% extends "base_signup.html" %}
+{% load i18n %}
+{% block page_id %}cancel-email-success-page{% endblock %}
+
+{% block main %}
+<h2>{% trans "Emails have been disabled for your user account!" %}</h2>
+<p>
+  {% blocktrans with settings.CMBARTER_HOST as host %}
+  <strong>Note: </strong> If you have registered multiple user
+  accounts on {{host}}, you may need to repeat this step for each
+  one of them.
+  {% endblocktrans %}
+</p>
+{% endblock %}

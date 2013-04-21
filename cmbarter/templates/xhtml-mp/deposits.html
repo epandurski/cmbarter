@@ -1,0 +1,17 @@
+{% extends "xhtml-mp/base_has_profile.html" %}{% load i18n %}{% load myfilters %}
+
+{% block title %}{{trader.full_name|escape}}{% endblock %}
+
+{% block breadcrumbs %}
+<a href="/mobile/{{secret}}/shopping-list/">{{user.username|escape}}</a> &gt;
+<a href="/mobile/{{secret}}/traders/{{trader.trader_id}}/">{% trans "Trader" %} {{trader.trader_id|traderid}}</a>
+{% endblock %}
+
+{% block main %}
+<h3>{% trans "Owned items" %}</h3>
+<p>{% if trader.photograph_id %}<img src="/mobile/{{secret}}/images/{{trader.trader_id}}/{{trader.photograph_id}}/" alt="" width="100%" />{% else %}<img src="/static/no_img.gif" alt="" width="100%" />{% endif %}</p>
+<h3>{{trader.full_name|escape}}</h3>
+{% if trader.summary %}<p>{{trader.summary|escape}}</p>{% endif %}
+<p><a href="/mobile/{{secret}}/traders/{{trader.trader_id}}/deposits/new/" style="-wap-accesskey:0">{% trans "MAKE A DEPOSIT" %}</a></p>
+{% if deposits %}<div class="itemlist">{% for row in deposits %}<div class="{% cycle 'dark' 'light' %}">{{row|product|escape}} <a href="/mobile/{{secret}}/traders/{{trader.trader_id}}/deposits/{{row.promise_id}}/"><strong>({% truncate_amount row.amount row.epsilon %})</strong></a></div>{% endfor %}</div>{% endif %}
+{% endblock %}

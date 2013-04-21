@@ -1,0 +1,10 @@
+{% extends "xhtml-mp/base_has_profile.html" %}{% load i18n %}{% load myfilters %}
+
+{% block breadcrumbs %}
+<a href="/mobile/{{secret}}/shopping-list/">{{user.username|escape}}</a>
+{% endblock %}
+
+{% block main %}
+<h3>{% trans "Unknown trader" %}</h3>
+<p>{% trans "This trader can not be found in our database." %}</p>
+{% endblock %}

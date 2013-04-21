@@ -1,0 +1,122 @@
+{% extends "base_has_profile.html" %}
+{% load i18n %}
+{% load myfilters %}
+{% block page_id %}pending-payments-page{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript" src="/static/common.js"></script>
+<script type="text/javascript" src="/static/css.js"></script>
+<script type="text/javascript">
+  <!--
+  function disp_links(show) {
+    var alist=css.getElementsByClass(document, 'open', 'a');
+    for (var i=0; i<alist.length; i++) alist[i].style.display=(show?'':'none');
+  }
+  function select_payment(e, selected) {
+    if (selected) { 
+      css.addClassToElement(e, 'selected-payment');
+    } else {
+      css.removeClassFromElement(e, 'selected-payment');
+    }
+  }
+  function unselect_all() {
+    var plist=css.getElementsByClass(document, 'payment', 'div');
+    for (var i=0; i<plist.length; i++) select_payment(plist[i], false);
+  }
+  function close_all() { disp_links(true); unselect_all(); }
+  function open(e) {
+    disp_links(false); select_payment(e, true);
+  }
+  function initContainers() {
+    disp_links(false);
+    var alist=css.getElementsByClass(document, 'open', 'a');
+    for (var i=0; i<alist.length; i++) {
+      alist[i].innerHTML='{% trans "open" %}&nbsp;&raquo;';
+      alist[i].onclick = function(event) {
+        open(this.parentNode);
+        if (event && event.preventDefault) event.preventDefault();
+        return false;
+      }
+    }
+
+    var clist=css.getElementsByClass(document, 'close', 'a');
+    for (var i=0; i<clist.length; i++) {
+      clist[i].innerHTML='{% trans "close" %}';
+      clist[i].onclick = function(event) {
+        close_all();
+        if (event && event.preventDefault) event.preventDefault();
+        return false;
+      }
+    }
+
+    var root=document.getElementById('payment-list');
+    if (root) css.addClassToElement(root, 'collapsed');
+
+    var flist=css.getElementsByClass(document, 'first-payment', 'div');
+    if (flist.length>0) select_payment(flist[0], true);
+  }
+  function focusFirstPaymentLink() {
+    first_payment_link = document.getElementById('first-payment-link')
+    if (first_payment_link) first_payment_link.focus();
+  }
+  addEvent(window, 'load', initContainers);
+  addEvent(window, 'load', focusFirstPaymentLink);
+  //-->
+</script>
+{% endblock %}
+
+{% block help_context %}#pending-payments{% endblock %}
+{% block breadcrumbs %}
+<a href="/{{user.trader_id}}/shopping-list/">{{user.username|escape}}</a> &middot;
+<a href="/{{user.trader_id}}/partners/">{% trans "My partners" %}</a> &middot;
+<a href="/{{user.trader_id}}/partners/{{trust.issuer_id}}/">&quot;{{trust.name|escape}}&quot;</a> &middot;
+<a href="/{{user.trader_id}}/traders/{{trust.issuer_id}}/products/{{product.promise_id}}/">&quot;{{product|product|escape}}&quot;</a> &middot;
+<span>{% trans "Incoming payments" %}</span>
+{% endblock %}
+
+{% block main %}
+<h2 class="verbose">{% blocktrans with product|product|escape as product and trust.name|escape as partner %}Incoming payments: "{{product}}" from "{{partner}}"{% endblocktrans %}</h2>
+
+{% if error_code != 0 %}
+<form method="get" action="">
+  <p class="legend">
+    <strong>{% trans "ERROR:" %}</strong> 
+    {% if error_code == 1 %}
+      {% trans "The payment amount is not available." %}
+    {% else %}{% if error_code == 2 %}
+      {% trans "The payment has been canceled." %}
+    {% else %}{% if error_code == 3 %}
+      {% trans "Payments have been temporarily disabled." %}
+    {% else %}
+      {% trans "Unidentified problem have occurred." %}
+    {% endif %}{% endif %}{% endif %}
+  </p>
+  <p class="submit"><input type="submit" value="{% trans "OK" %}"></p>
+</form>
+
+{% else %}
+{% if payments %}
+<div id="payment-list">
+  {% for row in payments %}
+  <div class="payment{% if forloop.last %} last-payment{% endif %}{% if forloop.first %} first-payment{% endif %}">
+    <a class="open noprint" href="#"></a>{% if payments|length > 1 %}<a class="close noprint" href="#"></a>{% endif %}
+    <h3>{% truncate_amount row.amount product.epsilon %} {% trans "from" %} &quot;<a{% if forloop.first %} id="first-payment-link"{% endif %} href="/{{user.trader_id}}/traders/{{row.payer_id}}/" title="{% trans "Trader" %} {{row.payer_id|traderid}}">{{row.payer_name|escape}}</a>&quot;</h3>
+    <div class="payment-details">
+      {% if row.reason %}<p>{{row.reason|escape}}</p>{% endif %}
+      <form method="post" action="">{% csrf_token %}
+	<p class="noprint">
+	  <input type="hidden" name="payer_id" value="{{row.payer_id}}">
+	  <input type="hidden" name="order_id" value="{{row.order_id}}">
+	  <input type="submit" value="{% trans "I accept this payment" %}">
+	</p>
+      </form>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<p class="legend"><em>{% trans "No incoming payments" %}</em></p>
+{% endif %}
+
+{% endif %}
+{% endblock %}

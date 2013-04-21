@@ -1,0 +1,71 @@
+{% extends "base_has_profile.html" %}
+{% load i18n %}
+{% load myfilters %}
+{% block page_id %}transaction-commit-page{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript" src="/static/common.js"></script>
+<script type="text/javascript" src="/static/css.js"></script>
+<script type="text/javascript" src="/static/standardista-table-sorting.js"></script>
+<script type="text/javascript">
+  <!--
+  function focusFirstReceiptLink() {
+    first_receipt_link = document.getElementById('first-receipt-link')
+    if (first_receipt_link) first_receipt_link.focus();
+  }
+  addEvent(window, 'load', focusFirstReceiptLink);
+  //-->
+</script>
+{% endblock %}
+
+{% block help_context %}#transaction-commit{% endblock %}
+{% block breadcrumbs %}
+<a href="/{{user.trader_id}}/shopping-list/">{{user.username|escape}}</a> &middot;
+<span>{% trans "Transaction commit" %}</span>
+{% endblock %}
+
+{% block main %}
+<h2 class="noprint verbose">{% trans "Transaction commit" %}</h2>
+<p class="legend noprint verbose">
+  {% blocktrans %}
+  Your transaction has been recorded in our database!  To finalize the
+  transaction, make sure the receipt that follows
+  <em>precisely represents the operation you are performing</em>.
+  Click "I confirm" if everything is committed correctly, or try to
+  reverse the transaction if something has gone wrong.
+  {% endblocktrans %}
+</p>
+<h3>{% trans "Receipt" %}</h3>
+<p class="legend printonly">{% blocktrans with profile.full_name|escape as issuer and user|local_now_ts as ts %}Issued by {{issuer}} at {{ts}}{% endblocktrans %}</p>
+{% if items %}
+<form method="post" action="">{% csrf_token %}
+<table cellspacing="0" width="66%" class="fixed sortable">
+  <col width="30%"><col width="50%"><col width="20%">
+  <thead>
+    <tr class="verbose">
+      <th title="{% trans "Customer's trader ID" %}">{% trans "Customer" %}</th>
+      <th title="{% trans "A short description of your product" %}">{% trans "Product" %}</th>
+      <th title="{% trans "A negative number indicates that the amount your customer owns has been decreased (a withdrawal). A positive number indicates that the amount your customer owns has been increased (a deposit)." %}">{% trans "Amount" %}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for row in items %}
+    <tr>
+      <td scope="row"><a{% if forloop.first %} id="first-receipt-link"{% endif %} href="/{{user.trader_id}}/traders/{{row.product.recipient_id}}/" title="{% trans "Trader" %} {{row.product.recipient_id|traderid}}">&laquo;{% if user.trader_id == row.product.recipient_id %}{% trans "YOURSELF" %}{% else %}{{row.product.recipient_id|traderid}}{% endif %}&raquo;</a></td>
+      <td scope="row"><a href="/{{user.trader_id}}/traders/{{row.product.issuer_id}}/products/{{row.product.promise_id}}/?backref=/{{user.trader_id}}/transaction-commit/" title="{{row.product.summary|truncatechars:130|escape}}">{{row.product|product|escape}}</a></td>
+      <td><abbr dir="ltr" title="{{row.amount}}">{% truncate_amount row.amount row.product.epsilon %}</abbr></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<p class="submit noprint">
+  {% for trx in receipts %}<input type="hidden" name="handoff-{{trx.handoff_id}}" value="confirmed">{% endfor %}
+  <input type="submit" value="{% trans "I confirm" %}">
+  {% if backref %}<a class="noprint" href="{{backref|escape}}" title="{% trans "Commit one more transaction." %}">&gt;</a>{% endif %}
+</p>
+<div id="receipt-signature" class="printonly">&nbsp;</div>
+</form>
+{% else %}
+<p class="legend"><em>{% trans "No items" %}</em></p>
+{% endif %}
+{% endblock %}

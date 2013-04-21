@@ -1,0 +1,34 @@
+{% extends "base_has_profile.html" %}
+{% load i18n %}
+{% block page_id %}change-username-page{% endblock %}
+
+{% block help_context %}#change-username{% endblock %}
+{% block breadcrumbs %}
+<a href="/{{user.trader_id}}/shopping-list/">{{user.username|escape}}</a> &middot;
+<a href="/{{user.trader_id}}/traders/{{user.trader_id}}/">{% trans "My business card" %}</a> &middot;
+<span>{% trans "Change username" %}</span>
+{% endblock %}
+
+{% block main %}
+<h2>{% trans "Change your username" %}</h2>
+<form method="post" action="">{% csrf_token %}
+  <p class="legend">
+    {% blocktrans %}
+    <strong>Please, be extremely careful:</strong> If you forget or
+    mistype your new username, you may end up being unable to access
+    your account.
+    {% endblocktrans %}
+  </p>
+  {% if form.wrong_password %}<ul class="errorlist"><li>{% trans "ERROR: The password that you supplied is incorrect." %}</li></ul>{% endif %}
+  {% if form.username_taken %}<ul class="errorlist"><li>{% trans "ERROR: The username you requested is already taken." %}</li></ul>{% endif %}
+  {% for error in form.non_field_errors %}<ul class="errorlist"><li>{{error}}</li></ul>{% endfor %}
+
+  {{form.username.errors}}
+  <p><label for="id_username">{{form.username.label}}:</label> {{form.username}} {{form.username.help_text}}</p>
+  
+  {{form.password.errors}}
+  <p><label for="id_password">{{form.password.label}}:</label> <input id="id_password" type="password" name="password" /> {{form.password.help_text}}</p>
+
+  <p class="submit"><input type="submit" value="{% trans "Submit" %}"></p>
+</form>
+{% endblock %}

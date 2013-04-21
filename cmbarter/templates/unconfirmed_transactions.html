@@ -1,0 +1,77 @@
+{% extends "base_has_profile.html" %}
+{% load i18n %}
+{% load myfilters %}
+{% block page_id %}unconfirmed-transactions-page{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript" src="/static/common.js"></script>
+<script type="text/javascript">
+  <!--
+  function focusBackToPaymentsLink() {
+    back_to_payments_link = document.getElementById('back-to-payments-link')
+    if (back_to_payments_link) back_to_payments_link.focus();
+  }
+  addEvent(window, 'load', focusBackToPaymentsLink);
+  //-->
+</script>
+{% endblock %}
+
+{% block help_context %}#unconfirmed-transactions{% endblock %}
+{% block breadcrumbs %}
+<a href="/{{user.trader_id}}/shopping-list/">{{user.username|escape}}</a> &middot;
+<span>{% trans "Transaction notices" %}</span>
+{% endblock %}
+
+{% block main %}
+<h2>{% trans "Transaction notices" %}{% if pending_payments_link %} &nbsp;<a id="back-to-payments-link" href="{{pending_payments_link|escape}}">{% trans "back to incoming payments" %}&nbsp;&raquo;</a>{% endif %}</h2>
+{% if transactions %}
+<form method="post" action="">{% csrf_token %}
+<table cellspacing="0" width="100%" class="fixed">
+  <col width="82%"><col width="18%">
+  <thead>
+    <tr class="verbose">
+      <th title="{% trans "An explanation of the transaction" %}">{% trans "Description" %}</th>
+      <th id="confirm" title="{% trans "You need to confirm that the transaction have been rightfully committed." %}">{% trans "Confirmation" %}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for row in transactions %}
+    <tr>
+      <td scope="row">
+        {% if row.amount < 0.0 %}<img src="/static/red_minus.gif" alt="(-)">{% else %}<img src="/static/green_plus.gif" alt="(+)">{% endif %}
+	<div>
+	  <p><strong>{% dealts row.ts user.time_zone %}</strong></p>
+
+	  {% if row.amount < 0.0 %}
+	  <p>
+	    {% if row.is_a_payment %}
+	    <a class="trx-descr" href="/{{user.trader_id}}/orders/{{row.payment_order_id}}/">{% trans "Completed payment order" %}:</a> {% if row.payment_reason %}"<i>{{row.payment_reason|escape}}</i>"{% endif %}
+	    {% else %}
+	    <a class="trx-descr" href="/{{user.trader_id}}/partners/{{row.issuer_id}}/">{% blocktrans with row.name|escape as trader %}A withdrawal from your account at &quot;{{trader}}&quot;{% endblocktrans %}:</a> {% if row.reason %}"<i>{{row.reason|escape}}</i>"{% endif %}
+	    {% endif %}
+	  </p>
+	  <p>{% blocktrans with row.amount|absvalue as amount_info and row|transaction_truncate_abs_amount as amount and row|product|escape as product and row.name|escape as trader and row.summary|truncatechars:130|escape as product_info and row.comment|truncatechars:130|escape as trader_info and row.issuer_id|traderid as trader_id and user.trader_id as user_id and row.promise_id as product_id %}<abbr title="{{amount_info}}">{{amount}}</abbr> of &quot;<a href="/{{user_id}}/traders/{{trader_id}}/products/{{product_id}}/" title="{{product_info}}">{{product}}</a>&quot; have been withdrawn from your account at &quot;<a href="/{{user_id}}/partners/{{trader_id}}/" title="{{trader_info}} (Trader {{trader_id}})">{{trader}}</a>&quot;.{% endblocktrans %}</p>
+
+	  {% else %}
+	  <p>
+	    {% if row.is_a_payment %}
+	    <a class="trx-descr" href="/{{user.trader_id}}/traders/{{row.payment_payer_id}}/">{% blocktrans with row.payment_payer_name|escape as payer %}Accepted payment from &quot;{{payer}}&quot;{% endblocktrans %}:</a> {% if row.payment_reason %}"<i>{{row.payment_reason|escape}}</i>"{% endif %}
+	    {% else %}
+	    <a class="trx-descr" href="/{{user.trader_id}}/partners/{{row.issuer_id}}/">{% blocktrans with row.name|escape as trader %}A deposit to your account at &quot;{{trader}}&quot;{% endblocktrans %}:</a> {% if row.reason %}"<i>{{row.reason|escape}}</i>"{% endif %}
+	    {% endif %}
+	  </p>
+	  <p>{% blocktrans with row.amount|absvalue as amount_info and row|transaction_truncate_abs_amount as amount and row|product|escape as product and row.name|escape as trader and row.summary|truncatechars:130|escape as product_info and row.comment|truncatechars:130|escape as trader_info and row.issuer_id|traderid as trader_id and user.trader_id as user_id and row.promise_id as product_id %}<abbr title="{{amount_info}}">{{amount}}</abbr> of &quot;<a href="/{{user_id}}/traders/{{trader_id}}/products/{{product_id}}/" title="{{product_info}}">{{product}}</a>&quot; have been deposited to your account at &quot;<a href="/{{user_id}}/partners/{{trader_id}}/" title="{{trader_info}} (Trader {{trader_id}})">{{trader}}</a>&quot;.{% endblocktrans %}</p>
+
+	  {% endif %}
+	</div>
+      </td>
+      <td><input type="checkbox" name="trx-{{row.id}}"></td>
+    {% endfor %}
+  </tbody>
+</table>
+<p class="submit noprint"><input type="submit" value="{% trans "Submit" %}"></p>
+</form>
+{% else %}
+<p class="legend"><em>{% trans "No transactions" %}</em></p>
+{% endif %}
+{% endblock %}

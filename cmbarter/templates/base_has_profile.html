@@ -1,0 +1,40 @@
+{% extends "base_generic.html" %}
+{% load i18n %}
+{% load myfilters %}
+
+{% block logoutbutton %}
+<form method="post" action="/{{user.trader_id}}/logout/">{% csrf_token %}
+  <div><input type="submit" value="{% trans "Logout" %}" tabindex="1" accesskey="7"></div>
+</form>
+{% endblock %}
+
+{% block hotmenu %}
+<ul>
+  {% if user.unconfirmed_receipt_count %}<li><a href="/{{user.trader_id}}/receipt/" tabindex="1"><strong>{% trans "New receipt" %}</strong></a></li>{% endif %}
+  {% if user.unconfirmed_deal_count %}<li><a href="/{{user.trader_id}}/completed-deals/" tabindex="1">{% trans "Completed deals" %} <strong>({{user.unconfirmed_deal_count}})</strong></a></li>{% endif %}
+  {% if user.unconfirmed_transaction_count %}<li><a href="/{{user.trader_id}}/unconfirmed-transactions/" tabindex="1">{% trans "Transaction notices" %} <strong>({{user.unconfirmed_transaction_count}})</strong></a></li>{% endif %}
+  {% if not user.use_simplified_ui %}<li><a href="/{{user.trader_id}}/find-customer/" accesskey="6" tabindex="1">{% trans "Find customer" %}</a></li>{% endif %}
+  <li{% if user.unconfirmed_receipt_count or user.unconfirmed_deal_count or user.unconfirmed_transaction_count %} class="verbose"{% endif %}><a href="{{settings.CMBARTER_DOC_ROOT_URL}}/{{LANGUAGE_CODE}}/{% block help_context %}{% endblock %}" target="_blank" tabindex="1"><strong>{% trans "Help!" %}</strong></a></li>
+</ul>
+{% endblock %}
+
+{% block navigation %}
+<h2>{% trans "Navigation" %}</h2>
+<ul>
+  <li><a href="/{{user.trader_id}}/shopping-list/" accesskey="1">{% trans "Shopping list <!--menu-->" %}</a></li>
+  <li><a href="/{{user.trader_id}}/partners/" accesskey="2">{% trans "My partners <!--menu-->" %}</a></li>
+  <li><a href="/{{user.trader_id}}/orders/" accesskey="3">{% trans "My payment orders <!--menu-->" %}</a></li>
+  <li><a href="/{{user.trader_id}}/my-deals/">{% trans "My deals <!--menu-->" %}</a></li>
+  <li><a href="/{{user.trader_id}}/traders/{{user.trader_id}}/" accesskey="4">{% trans "My business card <!--menu-->" %}</a></li>
+</ul>
+{% if not user.use_simplified_ui %}
+<h2>{% trans "Products" %}</h2>
+<ul>
+  <li><a href="/{{user.trader_id}}/pricelist/">{% trans "My pricelist <!--menu-->" %}</a></li>
+  <li><a href="/{{user.trader_id}}/traders/{{user.trader_id}}/deposits/" accesskey="5">{% trans "My items for sale <!--menu-->" %}</a></li>
+  {% if not settings.CMBARTER_HOST_IS_SPAM_LISTED %}<li><a href="/{{user.trader_id}}/email-customers/">{% trans "Email my customers <!--menu-->" %}</a></li>{% endif %}
+</ul>
+{% endif %}
+{% endblock %}
+
+{% block footer %}<em>{% blocktrans with user|next_turn_local_ts as ts %}The next trading turn will be launched at {{ts}}{% endblocktrans %}</em>{% endblock %}

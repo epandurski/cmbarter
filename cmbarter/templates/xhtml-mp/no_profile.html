@@ -1,0 +1,5 @@
+{% extends "xhtml-mp/base_generic.html" %}{% load i18n %}
+
+{% block main %}
+<p>{% blocktrans with settings.CMBARTER_HOST as host %}"Please go to {{host}}/login/ and log in there." {%  endblocktrans %}</p>
+{% endblock %}

@@ -1,0 +1,91 @@
+.. You can find this document in PDF-format at
+   ./doc/cmb-localization.pdf
+
+=================================================================
+Circular Multilateral Barter Localization Guide
+=================================================================
+:Description: Localization guide for the CMB server-side software
+:Date: 2012-12-07
+:Author: Evgeni Pandurksi
+:Contact: epandurski@gmail.com
+:Copyright: This document has been placed in the public domain.
+
+.. contents::
+   :depth: 2
+
+
+
+1. Install CMB.
+
+2. Make sure you have *gettext* and *python-docutils* software
+   packages installed. For example [*]_::
+   
+     # apt-get install gettext
+     ..
+
+     # apt-get install python-docutils
+     ..
+
+3. Go to CMB's django directory::
+   
+     # cd /usr/local/share/cmbarter/cmbarter/
+
+   Further in this manual "es" is used as an example language
+   code. **You should replace "es" with your language code
+   everywhere!**
+
+4. Generate a *.po* file for your language::
+
+     # django-admin makemessages -l es
+
+   The *.po* file will be created at
+   *./locale/YOUR_LANGUAGE_CODE/LC_MESSAGES/*
+
+5. Translate all the messages in the *.po* file. You may use
+   *Gtranslator* or *KBabel* to do this.
+
+6. Compile your *.po* file to a message catalog (*.mo*) file::
+
+     # django-admin compilemessages -l es
+
+7. Make a copy of the *../doc/en/* directory to
+   *../doc/YOUR_LANGUAGE_CODE/*.
+
+8. Translate the *../doc/YOUR_LANGUAGE_CODE/rst/cmb-manual.txt* file
+   in your language. You should pay attention not to violate the
+   *reStructuredText* formatting rules!
+
+9. Use the *rst2html* command line tool to create a HTML (with server
+   side includes) version of the manual::
+
+     # cd ../doc/es/
+     # rst2html --stylesheet=../css/index.css rst/cmb-manual.txt --template=\
+     ../css/template.txt index.shtml
+
+10. Add your language to the "LANGUAGES" list in the
+    */usr/local/share/cmbarter/cmbarter/settings.py* configuration file.
+
+11. Run your CMB application server with the newly created translation.
+
+12. Set the user interface to your language, sign up, and see if
+    everything is translated correctly. If you find some problems, go
+    back and improve your translation.
+
+13. Reproduce the usage scenario described in the examples at the
+    manual. Take the same screen-shots in your language. Use the
+    *GIMP* files in the *gimpfiles* directory to create similar to the
+    original diagrams. Copy the translated diagrams at
+    *doc/YOUR_LANGUAGE_CODE/diagrams/*. Make sure the names of the
+    files remain the same.
+
+14. Copy the "circular trade" diagram from
+    *doc/YOUR_LANGUAGE_CODE/diagrams/circular-trade.jpg* to
+    *static/circular-trade-YOUR_LANGUAGE_CODE.jpg*.
+
+15. **Do not forget to contribute your translation back to the CMB
+    project!**
+
+
+.. [*] The example given here is for *Debian*. If you use another
+   operating system, the exact commands that do the work might be
+   different.

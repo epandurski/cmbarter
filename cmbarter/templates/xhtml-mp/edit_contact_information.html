@@ -1,0 +1,19 @@
+{% extends "xhtml-mp/base_has_profile.html" %}{% load i18n %}{% load myfilters %}
+
+{% block page_css %}
+#id_full_name, #id_summary, #id_email { -wap-input-required: true; }
+#id_full_name { -wap-accesskey:0; }
+{% endblock %}
+
+{% block breadcrumbs %}
+<a href="/mobile/{{secret}}/shopping-list/">{{user.username|escape}}</a> &gt;
+<a href="/mobile/{{secret}}/traders/{{user.trader_id}}/">{% trans "Trader" %} {{user.trader_id|traderid}}</a>
+{% endblock %}
+
+{% block main %}
+<h3>{% trans "Edit your contact information" %}</h3>
+<form method="post" action="/mobile/{{secret}}/edit-profile/">
+{{form.as_p}}
+<p class="submit"><input type="submit" value="{% trans "Submit" %}" /></p>
+</form>
+{% endblock %}

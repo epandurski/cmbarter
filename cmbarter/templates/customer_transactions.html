@@ -1,0 +1,47 @@
+{% extends "base_trader.html" %}
+{% load i18n %}
+{% load myfilters %}
+{% block page_id %}customer-transactions-page{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript" src="/static/common.js"></script>
+<script type="text/javascript" src="/static/css.js"></script>
+<script type="text/javascript" src="/static/standardista-table-sorting.js"></script>
+{% endblock %}
+
+{% block help_context %}#customer-transactions{% endblock %}
+{% block breadcrumbs %}
+<a href="/{{user.trader_id}}/shopping-list/">{{user.username|escape}}</a> &middot;
+{% if user.trader_id != trader.trader_id %}
+<a href="/{{user.trader_id}}/traders/">{% trans "Find trader" %}</a> &middot;
+<a href="/{{user.trader_id}}/traders/{{trader.trader_id}}/">{{trader.trader_id|traderid}}</a> &middot;
+{% endif %}
+<span>{% trans "Recent transactions" %}</span>
+{% endblock %}
+
+{% block trader_main %}
+<h3>{% trans "Recent transactions with this trader" %}</h3>
+{% if transactions %}
+<table cellspacing="0" width="100%" class="fixed sortable">
+  <col width="35%"><col width="45%"><col width="20%">
+  <thead>
+    <tr class="verbose">
+      <th title="{% trans "Date and time of commit" %}">{% trans "Timestamp" %}</th>
+      <th title="{% trans "A short description of your product" %}">{% trans "Product" %}</th>
+      <th title="{% trans "A negative number indicates that the amount your customer owns has been decreased (a withdrawal). A positive number indicates that the amount your customer owns has been increased (a deposit)." %}">{% trans "Amount" %}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for row in transactions %}
+    <tr>
+      <td scope="row"{% if row.reason %} title="{{row.reason|escape}}"{% endif %}><strong>{% dealts row.ts user.time_zone %}</strong></td>
+      <td><a href="/{{user.trader_id}}/traders/{{row.issuer_id}}/products/{{row.promise_id}}/?backref=/{{user.trader_id}}/traders/{{trader.trader_id}}/transactions/" title="{{row.summary|truncatechars:130|escape}}">{{row|product|escape}}</a></td>
+      <td><abbr dir="ltr" title="{{row.amount}}">{% truncate_amount row.amount row.epsilon %}</abbr></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p class="legend"><em>{% trans "No transactions" %}</em></p>
+{% endif %}
+{% endblock %}

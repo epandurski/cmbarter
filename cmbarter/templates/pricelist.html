@@ -1,0 +1,86 @@
+{% extends "base_has_profile.html" %}
+{% load i18n %}
+{% load myfilters %}
+{% block page_id %}pricelist-page{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript" src="/static/common.js"></script>
+<script type="text/javascript" src="/static/css.js"></script>
+<script type="text/javascript" src="/static/live-forms.js"></script>
+<script type="text/javascript" src="/static/standardista-table-sorting.js"></script>
+{% endblock %}
+
+{% block help_context %}#my-pricelist{% endblock %}
+{% block breadcrumbs %}
+<a href="/{{user.trader_id}}/shopping-list/">{{user.username|escape}}</a> &middot;
+<span>{% trans "My pricelist" %}</span>
+{% endblock %}
+
+{% block main %}
+<h2>{% trans "My pricelist" %}</h2>
+{% if not offers %}
+<p class="legend">
+  {% blocktrans %}
+  Your pricelist is the place where you advertise the products that
+  you offer, together with their respective prices.
+  {% endblocktrans %}
+</p>
+<p>
+  {% blocktrans %}
+  <strong>Important notice: </strong>In your pricelist, you should
+  list only products that are suitable for use as currency.  That is:
+  people have to be willing to buy your product, or be paid with it,
+  over and over.  "My old laptop", for example, isn't a good product,
+  because it represents a single indivisible item.  "Music lessons",
+  on the other hand, can be an excellent product, as long as there is
+  at least one person willing to buy it, or be paid with it. If you do
+  not offer products suitable for use as currency &mdash; leave your
+  pricelist empty.
+  {% endblocktrans %}
+</p>
+<p class="linklist"><a href="/{{user.trader_id}}/pricelist/new/"><b>{% trans "ADD PRODUCT" %} &raquo;</b></a></p>
+{% else %}
+<form method="post" action="" class="highlight-changed-fields">{% csrf_token %}
+<table cellspacing="0" width="100%" class="fixed sortable">
+  <col width="40%"><col width="30%"><col width="30%">
+  <thead>
+    <tr class="verbose">
+      <th id="product" title="{% trans "A short description of your product" %}" class="removethisprefixto_sort-onload">{% trans "Product" %}</th>
+      <th abbr="{% trans "Amount" %}" title="{% trans "This is the total amount of product that is deposited for sale. It includes all your items, plus everything owned by your customers that is not delivered to them yet. Make sure you are able to actually deliver this entire amount, or otherwise you are putting your reputation at risk." %}">{% trans "Available amount" %}</th>
+      <th abbr="{% trans "Price" %}" title="{% trans "Normally, this should be the market price of your product." %}">{% trans "Price per unit" %}</th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+      <td colspan="3" headers="product"><a href="/{{user.trader_id}}/pricelist/new/"><b>{% trans "ADD NEW PRODUCT" %} &raquo;</b></a></td>
+    </tr>
+  </tfoot>
+  <tbody>
+    {% for row in offers %}
+    <tr>
+      <td scope="row"><a href="/{{user.trader_id}}/traders/{{user.trader_id}}/products/{{row.promise_id}}/" title="{{row.summary|truncatechars:130|escape}}">{{row|product|escape}}</a></td>
+      <td><abbr dir="ltr" title="{{row.amount}}">{% truncate_amount row.amount row.epsilon %}</abbr></td>
+      <td>
+	<input type="hidden" name="old-price-{{row.promise_id}}" value="{{row.price|default:""}}">
+	<input type="text" name="price-{{row.promise_id}}" value="{{row.price|default:""}}" size="10">{% if not row.price%}<span class="noprint" title="{% trans "The price is missing." %}">*</span>{% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<p class="submit noprint">
+  <input type="submit" value="{% trans "Submit changes" %}">
+  <input type="reset" value="{% trans "Discard changes" %}">
+</p>
+<p class="remark verbose">
+  {% blocktrans %}
+  <em>You are committing to having these amounts of these items
+  available.</em>  Click on the name of your product to see its list
+  of deposited items, or to remove a product with no deposited items
+  left.  Visit "My items for sale" link on the right to register your
+  spare goods for sale.
+  {% endblocktrans %}
+</p>
+</form>
+{% endif %}
+{% endblock %}

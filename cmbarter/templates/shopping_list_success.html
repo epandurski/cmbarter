@@ -1,0 +1,23 @@
+{% extends "base_has_profile.html" %}
+{% load i18n %}
+{% block page_id %}shopping-list-success-page{% endblock %}
+
+{% block help_context %}#my-shopping-list{% endblock %}
+{% block breadcrumbs %}
+<a href="/{{user.trader_id}}/shopping-list/">{{user.username|escape}}</a>
+{% endblock %}
+
+{% block main %}
+<h2>{% trans "Shopping list" %}</h2>
+<p class="legend">{% trans "Your shopping list has been updated." %}</p>
+{% if errors %}
+<p>
+  <strong>{% trans "Warning:" %} </strong> 
+  {% blocktrans count errors as count %}
+    One of the fields contained an invalid value.
+  {% plural %}
+    {{count}} of the fields contained invalid values.
+  {% endblocktrans %}
+</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "xhtml-mp/base_has_profile.html" %}{% load i18n %}
+
+{% block page_css %}
+#id_id { -wap-input-format: "NNNNNNNNN"; -wap-input-required: true; }
+{% endblock %}
+
+{% block breadcrumbs %}
+<a href="/mobile/{{secret}}/shopping-list/">{{user.username|escape}}</a>
+{% endblock %}
+
+{% block main %}
+<h3>{% trans "Find customer" %}</h3>
+<form method="post" action="/mobile/{{secret}}/find-customer/">
+{% if form.wrong_trader_id %}<ul class="errorlist"><li>{% trans "ERROR: Trader not found." %}</li></ul>{% endif %}
+{{form.id.errors}}<p><label for="id_id" style="-wap-accesskey:0">{{form.id.label}}:</label> {{form.id}}</p>
+<p class="submit"><input type="submit" value="{% trans "Submit" %}" /></p>
+</form>
+{% endblock %}

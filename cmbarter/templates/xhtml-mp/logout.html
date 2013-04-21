@@ -1,0 +1,12 @@
+{% extends "xhtml-mp/base_has_profile.html" %}{% load i18n %}
+
+{% block breadcrumbs %}
+<a href="/mobile/{{secret}}/shopping-list/">{{user.username|escape}}</a>
+{% endblock %}
+
+{% block main %}
+<h3>{% trans "Logout" %}</h3>
+<form method="post" action="/mobile/{{secret}}/logout/">
+<p class="submit"><input type="submit" value="{% trans "OK" %}" style="-wap-accesskey:0" /></p>
+</form>
+{% endblock %}

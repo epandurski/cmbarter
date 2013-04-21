@@ -1,0 +1,14 @@
+{% extends "xhtml-mp/base_has_profile.html" %}{% load i18n %}{% load myfilters %}
+
+{% block breadcrumbs %}
+<a href="/mobile/{{secret}}/shopping-list/">{{user.username|escape}}</a> &gt;
+<a href="/mobile/{{secret}}/partners/">{% trans "Partners" %}</a>
+{% endblock %}
+
+{% block main %}
+<h3>{{trust.name|escape}}</h3>
+{% if trust.comment %}<p>{{trust.comment|escape}}</p>{% endif %}
+<p><a href="/mobile/{{secret}}/traders/{{trust.issuer_id}}/" style="text-transform:uppercase;-wap-accesskey:0">{% trans "CONTACT" %}</a></p>
+{% if products %}<div class="itemlist">{% for row in products %}
+<div class="{% cycle 'dark' 'light' %}">{% if row.is_chosen %}{{row.offer|product|escape}}{% else %}<a href="/mobile/{{secret}}/traders/{{trust.issuer_id}}/products/{{row.offer.promise_id}}/">{{row.offer|product|escape}}</a>{% endif %}</div>{% endfor %}</div>{% endif %}
+{% endblock %}

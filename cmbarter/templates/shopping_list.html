@@ -1,0 +1,89 @@
+{% extends "base_has_profile.html" %}
+{% load i18n %}
+{% load myfilters %}
+{% block page_id %}shopping-list-page{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript" src="/static/common.js"></script>
+<script type="text/javascript" src="/static/css.js"></script>
+<script type="text/javascript" src="/static/live-forms.js"></script>
+<script type="text/javascript" src="/static/standardista-table-sorting.js"></script>
+{% endblock %}
+
+{% block help_context %}#my-shopping-list{% endblock %}
+{% block breadcrumbs %}
+<span>{{user.username|escape}}</span>
+{% endblock %}
+
+{% block main %}
+<h2>{% trans "Shopping list" %}</h2>
+{% if not items %}
+<p class="legend">
+  {% blocktrans %}
+  Your shopping list is your place for listing things that other
+  people are offering which you are interested in having.  But more
+  importantly, it "contains" all the goods that you've already got.
+  So, whenever you want to buy something, sell something back, make a
+  payment, or receive a payment &mdash; your shopping list is the
+  place to go.
+  {% endblocktrans %}
+</p>
+<p class="linklist"><a href="/{{user.trader_id}}/partners/"><b>{% trans "ADD ITEM" %} &raquo;</b></a></p>
+{% else %}
+<form method="post" action="" class="highlight-changed-fields">{% csrf_token %}
+<table cellspacing="0" width="100%" class="fixed sortable">
+  <col width="20%"><col width="28%"><col width="13%"><col width="13%"><col width="13%"><col width="13%">
+  <thead>
+    <tr class="verbose">
+      <th id="partner" title="{% trans "The name of the partner of yours who is offering the product" %}" class="removethisprefixto_sort-onload">{% trans "Partner" %}</th>
+      <th id="product" title="{% trans "A short description of the product" %}" class="removethisprefixto_sort-onload">{% trans "Product" %}</th>
+      <th title="{% trans "The amount of product that you own" %}">{% trans "I have" %}</th>
+      <th title="{% trans "This is the amount of product that you actually need. TO BUY &ndash; say that you need more than you own. TO SELL BACK &ndash; say that you need less than you own." %}">{% trans "I need" %}</th>
+      <th title="{% trans "This is the current price per unit of product." %}" abbr="{% trans "Current price" %}">{% trans "Price" %}</th>
+      <th title="{% trans "This is the price per unit that is fine by you. Your bid will be considered only when the current price is compatible with your price. Deals are always carried out at current prices, not at your prices!" %}" abbr="{% trans "My price" %}">{% trans "My price" %}</th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+      <td colspan="6" headers="partner product"><a href="/{{user.trader_id}}/partners/" tabindex="2"><b>{% trans "ADD NEW ITEM" %} &raquo;</b></a></td>
+    </tr>
+  </tfoot>
+  <tbody>
+    {% for row in items %}
+    <tr>
+      <td scope="row"><a href="/{{user.trader_id}}/partners/{{row.issuer_id}}/" name="product-{{row.issuer_id}}-{{row.promise_id}}" title="{{row.comment|truncatechars:130|escape}} ({% trans "Trader" %} {{row.issuer_id|traderid}})">{{row.name|escape}}</a></td>
+      <td scope="row"><a href="/{{user.trader_id}}/traders/{{row.issuer_id}}/products/{{row.promise_id}}/" title="{{row.summary|truncatechars:130|escape}}" tabindex="2">{{row|product|escape}}</a></td>
+      <td>
+	<input type="hidden" name="have-{{row.issuer_id}}-{{row.promise_id}}" value="{% truncate_amount row.have_amount row.epsilon %}">
+        <abbr dir="ltr" title="{{row.have_amount}}">{% truncate_amount row.have_amount row.epsilon %}</abbr>
+      </td>
+      <td>
+	<input type="hidden" name="old-need-{{row.issuer_id}}-{{row.promise_id}}" value="{% truncate_amount row.need_amount row.epsilon %}">
+	<input type="text" name="need-{{row.issuer_id}}-{{row.promise_id}}" value="{% truncate_amount row.need_amount row.epsilon %}">
+      </td>
+      <td>{% if row.issuer_price %}{{row.issuer_price}}{% else %}{% trans "N/A"%}{% endif %}</td>
+      <td>
+	<input type="hidden" name="old-price-{{row.issuer_id}}-{{row.promise_id}}" value="{{row.recipient_price|default:""}}">
+	<input type="text" name="price-{{row.issuer_id}}-{{row.promise_id}}" value="{{row.recipient_price|default:""}}">{% bad_price row.need_amount row.have_amount row.epsilon row.issuer_price row.recipient_price %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<p class="submit">
+  <input type="submit" value="{% trans "Submit changes" %}">
+  <input type="reset" value="{% trans "Discard changes" %}">
+</p>
+<p class="remark">
+  {% blocktrans with settings.CMBARTER_DOC_ROOT_URL as manual and LANGUAGE_CODE as lang %}
+  <strong>Note: </strong>Make sure you have
+  read <a href="{{manual}}/{{lang}}/#my-shopping-list" target="_blank"> 
+  the manual</a> before making your bids!  To remove an item from your
+  shopping list &mdash; enter "REMOVE" in its "My price" field.  To
+  make a payment order, or accept an incoming payment &mdash; click on
+  the name of the product.
+  {% endblocktrans %}
+</p>
+</form>
+{% endif %}
+{% endblock %}

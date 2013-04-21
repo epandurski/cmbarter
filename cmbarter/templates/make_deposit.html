@@ -1,0 +1,57 @@
+{% extends "base_trader.html" %}
+{% load i18n %}
+{% load myfilters %}
+{% block page_id %}make-deposit-page{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript" src="/static/common.js"></script>
+<script type="text/javascript" src="/static/css.js"></script>
+<script type="text/javascript" src="/static/sort-options.js"></script>
+<script type="text/javascript">
+  <!--
+  function focusPromiseId() {
+    promise_id_field = document.getElementById('id_promise_id')
+    if (promise_id_field) promise_id_field.focus();
+  }
+  addEvent(window, 'load', focusPromiseId);
+  //-->
+</script>
+{% endblock %}
+
+{% block help_context %}#make-deposit{% endblock %}
+{% block breadcrumbs %}
+<a href="/{{user.trader_id}}/shopping-list/">{{user.username|escape}}</a> &middot;
+{% if user.trader_id != trader.trader_id %}
+<a href="/{{user.trader_id}}/traders/">{% trans "Find trader" %}</a> &middot;
+<a href="/{{user.trader_id}}/traders/{{trader.trader_id}}/">{{trader.trader_id|traderid}}</a> &middot;
+<a href="/{{user.trader_id}}/traders/{{trader.trader_id}}/deposits/">{% trans "Owned items" %}</a> &middot;
+{% else %}
+<a href="/{{user.trader_id}}/traders/{{trader.trader_id}}/deposits/">{% trans "My items for sale" %}</a> &middot;
+{% endif %}
+<span>{% trans "Make a deposit" %}</span>
+{% endblock %}
+
+{% block trader_main %}
+<h3>{% trans "Make a deposit" %}</h3>
+<form method="post" action="">{% csrf_token %}
+  {% if form.insufficient_amount %}<ul class="errorlist"><li>{% trans "ERROR: The amount you requested is not available." %}</li></ul>{% endif %}
+  {% for error in form.non_field_errors %}<ul class="errorlist"><li>{{error}}</li></ul>{% endfor %}
+
+  {{form.promise_id.errors}}
+  <p><label for="id_promise_id">{{form.promise_id.label}}:</label> {{form.promise_id}} {{form.promise_id.help_text}}</p>
+
+  {{form.amount.errors}}
+  <p><label for="id_amount">{{form.amount.label}}:</label> {{form.amount}} {{form.amount.help_text}}</p>
+
+  {% if user.trader_id != trader.trader_id %}
+  {{form.subtract.errors}}
+  <p><label for="id_subtract">{{form.subtract.label}}:</label> {{form.subtract}} {{form.subtract.help_text}}</p>
+  <p>&nbsp;</p>
+  {% endif %}
+
+  {{form.reason.errors}}
+  <p><label for="id_reason">{{form.reason.label}}:</label> {{form.reason}} {{form.reason.help_text}}</p>
+
+  <p class="submit"><input type="submit" value="{% trans "Submit" %}"></p>
+</form>
+{% endblock %}

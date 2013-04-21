@@ -1,0 +1,108 @@
+{% extends "base_signup.html" %}
+{% load i18n %}
+{% block page_id %}about-page{% endblock %}
+
+{% block breadcrumbs %}
+<span>{% trans "About" %}</span>
+{% endblock %}
+
+{% block main %}
+<h2>{% blocktrans with settings.CMBARTER_HOST as host %}What is "{{host}}"?{% endblocktrans %}</h2>
+<p>
+{% blocktrans with settings.CMBARTER_HOST as host %}
+  {{host}} is an open platform for
+  <strong>circular barter exchange</strong>.  It gives you the
+  concreteness of ordinary two-person barter along with the
+  flexibility of being able to give to and receive from two different
+  people.  That is: you supply goods <em>to customers who trust
+  you</em>, and you receive goods <em>from partners whom you
+  trust.</em>
+{% endblocktrans %}
+</p>
+<h3>{% trans "Why barter?" %}</h3>
+<p>
+{% blocktrans %}
+  Barter can facilitate trade even when cash flow is tight.  People
+  are interested in trading products (goods and services) for other
+  products even when they can not afford to buy the products with
+  money.
+{% endblocktrans %}
+</p>
+<h3>{% trans "Why circular?" %}</h3>
+<p>
+{% blocktrans %}
+  Conventional two-way barter can only happen when there is a
+  coincidence of wants: "A" wants what "B" has while at the same time
+  B wants what A has.  Circular barter allows for a lot more
+  flexibility: A wants what B has; B probably wants what someone else
+  has, and that person in turn probably wants what a fourth person
+  has.  Eventually it's likely that the chain will loop back on
+  itself, so that a circular trade can be arranged:
+{% endblocktrans %}
+</p>
+<p>
+  <img src="/static/circular-trade-{{LANGUAGE_CODE}}.jpg" alt="{% trans "An example circular trade" %}">
+</p>
+<p>
+{% blocktrans %}
+  In a circular trade, you know exactly what you're going to receive
+  and exactly what you're going to give.  The products are not
+  actually delivered at the same moment, but <em>the deal is made in
+  one instant</em>: the agreement to deliver one product, and the
+  agreement to receive another product.  Where, when, and how the
+  actual delivery of goods will happen depends on the concrete
+  arrangements you make with each one of your partners.  Remember, you
+  should choose people you trust as your partners!
+{% endblocktrans %}
+</p>
+<h3>{% trans "How does it work in practice?" %}</h3>
+<p>
+{% blocktrans with settings.CMBARTER_HOST as host %}
+  Although, in theory, with {{host}} the lack of money shouldn't
+  be a problem at all, in reality, you often need certain products
+  right away, so you can't wait for a circular deal to happen.  In
+  order to avoid needlessly spending your money, you should, in
+  advance, collect delivery promises for sufficient amounts of these
+  products that you are likely to need in the near future.  That
+  is: <em>you buy a bulk of products which you, later on, receive in
+  portions.</em>  If you do so, your partners will be committed to
+  provide you with the goods and services you need, at the moment you
+  need them.
+{% endblocktrans %}
+</p>
+<h3>{% blocktrans %}But there is more!{% endblocktrans %}</h3>
+<ul>
+  <li>
+  {% blocktrans %}
+  You can make payments to other users, transferring to them products
+  that you own.
+  {% endblocktrans %}
+  </li>
+  <li>
+  {% blocktrans %}
+  You can sell back products that you have bought if you do not need
+  them anymore.
+  {% endblocktrans %}
+  </li>
+  <li>
+  {% blocktrans %}
+  You can send messages to your customers, as well as receive messages
+  from your partners.
+  {% endblocktrans %}
+  </li>
+  <li>
+  {% blocktrans with settings.CMBARTER_HOST as host %}
+  You can use <strong>{{host}}/mobile/</strong>
+  from any Internet-connected cell phone.
+  {% endblocktrans %}
+  </li>
+  <li>
+  {% blocktrans %}
+  You can start a local exchange trading system.
+  {% endblocktrans %}
+  </li>
+</ul>
+<div class="noprint">
+  <a style="font-size: larger" href="{{settings.CMBARTER_DOC_ROOT_URL}}/{{LANGUAGE_CODE}}/#using-the-system" target="_blank" style="white-space:nowrap">{% trans "learn more" %} &raquo;</a>
+</div>
+{% endblock %}

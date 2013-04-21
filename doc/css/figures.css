@@ -1,0 +1,17 @@
+div.figure {
+  text-align: center;
+  width: 91%;
+  margin-left: 2%;
+  margin-right: 2%;
+  padding: 2%;
+  border: 2px solid #b9b9b9 }
+
+div.figure img {
+  width: 100% }
+
+div.legend {
+  text-align: left;
+  margin-top: 1em }
+
+div.legend li {
+  margin-bottom: 0.5em }

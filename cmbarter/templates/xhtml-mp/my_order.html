@@ -1,0 +1,32 @@
+{% extends "xhtml-mp/base_has_profile.html" %}{% load i18n %}{% load myfilters %}
+
+{% block breadcrumbs %}
+<a href="/mobile/{{secret}}/shopping-list/">{{user.username|escape}}</a> &gt;
+<a href="/mobile/{{secret}}/orders/">{% trans "Payment orders" %}</a>
+{% endblock %}
+
+{% block main %}
+<h3>#{{order.order_id}}</h3>
+<dl>
+<dt>{% trans "Product" %}:</dt><dd>{% if order.name %}{{order.name|escape}}{% else %}{{order.issuer_id|traderid}}{% endif %}&nbsp;&middot; {{order|product|escape}}</dd>
+<dt>{% trans "Recipient" %}:</dt><dd>{% if order.is_a_payment %}{% if order.payee_name %}<a href="/mobile/{{secret}}/partners/{{order.carrier}}/">{{order.payee_name|escape}}</a>{% else %}<a href="/mobile/{{secret}}/traders/{{order.carrier}}/">{{order.carrier}}</a>{% endif %}{% else %}<a href="/mobile/{{secret}}/trader-not-found/">{{order.carrier|escape}}</a>{% endif %}</dd>
+<dt>{% trans "Amount:" %}</dt><dd>{% truncate_amount order.amount order.epsilon %}</dd>
+{% if order.instructions %}<dt>{% trans "Comment" %}:</dt><dd>{{order.instructions|force_escape|linebreaks}}</dd>{% endif %}
+<dt>{% trans "Issued at:" %}</dt><dd>{% dealts order.insertion_ts user.time_zone %}</dd>
+<dt>{% trans "Status" %}:</dt>
+<dd>{% if order.execution_ts %}
+<img src="/static/mgreen_acc.gif" alt="(V)" width="16" height="16" /> {% if order.issuer_message %}{{order.issuer_message}}{% else %}{% trans "COMPLETED AT" %} {% dealts order.execution_ts user.time_zone %}{% endif %}
+{% else %}{% if order.issuer_message == None %}
+<img src="/static/mblue_excl.gif" alt="(!)" width="16" height="16" /> {% trans "PENDING" %}
+{% else %}
+<img src="/static/mred_rej.gif" alt="(X)" width="16" height="16" /> {% if order.issuer_message %}{{order.issuer_message}}{% else %}{% trans "FAILED" %}{% endif %}
+{% endif %}{% endif %}</dd>
+</dl>
+<form method="post" action="/mobile/{{secret}}/orders/{{order.order_id}}/">
+<p class="submit">
+{% if order.is_a_payment and order.issuer_message == None %}<input type="hidden" name="pending_payment" value="yes" />{% endif %}
+<input type="hidden" name="remove" value="yes" />
+<input type="submit" value="{% trans "Delete" %}" style="-wap-accesskey:0" />
+</p>
+</form>
+{% endblock %}

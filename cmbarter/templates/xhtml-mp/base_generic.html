@@ -1,0 +1,33 @@
+{% load i18n %}{% load myfilters %}{% get_current_language as LANGUAGE_CODE %}{% get_available_languages as LANGUAGES %}<?xml version="1.0" encoding="UTF-8"?>
+{% autoescape off %}
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>{{settings.CMBARTER_HOST}}</title>
+<style type="text/css">
+body {background-color:#FF9;padding:0;margin:0;line-height:1.1}
+a {color: #00F}
+.errorlist {color:#F00}
+.dark {background-color:#CCC}
+h3 {font-size:larger}
+h3, ol, ul, dd, p, div.dark, div.light {padding-top:0.2em;padding-bottom:0.2em;margin:0}
+img {vertical-align:bottom}
+label {display:block}
+input, select {max-width:95%}
+textarea {width:95%;height:3em}
+p.submit {margin-top:0.5em}
+dl, .itemlist {margin-top:0.5em;margin-bottom:0.5em}
+.ltr ol, .ltr ul {padding-left:2em}
+.rtl ol, .rtl ul {padding-right:2em}
+dt {font-weight:bold}
+.ltr dd {padding-left:1em}
+.rtl dd {padding-right:1em}
+#main {background-color:#FFF;border-top:thin solid #CCC;border-bottom:thin solid #CCC;padding-bottom:1em}
+{% block page_css %}{% endblock %}</style>
+</head>
+<body class="{% default_direction %}">
+<div><img src="/static/mlogo.gif" alt="" width="20" height="20" style="height:1.4em" />{% block breadcrumbs %}{% endblock %}</div>
+<div id="main">{% block main %}{% endblock %}</div>
+<div>{% block navigation %}{% endblock %}</div>
+</body>
+</html>
+{% endautoescape %}

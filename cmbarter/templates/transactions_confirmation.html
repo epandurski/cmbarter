@@ -1,0 +1,40 @@
+{% extends "base_has_profile.html" %}
+{% load i18n %}
+{% block page_id %}transaction-confirmation-page{% endblock %}
+
+{% block help_context %}#unconfirmed-transactions{% endblock %}
+{% block breadcrumbs %}
+<a href="/{{user.trader_id}}/shopping-list/">{{user.username|escape}}</a> &middot;
+<span>{% trans "Transaction notices" %}</span>
+{% endblock %}
+
+{% block main %}
+<h2>{% trans "Transaction notices" %}</h2>
+{% if count == 0 %}
+<p class="legend">{% trans "No transactions have been confirmed." %}</p>
+{% else %}
+<p class="legend">
+  {% blocktrans count count as count %}
+    {{count}} transaction has been confirmed.
+  {% plural %}
+    {{count}} transactions have been confirmed.
+  {% endblocktrans %}
+</p>
+<p>
+  <strong>{% trans "Important notice:" %}</strong>
+  {% blocktrans count count as count %}
+    Even though the confirmed transaction changed one of the <em>"I
+    have"</em>-amounts in your shopping list, the corresponding <em>"I
+    need"</em>-amount remained the same.  If for some reason this is
+    not what you want, you should go to your shopping list and correct
+    the amount.
+  {% plural %}
+    Even though the confirmed transactions changed some of the <em>"I
+    have"</em>-amounts in your shopping list, the corresponding <em>"I
+    need"</em>-amounts remained the same.  If for some reason this is
+    not what you want, you should go to your shopping list and correct
+    the amounts.
+  {% endblocktrans %}
+</p>
+{% endif %}
+{% endblock %}

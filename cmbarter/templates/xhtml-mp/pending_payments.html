@@ -1,0 +1,40 @@
+{% extends "xhtml-mp/base_has_profile.html" %}{% load i18n %}{% load myfilters %}
+
+{% block breadcrumbs %}
+<a href="/mobile/{{secret}}/shopping-list/">{{user.username|escape}}</a> &gt;
+{% trans "My partners" %} &gt;
+{{trust.name|escape}} &gt;
+<a href="/mobile/{{secret}}/traders/{{product.issuer_id}}/products/{{product.promise_id}}/">{{product|product|escape}}</a>
+{% endblock %}
+
+{% block main %}
+<h3>{% trans "Incoming payments" %}</h3>
+{% if error_code != 0 %}
+<p><strong>{% trans "ERROR:" %}</strong> 
+{% if error_code == 1 %}{% trans "The payment amount is not available." %}
+{% else %}{% if error_code == 2 %}{% trans "The payment has been canceled." %}
+{% else %}{% if error_code == 3 %}{% trans "Payments have been temporarily disabled." %}
+{% else %}{% trans "Unidentified problem have occurred." %}{% endif %}{% endif %}{% endif %}</p>
+<p><a href="/mobile/{{secret}}/traders/{{product.issuer_id}}/products/{{product.promise_id}}/payments/?method=GET" style="-wap-accesskey:0;text-transform:uppercase">{% trans "back" %}</a></p>
+
+{% else %}
+<p><a href="/mobile/{{secret}}/traders/{{product.issuer_id}}/products/{{product.promise_id}}/payments/?method=GET" style="-wap-accesskey:0;text-transform:uppercase">{% trans "refresh" %}</a></p>
+{% if payments %}
+<div class="itemlist">{% for row in payments %}
+<div class="{% cycle 'dark' 'light' %}">
+<p><strong>{% truncate_amount row.amount product.epsilon %} {% trans "from" %} &quot;{{row.payer_name|escape}}&quot;</strong></p>
+<form method="post" action="/mobile/{{secret}}/traders/{{product.issuer_id}}/products/{{product.promise_id}}/payments/">
+{% if row.reason %}<p>{{row.reason|escape}}</p>{% endif %}
+<p class="submit">
+<input type="hidden" name="payer_id" value="{{row.payer_id}}" />
+<input type="hidden" name="order_id" value="{{row.order_id}}" />
+<input type="submit" value="{% trans "I accept" %}"{% if forloop.first %} style="-wap-accesskey:9"{% endif %} />
+</p>
+</form>
+</div>
+{% endfor %}</div>
+
+{% else %}
+<p><em>{% trans "No incoming payments" %}</em></p>
+{% endif %}{% endif %}
+{% endblock %}

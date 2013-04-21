@@ -1,0 +1,18 @@
+{% extends "base_has_profile.html" %}
+{% load i18n %}
+{% block page_id %}edit-contact-information-page{% endblock %}
+
+{% block help_context %}#my-business-card{% endblock %}
+{% block breadcrumbs %}
+<a href="/{{user.trader_id}}/shopping-list/">{{user.username|escape}}</a> &middot;
+<a href="/{{user.trader_id}}/traders/{{user.trader_id}}/">{% trans "My business card" %}</a> &middot;
+<span>{% trans "Edit contact information" %}</span>
+{% endblock %}
+
+{% block main %}
+<h2>{% trans "Edit your contact information" %}</h2>
+<form method="post" action="">{% csrf_token %}
+  {{form.as_p}}
+  <p class="submit"><input type="submit" value="{% trans "Submit" %}"></p>
+</form>
+{% endblock %}

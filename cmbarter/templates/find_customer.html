@@ -1,0 +1,31 @@
+{% extends "base_has_profile.html" %}
+{% load i18n %}
+{% block page_id %}find-customer-page{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript" src="/static/common.js"></script>
+<script type="text/javascript">
+  <!--
+  function focusTraderId() {
+    trader_id_field = document.getElementById('id_id')
+    if (trader_id_field) trader_id_field.focus();
+  }
+  addEvent(window, 'load', focusTraderId);
+  //-->
+</script>
+{% endblock %}
+
+{% block help_context %}#find-customer{% endblock %}
+{% block breadcrumbs %}
+<a href="/{{user.trader_id}}/shopping-list/">{{user.username|escape}}</a> &middot;
+<span>{% trans "Find customer" %}</span>
+{% endblock %}
+
+{% block main %}
+<h2>{% trans "Find customer" %}</h2>
+<form method="post" action="">{% csrf_token %}
+  {% if form.wrong_trader_id %}<ul class="errorlist"><li>{% trans "ERROR: Trader not found." %}</li></ul>{% endif %}
+  {{form.as_p}}
+  <p class="submit"><input type="submit" value="{% trans "Submit" %}"></p>
+</form>
+{% endblock %}

@@ -1,0 +1,96 @@
+{% extends "base_has_profile.html" %}
+{% load i18n %}
+{% load myfilters %}
+{% block page_id %}create-order-page{% endblock %}
+
+{% block javascript %}
+{% if partners|length > 1 %}
+<script type="text/javascript" src="/static/common.js"></script>
+<script type="text/javascript" src="/static/css.js"></script>
+<script type="text/javascript">
+  <!--
+  selectHTML = '<select id="id_partner" name="partner"><option value="" selected="selected">{% trans "Choose a recipient..." %}</option>{% for t in partners %}{% if t.issuer_id != trust.issuer_id %}<option value="{{t.issuer_id|traderid}}">{{t.name|force_escape|escapejs|safe}}</option>{% endif %}{% endfor %}</select>';
+
+  function hide(e) {
+    var nodes=e.childNodes;
+    e.style.position='absolute';
+    e.style.left='-9999px'; 
+    e.style.width='1px';
+    for (var i=0; i<nodes.length; i++) if (nodes[i].tabIndex==0) nodes[i].tabIndex=-1;
+  }
+  function show(e) {
+    var nodes=e.childNodes;
+    e.style.position='';
+    e.style.left='';
+    e.style.width='';
+    for (var i=0; i<nodes.length; i++) if (nodes[i].tabIndex==-1) nodes[i].tabIndex=0;
+  }
+  function swap(show_help) { 
+    var tmp=shown;
+    show(hidden); hide(shown);
+    shown=hidden; hidden=tmp;
+    var node=document.getElementById(show_help?'id_carrier':'id_partner');
+    if (node) node.focus();
+    help=document.getElementById('recipient-help-text');
+    if (help) help.style.display=show_help?"":"none";
+  }
+  function initContainers() {
+    var c1=document.getElementById('container1');
+    var c2=document.getElementById('container2');
+    if (c1 && c2) {
+      c1.innerHTML = c1.innerHTML+' <a href="#">{% trans "choose from your partners" %}&nbsp;&raquo;</a>';
+      c1.getElementsByTagName('a')[0].onclick = function(event) {
+        swap(false);
+        if (event && event.preventDefault) event.preventDefault();
+        return false;
+      }
+      c2.innerHTML = selectHTML+' <a href="#">{% trans "type a trader ID or a name" %}&nbsp;&raquo;</a>';
+      c2.getElementsByTagName('a')[0].onclick = function(event) {
+        swap(true);
+        if (event && event.preventDefault) event.preventDefault();
+        return false;
+      }
+
+      var carrier = document.getElementById('id_carrier');
+      var list = document.getElementById('id_partner');
+      if (list) {
+        carrier.onchange=function() { list.selectedIndex=0; }
+        list.onchange=function() { carrier.value=this.options[this.selectedIndex].value; }
+        show(c1); shown=c1; hide(c2); hidden=c2;
+        for (var i=1; i<list.options.length; i++) {
+          if (list.options[i].value==carrier.value) { list.selectedIndex=i; swap(); break; }
+        }
+      }
+    }
+  }
+  function focusCarrier() {
+    carrier_field = document.getElementById('id_carrier')
+    if (carrier_field) carrier_field.focus();
+  }
+  addEvent(window, 'load', initContainers);
+  addEvent(window, 'load', focusCarrier);
+  //-->
+</script>
+{% endif %}
+{% endblock %}
+
+{% block help_context %}#make-delivery-order{% endblock %}
+{% block breadcrumbs %}
+<a href="/{{user.trader_id}}/shopping-list/">{{user.username|escape}}</a> &middot;
+<a href="/{{user.trader_id}}/partners/">{% trans "My partners" %}</a> &middot;
+<a href="/{{user.trader_id}}/partners/{{trust.issuer_id}}/">&quot;{{trust.name|escape}}&quot;</a> &middot;
+<a href="/{{user.trader_id}}/traders/{{trust.issuer_id}}/products/{{product.promise_id}}/">&quot;{{product|product|escape}}&quot;</a> &middot;
+<span>{% trans "Payment order" %}</span>
+{% endblock %}
+
+{% block main %}
+<h2 class="verbose">{% blocktrans with product|product|escape as product and trust.name|escape as partner %}Payment order: "{{product}}" from "{{partner}}"{% endblocktrans %}</h2>
+<form method="post" action="">{% csrf_token %}
+  {% if form.insufficient_amount %}<ul class="errorlist"><li>{% if form.show_avl_amount %}{% blocktrans with form.avl_amount as max_amount %}ERROR: The amount you requested is not available. (it exceeds {{max_amount}}){% endblocktrans %}{% else %}{% trans "ERROR: The amount you requested is not available." %}{% endif %}</li></ul>{% endif %}
+  {{form.carrier.errors}}<p><label for="id_carrier">{{form.carrier.label}}:</label> <span id="container1">{{form.carrier}}</span><span id="container2"></span></p>
+  <p id="recipient-help-text" class="verbose">{% trans "If you enter a valid trader ID here, your payment order will show up as an incoming payment in the respective trader's account." %}</p>
+  {{form.amount.errors}}<p><label for="id_amount">{{form.amount.label}}:</label> {{form.amount}} {{form.amount.help_text}}</p>
+  {{form.instruction.errors}}<p><label for="id_instruction">{{form.instruction.label}}:</label> {{form.instruction}} {{form.instruction.help_text}}</p>
+  <p class="submit"><input type="submit" value="{% trans "Submit" %}"></p>
+</form>
+{% endblock %}

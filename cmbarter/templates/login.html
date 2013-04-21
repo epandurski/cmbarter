@@ -1,0 +1,36 @@
+{% extends "base_signup.html" %}
+{% load i18n %}
+{% block page_id %}login-page{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript" src="/static/common.js"></script>
+<script type="text/javascript">
+  <!--
+  function focusUsername() {
+    username_field = document.getElementById('id_username')
+    if (username_field) username_field.focus();
+  }
+  addEvent(window, 'load', focusUsername);
+  //-->
+</script>
+{% endblock %}
+
+{% block breadcrumbs %}
+<span>{% trans "Login" %}</span>
+{% endblock %}
+
+{% block main %}
+<h2>{% trans "Login" %}</h2>
+<form method="post" action="">{% csrf_token %}
+  {% if form.incorrect_login %}<ul class="errorlist"><li>{% trans "ERROR: Invalid username or password." %}</li></ul>{% endif %}
+  {% for error in form.non_field_errors %}<ul class="errorlist"><li>{{error}}</li></ul>{% endfor %}
+
+  {{form.username.errors}}
+  <p><label for="id_username">{{form.username.label}}:</label> {{form.username}} {{form.username.help_text}}</p>
+
+  {{form.password.errors}}
+  <p><label for="id_password">{{form.password.label}}:</label> <input id="id_password" type="password" name="password" /> {{form.password.help_text}}</p>
+
+  <p class="submit"><input type="submit" value="{% trans "Login" %}"></p>
+</form>
+{% endblock %}

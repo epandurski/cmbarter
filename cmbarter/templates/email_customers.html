@@ -1,0 +1,41 @@
+{% extends "base_has_profile.html" %}
+{% load i18n %}
+{% block page_id %}email-customers-page{% endblock %}
+
+{% block help_context %}#email-customers{% endblock %}
+{% block breadcrumbs %}
+<a href="/{{user.trader_id}}/shopping-list/">{{user.username|escape}}</a> &middot;
+<span>{% trans "Email my customers" %}</span>
+{% endblock %}
+
+{% block main %}
+<h2>{% trans "Email my customers" %}</h2>
+<p class="legend">
+  {% blocktrans %}
+  You can send messages to your customers, so that they are aware of
+  new information that is important to them.  Accordingly, important
+  messages from your trading partners will be automatically forwarded
+  to your email.
+  {% endblocktrans %}
+</p>
+{% if form %}
+<form method="post" action="">{% csrf_token %}
+  {% if form.email_quota_exceeded %}<ul class="errorlist"><li>{% trans "ERROR: You have exceeded your message quota for the month." %}</li></ul>{% endif %}
+  {{form.as_p}}
+  <p class="submit"><input type="submit" value="{% trans "Submit" %}"></p>
+  <p class="remark verbose">
+    {% blocktrans %}
+    <strong>Important notice: </strong> You should not email your
+    customers more often than is strictly necessary!
+    {% endblocktrans %}
+  </p>
+</form>
+{% else %}
+<p>
+  {% blocktrans with settings.CMBARTER_HOST as host %}
+  <strong>Note: </strong> You will receive a confirmation email from
+  {{host}}.  Please follow the confirmation link in the email.
+  {% endblocktrans %}
+<p>
+{% endif %}
+{% endblock %}

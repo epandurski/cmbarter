@@ -1,0 +1,22 @@
+{% extends "xhtml-mp/base_has_profile.html" %}{% load i18n %}{% load myfilters %}
+
+{% block page_css %}
+#id_amount { -wap-input-format: "*n"; -wap-input-required: true; -wap-accesskey:0; }
+{% endblock %}
+
+{% block breadcrumbs %}
+<a href="/mobile/{{secret}}/shopping-list/">{{user.username|escape}}</a> &gt;
+<a href="/mobile/{{secret}}/traders/{{trader.trader_id}}/">{% trans "Trader" %} {{trader.trader_id|traderid}}</a> &gt;
+<a href="/mobile/{{secret}}/traders/{{trader.trader_id}}/deposits/">{% trans "Owned items" %}</a>
+{% endblock %}
+
+{% block main %}
+<h3>{% blocktrans with product|product|escape as product %}Withdraw "{{product}}"{% endblocktrans %}</h3>
+<p><a class="noprint" href="/mobile/{{secret}}/traders/{{user.trader_id}}/products/{{product.promise_id}}/">{% trans "see details" %}</a></p>
+<form method="post" action="/mobile/{{secret}}/traders/{{trader.trader_id}}/deposits/{{product.promise_id}}/?backref=/mobile/{{secret}}/traders/{{trader.trader_id}}/deposits/">
+{% if form.insufficient_amount %}<ul class="errorlist"><li>{% trans "ERROR: The amount you requested is not available." %}</li></ul>{% endif %}
+{{form.amount.errors}}<p><label for="id_amount">{% trans "Amount:"%} ({{max_amount}})</label> {{form.amount}}</p>
+{{form.reason.errors}}<p><label for="id_reason">{{form.reason.label}}:</label> <input type="text" name="reason" id="id_reason" /></p>
+<p class="submit"><input type="submit" value="{% trans "Submit" %}" /></p>
+</form>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "base_has_profile.html" %}
+{% load i18n %}
+{% load myfilters %}
+{% block page_id %}unknown-product-page{% endblock %}
+
+{% block breadcrumbs %}
+<a href="/{{user.trader_id}}/shopping-list/">{{user.username|escape}}</a> &middot;
+{% if user.trader_id == issuer_id %}
+<a href="/{{user.trader_id}}/pricelist/">{% trans "My pricelist" %}</a> &middot;
+{% else %}
+<a href="/{{user.trader_id}}/traders/">{% trans "Find trader" %}</a> &middot;
+<a href="/{{user.trader_id}}/traders/{{issuer_id}}/">{{issuer_id|traderid}}</a> &middot;
+{% endif %}
+<span>{% trans "Unknown product" %}</span>
+{% endblock %}
+
+{% block main %}
+<h2>{% trans "Unknown product" %}</h2>
+<p class="legend">
+{% if user.trader_id == issuer_id %}
+  {% trans "This product has been removed from your pricelist." %}
+{% else %}
+  {% trans "This product has been removed from trader's pricelist." %}
+{% endif %}
+</p>
+{% endblock %}

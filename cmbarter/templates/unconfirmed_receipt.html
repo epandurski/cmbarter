@@ -1,0 +1,51 @@
+{% extends "base_has_profile.html" %}
+{% load i18n %}
+{% load myfilters %}
+{% block page_id %}unconfirmed-receipt-page{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript" src="/static/common.js"></script>
+<script type="text/javascript" src="/static/css.js"></script>
+<script type="text/javascript" src="/static/standardista-table-sorting.js"></script>
+{% endblock %}
+
+{% block help_context %}#unconfirmed-receipt{% endblock %}
+{% block breadcrumbs %}
+<a href="/{{user.trader_id}}/shopping-list/">{{user.username|escape}}</a> &middot;
+<span>{% trans "Receipt" %}</span>
+{% endblock %}
+
+{% block main %}
+<h2>{% trans "Receipt" %}</h2>
+<p class="legend printonly">{% blocktrans with profile.full_name|escape as issuer and user|local_now_ts as ts %}Issued by {{issuer}} at {{ts}}{% endblocktrans %}</p>
+{% if items %}
+<form method="post" action="">{% csrf_token %}
+<table cellspacing="0" width="66%" class="fixed sortable">
+  <col width="30%"><col width="50%"><col width="20%">
+  <thead>
+    <tr class="verbose">
+      <th title="{% trans "Customer's trader ID" %}">{% trans "Customer" %}</th>
+      <th title="{% trans "A short description of your product" %}">{% trans "Product" %}</th>
+      <th title="{% trans "A negative number indicates that the amount your customer owns has been decreased (a withdrawal). A positive number indicates that the amount your customer owns has been increased (a deposit)." %}">{% trans "Amount" %}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for row in items %}
+    <tr>
+      <td scope="row"><a href="/{{user.trader_id}}/traders/{{row.product.recipient_id}}/" title="{% trans "Trader" %} {{row.product.recipient_id|traderid}}">&laquo;{% if user.trader_id == row.product.recipient_id %}{% trans "YOURSELF" %}{% else %}{{row.product.recipient_id|traderid}}{% endif %}&raquo;</a></td>
+      <td scope="row"><a href="/{{user.trader_id}}/traders/{{row.product.issuer_id}}/products/{{row.product.promise_id}}/?backref=/{{user.trader_id}}/receipt/" title="{{row.product.summary|truncatechars:130|escape}}">{{row.product|product|escape}}</a></td>
+      <td><abbr dir="ltr" title="{{row.amount}}">{% truncate_amount row.amount row.product.epsilon %}</abbr></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<p class="submit noprint">
+  {% for trx in receipts %}<input type="hidden" name="handoff-{{trx.handoff_id}}" value="confirmed">{% endfor %}
+  <input type="submit" value="{% trans "I confirm" %}">
+</p>
+<div id="receipt-signature" class="printonly">&nbsp;</div>
+</form>
+{% else %}
+<p class="legend"><em>{% trans "No items" %}</em></p>
+{% endif %}
+{% endblock %}

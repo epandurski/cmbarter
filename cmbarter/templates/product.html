@@ -1,0 +1,115 @@
+{% extends "base_has_profile.html" %}
+{% load i18n %}
+{% load myfilters %}
+{% block page_id %}product-page{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript" src="/static/common.js"></script>
+<script type="text/javascript" src="/static/css.js"></script>
+<script type="text/javascript" src="/static/standardista-table-sorting.js"></script>
+<script type="text/javascript">
+  <!--
+  function focusMakePaymentLink() {
+    make_payment_link = document.getElementById('make-payment-link')
+    if (make_payment_link) make_payment_link.focus();
+  }
+  addEvent(window, 'load', focusMakePaymentLink);
+  //-->
+</script>
+{% endblock %}
+
+{% block help_context %}#{% if user.trader_id == product.issuer_id %}my-product{% else %}partner-product{% endif %}{% endblock %}
+{% block breadcrumbs %}
+<a href="/{{user.trader_id}}/shopping-list/">{{user.username|escape}}</a> &middot;
+{% if user.trader_id == product.issuer_id %}
+<a href="/{{user.trader_id}}/pricelist/">{% trans "My pricelist" %}</a> &middot;
+{% else %}
+  {% if trust %}
+  <a href="/{{user.trader_id}}/partners/">{% trans "My partners" %}</a> &middot;
+  <a href="/{{user.trader_id}}/partners/{{trust.issuer_id}}/">&quot;{{trust.name|escape}}&quot;</a> &middot;
+  {% else %}
+  <a href="/{{user.trader_id}}/traders/">{% trans "Find trader" %}</a> &middot;
+  <a href="/{{user.trader_id}}/traders/{{product.issuer_id}}/">{{product.issuer_id|traderid}}</a> &middot;
+  {% endif %}
+{% endif %}
+<span>&quot;{{product|product|escape}}&quot;</span>
+{% endblock %}
+
+{% block main %}
+<h2>
+{% if user.trader_id == product.issuer_id %}
+  {% blocktrans with product|product|escape as product %}My product "{{product}}"{% endblocktrans %}
+{% else %}{% if trust %}
+  {% blocktrans with product|product|escape as product and trust.name|escape as partner %}My partner "{{partner}}" offers "{{product}}"{% endblocktrans %}
+{% else %}
+  {% blocktrans with product|product|escape as product and product.issuer_id|traderid as traderid %}Trader {{traderid}} offers "{{product}}"{% endblocktrans %}
+{% endif %}{% endif %}
+</h2>
+
+{% if trust and not allow_addition_to_shopping_list %}
+<ul class="linklist noprint">
+  <li><a id="make-payment-link" href="/{{user.trader_id}}/traders/{{product.issuer_id}}/products/{{product.promise_id}}/order/">{% trans "make a payment order" %}&nbsp;&raquo;</a></li>
+  <li><a href="/{{user.trader_id}}/traders/{{product.issuer_id}}/products/{{product.promise_id}}/payments/">{% trans "view incoming payments" %}&nbsp;&raquo;</a></li>
+</ul>
+{% endif %}
+
+<dl>
+  {% if product.title %}<dt>{% trans "Title" %}:</dt><dd>{{product.title|escape}}</dd>{% endif %}
+  {% if product.unit %}<dt>{% trans "Unit of measurement" %}:</dt><dd>{{product.unit|escape}}</dd>{% endif %}
+  {% if product.summary %}<dt>{% trans "Short summary" %}:</dt><dd>{{product.summary|escape}}</dd>{% endif %}
+  {% if product.epsilon %}<dt>{% trans "Roundoff amount" %}:</dt><dd>{{product.epsilon}}</dd>{% endif %}
+  {% if product.description %}<dt>{% trans "A more detailed description" %}:</dt><dd>{{product.description|force_escape|linebreaks}}</dd>{% endif %}
+</dl>
+
+{% if owners %}
+<h3>{% trans "Deposited items" %}</h3>
+<table cellspacing="0" width="66%" class="fixed sortable">
+  <col width="45%"><col width="30%"><col width="25%">
+  <thead>
+    <tr class="verbose">
+      <th id="trader" title="{% trans "Customer's name or trader ID" %}">{% trans "Customer" %}</th>
+      <th abbr="{% trans "Amount" %}" id="amount" colspan="2" title="{% trans "The amount of product that is owned by your customer" %}" class="sort-onload-desc">{% trans "Deposited amount" %}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for row in owners %}
+    <tr>
+      <td scope="row">{% if row.recipient_id == None %}<a href="/{{user.trader_id}}/find-customer/">&laquo;{% trans "OTHERS" %}&raquo;</a>{% else %}{% if row.name %}<a href="/{{user.trader_id}}/partners/{{row.recipient_id}}/" title="{{row.comment|truncatechars:130|escape}} ({% trans "Trader" %} {{row.recipient_id|traderid}})">{{row.name|escape}}</a>{% else %}<a href="/{{user.trader_id}}/traders/{{row.recipient_id}}/" title="{% trans "Trader" %} {{row.recipient_id|traderid}}">&laquo;{% if user.trader_id == row.recipient_id %}{% trans "YOURSELF" %}{% else %}{{row.recipient_id|traderid}}{% endif %}&raquo;</a>{% endif %}{% endif %}</td>
+      <td><abbr dir="ltr" title="{{row.amount}}">{% truncate_amount row.amount product.epsilon %}</abbr></td>
+      <td>{% if row.recipient_id == None %}<a class="noprint" href="/{{user.trader_id}}/find-customer/">{% trans "withdraw" %}&nbsp;&raquo;</a>{% else %}<a class="noprint" href="/{{user.trader_id}}/traders/{{row.recipient_id}}/deposits/{{product.promise_id}}/?backref=/{{user.trader_id}}/traders/{{user.trader_id}}/products/{{product.promise_id}}/">{% trans "withdraw" %}&nbsp;&raquo;</a>{% endif %}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<p class="remark verbose">
+  {% blocktrans with product|product|escape as product %}
+  This table lists the traders whom you owe "{{product}}", and
+  yourself for items you've registered but not yet sold.
+  {% endblocktrans %}
+</p>
+{% endif %}
+
+{% if allow_removal_from_pricelist %}
+<div class="appended-form">
+<form method="post" action="/{{user.trader_id}}/pricelist/{{product.promise_id}}/remove/?actionref={{actionref|escape}}&backref={{backref|escape}}">{% csrf_token %}
+  <p><label for="id_remove">{% trans "Remove this product from my pricelist" %}:</label> <input type="checkbox" name="remove" id="id_remove" /></p>
+  <p class="submit"><input type="submit" value="{% trans "OK" %}"></p>
+</form>
+</div>
+{% endif %}
+
+{% if allow_addition_to_shopping_list %}
+<div class="appended-form">
+<form method="post" action="/{{user.trader_id}}/traders/{{product.issuer_id}}/products/{{product.promise_id}}/add/?actionref={{actionref|escape}}&backref={{backref|escape}}">{% csrf_token %}
+  <p><label for="id_add">{% trans "Add this product to my shopping list" %}:</label> <input type="checkbox" name="add" id="id_add" /></p>
+  <p class="submit"><input type="submit" value="{% trans "OK" %}"></p>
+  <p class="remark verbose">
+    {% blocktrans %}
+    After adding the product to your shopping list, you will be able
+    to indicate the amount you wish to purchase at "Shopping list".
+    {% endblocktrans %}
+  </p>
+</form>
+</div>
+{% endif %}
+{% endblock %}

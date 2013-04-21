@@ -1,0 +1,38 @@
+{% extends "base_has_profile.html" %}
+{% load i18n %}
+{% load myfilters %}
+{% block page_id %}signup-success-page{% endblock %}
+
+{% block breadcrumbs %}
+<span>{% trans "Sign up" %}</span>
+{% endblock %}
+
+{% block main %}
+<h2>{% blocktrans with settings.CMBARTER_HOST as host %}Welcome to {{host}}! {% endblocktrans %}</h2>
+<p class="legend">
+  {% blocktrans with settings.CMBARTER_HOST as host and settings.CMBARTER_DOC_ROOT_URL as url and LANGUAGE_CODE as lang %}
+  You will probably like to know that your newly created account
+  is <em>as powerful as any other account in the system</em>.  That
+  is: there are no "limited", nor "super" traders.  Before you start
+  building your network of trading peers, you may find it useful to
+  read <a href="{{url}}/{{lang}}/" target="_blank">a short
+  introduction to {{host}}</a>.
+  {% endblocktrans %}
+</p>
+<p style="text-transform:uppercase">
+  <br />
+  {% blocktrans with settings.CMBARTER_HOST as host %}
+  <strong>Disclaimer:</strong> The system is intended to facilitate
+  communication between people who may want to trade with each other.
+  While efforts have been made to design it well, no guarantee is made
+  about the correct or continuing functioning of the system.  No
+  guarantee is made about the quality of delivery of products among
+  people who use this system.  In no event, unless required by
+  applicable law or agreed to in writing, shall {{host}}, or any
+  person be liable for any loss, expense or damage, of any type or
+  nature arising out of the use of, or inability to use this website.
+  {% endblocktrans %}
+</p>
+{% endblock %}
+
+{% block footer %}{% blocktrans with settings.CMBARTER_ABOUT_US_URL as url %}More <a href="{{url}}" target="_blank">about us</a>{% endblocktrans %}{% endblock %}

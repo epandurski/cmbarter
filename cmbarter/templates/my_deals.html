@@ -1,0 +1,52 @@
+{% extends "base_has_profile.html" %}
+{% load i18n %}
+{% load myfilters %}
+{% block page_id %}my-deals-page{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript" src="/static/common.js"></script>
+<script type="text/javascript" src="/static/css.js"></script>
+<script type="text/javascript" src="/static/standardista-table-sorting.js"></script>
+{% endblock %}
+
+{% block help_context %}#my-deals{% endblock %}
+{% block breadcrumbs %}
+<a href="/{{user.trader_id}}/shopping-list/">{{user.username|escape}}</a> &middot;
+<span>{% trans "My deals" %}</span>
+{% endblock %}
+
+{% block main %}
+<h2>{% blocktrans with date|date as date %}My deals for {{date}}{% endblocktrans %} &nbsp;<a id="deals-swaplink" href="/{{user.trader_id}}/customer-deals/{{date.year}}-{{date.month}}-{{date.day}}/">{% trans "view customer deals" %}&nbsp;&raquo;</a></h2>
+{% if deals %}
+<table cellspacing="0" width="100%" class="fixed sortable">
+  <col width="22%"><col width="20%"><col width="28%"><col width="15%"><col width="15%">
+  <thead>
+    <tr class="verbose">
+      <th title="{% trans "Date and time of commit" %}">{% trans "Timestamp" %}</th>
+      <th title="{% trans "The name of the partner of yours who is offering the product" %}">{% trans "Partner" %}</th>
+      <th title="{% trans "A short description of the product" %}">{% trans "Product" %}</th>
+      <th title="{% trans "A negative number indicates that the amount you own have been decreased. A positive number indicates that the amount you own have been increased." %}">{% trans "Amount" %}</th>
+      <th title="{% trans "The value of the purchase" %}" abbr="{% trans "Value" %}">{% trans "Value" %}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for row in deals %}
+    <tr>
+      <td scope="row"><strong>{% dealts row.ts user.time_zone %}</strong></td>
+      <td>{% if row.name %}<a href="/{{user.trader_id}}/partners/{{row.issuer_id}}/" title="{{row.comment|truncatechars:130|escape}} ({% trans "Trader" %} {{row.issuer_id|traderid}})">{{row.name|escape}}</a>{% else %}<a href="/{{user.trader_id}}/traders/{{row.issuer_id}}/" title="{% trans "Trader" %} {{row.issuer_id|traderid}}">&laquo;{% if user.trader_id == row.issuer_id %}{% trans "YOURSELF" %}{% else %}{{row.issuer_id|traderid}}{% endif %}&raquo;</a>{% endif %}</td>
+      <td><a href="/{{user.trader_id}}/traders/{{row.issuer_id}}/products/{{row.promise_id}}/?backref=/{{user.trader_id}}/my-deals/{{date.year}}-{{date.month}}-{{date.day}}/" title="{{row.summary|truncatechars:130|escape}}">{{row|product|escape}}</a></td>
+      <td><abbr dir="ltr" title="{{row.amount}}">{% truncate_amount row.amount row.epsilon %}</abbr></td>
+      <td>{% deal_value row.amount row.price %}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p class="legend">{% if deals == None %}{% trans "There is no information about your deals on this day." %}{% else %}<em>{% trans "No deals" %}</em>{% endif %}</p>
+{% endif %}
+
+<ul class="prev-next-box">
+  {% if next_date %}<li class="prev"><a title="{{next_date|date}}" href="/{{user.trader_id}}/my-deals/{{next_date.year}}-{{next_date.month}}-{{next_date.day}}/"><strong style="white-space:nowrap">&laquo; {% trans "FOLLOWING DAY" %}</strong></a></li>{% endif %}
+  <li class="next"><a title="{{prev_date|date}}" href="/{{user.trader_id}}/my-deals/{{prev_date.year}}-{{prev_date.month}}-{{prev_date.day}}/"><strong style="white-space:nowrap">{% trans "PRECEDING DAY" %} &raquo;</strong></a></li>
+</ul>
+{% endblock %}

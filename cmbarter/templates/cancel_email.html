@@ -1,0 +1,11 @@
+{% extends "base_signup.html" %}
+{% load i18n %}
+{% block page_id %}cancel-email-page{% endblock %}
+
+{% block main %}
+<h2>{% blocktrans with email|escape as email %}Stop sending messages to &quot;{{email}}&quot;{% endblocktrans %}</h2>
+<form method="post" action="">{% csrf_token %}
+  {{form.as_p}}
+  <p class="submit"><input type="submit" value="{% trans "Submit" %}"></p>
+</form>
+{% endblock %}

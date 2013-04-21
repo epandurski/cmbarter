@@ -1,0 +1,16 @@
+{% extends "base_logged_in.html" %}
+{% load i18n %}
+{% block page_id %}create-profile-page{% endblock %}
+
+{% block breadcrumbs %}
+<span>{% trans "Sign up" %}</span>
+{% endblock %}
+
+{% block main %}
+<h2>{% trans "Please complete your profile" %}</h2>
+<form method="post" action="">{% csrf_token %}
+  <p class="legend">{% trans "Your customers will need this information in order to reach you." %}</p>
+  {{form.as_p}}
+  <p class="submit"><input type="submit" value="{% trans "Submit" %}"></p>
+</form>
+{% endblock %}

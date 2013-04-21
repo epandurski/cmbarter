@@ -1,0 +1,76 @@
+{% extends "base_trader.html" %}
+{% load i18n %}
+{% load myfilters %}
+{% block page_id %}deposits-page{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript" src="/static/common.js"></script>
+<script type="text/javascript" src="/static/css.js"></script>
+<script type="text/javascript" src="/static/standardista-table-sorting.js"></script>
+{% endblock %}
+
+{% block help_context %}#{% if user.trader_id == trader.trader_id %}my-items{% else %}customer-items{% endif %}{% endblock %}
+{% block breadcrumbs %}
+<a href="/{{user.trader_id}}/shopping-list/">{{user.username|escape}}</a> &middot;
+{% if user.trader_id != trader.trader_id %}
+<a href="/{{user.trader_id}}/traders/">{% trans "Find trader" %}</a> &middot;
+<a href="/{{user.trader_id}}/traders/{{trader.trader_id}}/">{{trader.trader_id|traderid}}</a> &middot;
+<span>{% trans "Owned items" %}</span>
+{% else %}
+<span>{% trans "My items for sale" %}</span>
+{% endif %}
+{% endblock %}
+
+{% block trader_main %}
+<h3>{% if user.trader_id == trader.trader_id %}{% trans "My items for sale" %}{% else %}{% trans "Items owned by this trader" %}{% endif %}</h3>
+<table cellspacing="0" width="100%" class="fixed sortable"> 
+  <col width="50%"><col width="30%"><col width="20%">
+  <thead>
+    <tr class="verbose">
+      <th id="product" title="{% trans "A short description of your product" %}" class="removethisprefixto_sort-onload">{% trans "Product" %}</th>
+      <th id="amount" colspan="2" title="{% if user.trader_id == trader.trader_id %}{% trans "The amount of product that you offer" %}{% else %}{% trans "The amount of product that is owned by the trader" %}{% endif %}">{% trans "Amount" %}</th>
+    </tr>
+    {% if deposits %}
+    <tr class="noprint verbose">
+      <td colspan="3" headers="product amount"><a href="/{{user.trader_id}}/traders/{{trader.trader_id}}/deposits/new/?backref=/{{user.trader_id}}/traders/{{trader.trader_id}}/deposits/"><b>{% if user.trader_id == trader.trader_id %}{% trans "MAKE A DEPOSIT" %}{% else %}{% trans "MAKE A DEPOSIT TO THIS TRADER'S ACCOUNT" %}{% endif %}&nbsp;&raquo;</b></a></td>
+    </tr>
+    {% endif %}
+  </thead>
+  {% if deposits %}
+  <tfoot>
+    <tr class="noprint">
+      <td colspan="3" headers="product amount"><a href="/{{user.trader_id}}/traders/{{trader.trader_id}}/deposits/new/?backref=/{{user.trader_id}}/traders/{{trader.trader_id}}/deposits/"><b>{% if user.trader_id == trader.trader_id %}{% trans "MAKE A DEPOSIT" %}{% else %}{% trans "MAKE A DEPOSIT TO THIS TRADER'S ACCOUNT" %}{% endif %}&nbsp;&raquo;</b></a></td>
+    </tr>
+  </tfoot>
+  {% endif %}
+  <tbody>
+    {% if not deposits %}
+    <tr class="noprint">
+      <td colspan="3" headers="product amount"><a href="/{{user.trader_id}}/traders/{{trader.trader_id}}/deposits/new/?backref=/{{user.trader_id}}/traders/{{trader.trader_id}}/deposits/"><b>{% if user.trader_id == trader.trader_id %}{% trans "MAKE A DEPOSIT" %}{% else %}{% trans "MAKE A DEPOSIT TO THIS TRADER'S ACCOUNT" %}{% endif %}&nbsp;&raquo;</b></a></td>
+    </tr>
+    {% endif %}
+    {% for row in deposits %}
+    <tr>
+      <td scope="row"><a href="/{{user.trader_id}}/traders/{{user.trader_id}}/products/{{row.promise_id}}/" title="{{row.summary|truncatechars:130|escape}}">{{row|product|escape}}</a></td>
+      <td><abbr dir="ltr" title="{{row.amount}}">{% truncate_amount row.amount row.epsilon %}</abbr></td>
+      <td><a class="noprint" href="/{{user.trader_id}}/traders/{{trader.trader_id}}/deposits/{{row.promise_id}}/?backref=/{{user.trader_id}}/traders/{{trader.trader_id}}/deposits/">{% trans "withdraw" %}&nbsp;&raquo;</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<p class="remark verbose">
+{% if user.trader_id == trader.trader_id %} 
+{% blocktrans %}
+  All items listed here are being actively offered to your customers at
+  their respective prices in your pricelist.  Click on "make a
+  deposit" link to register your spare goods for sale.
+{% endblocktrans %}
+{% else %}
+{% blocktrans %}
+  This table shows all the amounts of your offered products that this
+  trader owns.
+{% endblocktrans %}
+{% endif %}
+</p>
+{% endblock %}

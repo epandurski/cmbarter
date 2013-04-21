@@ -1,0 +1,478 @@
+.. role:: ssi(raw)
+   :format: html
+
+.. role:: ssi-allcaps(raw)
+   :format: html
+
+==========================
+A quick introduction
+==========================
+
+.. contents:: Contents
+   :depth: 2
+
+
+What is ":ssi:`<!--#echo var="HTTP_HOST" -->`"?
+======================================================
+
+:ssi:`<!--#echo var="HTTP_HOST" -->` is an open platform for
+**circular barter exchange** [1]_.  It gives you the concreteness of
+ordinary two-person barter along with the flexibility of being able to
+give to and receive from two different people.  That is: you supply
+goods *to customers who trust you*, and you receive goods *from
+partners whom you trust*.
+
+Why barter?
+-----------
+
+Barter can facilitate trade even when cash flow is tight.  People are
+interested in trading products (goods and services) for other products
+even when they can not afford to buy the products with money.
+
+Why circular?
+-----------------
+
+Conventional two-way barter can only happen when there is a
+coincidence of wants: "A" wants what "B" has while at the same time B
+wants what A has.  Circular barter allows for a lot more flexibility:
+A wants what B has; B probably wants what someone else has, and that
+person in turn probably wants what a fourth person has.  Eventually
+it's likely that the chain will loop back on itself, so that a
+circular trade can be arranged:
+
+.. figure:: diagrams/circular-trade.jpg
+
+In a circular trade, you know exactly what you're going to receive and
+exactly what you're going to give.  The products are not actually
+delivered at the same moment, but *the deal is made in one instant*:
+the agreement to deliver one product, and the agreement to receive
+another product.  Where, when, and how the actual delivery of goods
+will happen depends on the concrete arrangements you make with each
+one of your partners.  Remember, you should choose people you trust as
+your partners!
+
+How does it work in practice?
+------------------------------
+
+Although, in theory, with :ssi:`<!--#echo var="HTTP_HOST" -->` the
+lack of money shouldn't be a problem at all, in reality, you often
+need certain products right away, so you can't wait for a circular
+deal to happen. In order to avoid needlessly spending your money, you
+should, in advance, collect delivery promises for sufficient amounts
+of these products that you are likely to need in the near future. That
+is: *you buy a bulk of products which you, later on, receive in
+portions.* If you do so, your partners will be committed to provide
+you with the goods and services you need, at the moment you need them.
+
+But there is more!
+-----------------------
+
+* You can make payments to other users, transferring to them products
+  that you own.
+
+* You can sell back products that you have bought if you do not need
+  them anymore.
+
+* You can send messages to your customers, as well as receive messages
+  from your partners.
+
+* You can use :ssi:`<b><!--#echo var="HTTP_HOST" -->/mobile/</b>` from
+  any Internet-connected cell phone.
+
+* You can start a local exchange trading system.
+
+Using the system
+================
+
+We did our best to make the system easy to use.  Nevertheless,
+having a quick introduction to the key concepts will make you much
+more confident when you buy and sell things in the system.  Notice
+that when we say "buy" and "sell", it really means "receive" and
+"deliver", because no money actually changes hands.
+
+.. _my-business-card:
+
+Advertising your trader ID
+--------------------------
+
+A unique trader ID is automatically generated for every user.
+
+My business card
+``````````````````
+
+To find out what your trader ID is, click the "My business card" link
+in the main menu:
+
+.. figure:: diagrams/my-business-card.jpg
+
+Your ID will show up at the top of the page.
+
+Make sure your customers will be able to find your trader ID too: put
+it on your real business card, put it on your website, put it in your
+ads [2]_.  Knowing your trader ID is the easiest way for your
+potential customers to find you in the system!
+
+If you are the sole proprietor of your business, make sure you have
+uploaded your photograph to your business card, so that your trading
+partners can confirm that they are delivering goods to the right
+person.
+
+Putting your products on the market
+-----------------------------------
+
+First, you have to create a list with all the products that you offer
+together with their respective prices. When this is done, you should
+register your spare items for sale.
+
+**Important notice:** In your pricelist, you should list only products
+that are suitable for use as currency.  That is: people have to be
+willing to buy your product, or be paid with it, over and over.  "My
+old laptop", for example, isn't a good product, because it represents
+a single indivisible item.  "Music lessons", on the other hand, can be
+an excellent product, as long as there is at least one person willing
+to buy it, or be paid with it.  If you do not offer products suitable
+for use as currency — leave your pricelist empty *(In this case, you
+will still be able to make and receive payments in other people's
+products, as well as to exchange one product for another via circular
+deals)*.
+
+.. _new-product: .. _my-product:
+
+Create a product
+`````````````````````
+
+To define a new product, click the "My pricelist" link in the main
+menu, then click "ADD PRODUCT":
+
+.. figure:: diagrams/create-product.jpg
+
+On this page you can describe your new product, so that your customers
+know what they are going to receive.  Click "Submit" to add the
+product to your pricelist.
+
+.. _my-pricelist:
+
+My pricelist
+``````````````
+
+To see your current offers, click the "My pricelist" link in the main
+menu: (The examples shown here are for someone who has already
+participated in a trade.)
+
+.. figure:: diagrams/my-pricelist.jpg
+
+Here you can update the prices of your products.  Although the prices
+given here are in U.S. dollars, *you should put your prices in the
+currency that is used in your country*.
+
+Take a look at the "Available amount" column — it tells you the total
+amount of product that you need to keep in stock, or otherwise be able
+to deliver.  Click on the product's name to see all the customers to
+whom you agreed to deliver this product together with the agreed
+(deposited) amounts:
+
+.. figure:: diagrams/my-product.jpg
+
+On this page you can see that you owe 20 pieces of your "Product A" to
+a customer with trader ID "958770802". You can also see that there are
+80 spare pieces of this product that you currently offer for sale.
+Look at the "Roundoff amount" number in product's description — for
+your convenience, product amounts are rounded off according to this
+number.
+
+If there are no deposited items for a product, a check-box will show
+up here instead, allowing you to delete the product.  The next
+section, "My items for sale", will explain how to increase the
+"deposited amount".
+
+.. _my-items:
+
+My items for sale
+````````````````````
+
+After you have at least one product in your pricelist, click the "My
+items for sale" link in the main menu to register your spare items for
+sale:
+
+.. figure:: diagrams/my-items.jpg
+
+This page tells you one more time that you have 80 pieces of your
+"Product A" for sale. To increase this amount click on "MAKE A
+DEPOSIT"; to decrease this amount click on "withdraw".  When you list
+items on "My items for sale", you should set aside that amount of
+stock of actual goods, or otherwise ensure that you will be able to
+deliver that amount of a product if required.
+
+.. _my-partners:
+
+Deciding which products you want to buy
+---------------------------------------
+
+In order to buy from people, first you have to list them as your
+partners to indicate that you trust them.  Then you will be able to
+view your partners' offers, and from there, to add products to your
+shopping list.  Finally, you have to define in your shopping list the
+exact amounts which you want to buy.
+
+My partners
+`````````````
+
+To add someone to your list of partners, click the "My partners" link
+in the main menu, then click "ADD PARTNER". *You need to know the
+exact trader ID of your partner in order to add him/her to your list*
+[3]_.
+
+To view your partners' offers, go to "My partners", then click on the
+name of the partner whose offers you want to see.  From there, you
+will be able to add to your shopping list those of the products which
+you want to buy.
+
+.. _my-shopping-list:
+
+Shopping list
+``````````````````
+
+To define the exact amounts which you want to buy, click the "Shopping
+list" link in the main menu:
+
+.. figure:: diagrams/my-shopping-list.jpg
+
+  ..
+
+  1. You **have** bought 2.5 kilograms of "Product X1" from your
+     partner "Trader X". You **need** 10 kilograms in total, so you
+     specify that you want to buy additional 7.5 kilograms.  The
+     maximum price you are willing to pay is $5.50 per kilogram (this
+     also happens to be the current price).
+
+  2. You want to buy 5 kilograms of "Product X2" at a maximum price of
+     $14 per kilogram. Since the current price is $15, your bid is
+     currently void (this is indicated by the red asterisk).
+
+  3. You have bought 20 pieces of "Product Y1". You do not need them,
+     so you specify that you want to sell them all back at a minimum
+     price of $3 per piece (the current price is $3.30).
+
+Here you can specify your bids for the amounts and the prices that
+satisfy you.  You can also add new products to your shopping list by
+clicking on "ADD NEW ITEM".
+
+.. _my-deals:
+.. _customer-deals:
+.. _unconfirmed-deals:
+
+Waiting for deals
+-------------------
+
+Once you've made all your offers, and all your bids, you should wait
+for the desired deals to take place.  Trading turns will be launched
+automatically at regular intervals. The time of the next trading turn
+is shown at the bottom of every page.
+
+.. figure:: diagrams/next-turn.jpg
+
+During a trading turn the system analyzes all users' offers and bids.
+When a chain which loops back on itself is found, a deal gets
+executed.  A list of deals you're engaged in this trading turn is then
+presented to you.
+
+.. figure:: diagrams/new-deals.jpg
+
+  ..
+
+  The system is designed to arrange trades such that the values of
+  exchanged goods are in perfect balance according to the prices
+  selected by the users.  As deals are executed, the relevant customer
+  account balances are updated accordingly.
+
+On this page you can see that you have sold 20 pieces of your "Product
+A" in exchange for 9 kilograms of "Product X1" from "Trader X".
+Notice that the displayed amounts are rounded off: you really get
+9.09090909 instead of 9 kilograms.  The exact numbers will show up in
+a tooltip when you rest your mouse over the amounts.
+
+.. _find-customer:
+.. _customer-items:
+.. _customer-business-card:
+
+Delivering goods to your customers
+----------------------------------
+
+When a customer wants you to deliver some goods which he/she has
+bought, click the "Find customer" link in the top menu:
+
+.. figure:: diagrams/find-customer.jpg
+
+Here you enter the trader ID that your customer tells you. When you
+click the "Submit" button, all the items which your customer has
+bought will show up:
+
+.. figure:: diagrams/customer-items.jpg
+
+Before you click the "withdraw" link, you should make sure that the
+person who wants to obtain the goods is the person in the trader's
+photograph.
+
+**Important notice:** You need to have a way to reimburse your
+customers for any fractional amounts that they may have bought, which
+are impossible to be delivered directly (0.25 bicycles for example).
+In such cases, you can deliver some amount of other goods or services;
+or you can give or receive some amount of money, so as to get rid of
+the fractional part.
+
+If you want to increase the amount that you owe to your customer,
+follow the "MAKE A DEPOSIT TO THIS TRADER'S ACCOUNT" link.
+
+.. _make-delivery-order:
+.. _my-delivery-orders:
+.. _customer-orders:
+
+Making and receiving payments
+----------------------------------
+
+:ssi:`<!--#echo var="HTTP_HOST" -->` allows every user to make and
+receive electronic payments.  That is: you can transfer goods from
+your "shopping list" to other users' shopping lists.  It is very
+similar to a bank transfer — you instruct your partner (the bank) to
+transfers the ownership of some of your goods to someone else.
+
+Although, in many ways, :ssi:`<!--#echo var="HTTP_HOST" -->`'s
+payments are similar to bank transfers, there are notable differences
+making our approach unique:
+
+* Every trader who offers products that are widely trusted and
+  appreciated, with no efforts on his/her part [4]_, can act as a bank —
+  facilitating customer-to-customer payments.
+
+* The type of goods that are transferred (the medium of exchange)
+  should not necessarily be money. Payments can be made in every
+  convenient product that the payer owns, which the payee happens to
+  appreciate.
+
+* All payments should be explicitly confirmed by the payee before
+  being carried out.  This allows for simple, reliable, and
+  indisputable point-of-sale payments.
+
+To make, or to receive a payment, click the "Shopping list" link in
+the main menu, then click on the name of the product with which you
+want to pay or be paid:
+
+.. figure:: diagrams/make-delivery-order.jpg
+
+If you follow the "MAKE A PAYMENT ORDER" link, you will be able to
+specify the exact amount which you want to pay, along with the payee's
+trader ID.
+
+If you follow the "view incoming payments" link, you will see all the
+payments that you are entitled to receive, waiting for your
+confirmation in order to be carried out.
+
+My payment orders
+````````````````````
+
+To review the payment orders that you have made, click the "My payment
+orders" link in the main menu:
+
+.. figure:: diagrams/my-delivery-orders.jpg
+
+Here you can see that you have authorized trader "258668749" to
+receive 7.5 kilograms of "Product X1" from your partner "Trader X".
+In order for this payment order to be carried out, the payee should
+visit his/her shopping list and confirm that he/she is willing to
+accepts the payment.
+
+.. _unconfirmed-transactions:
+
+Transaction notices
+`````````````````````
+
+You will receive immediate notices for every withdrawal, and every
+deposit, that any of your partners make to your account.
+
+Reaching a critical mass
+==========================
+
+A sufficiently large and interconnected network of traders is needed
+for your community to get maximum benefit out of
+:ssi:`<!--#echo var="HTTP_HOST" -->`. If you want to pioneer such a
+network in the community where you live or do business, there are
+three simple things you can do:
+
+Do a campaign
+---------------
+
+Usually when money is scarce and trade is stagnating, traders are open
+to new ways of selling their products.  Believe it or not, people are
+quite receptive to good ideas.
+
+Create a local business directory 
+-----------------------------------
+
+Set up a local website where businesses in your community can
+advertise their products, search for products they need, and find new
+trading partners [5]_. Have criteria determining which traders are
+allowed to advertise on the website, so that people have a level of
+trust that the businesses listed are reputable local businesses.
+
+Introduce a community currency "product"
+-----------------------------------------
+
+Create a special product in the system, defined in such a way that
+makes it appropriate for use as a local medium of exchange.  Grant
+appropriate amount of this "product" to credit-worthy businesses in
+your community.  Send regular reports to your members about the credit
+lines that you approve.
+
+Start small, grow big
+=======================
+
+As few as three or even two persons can benefit from
+:ssi:`<!--#echo var="HTTP_HOST" -->` by using it to *make electronic
+payments* to each other.  That is: you can start with having a very
+small, very well interconnected network.  The more people join the
+network, the more useful it becomes.  Eventually, this will lead to a
+boom in the number of goods and services that are traded in your
+community.
+
+Disclaimer
+===========
+
+THE SYSTEM IS INTENDED TO FACILITATE COMMUNICATION BETWEEN PEOPLE WHO
+MAY WANT TO TRADE WITH EACH OTHER.  WHILE EFFORTS HAVE BEEN MADE TO
+DESIGN IT WELL, NO GUARANTEE IS MADE ABOUT THE CORRECT OR CONTINUING
+FUNCTIONING OF THE SYSTEM.  NO GUARANTEE IS MADE ABOUT THE QUALITY OF
+DELIVERY OF PRODUCTS AMONG PEOPLE WHO USE THIS SYSTEM.  IN NO EVENT,
+UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING, SHALL
+:ssi-allcaps:`<!--#echo var="HTTP_HOST" -->`, OR ANY PERSON BE LIABLE
+FOR ANY LOSS, EXPENSE OR DAMAGE, OF ANY TYPE OR NATURE ARISING OUT OF
+THE USE OF, OR INABILITY TO USE THIS WEBSITE.
+
+.. [1] See this paper explaining the concept: 
+
+   `"Circular Multilateral Barter", Evgeni Pandurski (2009)`__.
+
+.. [2] You can use 
+   "\https://:ssi:`<!--#echo var="HTTP_HOST" -->`/**your trader ID**/"
+   to redirect people to your profile.
+
+.. [3] As an alternative, you can look for new partners among the
+   trading partners of your partners.  To do this, go to "My
+   partners", click on the name of one of your partners, then click
+   "view trusted traders". Notice that an empty list will be displayed
+   for those of your partners who have not activated the "Allow other
+   traders to see your partners list" option.
+
+.. [4] To allow customer-to-customer payments, you should set a valid 
+   "price per unit" for your product. 
+
+.. [5] You can use 
+   "\https://:ssi:`<!--#echo var="HTTP_HOST" -->`/search/**your trader
+   ID**/?q=\ **query**" as an "out of the box" search engine for your
+   website, so that people can search for new products and trading
+   partners among the list of trusted traders that you maintain in
+   :ssi:`<!--#echo var="HTTP_HOST" -->`. To activate this feature, go
+   to "My business card", click "Edit your contact information",
+   select the "Allow other traders to see your partners list" checkbox
+   and submit the form.
+
+__ ../cmb-general.pdf

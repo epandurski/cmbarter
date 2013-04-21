@@ -1,0 +1,24 @@
+{% extends "base_has_profile.html" %}
+{% load i18n %}
+{% load myfilters %}
+{% block page_id %}my-order-page{% endblock %}
+
+{% block help_context %}#my-delivery-orders{% endblock %}
+{% block breadcrumbs %}
+<a href="/{{user.trader_id}}/shopping-list/">{{user.username|escape}}</a> &middot;
+<a href="/{{user.trader_id}}/orders/">{% trans "My payment orders" %}</a> &middot;
+<span>{% blocktrans with order_id as orderid %}#{{orderid}}{% endblocktrans %}</span>
+{% endblock %}
+
+{% block main %}
+<h2>{% blocktrans with order_id as orderid %}My payment order #{{orderid}}{% endblocktrans %}</h2>
+<p class="legend">
+  {% trans "This payment order has been deleted." %}
+</p>
+<p>
+  <strong>{% trans "Important notice:" %}</strong>
+  {% blocktrans %}
+  This payment order was completed prior to its deletion!
+  {% endblocktrans %}
+</p>
+{% endblock %}

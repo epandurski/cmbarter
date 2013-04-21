@@ -1,0 +1,14 @@
+{% extends "xhtml-mp/base_has_profile.html" %}{% load i18n %}{% load myfilters %}
+
+{% block breadcrumbs %}
+<a href="/mobile/{{secret}}/shopping-list/">{{user.username|escape}}</a> &gt;
+<a href="/mobile/{{secret}}/traders/{{issuer_id}}/">{% trans "Trader" %} {{issuer_id|traderid}}</a>
+{% endblock %}
+
+{% block main %}
+<h3>{% trans "Unknown product" %}</h3>
+<p>
+{% if user.trader_id == issuer_id %}{% trans "This product has been removed from your pricelist." %}
+{% else %}{% trans "This product has been removed from trader's pricelist." %}{% endif %}
+</p>
+{% endblock %}

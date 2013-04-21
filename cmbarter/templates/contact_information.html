@@ -1,0 +1,40 @@
+{% extends "base_trader.html" %}
+{% load i18n %}
+{% load myfilters %}
+{% block page_id %}contact-information-page{% endblock %}
+
+{% block help_context %}#{% if user.trader_id != trader.trader_id %}customer-business-card{% else %}advertising-your-trader-id{% endif %}{% endblock %}
+{% block breadcrumbs %}
+<a href="/{{user.trader_id}}/shopping-list/">{{user.username|escape}}</a> &middot;
+{% if user.trader_id == trader.trader_id %}
+<span>{% trans "My business card" %}</span>
+{% else %}
+<a href="/{{user.trader_id}}/traders/">{% trans "Find trader" %}</a> &middot;
+<span>{{trader.trader_id|traderid}}</span>
+{% endif %}
+{% endblock %}
+
+{% block trader_main %}
+<h3>{% if user.trader_id == trader.trader_id %}{% trans "My business card" %}{% else %}{% trans "Contact information for this trader" %}{% endif %}</h3>
+<dl>
+  <dt>{% trans "Full name" %}:</dt><dd>{{trader.full_name|escape}}</dd>
+  {% if trader.email or email_verification.email %}<dt>{% trans "Email" %}:</dt><dd><a href="mailto:{% filter force_escape %}{% firstof trader.email email_verification.email %}{% endfilter %}">{% filter force_escape %}{% firstof trader.email email_verification.email %}{% endfilter %}</a></dd>{% endif %}
+  {% if trader.www %}<dt>{% trans "Home page" %}:</dt><dd><a href="{{trader.www|escape}}" target="_blank">{{trader.www|escape}}</a></dd>{% endif %}
+  {% if trader.phone %}<dt>{% trans "Phone" %}:</dt><dd><a href="tel:{{trader.phone|phonenumber|escape}}">{{trader.phone|escape}}</a></dd>{% endif %}
+  {% if trader.fax %}<dt>{% trans "Fax" %}:</dt><dd>{{trader.fax|escape}}</dd>{% endif %}
+  {% if trader.address %}<dt>{% trans "Address" %}:</dt><dd>{{trader.address|force_escape|linebreaksbr}}</dd>{% endif %}
+  {% if trader.postal_code %}<dt>{% trans "Postal code" %}:</dt><dd>{{trader.postal_code|escape}}</dd>{% endif %}
+  {% if trader.country %}<dt>{% trans "Country" %}:</dt><dd>{{trader.country|escape}}</dd>{% endif %}
+  {% if user.trader_id == trader.trader_id %}<dt>{% trans "Time zone" %}:</dt><dd>{{user.time_zone|escape}}</dd>{% endif %}
+</dl>
+{% if user.trader_id == trader.trader_id %}
+<ul class="linklist">
+  <li><a href="/{{user.trader_id}}/edit-profile/">{% trans "Edit your contact information" %}&nbsp;&raquo;</a></li>
+  <li><a href="/{{user.trader_id}}/upload-photograph/">{% trans "Upload your photograph" %}&nbsp;&raquo;</a></li>
+  <li><a href="/{{user.trader_id}}/change-username/">{% trans "Change your username" %}&nbsp;&raquo;</a></li>
+  <li><a href="/{{user.trader_id}}/change-password/">{% trans "Change your password" %}&nbsp;&raquo;</a></li>
+</ul>
+{% else %}
+<p class="linklist"><a href="/{{user.trader_id}}/traders/{{trader.trader_id}}/add-to-partners/"><strong>{% trans "ADD THIS TRADER TO MY PARTNERS" %}&nbsp;&raquo;</strong></a></p>
+{% endif %}
+{% endblock %}

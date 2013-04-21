@@ -1,0 +1,26 @@
+{% extends "xhtml-mp/base_has_profile.html" %}{% load i18n %}{% load myfilters %}
+
+{% block page_css %}
+.ltr #backlink { float: right; }
+.rtl #backlink { float: left; }
+{% endblock %}
+
+{% block breadcrumbs %}
+<a href="/mobile/{{secret}}/shopping-list/">{{user.username|escape}}</a>
+{% endblock %}
+
+{% block main %}
+<h3>{% trans "Receipt" %}</h3>
+{% if items %}
+<form method="post" action="/mobile/{{secret}}/receipt/{% if backref %}?backref={{backref|escape}}{% endif %}">
+<div class="itemlist">{% for row in items %}
+<div class="{% cycle 'dark' 'light' %}">{% if user.trader_id == row.product.recipient_id %}{% trans "YOURSELF" %}{% else %}{{row.product.recipient_id|traderid}}{% endif %}&nbsp;&middot; {{row.product|product|escape}} <strong>({% truncate_amount row.amount row.product.epsilon %})</strong></div>{% endfor %}</div>
+<p class="submit">
+{% for trx in receipts %}<input type="hidden" name="handoff-{{trx.handoff_id}}" value="confirmed" />{% endfor %}
+<input type="submit" value="{% trans "I confirm" %}" style="-wap-accesskey:0" />{% if backref %} <a href="{{backref|escape}}" id="backlink">&raquo;</a>{% endif %}
+</p>
+</form>
+{% else %}
+<p><em>{% trans "No items" %}</em></p>
+{% endif %}
+{% endblock %}

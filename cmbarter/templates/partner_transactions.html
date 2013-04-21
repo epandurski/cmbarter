@@ -1,0 +1,49 @@
+{% extends "base_has_profile.html" %}
+{% load i18n %}
+{% load myfilters %}
+{% block page_id %}partner-transactions-page{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript" src="/static/common.js"></script>
+<script type="text/javascript" src="/static/css.js"></script>
+<script type="text/javascript" src="/static/standardista-table-sorting.js"></script>
+{% endblock %}
+
+{% block help_context %}#partner-transactions{% endblock %}
+{% block breadcrumbs %}
+<a href="/{{user.trader_id}}/shopping-list/">{{user.username|escape}}</a> &middot;
+<a href="/{{user.trader_id}}/partners/">{% trans "My partners" %}</a> &middot;
+<a href="/{{user.trader_id}}/partners/{{trust.issuer_id}}/">&quot;{{trust.name|escape}}&quot;</a> &middot;
+<span>{% trans "Committed transactions" %}</span>
+{% endblock %}
+
+{% block main %}
+<h2>{% blocktrans with trust.name|escape as partner %}Transactions committed by "{{partner}}"{% endblocktrans %}</h2>
+{% if transactions %}
+<table cellspacing="0" width="66%" class="fixed sortable">
+  <col width="35%"><col width="45%"><col width="20%">
+  <thead>
+    <tr class="verbose">
+      <th title="{% trans "Date and time of commit" %}">{% trans "Timestamp" %}</th>
+      <th title="{% trans "A short description of the product" %}">{% trans "Product" %}</th>
+      <th title="{% trans "A negative number indicates that the amount you own has been decreased (a withdrawal). A positive number indicates that the amount you own has been increased (a deposit)." %}">{% trans "Amount" %}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for row in transactions %}
+    <tr>
+      {% if row.is_a_payment %}
+      <td scope="row" title="{% if row.amount > 0.0 %}{% if row.payment_reason %}{% blocktrans with row.payment_payer_name|escape as payer and row.payment_reason|escape as reason %}Accepted payment from &quot;{{payer}}&quot;: &quot;{{reason}}&quot;{% endblocktrans %}{% else %}{% blocktrans with row.payment_payer_name|escape as payer %}Accepted payment from &quot;{{payer}}&quot;{% endblocktrans %}{% endif %}{% else %}{% if row.payment_reason %}{% blocktrans with row.payment_reason|escape as reason %}Completed payment order: &quot;{{reason}}&quot;{% endblocktrans %}{% else %}{% trans "Completed payment order" %}{% endif %}{% endif %}"><strong>{% dealts row.ts user.time_zone %}</strong></td>
+      {% else %}
+      <td scope="row"{% if row.reason %} title="{{row.reason|escape}}"{% endif %}><strong>{% dealts row.ts user.time_zone %}</strong></td>
+      {% endif %}
+      <td><a href="/{{user.trader_id}}/traders/{{row.issuer_id}}/products/{{row.promise_id}}/?backref=/{{user.trader_id}}/partners/{{trust.issuer_id}}/transactions/" title="{{row.summary|truncatechars:130|escape}}">{{row|product|escape}}</a></td>
+      <td><abbr dir="ltr" title="{{row.amount}}">{% truncate_amount row.amount row.epsilon %}</abbr></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p class="legend"><em>{% trans "No transactions" %}</em></p>
+{% endif %}
+{% endblock %}

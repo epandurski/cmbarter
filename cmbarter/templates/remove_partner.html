@@ -1,0 +1,26 @@
+{% extends "base_has_profile.html" %}
+{% load i18n %}
+{% load myfilters %}
+{% block page_id %}remove-partner-page{% endblock %}
+
+{% block help_context %}#my-partners{% endblock %}
+{% block breadcrumbs %}
+<a href="/{{user.trader_id}}/shopping-list/">{{user.username|escape}}</a> &middot;
+<a href="/{{user.trader_id}}/partners/">{% trans "My partners" %}</a> &middot;
+<a href="/{{user.trader_id}}/partners/{{trust.issuer_id}}/">&quot;{{trust.name|escape}}&quot;</a> &middot;
+<span>{% trans "Remove" %}</span>
+{% endblock %}
+
+{% block main %}
+<h2>{% blocktrans with trust.name|escape as partner %}Remove "{{partner}}" from my partners list{% endblocktrans %}</h2>
+<form method="post" action="">{% csrf_token %}
+  {{form.as_p}}
+  <p class="submit"><input type="submit" value="{% trans "Submit" %}"></p>
+  <p class="remark verbose">
+    {% blocktrans with trust.name|escape as partner %}
+    The products offered by "{{partner}}" will be automatically
+    removed from your shopping list.
+    {% endblocktrans %}
+  </p>
+</form>
+{% endblock %}
