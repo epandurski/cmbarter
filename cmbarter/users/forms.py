@@ -145,7 +145,8 @@ class CreateProfileForm(forms.Form):
     time_zone = forms.CharField(
         label=_('Time zone'),
         widget=widgets.Select,
-        help_text='<span class="highlighted">*</span>')
+        help_text=('' if settings.CMBARTER_DEFAULT_USERS_TIME_ZONE 
+                   else '<span class="highlighted">*</span>'))
     
     def clean_full_name(self):
         full_name = self.cleaned_data['full_name'].strip()

@@ -20,7 +20,6 @@
 {{form.username.errors}}<p><label for="id_username" style="-wap-accesskey:0">{% trans "Username:" %}</label> {{form.username}}</p>
 {{form.password.errors}}<p><label for="id_password">{% trans "Password:" %}</label> <input id="id_password" type="password" name="password" /></p>
 <p class="submit"><input type="submit" value="{% trans "Login" %}" /></p>
-{% if not encrypted %}<p><a href="https://{{settings.CMBARTER_HOST}}/mobile/">{% trans "switch to encrypted connection" %}</a></p>{% endif %}
 </form>
 {% endblock %}
 {% block navigation %}

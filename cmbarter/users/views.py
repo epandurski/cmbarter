@@ -328,7 +328,8 @@ def create_profile(request, trader_id, tmpl='create_profile.html'):
             return HttpResponseRedirect(reverse(
                 report_signup_success, args=[trader_id]))
     else:
-        form = forms.CreateProfileForm()
+        form = forms.CreateProfileForm(
+            initial={'time_zone': settings.CMBARTER_DEFAULT_USERS_TIME_ZONE })
 
     # Fetches all known time zones in the form's time-zone-select-box.
     form.fields['time_zone'].widget.choices = [

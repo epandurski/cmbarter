@@ -132,7 +132,7 @@ def has_profile(view):
     
 
 def set_language(request, lang):
-    r = HttpResponseRedirect("%s?method=GET" % reverse(login))
+    r = HttpResponseRedirect("%s?method=GET" % reverse('mobile-login'))
     r.set_cookie(
         key=settings.LANGUAGE_COOKIE_NAME,
         value=lang,
@@ -192,7 +192,7 @@ def login(request, tmpl='xhtml-mp/login.html', method=None):
             initial={'username': request.COOKIES.get('username')})
 
     # Render everything.
-    c = {'settings': settings, 'form': form, 'encrypted': request.is_secure() }
+    c = {'settings': settings, 'form': form }
     return render(request, tmpl, c)
 
 
@@ -899,7 +899,7 @@ def logout(request, secret, user, tmpl='xhtml-mp/logout.html', method=None):
     method = method or request.GET.get('method') or request.method    
     if method == 'POST':
         db.delete_loginkey(user['trader_id'])
-        return login(request, method='GET')
+        return HttpResponseRedirect("%s?method=GET" % reverse('mobile-login'))
 
     # Render everything.
     c = {'settings': settings, 'secret': secret, 'user': user }

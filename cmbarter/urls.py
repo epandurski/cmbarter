@@ -132,6 +132,7 @@ urlpatterns += patterns('cmbarter.deals.views',
 
 urlpatterns += patterns('cmbarter.mobile.views',
     url(r'^mobile/$', 'login', name='mobile-login'),
+    (r'^mobile/insecure/$', 'login', {'tmpl': 'xhtml-mp/login_insecure.html'}),
     (r'^mobile/no-profile/$', 'report_no_profile'),                        
     (r'^mobile/lang/([a-z-]{2,5})/$', 'set_language'),
     (r'^mobile/([0-9A-Za-z_-]{20})/images/(\d{1,9})/(\d{1,9})/$', 'show_image'),

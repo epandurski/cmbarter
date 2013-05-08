@@ -1,3 +1,9 @@
+May 8th, 2013
+v1.9 -- New, *much* faster algorithm for finding cycles.
+     -- Minor UI improvements.
+     -- Better support for PyPy.
+     -- Dropped support for Python 2.5.
+
 April 2nd, 2013
 v1.8.6 -- CMB can work with PyPy now. 
        -- Added a pure-python implementation of the AES cipher

@@ -29,13 +29,13 @@ source code in your */usr/local/share/* directory::
 
   # cd /usr/local/share/
   # wget http://sourceforge.net/projects/cmb/files/tarballs/\
-  cmbarter-1.8.6.tar.gz/download -O cmbarter-1.8.6.tar.gz
+  cmbarter-1.9.tar.gz/download -O cmbarter-1.9.tar.gz
   ...
 
-  # tar -xzf cmbarter-1.8.6.tar.gz 
-  # mv cmbarter-1.8.6 cmbarter
+  # tar -xzf cmbarter-1.9.tar.gz 
+  # mv cmbarter-1.9 cmbarter
 
-Also, make sure a *Python 2.x* interpreter (version 2.5 at least) is
+Also, make sure a *Python 2.x* interpreter (version 2.6 at least) is
 installed on your server.
 
 
@@ -118,8 +118,8 @@ Here are the installation steps that you should perform:
    You might also consider installing and configuring some DDoS attack
    evasion mechanism (*mod_evasive* for example).
 
-2. Install and enable *mod_wsgi*. Make sure mod_wsgi uses the *Python
-   2.x* interpreter, and not the *Python 3.x* one.
+2. Install and enable *mod_wsgi* [3]_. Make sure mod_wsgi uses the
+   *Python 2.x* interpreter, and not the *Python 3.x* one.
 
    For example::
 
@@ -139,7 +139,7 @@ Mail server installation
 -------------------------
 
 CMB needs a mail server only for sending outgoing e-mails. Therefore,
-you may install whatever server is most convenient for you [3]_. The
+you may install whatever server is most convenient for you [4]_. The
 only requirement is that the server is configured to accept anonymous
 connections at *localhost:25*.
 
@@ -159,7 +159,7 @@ Here are the installation steps that you should perform:
 
    Keep in mind that the default PosgreSQL configuration is not very
    well suited for large database servers. So, you will probably need
-   to edit your PosgreSQL configuration files at some point [4]_. See
+   to edit your PosgreSQL configuration files at some point [5]_. See
    PostgreSQL's documentation for more info.
    
 2. Create a database user *cmbarter* and a database *cmbarter*
@@ -248,7 +248,7 @@ Here are the configuration steps that you should perform:
      * * * * * sudo -u cmbarter python /usr/local/share/cmbarter/proce...
        ss_emails.py
    
-   Call each script [5]_ with "--help" to see its full list of
+   Call each script [6]_ with "--help" to see its full list of
    accepted parameters.
    
    Notice that the system crontab format might be slightly different
@@ -298,7 +298,7 @@ Application installation
 
 Here are the installation steps that you should perform:
       
-1. Make sure a *Python 2.x* interpreter (version 2.5 at least) is
+1. Make sure a *Python 2.x* interpreter (version 2.6 at least) is
    installed on the hosting server. Also, make sure the Python 2.x
    versions of the following software packages are installed:
 
@@ -321,11 +321,11 @@ Here are the installation steps that you should perform:
 
      $ cd ~
      $ wget http://sourceforge.net/projects/cmb/files/tarballs/\
-     cmbarter-1.8.6.tar.gz/download -O cmbarter-1.8.6.tar.gz
+     cmbarter-1.9.tar.gz/download -O cmbarter-1.9.tar.gz
      ...
 
-     $ tar -xzf cmbarter-1.8.6.tar.gz 
-     $ mv cmbarter-1.8.6 cmbarter
+     $ tar -xzf cmbarter-1.9.tar.gz 
+     $ mv cmbarter-1.9 cmbarter
 
 3. Restrict access to those source files that may contain sensitive
    information::
@@ -455,25 +455,31 @@ these tasks, though.
 
 
 
-.. [1] If *pycrypto* is not available, CMB will use its own
-   pure-python (and therefore slower) AES cipher implementation.
+.. [1] CMB tries its best to support PyPy. If *pycrypto* is not
+   available, CMB will use its own pure-python AES cipher
+   implementation. Also, if *psycopg2* is not available CMB will try
+   to use *psycopg2cffi* instead.
  
 .. [2] The examples given here are for *Debian*. If you use another
    operating system, the exact commands that do the work might be
    different.
+
+.. [3] You can not use *mod_wsgi* with PyPy. To use Apache with PyPy,
+   you may configure *mod_proxy* to operate as a reverse proxy for a
+   separate PyPy-compatible WSGI server (*gunicorn* for example).
  
-.. [3] Debian uses the *exim* mail server by default. You can
+.. [4] Debian uses the *exim* mail server by default. You can
    reconfigure it with this command::
 
      # dpkg-reconfigure exim4-config
      ...
 
-.. [4] You may consider changing the following parameters:
+.. [5] You may consider changing the following parameters:
    *maintainance_work_mem, checkpoint_segments, checkpoint_timeout,
    commit_delay, shared_buffers, stats_row_level, vacuum_cost_delay,
    vacuum_cost_xxx*
 
-.. [5] The important commands are: *execute_turn.py,
+.. [6] The important commands are: *execute_turn.py,
    process_emails.py, check_sessions.py, generate_regkeys.py,
    schedule_turns.py*. "manage.py" is Django's standard administration
    tool.

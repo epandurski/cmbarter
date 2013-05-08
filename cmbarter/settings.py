@@ -6,19 +6,22 @@ import os.path
 #############################################################
 
 # Set this to your web server domain name.
-CMBARTER_HOST = "yourdomainname.foo"
+CMBARTER_HOST = 'yourdomainname.foo'
 
 # Set this to the PostgreSQL database connection string. For example:
-# "host=localhost port=5432 dbname=cmbarter user=cmbarter
-# password=PASSWORD". For more information, see the PostgreSQL
-# documentation. "dbname=cmbarter" should work for you if you followed
+# 'host=localhost port=5432 dbname=cmbarter user=cmbarter
+# password=PASSWORD'. For more information, see the PostgreSQL
+# documentation. 'dbname=cmbarter' should work for you if you followed
 # the instructions in the Installation Guide's "Installation on a
 # dedicated server" section.
-CMBARTER_DSN = "dbname=cmbarter"
+CMBARTER_DSN = 'dbname=cmbarter'
+
+# Make this unique, and don't share it with anybody.
+CMBARTER_SECRET_KEY = 'vjgz%^^7f6-=#%f&5y8qw2ous-l6zz!h+rkpzmxx(ozp%^xeb)'
 
 # This should point to a writable directory that will contain django's
 # session files.
-CMBARTER_SESSION_DIR = "/var/tmp/cmbarter"
+CMBARTER_SESSION_DIR = '/var/tmp/cmbarter'
 
 # This should point to a page telling more about you.
 CMBARTER_ABOUT_US_URL = 'https://sourceforge.net/projects/cmb/'
@@ -27,13 +30,12 @@ CMBARTER_ABOUT_US_URL = 'https://sourceforge.net/projects/cmb/'
 CMBARTER_DEBUG_MODE = True  
 
 
-
 # Sign-up and log-in settings:
 CMBARTER_MIN_PASSWORD_LENGTH = 8
 CMBARTER_SHOW_CAPTCHA_ON_SIGNUP = True
 CMBARTER_SHOW_CAPTCHA_ON_REPETITIVE_LOGIN = True
 CMBARTER_REGISTRATION_KEY_IS_REQUIRED = False
-CMBARTER_REGISTRATION_KEY_PREFIX = u''
+CMBARTER_REGISTRATION_KEY_PREFIX = ''
 
 # If a registration key is required for signing up, the next setting
 # should point to an URL where users will be instructed how to obtain
@@ -48,12 +50,10 @@ CMBARTER_REGISTRATION_KEY_HELP_URL = ''
 RECAPTCHA_PUBLIC_KEY='6Ledx7wSAAAAAICFw8vB-2ghpDjzGogPRi6-3FCr'
 RECAPTCHA_PIVATE_KEY='6Ledx7wSAAAAAEskQ7Mbi-oqneHDSFVUkxGitn_y'
 
-assert CMBARTER_SHOW_CAPTCHA_ON_SIGNUP or CMBARTER_REGISTRATION_KEY_IS_REQUIRED
-assert CMBARTER_SHOW_CAPTCHA_ON_REPETITIVE_LOGIN or CMBARTER_MIN_PASSWORD_LENGTH > 10
-
-
 
 # Miscellaneous settings:
+CMBARTER_DEFAULT_USERS_TIME_ZONE = ''  # The time zone of your users.
+                                       # For example: 'Europe/Rome'
 CMBARTER_SEARCH_PARTNERS_URL = ''  # Set this to a page where users
                                    # can search for trusted partners.
 CMBARTER_MAX_IMAGE_SIZE = 1e6  # This is the maximum size in bytes for
@@ -63,6 +63,8 @@ CMBARTER_MAX_IMAGE_PIXELS = 30e6  # This is the maximum amount of
                                   # uploaded photographs.
 CMBARTER_INSERT_BIDI_MARKS = False  # You may set this to "True" if
                                     # you do not need to support IE6.
+
+# Usually, you do not need to change anything bellow this line.
 CMBARTER_HOST_IS_SPAM_LISTED = False
 CMBARTER_HISTORY_HORISON_DAYS = 26
 CMBARTER_SESSION_TOUCH_MINUTES = 30
@@ -75,8 +77,8 @@ CMBARTER_TURN_IS_RUNNING_TEMPLATE = 'turn_is_running.html'
 CMBARTER_TURN_IS_RUNNING_MOBILE_TEMPLATE = 'xhtml-mp/turn_is_running.html'
 CMBARTER_DOC_ROOT_URL = '/doc'
 CMBARTER_PROJECT_DIR = os.path.dirname(__file__)
-CMBARTER_DEV_DOC_ROOT = os.path.join(CMBARTER_PROJECT_DIR, "../doc")
-CMBARTER_DEV_STATIC_ROOT = os.path.join(CMBARTER_PROJECT_DIR, "../static")
+CMBARTER_DEV_DOC_ROOT = os.path.join(CMBARTER_PROJECT_DIR, '../doc')
+CMBARTER_DEV_STATIC_ROOT = os.path.join(CMBARTER_PROJECT_DIR, '../static')
 
 
 
@@ -84,6 +86,7 @@ CMBARTER_DEV_STATIC_ROOT = os.path.join(CMBARTER_PROJECT_DIR, "../static")
 ## Django settings:                      ##
 ###########################################
 
+assert CMBARTER_SHOW_CAPTCHA_ON_SIGNUP or CMBARTER_REGISTRATION_KEY_IS_REQUIRED
 
 DEBUG = CMBARTER_DEBUG_MODE
 TEMPLATE_DEBUG = DEBUG
@@ -94,11 +97,6 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-# Local time zone for this installation. Choices can be found here:
-# http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
-# although not all choices may be available on all operating systems.
-# If running in a Windows environment this must be set to the same as your
-# system time zone.
 TIME_ZONE = 'America/Chicago'
 
 LANGUAGE_CODE = 'en'
@@ -112,16 +110,15 @@ LANGUAGE_COOKIE_NAME = 'cmbarter_language'
 USE_I18N = True
 
 LOCALE_PATHS = (
-    os.path.join(CMBARTER_PROJECT_DIR, "locale"),
+    os.path.join(CMBARTER_PROJECT_DIR, 'locale'),
 )
 
 MEDIA_ROOT = ''
 MEDIA_URL = ''
 
-# Make this unique, and don't share it with anybody.
-SECRET_KEY = 'vjgz%^^7f6-=#%f&5y8qw2ous-l6zz!h+rkpzmxx(ozp%^xeb)'
+SECRET_KEY = CMBARTER_SECRET_KEY
 
-ALLOWED_HOSTS = [CMBARTER_HOST]
+ALLOWED_HOSTS = [CMBARTER_HOST, 'localhost', '127.0.0.1']
 
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
@@ -142,10 +139,10 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'cmbarter.urls'
 
-WSGI_APPLICATION = "cmbarter.wsgi.application"
+WSGI_APPLICATION = 'cmbarter.wsgi.application'
 
 TEMPLATE_DIRS = (
-    os.path.join(CMBARTER_PROJECT_DIR, "templates"),
+    os.path.join(CMBARTER_PROJECT_DIR, 'templates'),
 )
 
 INSTALLED_APPS = (
@@ -162,7 +159,7 @@ INSTALLED_APPS = (
     'cmbarter.mobile',
 )
 
-SESSION_ENGINE="django.contrib.sessions.backends.file"
+SESSION_ENGINE='django.contrib.sessions.backends.file'
 SESSION_FILE_PATH=CMBARTER_SESSION_DIR
 SESSION_COOKIE_SECURE=False if DEBUG else True
 SESSION_EXPIRE_AT_BROWSER_CLOSE=True

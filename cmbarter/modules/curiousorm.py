@@ -31,7 +31,15 @@ from __future__ import with_statement
 from contextlib import contextmanager
 from functools import wraps
 import time, itertools
-import psycopg2
+
+# Try to import psycopg2. If not possible, try psycopg2cffi.
+try:
+    import psycopg2
+except ImportError:
+    from psycopg2cffi import compat
+    compat.register()
+    import psycopg2
+
 import psycopg2.extensions
 from psycopg2.extras import DictCursor
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT

@@ -6,9 +6,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: cmbarter-1.7\n"
+"Project-Id-Version: cmbarter-1.9\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-21 15:02+0200\n"
+"POT-Creation-Date: 2013-04-29 23:24+0300\n"
 "PO-Revision-Date: 2012-11-29 19:20+0200\n"
 "Last-Translator: Evgeni Pandurski <epandurski@gmail.com>\n"
 "Language-Team: Bulgarian <epandurski@gmail.com>\n"
@@ -170,7 +170,7 @@ msgstr "Получател"
 #: products/forms.py:90 profiles/forms.py:104 profiles/forms.py:111
 #: profiles/forms.py:184 profiles/forms.py:204 profiles/forms.py:233
 #: profiles/forms.py:240 users/forms.py:73 users/forms.py:94
-#: users/forms.py:155 users/forms.py:162
+#: users/forms.py:156 users/forms.py:163
 msgid "This field is required."
 msgstr "Това поле е задължително."
 
@@ -354,7 +354,7 @@ msgstr "Кратка информация"
 msgid "I confirm"
 msgstr "Потвърждавам"
 
-#: profiles/forms.py:214 users/forms.py:188
+#: profiles/forms.py:214 users/forms.py:189
 msgid "You must confirm your wish before submitting."
 msgstr "Трябва да потвърдите намерението си преди да натиснете \"Изпрати\"."
 
@@ -366,7 +366,7 @@ msgstr "Тема"
 msgid "Write your message here"
 msgstr "Напишете тук вашето съобщение"
 
-#: profiles/views.py:168 users/views.py:335
+#: profiles/views.py:168 users/views.py:336
 msgid "Select your time zone"
 msgstr "Изберете вашата часова зона"
 
@@ -748,7 +748,7 @@ msgstr "Следващата разменна сесия ще започне н�
 #: templates/base_signup.html:7 templates/login.html:19
 #: templates/login.html.py:23 templates/login.html:34
 #: templates/login_captcha.html:15 templates/login_captcha.html.py:19
-#: templates/xhtml-mp/login.html:22
+#: templates/xhtml-mp/login.html:22 templates/xhtml-mp/login_insecure.html:22
 msgid "Login"
 msgstr "Вход"
 
@@ -758,7 +758,8 @@ msgstr "Вход"
 msgid "Sign up"
 msgstr "Регистрация"
 
-#: templates/base_signup.html:12 templates/xhtml-mp/login.html:28
+#: templates/base_signup.html:12 templates/xhtml-mp/login.html:27
+#: templates/xhtml-mp/login_insecure.html:28
 msgid "Language"
 msgstr "Език"
 
@@ -1452,10 +1453,12 @@ msgid "search among our trusted traders"
 msgstr "търсене измежду нашите доверени търговци"
 
 #: templates/login.html:25 templates/xhtml-mp/login.html:9
+#: templates/xhtml-mp/login_insecure.html:9
 msgid "ERROR: Invalid username or password."
 msgstr "ГРЕШКА: Грешно потребителско име или парола."
 
 #: templates/login_captcha.html:22 templates/xhtml-mp/login.html:11
+#: templates/xhtml-mp/login_insecure.html:11
 msgid ""
 "\n"
 "    Someone has been persistently trying to guess your password!  In\n"
@@ -2524,22 +2527,23 @@ msgstr "Доставчици"
 msgid "Find partner"
 msgstr "Търсене на доставчик"
 
-#: templates/xhtml-mp/login.html:16 templates/xhtml-mp/no_profile.html:4
+#: templates/xhtml-mp/login.html:16 templates/xhtml-mp/login_insecure.html:16
+#: templates/xhtml-mp/no_profile.html:4
 #, python-format
 msgid "\"Please go to %(host)s/login/ and log in there.\" "
 msgstr ""
 "Моля отидете на %(host)s/login/ и там въведете вашето потребителско име и "
 "парола."
 
-#: templates/xhtml-mp/login.html:20
+#: templates/xhtml-mp/login.html:20 templates/xhtml-mp/login_insecure.html:20
 msgid "Username:"
 msgstr "Потребител:"
 
-#: templates/xhtml-mp/login.html:21
+#: templates/xhtml-mp/login.html:21 templates/xhtml-mp/login_insecure.html:21
 msgid "Password:"
 msgstr "Парола:"
 
-#: templates/xhtml-mp/login.html:23
+#: templates/xhtml-mp/login_insecure.html:23
 msgid "switch to encrypted connection"
 msgstr "премини към кодирана връзка"
 
@@ -2644,7 +2648,7 @@ msgstr "Вашето потребителско име"
 msgid "Your password"
 msgstr "Вашата парола"
 
-#: users/forms.py:186
+#: users/forms.py:187
 #, python-format
 msgid "I do not want to receive emails from %(host)s"
 msgstr "Не искам да получавам повече писма от %(host)s"
