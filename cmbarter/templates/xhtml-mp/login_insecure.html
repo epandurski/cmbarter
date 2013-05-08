@@ -1,0 +1,31 @@
+{% extends "xhtml-mp/base_generic.html" %}{% load i18n %}
+
+{% block page_css %}
+#id_username, #id_password { -wap-input-required: true; }
+{% endblock %}
+
+{% block main %}
+<form method="post" action="/mobile/insecure/">
+{% if form.incorrect_login %}<ul class="errorlist"><li>{% trans "ERROR: Invalid username or password." %}</li></ul>{% endif %}
+{% if form.needs_captcha %}<ul class="errorlist">
+<li>{% blocktrans %}
+    Someone has been persistently trying to guess your password!  In
+    order to protect your account from being compromised, we should
+    perform an additional verification before letting you in.
+    {% endblocktrans %}
+    {% blocktrans with settings.CMBARTER_HOST as host %}"Please go to {{host}}/login/ and log in there." {%  endblocktrans %}
+</li>
+</ul>{% endif %}
+{% for error in form.non_field_errors %}<ul class="errorlist"><li>{{error}}</li></ul>{% endfor %}
+{{form.username.errors}}<p><label for="id_username" style="-wap-accesskey:0">{% trans "Username:" %}</label> {{form.username}}</p>
+{{form.password.errors}}<p><label for="id_password">{% trans "Password:" %}</label> <input id="id_password" type="password" name="password" /></p>
+<p class="submit"><input type="submit" value="{% trans "Login" %}" /></p>
+<p><a href="https://{{settings.CMBARTER_HOST}}/mobile/">{% trans "switch to encrypted connection" %}</a></p>
+</form>
+{% endblock %}
+{% block navigation %}
+{% if LANGUAGES|length > 1 %}
+<h3>{% trans "Language" %}</h3>
+<ul>{% for lang in LANGUAGES %}<li><a href="/mobile/lang/{{lang.0}}/">{{lang.1|capfirst}}</a></li>{% endfor %}</ul>
+{% endif %}
+{% endblock %}
