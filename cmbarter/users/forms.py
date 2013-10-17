@@ -31,7 +31,9 @@ from django import forms
 from django.forms import widgets
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
+from django.utils.functional import allow_lazy
 
+format_lazy = allow_lazy(lambda x, y: x%y, unicode)
 
 
 class SignupForm(forms.Form):
@@ -44,9 +46,13 @@ class SignupForm(forms.Form):
         max_length=64,
         widget=forms.PasswordInput(),
         label=_('Choose a password'),
-        error_messages={'min_length': _('Ensure this value has at least %(min_length)s characters.') % {'min_length': str(settings.CMBARTER_MIN_PASSWORD_LENGTH)},
-                        'max_length': _('Ensure this value has at most 64 characters.') },
-        help_text=_('at least %(min_length)s characters') % {'min_length': str(settings.CMBARTER_MIN_PASSWORD_LENGTH)})
+        error_messages={
+            'min_length': format_lazy(
+                _('Ensure this value has at least %(min_length)s characters.'),
+                {'min_length': str(settings.CMBARTER_MIN_PASSWORD_LENGTH)}),
+            'max_length': _('Ensure this value has at most 64 characters.') },
+        help_text=format_lazy( _('at least %(min_length)s characters'),
+                               {'min_length': str(settings.CMBARTER_MIN_PASSWORD_LENGTH)} ))
     
     password2 = forms.CharField(
         widget=forms.PasswordInput(),
@@ -73,11 +79,12 @@ class SignupForm(forms.Form):
             raise forms.ValidationError(_('This field is required.'))
 
     def clean_registration_key(self):
-        return self.cleaned_data['registration_key'].replace(u' ', u'').replace(u'-', u'')
+        return self.cleaned_data['registration_key'].replace(' ', '').replace('-', '')
 
 
 class LoginForm(forms.Form):
     username = forms.CharField(
+        max_length=32,
         label=_("Your username"))
     
     password = forms.CharField(
@@ -144,6 +151,7 @@ class CreateProfileForm(forms.Form):
         widget=forms.TextInput(attrs={'size' : '30'}))
     time_zone = forms.CharField(
         label=_('Time zone'),
+        max_length=300,
         widget=widgets.Select,
         help_text=('' if settings.CMBARTER_DEFAULT_USERS_TIME_ZONE 
                    else '<span class="highlighted">*</span>'))
@@ -184,8 +192,8 @@ class CreateProfileForm(forms.Form):
 
 class CancelEmailForm(forms.Form):
     agreed = forms.BooleanField(
-        label=_('I do not want to receive emails from %(host)s') % {'host': settings.CMBARTER_HOST},
-        error_messages= \
-        {'required': _('You must confirm your wish before submitting.')})
+        label=format_lazy( _('I do not want to receive emails from %(host)s'),
+                           {'host': settings.CMBARTER_HOST} ),
+        error_messages= {'required': _('You must confirm your wish before submitting.')})
 
 

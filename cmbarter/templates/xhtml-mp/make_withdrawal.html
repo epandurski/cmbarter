@@ -16,7 +16,7 @@
 <form method="post" action="/mobile/{{secret}}/traders/{{trader.trader_id}}/deposits/{{product.promise_id}}/?backref=/mobile/{{secret}}/traders/{{trader.trader_id}}/deposits/">
 {% if form.insufficient_amount %}<ul class="errorlist"><li>{% trans "ERROR: The amount you requested is not available." %}</li></ul>{% endif %}
 {{form.amount.errors}}<p><label for="id_amount">{% trans "Amount:"%} ({{max_amount}})</label> {{form.amount}}</p>
-{{form.reason.errors}}<p><label for="id_reason">{{form.reason.label}}:</label> <input type="text" name="reason" id="id_reason" /></p>
+{{form.reason.errors}}<p><label for="id_reason">{{form.reason.label}}:</label> {{form.reason}}</p>
 <p class="submit"><input type="submit" value="{% trans "Submit" %}" /></p>
 </form>
 {% endblock %}

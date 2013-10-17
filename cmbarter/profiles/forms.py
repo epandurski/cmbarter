@@ -27,16 +27,54 @@
 ## This file contains django forms related to user's profiles and for
 ## managing trading partners.
 ##
+from cStringIO import StringIO  # PYTHON3: from io import BytesIO
 from django import forms
 from django.forms import widgets
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
+from django.utils.functional import allow_lazy
+from django.core.files.uploadhandler import FileUploadHandler
+from django.core.files.uploadedfile import UploadedFile
+
+format_lazy = allow_lazy(lambda x, y: x%y, unicode)
+
+
+class PhotographUploadHandler(FileUploadHandler):
+    """
+    File upload handler to stream photograph uploads into memory.
+    """
+
+    def handle_raw_input(self, input_data, META, content_length, boundary, encoding=None):
+        # Check the content-length header to see if we should keep the data.
+        if content_length > settings.CMBARTER_MAX_IMAGE_SIZE + 10000:
+            self.__keep = False
+        else:
+            self.__keep = True
+
+    def new_file(self, field_name, file_name, content_type, *args, **kwargs):
+        self.__file_name = file_name
+        self.__content_type = content_type
+        self.__file = StringIO()  # PYTHON3: self.__file = BytesIO()
+
+    def receive_data_chunk(self, raw_data, start):
+        if self.__keep:
+            self.__file.write(raw_data)
+
+    def file_complete(self, file_size):
+        self.__file.seek(0)
+        return UploadedFile(
+            file = self.__file,
+            name = self.__file_name,
+            content_type = self.__content_type,
+            size = file_size if self.__keep else 0,
+            charset = None
+            )
 
 
 class FindTraderForm(forms.Form):
     id = forms.RegexField(
         widget=forms.TextInput(attrs={'size' : '9'}),
-        regex=r"^\d{9}$",
+        regex=r"^[0-9]{9}$",
         max_length=9,
         label=_('Trader ID'),
         error_messages={'max_length': _('Enter a valid value.')})
@@ -94,6 +132,7 @@ class EditProfileForm(forms.Form):
         label=_('Allow other traders to see your partners list'))
     time_zone = forms.CharField(
         label=_('Time zone'),        
+        max_length=300,
         widget=widgets.Select)
     
     def clean_summary(self):
@@ -132,7 +171,11 @@ class EditProfileForm(forms.Form):
 
 class UploadPhotographForm(forms.Form):    
     photo = forms.ImageField(
-        widget=forms.FileInput(attrs={'size' : '30'}),
+        widget=forms.FileInput(attrs={'size': '30', 'accept': 'image/*'}),
+        error_messages={
+            'empty': format_lazy(
+                _('ERROR: The file should not be empty or bigger than %(max_size)sKB.'),
+                {'max_size': str(settings.CMBARTER_MAX_IMAGE_SIZE // 1024)} )},
         label=_('Image file'))
 
 
@@ -148,9 +191,13 @@ class ChangePasswordForm(forms.Form):
         max_length=64,
         widget=forms.PasswordInput(),
         label=_('Choose a new password'),
-        error_messages={'min_length': _('Ensure this value has at least %(min_length)s characters.') % {'min_length': str(settings.CMBARTER_MIN_PASSWORD_LENGTH)},
-                        'max_length': _('Ensure this value has at most 64 characters.') },
-        help_text=_('at least %(min_length)s characters') % {'min_length': str(settings.CMBARTER_MIN_PASSWORD_LENGTH)})                        
+        error_messages={
+            'min_length': format_lazy(
+                _('Ensure this value has at least %(min_length)s characters.'),
+                {'min_length': str(settings.CMBARTER_MIN_PASSWORD_LENGTH)}),
+            'max_length': _('Ensure this value has at most 64 characters.') },
+        help_text=format_lazy( _('at least %(min_length)s characters'),
+                               {'min_length': str(settings.CMBARTER_MIN_PASSWORD_LENGTH)} ))
     
     password2 = forms.CharField(
         widget=forms.PasswordInput(),

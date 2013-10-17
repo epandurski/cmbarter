@@ -39,10 +39,10 @@ from cmbarter.modules import curiousorm, utils
 import pytz
 
 
-db = curiousorm.Database(settings.CMBARTER_DSN)
+db = curiousorm.Database(settings.CMBARTER_DSN, dictrows=True)
 
 HISTORY_HORIZON = datetime.timedelta(days=settings.CMBARTER_HISTORY_HORISON_DAYS)
-DEAL_FIELD = re.compile('^deal-(\d{1,9})-(\d{1,9})-(\d{1,9})$')
+DEAL_FIELD = re.compile(r'^deal-([0-9]{1,9})-([0-9]{1,9})-([0-9]{1,9})$')
 
 
 def _nearest_midnights(year, month, day, timezone=pytz.utc):
@@ -54,7 +54,7 @@ def _nearest_midnights(year, month, day, timezone=pytz.utc):
         
 
 @has_profile(db)
-@curiousorm.retry_transient_errors
+@curiousorm.retry_on_deadlock
 def show_unconfirmed_deals(request, user, tmpl='unconfirmed_deals.html'):
     if request.method == 'POST':
 

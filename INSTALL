@@ -29,11 +29,11 @@ source code in your */usr/local/share/* directory::
 
   # cd /usr/local/share/
   # wget http://sourceforge.net/projects/cmb/files/tarballs/\
-  cmbarter-1.9.tar.gz/download -O cmbarter-1.9.tar.gz
+  cmbarter-1.10.tar.gz/download -O cmbarter-1.10.tar.gz
   ...
 
-  # tar -xzf cmbarter-1.9.tar.gz 
-  # mv cmbarter-1.9 cmbarter
+  # tar -xzf cmbarter-1.10.tar.gz 
+  # mv cmbarter-1.10 cmbarter
 
 Also, make sure a *Python 2.x* interpreter (version 2.6 at least) is
 installed on your server.
@@ -44,13 +44,12 @@ Application installation
 
 Here are the installation steps that you should perform:
       
-1. Install the newest *Python 2.x* versions of the following software
+1. Install the *Python 2.x* versions of the following software
    packages:
 
-   - *django* (version 1.4 at least, make sure your Python version is
-     supported)
-   - *psycopg2* (version 2.0.10 at least)
-   - *Python Imaging Library*
+   - *Django* (versions 1.4, 1.5, and 1.6 have been tested)
+   - *psycopg2* (version 2.3 at least)
+   - *Pillow* (or "Python Imaging Library")
    - *pycrypto* [1]_
    - *pytz*
 
@@ -103,22 +102,22 @@ having prior experience with administering Apache would be of help.
 
 Here are the installation steps that you should perform:
               
-1. Install Apache and make sure the following modules are enabled:
+1. Install Apache and make sure the following modules are active:
 
    - *mod_mime*
    - *mod_dir*
    - *mod_alias*
-   - *mod_deflate*
    - *mod_expires*
    - *mod_ssl*
    - *mod_headers*
    - *mod_rewrite*
    - *mod_include*
+   - *mod_reqtimeout*
+   - *mod_authz_host*
    
-   You might also consider installing and configuring some DDoS attack
-   evasion mechanism (*mod_evasive* for example).
+   Make sure *mod_deflate* is NOT ACTIVE.
 
-2. Install and enable *mod_wsgi* [3]_. Make sure mod_wsgi uses the
+2. Install and activate *mod_wsgi* [3]_. Make sure mod_wsgi uses the
    *Python 2.x* interpreter, and not the *Python 3.x* one.
 
    For example::
@@ -126,20 +125,32 @@ Here are the installation steps that you should perform:
      # apt-get install libapache2-mod-wsgi
      ...
 
-3. Obtain and install a proper SSL certificate for your server.
+3. Set the variable "PYTHONHASHSEED" to "random" in Apache's execution
+   environment.
 
-4. Add the content of */usr/local/share/cmbarter/apache/httpd.conf* to
-   your Apache configuration (probably at
-   */etc/apache2/httpd.conf*). You will need to make some changes in
-   order to adapt it to your specific setup. Do not forget to replace
-   "yourdomainname.foo" with your real domain name.
+   For example::
+
+     # echo "export PYTHONHASHSEED=random" >> /etc/apache2/envvars
+
+4. Obtain a proper SSL certificate for your server.
+
+5. Use the prototype configuration in
+   */usr/local/share/cmbarter/apache/httpd.conf* to configure your
+   Apache. Notice that you will have to make some changes to the
+   prototype configuration in order to adapt it to your specific
+   setup. In particular, do not forget to replace "yourdomainname.foo"
+   with your real domain name.
+
+6. Consider installing and configuring a firewall (*iptables* for
+   example) to protect your web-server from denial-of-service
+   attacks. [4]_
    
 
 Mail server installation
 -------------------------
 
 CMB needs a mail server only for sending outgoing e-mails. Therefore,
-you may install whatever server is most convenient for you [4]_. The
+you may install whatever server is most convenient for you [5]_. The
 only requirement is that the server is configured to accept anonymous
 connections at *localhost:25*.
 
@@ -159,7 +170,7 @@ Here are the installation steps that you should perform:
 
    Keep in mind that the default PosgreSQL configuration is not very
    well suited for large database servers. So, you will probably need
-   to edit your PosgreSQL configuration files at some point [5]_. See
+   to edit your PosgreSQL configuration files at some point [6]_. See
    PostgreSQL's documentation for more info.
    
 2. Create a database user *cmbarter* and a database *cmbarter*
@@ -248,7 +259,7 @@ Here are the configuration steps that you should perform:
      * * * * * sudo -u cmbarter python /usr/local/share/cmbarter/proce...
        ss_emails.py
    
-   Call each script [6]_ with "--help" to see its full list of
+   Call each script [7]_ with "--help" to see its full list of
    accepted parameters.
    
    Notice that the system crontab format might be slightly different
@@ -302,10 +313,9 @@ Here are the installation steps that you should perform:
    installed on the hosting server. Also, make sure the Python 2.x
    versions of the following software packages are installed:
 
-   - *django* (version 1.4 at least, make sure your Python version is
-     supported)
-   - *psycopg2* (version 2.0.10 at least)
-   - *Python Imaging Library*
+   - *Django* (versions 1.4, 1.5, and 1.6 have been tested)
+   - *psycopg2* (version 2.3 at least)
+   - *Pillow* (or "Python Imaging Library")
    - *pycrypto*
    - *pytz*
    - *flup*
@@ -321,11 +331,11 @@ Here are the installation steps that you should perform:
 
      $ cd ~
      $ wget http://sourceforge.net/projects/cmb/files/tarballs/\
-     cmbarter-1.9.tar.gz/download -O cmbarter-1.9.tar.gz
+     cmbarter-1.10.tar.gz/download -O cmbarter-1.10.tar.gz
      ...
 
-     $ tar -xzf cmbarter-1.9.tar.gz 
-     $ mv cmbarter-1.9 cmbarter
+     $ tar -xzf cmbarter-1.10.tar.gz 
+     $ mv cmbarter-1.10 cmbarter
 
 3. Restrict access to those source files that may contain sensitive
    information::
@@ -466,22 +476,39 @@ these tasks, though.
 
 .. [3] You can not use *mod_wsgi* with PyPy. To use Apache with PyPy,
    you may configure *mod_proxy* to operate as a reverse proxy for a
-   separate PyPy-compatible WSGI server (*gunicorn* for example).
+   separate PyPy-compatible WSGI server (*gunicorn* for example). You
+   may consider using *nginx* as well.
  
-.. [4] Debian uses the *exim* mail server by default. You can
+.. [4] Here is a simplistic, but informative *iptables* configuration
+   that limits the number of new connections from one IP address over
+   a time period::
+   
+     # iptables -A INPUT -p tcp -m conntrack \
+     --ctstate RELATED,ESTABLISHED -j ACCEPT
+
+     # iptables -A INPUT -p tcp -m recent \
+     --update --seconds 60 --hitcount 60 -j DROP
+
+     # iptables -A INPUT -p tcp -m recent --set
+
+   Also, while CMB is working, it maintains a whitelist of "good" IP
+   addresses. You can use this auto-generated whitelist to configure
+   *iptables* to further protect your web-server (see the
+   *show_whitelist.py* command-line tool).
+
+.. [5] Debian uses the *exim* mail server by default. You can
    reconfigure it with this command::
 
      # dpkg-reconfigure exim4-config
      ...
 
-.. [5] You may consider changing the following parameters:
-   *maintainance_work_mem, checkpoint_segments, checkpoint_timeout,
-   commit_delay, shared_buffers, stats_row_level, vacuum_cost_delay,
-   vacuum_cost_xxx*
+.. [6] You may consider changing the following parameters:
+   *maintainance_work_mem, shared_buffers , effective_cache_size,
+   checkpoint_segments, checkpoint_timeout,
+   checkpoint_completion_target, effective_io_concurrency,
+   random_page_cost*
 
-.. [6] The important commands are: *execute_turn.py,
+.. [7] The important commands are: *execute_turn.py,
    process_emails.py, check_sessions.py, generate_regkeys.py,
-   schedule_turns.py*. "manage.py" is Django's standard administration
-   tool.
-
-   
+   schedule_turns.py, show_whitelist.py, show_emails.py*. "manage.py"
+   is Django's standard administration tool.

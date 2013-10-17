@@ -88,12 +88,13 @@ class Limiter:
 
             # Override the old content of the file:
             f.seek(0)
-            f.write("%.1f@%.3f" % (curr_count + self._count_increment, curr_time))
+            f.write(
+                ("%.1f@%.3f" % (curr_count + self._count_increment, curr_time)).encode('ascii') )
             f.truncate()
 
 
     def _read_from_file(self, f):
-        l = f.read().split('@')
+        l = f.read().split(b'@')
         try:
             if len(l) != 2:
                 raise ValueError

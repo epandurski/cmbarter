@@ -35,8 +35,8 @@ from django.conf import settings
 from django.shortcuts import render_to_response
 from django.core.urlresolvers import reverse
 from django.core.context_processors import csrf
-from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotAllowed, HttpResponseForbidden, Http404
+from django.http import (
+    HttpResponse, HttpResponseRedirect, HttpResponseNotAllowed, HttpResponseForbidden, Http404)
 from django.utils.translation import get_language
 from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.csrf import csrf_protect
@@ -46,10 +46,10 @@ from cmbarter.modules import curiousorm, utils, captcha, keygen, limiter
 from pytz import common_timezones
 
 
-db = curiousorm.Database(settings.CMBARTER_DSN)
+db = curiousorm.Database(settings.CMBARTER_DSN, dictrows=True)
 
-TRADER_ID_STRING = re.compile('^\d{1,9}$')
-SSI_HOST = re.compile('<!--\s*#echo\s*var="HTTP_HOST"\s*-->')
+TRADER_ID_STRING = re.compile(r'^[0-9]{1,9}$')
+SSI_HOST = re.compile(br'<!--\s*#echo\s*var="HTTP_HOST"\s*-->')
 
 
 search_limiter = limiter.Limiter(
@@ -58,8 +58,24 @@ search_limiter = limiter.Limiter(
     settings.CMBARTER_SEARCH_MAX_BURST)
 
 
+def get_client_ip(request):
+    remote_addr = request.META.get('REMOTE_ADDR')
+    if (settings.CMBARTER_HTTP_X_FORWARDED_FOR_IS_TRUSTWORTHY
+            or remote_addr in settings.CMBARTER_REVERSE_PROXIES):
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip_chain = [addr.strip() for addr in x_forwarded_for.split(',')]
+            ip_chain.reverse()
+            if not settings.CMBARTER_HTTP_X_FORWARDED_FOR_IS_TRUSTWORTHY:
+                for ip in ip_chain:
+                    if ip not in settings.CMBARTER_REVERSE_PROXIES:
+                        return ip
+            remote_addr = ip_chain[-1]
+    return remote_addr
+
+
 @csrf_protect
-@curiousorm.retry_transient_errors
+@curiousorm.retry_on_deadlock
 def login(request, tmpl='login.html'):
     if request.method == 'POST':
         form = forms.LoginForm(request.POST)
@@ -70,7 +86,8 @@ def login(request, tmpl='login.html'):
 
             authentication = db.login_trader(username, password_hash)
 
-            if settings.CMBARTER_SHOW_CAPTCHA_ON_REPETITIVE_LOGIN and authentication['needs_captcha']:
+            if (settings.CMBARTER_SHOW_CAPTCHA_ON_REPETITIVE_LOGIN_FAILURE and 
+                    authentication['needs_captcha']):
                 # Challenge the user with a captcha.
                 request.session['auth_username'] = username
                 request.session['auth_is_valid'] = authentication['is_valid']
@@ -80,7 +97,11 @@ def login(request, tmpl='login.html'):
             elif authentication['is_valid']:
                 # Log the user in and redirect him to his start-page.
                 trader_id = request.session['trader_id'] = authentication['trader_id']
-                show = TRADER_ID_STRING.match(request.GET.get('show', ''))
+                if settings.CMBARTER_MAINTAIN_IP_WHITELIST:
+                    client_ip = get_client_ip(request)
+                    if client_ip:
+                        db.insert_whitelist_entry(trader_id, client_ip)
+                show = TRADER_ID_STRING.match(request.GET.get('show', u''))
                 if show:
                     return HttpResponseRedirect(reverse(
                         'products-partner-pricelist', args=[trader_id, int(show.group())]))
@@ -90,7 +111,7 @@ def login(request, tmpl='login.html'):
             else:
                 form.incorrect_login = True                
     else:
-        prefill_username = request.GET.get('username', '')
+        prefill_username = request.GET.get('username', u'')
         form = forms.LoginForm(initial={'username': prefill_username })
         form.incorrect_login = bool(prefill_username)
 
@@ -101,7 +122,7 @@ def login(request, tmpl='login.html'):
 
 
 @csrf_protect
-@curiousorm.retry_transient_errors
+@curiousorm.retry_on_deadlock
 def login_captcha(request, tmpl='login_captcha.html'):
     captcha_error = None
     
@@ -122,15 +143,18 @@ def login_captcha(request, tmpl='login_captcha.html'):
                 del request.session['auth_trader_id']
                 db.report_login_captcha_success(trader_id)
                 request.session['trader_id'] = trader_id
+                if settings.CMBARTER_MAINTAIN_IP_WHITELIST:
+                    client_ip = get_client_ip(request)
+                    if client_ip:
+                        db.insert_whitelist_entry(trader_id, client_ip)
                 return HttpResponseRedirect(reverse(
                     'profiles-check-email', args=[trader_id]))
 
             else:
                 # an incorrect login
-                username = request.session.get('auth_username', '').encode('UTF-8')
                 return HttpResponseRedirect("%s?%s" % (
                     reverse(login),
-                    urlencode({'username': username })))
+                    urlencode({'username': request.session.get('auth_username', u'') })))
                 
     # Render everything adding CSRF protection.
     c = {'settings': settings, 'captcha_error': captcha_error }
@@ -138,7 +162,7 @@ def login_captcha(request, tmpl='login_captcha.html'):
     return render_to_response(tmpl, c)        
 
 
-@curiousorm.retry_transient_errors
+@curiousorm.retry_on_deadlock
 def verify_email(request, trader_id_str, verification_code, tmpl='verified_email.html'):
     trader_id = int(trader_id_str)
 
@@ -151,7 +175,7 @@ def verify_email(request, trader_id_str, verification_code, tmpl='verified_email
         raise Http404
 
 
-@curiousorm.retry_transient_errors
+@curiousorm.retry_on_deadlock
 def cancel_email(request, trader_id_str, cancellation_code, tmpl='cancel_email.html'):
 
     # We should make sure that the user has got a verified email, and
@@ -225,12 +249,13 @@ def search(request, trader_id_str, tmpl='search.html'):
 
     if trader and trader['advertise_trusted_partners']==True:
         # We are ALLOWED to show this info -- Parse GET-ed parameters and query the database.
-        query = request.GET.get('q', '')[:70]
+        query = request.GET.get('q', u'')[:70]
         try:
-            current_page = max(int(request.GET.get('page', '')[:3]), 1)
+            current_page = max(int(request.GET.get('page', u'')[:3]), 1)
         except ValueError:
             current_page = 1
-        number_of_items, number_of_pages, number_of_items_per_page = db.get_trust_match_count(trader_id, query)
+        number_of_items, number_of_pages, number_of_items_per_page = db.get_trust_match_count(
+            trader_id, query)
         visible_items = db.get_trust_match_list(trader_id, query, current_page - 1)
 
         # Render everything (we do not need CSRF protection here).
@@ -243,15 +268,18 @@ def search(request, trader_id_str, tmpl='search.html'):
               'number_of_items_per_page': number_of_items_per_page,
               'visible_items': visible_items,
               'first_visible_item_seqnum': a,
-              'last_visible_item_seqnum': a - 1 + (len(visible_items) if len(visible_items) > 0 else number_of_items_per_page),
-              'visible_pages': range(max(1, current_page - b + 1), 1 + min(number_of_pages, current_page + b)) }
+              'last_visible_item_seqnum': a - 1 + (
+                len(visible_items) if len(visible_items) > 0 else number_of_items_per_page),
+              'visible_pages': range(
+                max(1, current_page - b + 1), 
+                1 + min(number_of_pages, current_page + b)) }
         return render_to_response(tmpl, c)
 
     raise Http404
 
 
 @csrf_protect
-@curiousorm.retry_transient_errors
+@curiousorm.retry_on_deadlock
 def signup(request, tmpl='signup.html'):
     captcha_error = None
     
@@ -272,12 +300,18 @@ def signup(request, tmpl='signup.html'):
             username = form.cleaned_data['username']            
             password_salt = utils.generate_password_salt()
             password_hash = utils.calc_crypt_hash(password_salt + form.cleaned_data['password'])
-            registration_key = keygen.Keygen(settings.SECRET_KEY, settings.CMBARTER_REGISTRATION_KEY_PREFIX).validate(form.cleaned_data['registration_key']) if settings.CMBARTER_REGISTRATION_KEY_IS_REQUIRED else None
+            if settings.CMBARTER_REGISTRATION_KEY_IS_REQUIRED:
+                registration_key = keygen.Keygen(
+                    settings.SECRET_KEY, settings.CMBARTER_REGISTRATION_KEY_PREFIX
+                    ).validate(form.cleaned_data['registration_key'])
+            else:
+                registration_key = None
             
             while 1:
                 # Generate a new trader ID and try to register it.
                 trader_id = utils.vh_compute(random.randrange(1, 100000000))
-                error = db.insert_trader(trader_id, username, get_language(), password_hash, password_salt, registration_key)
+                error = db.insert_trader(trader_id, username, get_language(), password_hash, 
+                                         password_salt, registration_key)
                 
                 if 3==error:
                     # The registration key is invalid.
@@ -294,9 +328,14 @@ def signup(request, tmpl='signup.html'):
                     continue  
 
                 else:
-                    # Successfunl registration -- log the user in and
-                    # redirect him to copmlete his profile.
+                    # Successfunl registration -- log the user in, add
+                    # the IP to the whitelist, and redirect the user
+                    # to copmlete his profile.
                     request.session['trader_id'] = trader_id
+                    if settings.CMBARTER_MAINTAIN_IP_WHITELIST:
+                        client_ip = get_client_ip(request)
+                        if client_ip:
+                            db.insert_whitelist_entry(trader_id, client_ip)
                     return HttpResponseRedirect(reverse(
                         create_profile, args=[trader_id]))
     else:
@@ -309,7 +348,7 @@ def signup(request, tmpl='signup.html'):
 
 
 @logged_in
-@curiousorm.retry_transient_errors
+@curiousorm.retry_on_deadlock
 def create_profile(request, trader_id, tmpl='create_profile.html'):
     if request.method == 'POST':
         form = forms.CreateProfileForm(request.POST)
@@ -357,10 +396,11 @@ def set_language(request, lang):
         key=settings.LANGUAGE_COOKIE_NAME,
         value=lang,
         max_age=60*60*24*365*10)
+    request.session['django_language'] = lang
     return r
 
 
-@max_age(1209600)
+@max_age(12096000)
 def show_manual(request, lang):
     fullpath = os.path.join(settings.CMBARTER_DEV_DOC_ROOT, lang, 'index.shtml')
     if os.path.isdir(fullpath) or not os.path.exists(fullpath):

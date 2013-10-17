@@ -80,8 +80,8 @@ def absvalue(value):
 
 
 @register.filter
-def megabytes(value):
-    return value / 1e6
+def kilobytes(value):
+    return value // 1024
 
 
 def _get_bidi_mark():

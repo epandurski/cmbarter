@@ -34,7 +34,7 @@ from django.core.urlresolvers import reverse
 from django.core.context_processors import csrf
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.utils.translation import ugettext_lazy as _
-from cStringIO import StringIO
+from cStringIO import StringIO  # PYTHON3: from io import BytesIO
 from cmbarter.users.decorators import has_profile, logged_in, CmbAppError
 from cmbarter.profiles import forms
 from cmbarter.modules import curiousorm, utils
@@ -49,7 +49,7 @@ except ImportError:
 image_processing_lock = threading.Lock()
 
 
-db = curiousorm.Database(settings.CMBARTER_DSN)
+db = curiousorm.Database(settings.CMBARTER_DSN, dictrows=True)
 
 
 @has_profile(db)
@@ -62,11 +62,10 @@ def show_image(request, user, trader_id_str, photograph_id_str):
     if img:
         # Render the image with the right MIME-type.
         img_buffer = img['raw_content']
-        response = HttpResponse(content_type='image/jpeg')
+        response = HttpResponse(img_buffer, content_type='image/jpeg')
         response['Content-Encoding'] = 'identity'
         response['Content-Length'] = len(img_buffer)
-        response['Cache-Control'] = "max-age=1209600"
-        response.write(str(img_buffer))
+        response['Cache-Control'] = "max-age=12096000, public"
         return response
 
     return HttpResponseRedirect(reverse('profiles-no-image'))
@@ -95,7 +94,7 @@ def find_trader(request, user, tmpl='find_trader.html'):
 
 
 @has_profile(db)
-@curiousorm.retry_transient_errors
+@curiousorm.retry_on_deadlock
 def check_email_verification(request, user, tmpl='email_not_verified.html'):
 
     # Profile-emails that have not been verified for more than 1 month
@@ -127,7 +126,8 @@ def show_profile(request, user, trader_id_str, tmpl='contact_information.html'):
     
     if trader:
         # Render everything adding CSRF protection.        
-        c = {'settings': settings, 'user': user, 'trader': trader, 'email_verification': email_verification or {} }
+        c = {'settings': settings, 'user': user, 'trader': trader, 
+             'email_verification': email_verification or {} }
         c.update(csrf(request))
         return render_to_response(tmpl, c)
     
@@ -137,7 +137,7 @@ def show_profile(request, user, trader_id_str, tmpl='contact_information.html'):
 
 
 @has_profile(db)
-@curiousorm.retry_transient_errors
+@curiousorm.retry_on_deadlock
 def edit_profile(request, user, tmpl='edit_contact_information.html'):
     if request.method == 'POST':
         form = forms.EditProfileForm(request.POST)
@@ -175,7 +175,7 @@ def edit_profile(request, user, tmpl='edit_contact_information.html'):
 
 
 @has_profile(db)
-@curiousorm.retry_transient_errors
+@curiousorm.retry_on_deadlock
 def upload_photograph(request, user, tmpl='upload_photograph.html'):
     if request.method == 'POST':
         request._cmbarter_trx_cost += 2.0
@@ -192,7 +192,7 @@ def upload_photograph(request, user, tmpl='upload_photograph.html'):
             if uploaded_file.size <= settings.CMBARTER_MAX_IMAGE_SIZE:
                 img = Image.open(uploaded_file)
                 width, height = img.size
-                pixels = max(width, 32) * max(height, 32)  # rounding pixels up, just to be on the safe side
+                pixels = max(width, 32) * max(height, 32)
                 if pixels <= settings.CMBARTER_MAX_IMAGE_PIXELS:
                     request._cmbarter_trx_cost += (pixels / 1e4)
 
@@ -204,23 +204,24 @@ def upload_photograph(request, user, tmpl='upload_photograph.html'):
                     image_processing_lock.acquire()
                     try:
                         # Crop the image if the height is too big.
-                        max_height = width * 3 / 2
+                        max_height = width * 3 // 2
                         if height > max_height:
                             height = max_height
                             img = img.crop((0, 0, width, height))
 
                         # Resize the image to 220px width, and convert it to proper color-mode.
-                        img = img.resize((220, 220 * height / width), Image.ANTIALIAS)
+                        img = img.resize((220, 220 * height // width), Image.ANTIALIAS)
                         img = img.convert()
 
                         # Serialize the image as JPEG.
-                        s = StringIO()
+                        s = StringIO()  # PYTHON3: s = BytesIO()
                         img.save(s, 'JPEG')
 
                     except:
                         raise CmbAppError
 
                     finally:
+                        img = None
                         image_processing_lock.release()
 
                     # Store the resized image to the DB.
@@ -242,7 +243,7 @@ def upload_photograph(request, user, tmpl='upload_photograph.html'):
 
 
 @has_profile(db)
-@curiousorm.retry_transient_errors
+@curiousorm.retry_on_deadlock
 def change_password(request, user, tmpl='change_password.html'):
     if request.method == 'POST':
         form = forms.ChangePasswordForm(request.POST)
@@ -269,7 +270,7 @@ def change_password(request, user, tmpl='change_password.html'):
 
 
 @has_profile(db)
-@curiousorm.retry_transient_errors
+@curiousorm.retry_on_deadlock
 def change_username(request, user, tmpl='change_username.html'):
     if request.method == 'POST':
         form = forms.ChangeUsernameForm(request.POST)
@@ -331,7 +332,7 @@ def show_partners(request, user, tmpl='partners.html'):
 
 
 @has_profile(db)
-@curiousorm.retry_transient_errors
+@curiousorm.retry_on_deadlock
 def add_partner(request, user, partner_id_str, tmpl='add_partner.html'):
     partner_id = int(partner_id_str)
 
@@ -380,7 +381,7 @@ def add_partner(request, user, partner_id_str, tmpl='add_partner.html'):
     
 
 @has_profile(db)
-@curiousorm.retry_transient_errors
+@curiousorm.retry_on_deadlock
 def remove_partner(request, user, partner_id_str, tmpl='remove_partner.html'):
     partner_id = int(partner_id_str)
 
@@ -425,12 +426,13 @@ def show_suggested_partners(request, user, partner_id_str, tmpl='suggested_partn
             visible_items = []
         else:
             # We are ALLOWED to show this info -- Parse GET-ed parameters and query the database.
-            query = request.GET.get('q', '')[:70]
+            query = request.GET.get('q', u'')[:70]
             try:
-                current_page = max(int(request.GET.get('page', '')[:3]), 1)
+                current_page = max(int(request.GET.get('page', u'')[:3]), 1)
             except ValueError:
                 current_page = 1
-            number_of_items, number_of_pages, number_of_items_per_page = db.get_trust_match_count(partner_id, query)
+            number_of_items, number_of_pages, number_of_items_per_page = db.get_trust_match_count(
+                partner_id, query)
             visible_items = db.get_trust_match_list(partner_id, query, current_page - 1)
 
         # Render everything adding CSRF protection.
@@ -443,8 +445,12 @@ def show_suggested_partners(request, user, partner_id_str, tmpl='suggested_partn
               'number_of_items_per_page': number_of_items_per_page,
               'visible_items': visible_items,
               'first_visible_item_seqnum': a,
-              'last_visible_item_seqnum': a - 1 + (len(visible_items) if len(visible_items) > 0 else number_of_items_per_page),
-              'visible_pages': range(max(1, current_page - b + 1), 1 + min(number_of_pages, current_page + b)) }
+              'last_visible_item_seqnum': a - 1 + (
+                len(visible_items) if len(visible_items) > 0 else number_of_items_per_page),
+              'visible_pages': range(
+                max(1, current_page - b + 1), 
+                1 + min(number_of_pages, current_page + b)) 
+              }
         c.update(csrf(request))    
         return render_to_response(tmpl, c)
     
@@ -452,7 +458,7 @@ def show_suggested_partners(request, user, partner_id_str, tmpl='suggested_partn
 
 
 @has_profile(db)
-@curiousorm.retry_transient_errors
+@curiousorm.retry_on_deadlock
 def email_customers(request, user, tmpl='email_customers.html'):
 
     # We should check first if the user has successfully verified

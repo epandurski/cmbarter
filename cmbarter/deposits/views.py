@@ -28,7 +28,7 @@
 ## related to making deposits and withdrawal.
 ##
 from __future__ import with_statement
-import decimal, re
+import decimal, re, urllib
 from django.conf import settings
 from django.shortcuts import render_to_response
 from django.core.urlresolvers import reverse
@@ -40,10 +40,10 @@ from cmbarter.deposits import forms
 from cmbarter.modules import curiousorm, utils
 
 
-db = curiousorm.Database(settings.CMBARTER_DSN)
+db = curiousorm.Database(settings.CMBARTER_DSN, dictrows=True)
 
-TRX_FIELD = re.compile('^trx-(\d{1,15})$')
-HANDOFF_FIELD = re.compile('^handoff-(\d{1,9})$')
+TRX_FIELD = re.compile(r'^trx-([0-9]{1,15})$')
+HANDOFF_FIELD = re.compile(r'^handoff-([0-9]{1,9})$')
 
 
 @has_profile(db)
@@ -79,6 +79,8 @@ def show_deposits(request, user, customer_id_str, tmpl='deposits.html'):
     if trader:
         # Get customer's list of deposits.
         deposits = db.get_deposit_list(customer_id, user['trader_id'])
+        deposits.sort(key=lambda row: (
+                row['title'].lower(), row['unit'].lower(), row['promise_id']))
 
         # Render everything adding CSRF protection.        
         c = {'settings': settings, 'user': user, 'trader': trader, 'deposits': deposits }
@@ -89,7 +91,7 @@ def show_deposits(request, user, customer_id_str, tmpl='deposits.html'):
 
 
 @has_profile(db)
-@curiousorm.retry_transient_errors
+@curiousorm.retry_on_deadlock
 def make_deposit(request, user, customer_id_str, tmpl='make_deposit.html'):
     customer_id = int(customer_id_str)
 
@@ -130,9 +132,9 @@ def make_deposit(request, user, customer_id_str, tmpl='make_deposit.html'):
             # to the "committed transaction" page if everything went
             # OK.  Otherwise we report an error.
             if amount_is_available:
-                return HttpResponseRedirect("%s?backref=%s" % (
+                return HttpResponseRedirect("%s?%s" % (
                     reverse(report_transaction_commit, args=[user['trader_id']]),
-                    request.GET.get('backref', '/') ))
+                    urllib.urlencode({'backref': request.GET.get('backref', u'/')}) ))
             else:
                 form.insufficient_amount = True
     else:
@@ -142,6 +144,7 @@ def make_deposit(request, user, customer_id_str, tmpl='make_deposit.html'):
     # product-select-box.  If two or more products happen to have the
     # same names, only the most recently created product is shown.
     products = db.get_product_offer_list(user['trader_id'])
+    products.sort(key=lambda row: (row['title'].lower(), row['unit'].lower(), row['promise_id']))
     choices = []
     choices_name_index = {}
     for p in products:
@@ -176,7 +179,7 @@ def make_deposit(request, user, customer_id_str, tmpl='make_deposit.html'):
 
 
 @has_profile(db)
-@curiousorm.retry_transient_errors
+@curiousorm.retry_on_deadlock
 def make_withdrawal(request, user, customer_id_str, promise_id_str, tmpl='make_withdrawal.html'):
     customer_id = int(customer_id_str)
     promise_id = int(promise_id_str)
@@ -193,9 +196,9 @@ def make_withdrawal(request, user, customer_id_str, promise_id_str, tmpl='make_w
                   form.cleaned_data['reason'],
                   False, None, None, None, None, None):
 
-                return HttpResponseRedirect("%s?backref=%s" % (
+                return HttpResponseRedirect("%s?%s" % (
                     reverse(report_transaction_commit, args=[user['trader_id']]),
-                    request.GET.get('backref', '/') ))
+                    urllib.urlencode({'backref': request.GET.get('backref', u'/')}) ))
             else:
                 form.insufficient_amount = True
     else:
@@ -217,7 +220,8 @@ def make_withdrawal(request, user, customer_id_str, promise_id_str, tmpl='make_w
         form.fields['amount'].help_text = _("may not exceed %(amount)s") % {'amount': max_amount }
 
         # Render everything adding CSRF protection.            
-        c = {'settings': settings, 'user' : user, 'trader': trader, 'product': product, 'form' : form }
+        c = {'settings': settings, 'user' : user, 'trader': trader, 'product': product, 
+             'form' : form }
         c.update(csrf(request))
         return render_to_response(tmpl, c)        
 
@@ -227,9 +231,9 @@ def make_withdrawal(request, user, customer_id_str, promise_id_str, tmpl='make_w
 
 
 @has_profile(db)
-@curiousorm.retry_transient_errors
+@curiousorm.retry_on_deadlock
 def report_transaction_commit(request, user, tmpl='transaction_commit.html'):
-    backref = request.GET.get('backref')
+    backref = urllib.quote(request.GET.get('backref', u''))
     
     if request.method == 'POST':
 
@@ -267,7 +271,8 @@ def report_transaction_commit(request, user, tmpl='transaction_commit.html'):
             items.append({'product': row, 'amount': row['amount'] })
     
     # Render everything adding CSRF protection.        
-    c = {'settings': settings, 'user': user, 'profile': profile, 'receipts': receipts, 'items': items, 'backref': backref }
+    c = {'settings': settings, 'user': user, 'profile': profile, 'receipts': receipts, 
+         'items': items, 'backref': backref }
     c.update(csrf(request))
     return render_to_response(tmpl, c)
 
@@ -286,7 +291,7 @@ def show_unconfirmed_receipts(request, user, tmpl='unconfirmed_receipt.html'):
 
 
 @has_profile(db)
-@curiousorm.retry_transient_errors
+@curiousorm.retry_on_deadlock
 def show_unconfirmed_transactions(request, user, tmpl='unconfirmed_transactions.html'):
     if request.method == 'POST':
         
@@ -314,7 +319,8 @@ def show_unconfirmed_transactions(request, user, tmpl='unconfirmed_transactions.
 
 
 @has_profile(db)
-def report_transactions_confirmation(request, user, count_str, tmpl='transactions_confirmation.html'):
+def report_transactions_confirmation(request, user, count_str, 
+                                     tmpl='transactions_confirmation.html'):
 
     # Render everything adding CSRF protection.            
     c = {'settings': settings, 'user': user, 'count': int(count_str) }

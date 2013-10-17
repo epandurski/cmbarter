@@ -33,7 +33,6 @@ from time import time
 from cmbarter.settings import CMBARTER_DSN
 from cmbarter.modules import curiousorm
 from cmbarter.modules.matcher import BondMatcher, pair2str, str2pair
-from cmbarter.modules.utils import buffered_cursor_iter
 
 
 USAGE = """Usage: execute_turn.py [OPTIONS]
@@ -69,11 +68,11 @@ Example:
 
 
 def commitments():
-    return buffered_cursor_iter(dsn, """
+    return curiousorm.Cursor(dsn, """
         SELECT recipient_id, issuer_id, promise_id, value
         FROM commitment
         ORDER BY ordering_number
-        """)
+        """, dictrows=True)
 
 
 
@@ -164,7 +163,7 @@ def parse_args(argv):
 
 
 def cluster():
-    o = curiousorm.Connection(dsn, autocommit=True)
+    o = curiousorm.Connection(dsn, dictrows=True)
     o.execute('CLUSTER')
     o.close()
 
@@ -200,8 +199,8 @@ if __name__ == "__main__":
     parse_args(sys.argv[1:])
 
     # See if we should perform a trading turn.
-    db = curiousorm.Connection(dsn)
-    should_perform_a_trading_turn = db._lock_solver()  # This will block and wait if another process is holding the lock.
+    db = curiousorm.Connection(dsn, dictrows=True)
+    should_perform_a_trading_turn = db._lock_solver()  # will block if other process has the lock
     try:
         # "should_perform_a_trading_turn" can be False if the time for
         # the next trading turn has not yet come; or if the solver has

@@ -1,3 +1,34 @@
+October 17th, 2013
+
+v1.10 -- Fixed a serious security problem in the WAP-application.
+
+      -- Disabled "django.middleware.gzip.GZipMiddleware" because of
+         the newly discovered "BREACH" attack against Django's CSRF
+         protection. For more information check this link:
+         https://www.djangoproject.com/weblog/2013/aug/06/breach-and-django/
+
+      -- Now CMB automatically maintains a whitelist of IP-addresses.
+         Site administrators can use this whitelist to configure their
+         firewall to protect their web-server(s) from DoS attacks.
+
+      -- Improved CuriousORM module. Now "CuriousORM" is a separate
+         project and has its own repository at
+         https://github.com/epandurski/CuriousORM/
+
+      -- Now CMB's source code can be effortlessly transformed to work
+         with Python 3. To do this, find all "PYTHON3"-tagged comments
+         in the code and make the suggested substitutions. Then run
+         "2to3" on the entire source tree. (You may skip
+         "curiousorm.py" because it already is Python3 compatible.)
+
+      -- Added "show_whitelist.py" command-line tool.
+      -- Added "show_emails.py" command-line tool.
+      -- Minor UI improvements.
+      -- Minor bug-fixes.
+      -- Closed few potential DoS-attack vectors.
+      -- Better support for new versions of Django.
+      -- Improved installation guide.
+
 May 8th, 2013
 v1.9 -- New, *much* faster algorithm for finding cycles.
      -- Minor UI improvements.

@@ -42,7 +42,7 @@ from cmbarter.modules import curiousorm
 import pytz
 
 
-A_TURN_IS_RUNNING = re.compile('a turn is running')
+A_TURN_IS_RUNNING = re.compile(r'a turn is running')
 SESSION_TOUCH_INTERVAL = datetime.timedelta(minutes=settings.CMBARTER_SESSION_TOUCH_MINUTES)
 
 
@@ -56,14 +56,19 @@ def report_transaction_cost(db, trader_id, trx_cost):
     # We must take care, so that the record-keeping itself
     # does not result in more than 5% performance
     # overhead.
-    if trx_cost >= 20.0:
-        with db.Transaction() as trx:
-            trx.set_asynchronous_commit()
-            trx.report_transaction_cost(trader_id, trx_cost)
-    elif trx_cost > 0.0 and random() < 0.05 * trx_cost:
-        with db.Transaction() as trx:
-            trx.set_asynchronous_commit()
-            trx.report_transaction_cost(trader_id, 20.0)
+    try:
+        if trx_cost >= 20.0:
+            with db.Transaction() as trx:
+                trx.set_asynchronous_commit()
+                trx.report_transaction_cost(trader_id, trx_cost)
+        elif trx_cost > 0.0 and random() < 0.05 * trx_cost:
+            with db.Transaction() as trx:
+                trx.set_asynchronous_commit()
+                trx.report_transaction_cost(trader_id, 20.0)
+    except curiousorm.PgError, e:
+        if getattr(e, 'pgcode', '') not in (curiousorm.SERIALIZATION_FAILURE,
+                                            curiousorm.DEADLOCK_DETECTED):
+            raise  # transaction serialization errors are being ignored
 
 
 def logged_in(view):
@@ -94,7 +99,8 @@ def logged_in(view):
                 return HttpResponseRedirect(reverse('users-login'))
             
         except curiousorm.PgError, e:
-            if getattr(e, 'pgcode', '')==curiousorm.RAISE_EXCEPTION and A_TURN_IS_RUNNING.search(getattr(e, 'pgerror', '')):
+            if (getattr(e, 'pgcode', '')==curiousorm.RAISE_EXCEPTION and 
+                    A_TURN_IS_RUNNING.search(getattr(e, 'pgerror', ''))):
                 # Render "turn is running" page with CSRF protection.
                 c = {'settings': settings, 'trader_id': trader_id }
                 c.update(csrf(request))
@@ -124,7 +130,8 @@ def has_profile(db):
                 if not hasattr(request, '_cmbarter_trx_cost'):
                     request._cmbarter_trx_cost = 0.0
                 try:
-                    response = view(request, userinfo, *args, **kargs)  # This may affect request._cmbarter_trx_cost
+                    # The next call may affect request._cmbarter_trx_cost
+                    response = view(request, userinfo, *args, **kargs)
                 except (Http404, CmbAppError):
                     report_transaction_cost(db, trader_id, request._cmbarter_trx_cost)
                     request._cmbarter_trx_cost = 0.0
@@ -147,7 +154,7 @@ def max_age(sec):
         def fn(request, *args, **kargs):
             response = view(request, *args, **kargs)
             if 200==response.status_code:
-                response['Cache-Control'] = "max-age=%i" % sec
+                response['Cache-Control'] = "max-age=%i, public" % sec
             return response
         return fn
     

@@ -28,7 +28,7 @@
 ## related to user's pricelist and user's shopping list.
 ##
 from __future__ import with_statement
-import re, decimal
+import re, decimal, urllib
 from django.conf import settings
 from django.shortcuts import render_to_response
 from django.core.urlresolvers import reverse
@@ -39,15 +39,28 @@ from cmbarter.products import forms
 from cmbarter.modules import curiousorm, utils
 
 
-db = curiousorm.Database(settings.CMBARTER_DSN)
+db = curiousorm.Database(settings.CMBARTER_DSN, dictrows=True)
 
-PRICE_FIELD_NAME = re.compile('^price-(\d{1,9})$')
+PRICE_FIELD_NAME = re.compile(r'^price-([0-9]{1,9})$')
 MIN_PRICE = decimal.Decimal('0.01')
 MAX_PRICE = decimal.Decimal('9999999999999.99')
-HAVE_FIELD_NAME = re.compile('^have-(\d{1,9}-\d{1,9})$')
+HAVE_FIELD_NAME = re.compile(r'^have-([0-9]{1,9}-[0-9]{1,9})$')
 
 
-def _parse_float(float_str, default=None, error_log=[]):
+_parse_monetary_value = re.compile(r"""
+    \A\s*
+    (?P<prefix>[^\s\d.+-]+)?                            # optional monetary prefix
+    \s*
+    (?P<value>[-+]?(?=\d|\.\d)\d*(\.\d*)?(E[-+]?\d+)?)  # a floating point number
+    \s*
+    (?P<suffix>\S+)?                                    # optional monetary suffix
+    \s*\Z
+""", re.VERBOSE | re.IGNORECASE | re.UNICODE).match
+
+
+def _parse_float(float_str, default=None, error_log=None):
+    if error_log is None:
+        error_log = []
     try:
         result = float(float_str)
         if result!=result or abs(result) > 1e32:
@@ -56,42 +69,41 @@ def _parse_float(float_str, default=None, error_log=[]):
     except ValueError:
         error_log.append(float_str)
         result = default
-
     return result
 
 
-def _parse_price(decimal_str, default=None, error_log=[]):
-    if len(decimal_str) > 100:
-        error_log.append(decimal_str)
-        return default
-
-    def remove_price_unit(s):
-        for prefix in settings.CMBARTER_PRICE_PREFIXES:
-            if s.startswith(prefix):
-                return s[len(prefix):].strip()
-        for suffix in settings.CMBARTER_PRICE_SUFFIXES:
-            if s.endswith(suffix):
-                return s[:-len(suffix)].strip()
-        return s
-
-    decimal_str = decimal_str.upper().strip()
-    if decimal_str=='':
-        return default
-
-    try:
-        result = decimal.Decimal(remove_price_unit(decimal_str))
-        if result.is_nan() or not (MIN_PRICE <= result <= MAX_PRICE):
-            error_log.append(decimal_str)
-            result = default
-    except decimal.InvalidOperation:
-        error_log.append(decimal_str)
-        result = default
-
-    return result
+def _parse_price(decimal_str, default=None, error_log=None):
+    if error_log is None:
+        error_log = []
+    if len(decimal_str) > 25:
+        error_log.append(decimal_str)  # too long
+    elif len(decimal_str) > 0 and not decimal_str.isspace():
+        m = _parse_monetary_value(decimal_str)
+        if m is None:
+            error_log.append(decimal_str)  # wrong format
+        else:
+            prefix = m.group('prefix') or ''
+            suffix = m.group('suffix') or ''
+            if prefix and suffix:
+                error_log.append(decimal_str)  # has both prefix and suffix
+            elif prefix.upper() not in settings.CMBARTER_PRICE_PREFIXES:
+                error_log.append(decimal_str)  # invalid prefix
+            elif suffix.upper() not in settings.CMBARTER_PRICE_SUFFIXES:
+                error_log.append(decimal_str)  # invalid suffix
+            else:
+                try:
+                    result = decimal.Decimal(m.group('value'))
+                except decimal.InvalidOperation:
+                    result = decimal.Decimal(0)  # the value must have been out of range
+                if MIN_PRICE <= result <= MAX_PRICE:
+                    return result
+                else:            
+                    error_log.append(decimal_str)  # out of range
+    return default
 
 
 @has_profile(db)
-@curiousorm.retry_transient_errors
+@curiousorm.retry_on_deadlock
 def create_product(request, user, tmpl='create_product.html'):
     if request.method == 'POST':
         form = forms.CreateProductForm(request.POST)
@@ -127,7 +139,7 @@ def report_create_product_success(request, user, tmpl='create_product_success.ht
 
 
 @has_profile(db)
-@curiousorm.retry_transient_errors
+@curiousorm.retry_on_deadlock
 def update_pricelist(request, user, tmpl='pricelist.html'):
     if request.method == 'POST':
 
@@ -157,6 +169,7 @@ def update_pricelist(request, user, tmpl='pricelist.html'):
 
     # Get user's list of offered products.
     offers = db.get_product_offer_list(user['trader_id'])
+    offers.sort(key=lambda row: (row['title'].lower(), row['unit'].lower(), row['promise_id']))
 
     # Render everything adding CSRF protection.            
     c = {'settings': settings, 'user': user, 'offers' : offers }
@@ -193,7 +206,9 @@ def show_partner_pricelist(request, user, partner_id_str, tmpl='partner_pricelis
             
         # Get partners's pricelist.
         products = []
-        for o in db.get_product_offer_list(partner_id):
+        offers = db.get_product_offer_list(partner_id)
+        offers.sort(key=lambda row: (row['title'].lower(), row['unit'].lower(), row['promise_id']))
+        for o in offers:
             promise_id = o['promise_id']
             p = { 'offer': o,
                   'amount': deposits.get(promise_id, 0.0),
@@ -223,7 +238,8 @@ def show_product(request, user, issuer_id_str, promise_id_str, tmpl='product.htm
         if user['trader_id'] == issuer_id:
             trust = None
             owners = db.get_product_deposit_list(user['trader_id'], promise_id)
-            allow_removal_from_pricelist = not owners and db.get_product_offer(issuer_id, promise_id)
+            allow_removal_from_pricelist = not owners and db.get_product_offer(issuer_id, 
+                                                                               promise_id)
             allow_addition_to_shopping_list = False
         else:
             trust = db.get_trust(user['trader_id'], issuer_id)
@@ -234,11 +250,11 @@ def show_product(request, user, issuer_id_str, promise_id_str, tmpl='product.htm
                 not db.get_shopping_item(user['trader_id'], issuer_id, promise_id))
 
         # Render everything adding CSRF protection.        
-        c = {'settings': settings, 'user' : user, 'product': product, 'trust': trust, 'owners': owners,
-             'allow_removal_from_pricelist' : allow_removal_from_pricelist,
+        c = {'settings': settings, 'user' : user, 'product': product, 'trust': trust, 
+             'owners': owners, 'allow_removal_from_pricelist' : allow_removal_from_pricelist,
              'allow_addition_to_shopping_list': allow_addition_to_shopping_list,
-             'actionref': request.GET.get('actionref', ''),
-             'backref': request.GET.get('backref', '') }
+             'actionref': request.GET.get('actionref', u''),
+             'backref': request.GET.get('backref', u'') }
         c.update(csrf(request))
         return render_to_response(tmpl, c)        
 
@@ -259,7 +275,7 @@ def show_unknown_product(request, user, issuer_id_str, tmpl='unknown_product.htm
 
 
 @has_profile(db)
-@curiousorm.retry_transient_errors
+@curiousorm.retry_on_deadlock
 def add_shopping_list_item(request, user, issuer_id_str, promise_id_str):
     issuer_id  = int(issuer_id_str) 
     promise_id = int(promise_id_str)
@@ -269,11 +285,13 @@ def add_shopping_list_item(request, user, issuer_id_str, promise_id_str):
             request._cmbarter_trx_cost += 8.0
             db.insert_shopping_item(user['trader_id'], issuer_id, promise_id)
 
-            redirect_to = request.GET.get('actionref') or reverse(
+            actionref = urllib.quote(request.GET.get('actionref', u''))
+            redirect_to = actionref or reverse(
                 update_shopping_list,
                 args=[user['trader_id']])
         else:
-            redirect_to = request.GET.get('backref') or reverse(
+            backref = urllib.quote(request.GET.get('backref', u''))
+            redirect_to = backref or reverse(
                 show_partner_pricelist,
                 args=[user['trader_id'], issuer_id])
         
@@ -284,7 +302,7 @@ def add_shopping_list_item(request, user, issuer_id_str, promise_id_str):
 
 
 @has_profile(db)
-@curiousorm.retry_transient_errors
+@curiousorm.retry_on_deadlock
 def remove_pricelist_item(request, user, promise_id_str):
     promise_id = int(promise_id_str)
     
@@ -293,11 +311,13 @@ def remove_pricelist_item(request, user, promise_id_str):
             request._cmbarter_trx_cost += 4.0
             db.delete_product_offer(user['trader_id'], promise_id)
 
-            redirect_to = request.GET.get('actionref') or reverse(
+            actionref = urllib.quote(request.GET.get('actionref', u''))
+            redirect_to = actionref or reverse(
                 update_pricelist,
                 args=[user['trader_id']])
         else:
-            redirect_to = request.GET.get('backref') or reverse(
+            backref = urllib.quote(request.GET.get('backref', u''))
+            redirect_to = backref or reverse(
                 update_pricelist,
                 args=[user['trader_id']])
         
@@ -307,7 +327,7 @@ def remove_pricelist_item(request, user, promise_id_str):
 
 
 @has_profile(db)
-@curiousorm.retry_transient_errors
+@curiousorm.retry_on_deadlock
 def update_shopping_list(request, user, tmpl='shopping_list.html'):
     if request.method == 'POST':
 
@@ -320,10 +340,10 @@ def update_shopping_list(request, user, tmpl='shopping_list.html'):
                 if not hfn:
                     continue
                 suffix = hfn.group(1)
-                need_str = request.POST.get("need-" + suffix, '')
-                price_str = request.POST.get("price-" + suffix, '')
-                if ( need_str==request.POST.get("old-need-" + suffix, '') and
-                     price_str==request.POST.get("old-price-" + suffix, '' ) ):
+                need_str = request.POST.get("need-" + suffix, u'')
+                price_str = request.POST.get("price-" + suffix, u'')
+                if ( need_str==request.POST.get("old-need-" + suffix, u'') and
+                     price_str==request.POST.get("old-price-" + suffix, u'' ) ):
                     continue
                 issuer_id, promise_id = [int(x) for x in suffix.split('-')]
                 have_amount = _parse_float(request.POST[field_name])
@@ -351,6 +371,8 @@ def update_shopping_list(request, user, tmpl='shopping_list.html'):
 
     # Get user's shopping list.
     items = db.get_shopping_item_list(user['trader_id'])
+    items.sort(key=lambda row: (
+            row['name'].lower(), row['title'].lower(), row['unit'].lower(), row['promise_id']))
 
     # Render everything adding CSRF protection.            
     c = {'settings': settings, 'user': user, 'items' : items }

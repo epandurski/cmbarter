@@ -70,7 +70,7 @@ def submit (recaptcha_challenge_field,
             'remoteip' :  encode_if_necessary(remoteip),
             'challenge':  encode_if_necessary(recaptcha_challenge_field),
             'response' :  encode_if_necessary(recaptcha_response_field),
-            })
+            }).encode('ascii')
 
     request = urllib2.Request (
         url = "http://%s/recaptcha/api/verify" % VERIFY_SERVER,
@@ -88,7 +88,7 @@ def submit (recaptcha_challenge_field,
 
     return_code = return_values [0]
 
-    if (return_code == "true"):
+    if (return_code == b"true"):
         return RecaptchaResponse (is_valid=True)
     else:
-        return RecaptchaResponse (is_valid=False, error_code = return_values [1])
+        return RecaptchaResponse (is_valid=False, error_code = return_values[1].decode('utf-8'))

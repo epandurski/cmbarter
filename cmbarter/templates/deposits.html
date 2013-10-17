@@ -27,7 +27,7 @@
   <col width="50%"><col width="30%"><col width="20%">
   <thead>
     <tr class="verbose">
-      <th id="product" title="{% trans "A short description of your product" %}" class="removethisprefixto_sort-onload">{% trans "Product" %}</th>
+      <th id="product" title="{% trans "A short description of your product" %}">{% trans "Product" %}</th>
       <th id="amount" colspan="2" title="{% if user.trader_id == trader.trader_id %}{% trans "The amount of product that you offer" %}{% else %}{% trans "The amount of product that is owned by the trader" %}{% endif %}">{% trans "Amount" %}</th>
     </tr>
     {% if deposits %}

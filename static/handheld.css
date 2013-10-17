@@ -23,15 +23,16 @@ Tema: Blue freedom - a minimalictic layout
 #breadcrumbs { background-color: #F6F9FB; border-bottom: 1px solid #E1E1E1; padding: 3px; }
 #breadcrumbs strong { display: none; }
 
-#main { padding: 3px; }
+#main { padding: 3px; background-color: white; }
 
 #navigation { padding: 1em 3px; color: black; background-color: #F6F9FB; border-top: 1px solid #E1E1E1; }
+#navigation li { padding: 0.33em 0; }
 
 /*
   Elements' styles
 */
 
-body { font: 1em sans-serif; background-color: white; color: black; overflow-wrap: break-word; word-wrap: break-word; }
+body { font: 1em sans-serif; background-color: #F6F9FB; color: black; overflow-wrap: break-word; word-wrap: break-word; }
 
 a { text-decoration: underline; color: #3B6EBF; }
 
@@ -163,3 +164,5 @@ ul.prev-next-box:after { content: "."; display: block; height: 0; clear: both; v
 #add-partner-page #main h2 { display: none; }
 #add-partner-page #personal-summary { display: none; }
 #add-partner-page #personal-details { margin-top: 0; }
+
+#contact-information-page #personal-details .linklist li { padding: 0.33em 0; }

@@ -18,7 +18,7 @@
 {% if form.insufficient_amount %}<ul class="errorlist"><li>{% if form.show_avl_amount %}{% blocktrans with form.avl_amount as max_amount %}ERROR: The amount you requested is not available. (it exceeds {{max_amount}}){% endblocktrans %}{% else %}{% trans "ERROR: The amount you requested is not available." %}{% endif %}</li></ul>{% endif %}
 {{form.carrier.errors}}<p><label for="id_carrier" style="-wap-accesskey:0">{{form.carrier.label}}:</label> {{form.carrier}}</p>
 {{form.amount.errors}}<p><label for="id_amount">{% trans "Amount:"%}</label> {{form.amount}}</p>
-{{form.instruction.errors}}<p><label for="id_instruction">{{form.instruction.label}}:</label> <input type="text" name="instruction" id="id_instruction" /></p>
+{{form.instruction.errors}}<p><label for="id_instruction">{{form.instruction.label}}:</label> {{form.instruction}}</p>
 <p class="submit"><input type="submit" value="{% trans "Submit" %}" style="-wap-accesskey:8" /></p>
 </form>
 {% endblock %}

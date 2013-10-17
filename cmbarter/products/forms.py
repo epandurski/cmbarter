@@ -33,7 +33,7 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class CreateProductForm(forms.Form):
-    _SBU = re.compile('^\s*\[(.*)\]\s*$')
+    _SBU = re.compile(r'^\s*\[(.*)\]\s*$')
     
     title = forms.CharField(
         max_length=50,

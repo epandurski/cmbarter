@@ -32,13 +32,13 @@ from django import forms
 from django.forms import widgets
 from django.utils.translation import ugettext_lazy as _
 
-PROMISE_ID_VALUE = re.compile('^\d{1,9}$')
+PROMISE_ID_VALUE = re.compile(r'^[0-9]{1,9}$')
 
 
 class FindCustomerForm(forms.Form):
     id = forms.RegexField(
         widget=forms.TextInput(attrs={'size' : '9'}),
-        regex=r"^\d{9}$",
+        regex=r"^[0-9]{9}$",
         max_length=9,
         label=_('Trader ID'),
         error_messages={'max_length': _('Enter a valid value.')})
@@ -50,7 +50,7 @@ class FindCustomerForm(forms.Form):
 class MakeDepositForm(forms.Form):
     promise_id = forms.CharField(
         label=_('Product'),
-        widget=widgets.Select(attrs={'class' : 'removethisprefixto_sort-onload'}))
+        widget=widgets.Select())
     
     amount = forms.FloatField(
         label=_('Amount to deposit'),

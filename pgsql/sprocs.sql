@@ -2529,7 +2529,7 @@ BEGIN
     p.issuer_id=o.issuer_id AND
     p.promise_id=o.promise_id AND
     o.issuer_id=_issuer_id
-  ORDER BY p.title, p.unit, o.promise_id;  -- This would be faster: ORDER BY o.promise_id;
+  ORDER BY o.promise_id;
 
 END;
 $$
@@ -2591,7 +2591,7 @@ BEGIN
   WHERE
     d.recipient_id=_recipient_id AND
     d.issuer_id=_issuer_id
-  ORDER BY d.title, d.unit, d.promise_id;  -- This would be faster: ORDER BY d.promise_id;
+  ORDER BY d.promise_id;
 
 END;
 $$
@@ -2769,7 +2769,7 @@ BEGIN
     si.name, si.comment
   FROM shopping_item si
   WHERE si.recipient_id=_recipient_id
-  ORDER BY si.name, si.title, si.unit, si.promise_id;  -- This would be faster: ORDER BY si.issuer_id, si.promise_id;
+  ORDER BY si.issuer_id, si.promise_id;
 
 END;
 $$
@@ -3645,12 +3645,13 @@ $$
 LANGUAGE plpgsql;
 
 
-CREATE OR REPLACE FUNCTION get_loginkey_trader_id(
-  _secret_md5 text)
-RETURNS int AS $$
-DECLARE _trader_id int;
+CREATE OR REPLACE FUNCTION get_loginkey_info(
+  _secret_md5 text,
+  OUT trader_id int,
+  OUT trader_has_not_visited_lately boolean)
+RETURNS SETOF record AS $$
 BEGIN
-  SELECT trader_id INTO _trader_id
+  SELECT loginkey.trader_id INTO get_loginkey_info.trader_id
   FROM loginkey
   WHERE
     secret_md5=_secret_md5 AND
@@ -3661,15 +3662,18 @@ BEGIN
     SET last_recorded_use_ts=CURRENT_TIMESTAMP
     WHERE 
       secret_md5=_secret_md5 AND
-      trader_id=_trader_id AND
+      loginkey.trader_id=get_loginkey_info.trader_id AND
       last_recorded_use_ts <= CURRENT_TIMESTAMP - interval '1 day';
 
-    RETURN _trader_id;
+    trader_has_not_visited_lately := FOUND;
 
   ELSE
-    RETURN 0;
+    trader_id := 0;
+    trader_has_not_visited_lately := False;
 
   END IF;
+
+  RETURN NEXT;
 
 END;
 $$
@@ -3727,6 +3731,49 @@ BEGIN
   SET 
     next_turn_start_ts = _next_turn_start_ts,
     turn_interval = CAST(_period_seconds || ' seconds' AS interval);
+
+END;
+$$
+LANGUAGE plpgsql;
+
+
+CREATE OR REPLACE FUNCTION insert_whitelist_entry(
+  _trader_id int,
+  _network_address text)
+RETURNS void AS $$
+DECLARE
+  _id bigint;
+  _occurred_more_than_once boolean;
+BEGIN
+  -- First: Delete all evidences related to this trader that are older
+  -- than 3 months.
+  DELETE FROM whitelist_entry
+  WHERE
+   trader_id=_trader_id AND
+   insertion_ts <= CURRENT_TIMESTAMP - INTERVAL '3 months';
+
+  -- Second: Delete all older evidences for the same event.
+  DELETE FROM whitelist_entry 
+  WHERE trader_id=_trader_id AND network_address=_network_address;
+
+  -- Third: Insert the newest evidence.
+  _occurred_more_than_once := FOUND;
+
+  INSERT INTO whitelist_entry (trader_id, network_address, occurred_more_than_once)
+  VALUES (_trader_id, _network_address, _occurred_more_than_once);
+
+  -- Forth: If we keep too many records related to this trader, we
+  -- delete the eldest ones, so that we keep no more than 10 records
+  -- per trader.
+  FOR _id IN
+    SELECT id FROM whitelist_entry 
+    WHERE trader_id=_trader_id
+    ORDER BY occurred_more_than_once DESC, id DESC OFFSET 10
+
+  LOOP
+    DELETE FROM whitelist_entry WHERE id=_id;
+
+  END LOOP;
 
 END;
 $$

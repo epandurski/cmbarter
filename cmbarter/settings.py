@@ -11,7 +11,7 @@ CMBARTER_HOST = 'yourdomainname.foo'
 # Set this to the PostgreSQL database connection string. For example:
 # 'host=localhost port=5432 dbname=cmbarter user=cmbarter
 # password=PASSWORD'. For more information, see the PostgreSQL
-# documentation. 'dbname=cmbarter' should work for you if you followed
+# documentation. 'dbname=cmbarter' will probably work if you followed
 # the instructions in the Installation Guide's "Installation on a
 # dedicated server" section.
 CMBARTER_DSN = 'dbname=cmbarter'
@@ -29,11 +29,10 @@ CMBARTER_ABOUT_US_URL = 'https://sourceforge.net/projects/cmb/'
 # This should be "False" in production.
 CMBARTER_DEBUG_MODE = True  
 
-
 # Sign-up and log-in settings:
 CMBARTER_MIN_PASSWORD_LENGTH = 8
 CMBARTER_SHOW_CAPTCHA_ON_SIGNUP = True
-CMBARTER_SHOW_CAPTCHA_ON_REPETITIVE_LOGIN = True
+CMBARTER_SHOW_CAPTCHA_ON_REPETITIVE_LOGIN_FAILURE = True
 CMBARTER_REGISTRATION_KEY_IS_REQUIRED = False
 CMBARTER_REGISTRATION_KEY_PREFIX = ''
 
@@ -43,33 +42,48 @@ CMBARTER_REGISTRATION_KEY_PREFIX = ''
 # how to generate valid registration keys.
 CMBARTER_REGISTRATION_KEY_HELP_URL = ''
 
-# By default CMB is configured to show CAPTHCA on sign-up, and after
+# By default, CMB is configured to show CAPTHCA on sign-up, and after
 # five unsuccessful attempts to log-in. If you have not altered the
 # default behavior, you should obtain your own public/private key pair
 # from www.google.com/recaptcha, and put it here:
 RECAPTCHA_PUBLIC_KEY='6Ledx7wSAAAAAICFw8vB-2ghpDjzGogPRi6-3FCr'
 RECAPTCHA_PIVATE_KEY='6Ledx7wSAAAAAEskQ7Mbi-oqneHDSFVUkxGitn_y'
 
+# The time zone of your users. For example: 'Europe/Rome'
+CMBARTER_DEFAULT_USERS_TIME_ZONE = ''  
 
-# Miscellaneous settings:
-CMBARTER_DEFAULT_USERS_TIME_ZONE = ''  # The time zone of your users.
-                                       # For example: 'Europe/Rome'
-CMBARTER_SEARCH_PARTNERS_URL = ''  # Set this to a page where users
-                                   # can search for trusted partners.
-CMBARTER_MAX_IMAGE_SIZE = 1e6  # This is the maximum size in bytes for
-                               # users' uploaded photographs.
-CMBARTER_MAX_IMAGE_PIXELS = 30e6  # This is the maximum amount of
-                                  # pixels (width * height) in users'
-                                  # uploaded photographs.
-CMBARTER_INSERT_BIDI_MARKS = False  # You may set this to "True" if
-                                    # you do not need to support IE6.
+# Set this to a page where users can search for trusted partners.
+CMBARTER_SEARCH_PARTNERS_URL = ''
+
+# This is the maximum size in bytes for users' uploaded photographs.
+# If you decide to increase this value, do not forget to increase the
+# "LimitRequestBody" directive in your Apache configuration
+# accordingly.
+CMBARTER_MAX_IMAGE_SIZE = 716800
+
+# This is the maximum amount of pixels (width * height) in users'
+# uploaded photographs.
+CMBARTER_MAX_IMAGE_PIXELS = 30000000
+
+# By default, CMB is configured to maintain a whitelist of "good" IP
+# addresses. This auto-generated whitelist can be used to configure
+# your firewall to protect your web-servers from DoS attacks (see the
+# "show_whitelist.py" command-line tool).
+# To be able to reliably determine the IP addresses of your clients,
+# CMB should know the IP address(es) of the reverse proxy server(s) in
+# your network.
+# If you use reverse proxy servers, list their IPs here.
+CMBARTER_REVERSE_PROXIES = ['127.0.0.1', '::1']
 
 # Usually, you do not need to change anything bellow this line.
+CMBARTER_MAINTAIN_IP_WHITELIST = True
+CMBARTER_HTTP_X_FORWARDED_FOR_IS_TRUSTWORTHY = False
+CMBARTER_INSERT_BIDI_MARKS = False 
 CMBARTER_HOST_IS_SPAM_LISTED = False
 CMBARTER_HISTORY_HORISON_DAYS = 26
 CMBARTER_SESSION_TOUCH_MINUTES = 30
-CMBARTER_PRICE_PREFIXES = [u'$', u'\u00A3', u'\u00A4', u'\u20AC']
-CMBARTER_PRICE_SUFFIXES = [u'\u00A4', u'\u20AC', u'ЛВ', u'ЛВ.']
+CMBARTER_PRICE_PREFIXES = set([u'', u'$', u'\u00A3', u'\u20AC'])
+CMBARTER_PRICE_SUFFIXES = set([u'', u'\u20AC', u'ЛВ', u'ЛВ.'])
 CMBARTER_TRX_COST_QUOTA = 50000.0
 CMBARTER_SEARCH_MAX_PER_SECOND = 10
 CMBARTER_SEARCH_MAX_BURST = 100
@@ -118,7 +132,7 @@ MEDIA_URL = ''
 
 SECRET_KEY = CMBARTER_SECRET_KEY
 
-ALLOWED_HOSTS = [CMBARTER_HOST, 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = [CMBARTER_HOST, 'localhost', '127.0.0.1', '[::1]']
 
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
@@ -131,7 +145,6 @@ TEMPLATE_LOADERS = (
 )
 
 MIDDLEWARE_CLASSES = (
-    'django.middleware.gzip.GZipMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
@@ -146,10 +159,7 @@ TEMPLATE_DIRS = (
 )
 
 INSTALLED_APPS = (
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.sites',
     'cmbarter.users',
     'cmbarter.profiles',
     'cmbarter.products',
@@ -159,6 +169,9 @@ INSTALLED_APPS = (
     'cmbarter.mobile',
 )
 
+FILE_UPLOAD_HANDLERS = ("cmbarter.profiles.forms.PhotographUploadHandler",)
+
+SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 SESSION_ENGINE='django.contrib.sessions.backends.file'
 SESSION_FILE_PATH=CMBARTER_SESSION_DIR
 SESSION_COOKIE_SECURE=False if DEBUG else True
@@ -167,4 +180,5 @@ SESSION_COOKIE_DOMAIN=None if DEBUG else CMBARTER_HOST
 
 CSRF_COOKIE_SECURE = SESSION_COOKIE_SECURE
 CSRF_COOKIE_DOMAIN = SESSION_COOKIE_DOMAIN
+CSRF_COOKIE_HTTPONLY = True
 CSRF_FAILURE_VIEW = 'cmbarter.users.views.csrf_abort'

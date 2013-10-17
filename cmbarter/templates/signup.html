@@ -4,9 +4,15 @@
 {% block page_id %}signup-page{% endblock %}
 
 {% block javascript %}
+<script type="text/javascript" src="/static/common.js"></script>
 <script type="text/javascript">
   <!--
   var RecaptchaOptions = { theme : 'white', lang : 'en' };
+  function fillHelpParagraph() {
+    elm = document.getElementById('help-paragraph');
+    elm.innerHTML='{% trans "Enter the above two words, separated by a space, into the box." %}';
+  }
+  addEvent(window, 'load', fillHelpParagraph);
   //-->
 </script>
 {% endblock %}
@@ -18,9 +24,9 @@
 {% block main %}
 <h2>{% trans "Sign up" %}</h2>
 <form method="post" action="">{% csrf_token %}
+  {% if captcha_error == 'incorrect-captcha-sol' %}<ul class="errorlist"><li>{% trans "ERROR: The two words have not been entered correctly." %}</li></ul>{% else %}{% for error in form.non_field_errors %}<ul class="errorlist"><li>{{error}}</li></ul>{% endfor %}{% endif %}
   {% if form.invalid_regkey %}<ul class="errorlist"><li>{% trans "ERROR: Invalid registration key." %}</li></ul>{% endif %}
   {% if form.username_taken %}<ul class="errorlist"><li>{% trans "ERROR: The username you requested is already taken." %}</li></ul>{% endif %}
-  {% for error in form.non_field_errors %}<ul class="errorlist"><li>{{error}}</li></ul>{% endfor %}
 
   {% if settings.CMBARTER_REGISTRATION_KEY_IS_REQUIRED %}
   {{form.registration_key.errors}}
@@ -39,7 +45,7 @@
 
   {% if settings.CMBARTER_SHOW_CAPTCHA_ON_SIGNUP %}
   {% show_captcha captcha_error %}
-  <p>{% trans "Enter the above two words, separated by a space, into the box." %}</p>
+  <p id="help-paragraph"></p>
   {% endif %}
   
   <p class="submit"><input type="submit" value="{% trans "Submit" %}"></p>

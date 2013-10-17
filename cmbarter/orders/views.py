@@ -39,11 +39,11 @@ from cmbarter.orders import forms
 from cmbarter.modules import curiousorm, utils
 
 
-db = curiousorm.Database(settings.CMBARTER_DSN)
+db = curiousorm.Database(settings.CMBARTER_DSN, dictrows=True)
 
 
 @has_profile(db)
-@curiousorm.retry_transient_errors
+@curiousorm.retry_on_deadlock
 def create_order(request, user, partner_id_str, promise_id_str, tmpl='create_order.html'):
     partner_id = int(partner_id_str)
     promise_id = int(promise_id_str)
@@ -65,7 +65,8 @@ def create_order(request, user, partner_id_str, promise_id_str, tmpl='create_ord
                     show_my_order,
                     args=[user['trader_id'], order_id]))
             else:
-                form.avl_amount = db.get_deposit_avl_amount(user['trader_id'], partner_id, promise_id)
+                form.avl_amount = db.get_deposit_avl_amount(user['trader_id'], partner_id, 
+                                                            promise_id)
                 form.show_avl_amount = form.avl_amount < form.cleaned_data['amount']
                 form.insufficient_amount = True
     else:
@@ -89,7 +90,8 @@ def create_order(request, user, partner_id_str, promise_id_str, tmpl='create_ord
         form.avl_amount = utils.truncate(form.avl_amount, product['epsilon'])
 
     # Render everything adding CSRF protection.        
-    c = {'settings': settings, 'user': user, 'trust': trust, 'product': product, 'partners': partners, 'form': form }
+    c = {'settings': settings, 'user': user, 'trust': trust, 'product': product, 
+         'partners': partners, 'form': form }
     c.update(csrf(request))
     return render_to_response(tmpl, c)
 
@@ -106,7 +108,7 @@ def show_my_order_list(request, user, tmpl='my_orders.html'):
 
 
 @has_profile(db)
-@curiousorm.retry_transient_errors
+@curiousorm.retry_on_deadlock
 def show_my_order(request, user, order_id_str, tmpl='my_order.html'):
     order_id = int(order_id_str)
 
@@ -157,7 +159,8 @@ def report_my_order_deleted(request, user, order_id_str, tmpl='my_order_deleted.
 
 
 @has_profile(db)
-def report_my_order_unexpected_execution(request, user, order_id_str, tmpl='my_order_executed.html'):
+def report_my_order_unexpected_execution(request, user, order_id_str, 
+                                         tmpl='my_order_executed.html'):
     order_id = int(order_id_str)
     
     # Render everything adding CSRF protection.    
@@ -187,8 +190,9 @@ def show_customer_order_list(request, user, customer_id_str, tmpl='customer_orde
 
 
 @has_profile(db)
-@curiousorm.retry_transient_errors
-def review_customer_order(request, user, customer_id_str, order_id_str, tmpl='customer_order.html'):
+@curiousorm.retry_on_deadlock
+def review_customer_order(request, user, customer_id_str, order_id_str, 
+                          tmpl='customer_order.html'):
     customer_id = int(customer_id_str)
     order_id = int(order_id_str)
 
@@ -215,7 +219,8 @@ def review_customer_order(request, user, customer_id_str, order_id_str, tmpl='cu
 
         if order:
             # Render everything adding CSRF protection.        
-            c = {'settings': settings, 'user': user, 'trader': trader, 'order': order, 'form': form }
+            c = {'settings': settings, 'user': user, 'trader': trader, 'order': order, 
+                 'form': form }
             c.update(csrf(request))
             return render_to_response(tmpl, c)
 
@@ -228,15 +233,15 @@ def review_customer_order(request, user, customer_id_str, order_id_str, tmpl='cu
 
 
 @has_profile(db)
-@curiousorm.retry_transient_errors
+@curiousorm.retry_on_deadlock
 def show_payments(request, user, partner_id_str, promise_id_str, tmpl='pending_payments.html'):
     partner_id = int(partner_id_str)
     promise_id = int(promise_id_str)
 
     if request.method == 'POST':
         try:
-            payer_id = int(request.POST.get('payer_id', '')[:30])
-            order_id = int(request.POST.get('order_id', '')[:30])
+            payer_id = int(request.POST.get('payer_id', u'')[:30])
+            order_id = int(request.POST.get('order_id', u'')[:30])
             if not (1 <= payer_id <= 999999999 and 1 <= payer_id <= 999999999):
                 raise ValueError()
         except ValueError:

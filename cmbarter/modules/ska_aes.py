@@ -255,10 +255,10 @@ def decrypt(cryp, key):
     return decryption_loop(cryp, ekey, nr)
 
 def str_to_vec(x):
-    return list(map(ord, x))
+    return list(map(ord, x))  # PYTHON3: return list(x)
 
 def vec_to_str(x):
-    return ''.join(map(chr, x))
+    return ''.join(map(chr, x))  # PYTHON3: return bytes(x)
 
 
 class aes:

@@ -96,6 +96,6 @@ if __name__ == "__main__":
     period_seconds = 24 * 60 * 60
     parse_args(sys.argv[1:])
 
-    db = curiousorm.Connection(dsn)
+    db = curiousorm.Connection(dsn, dictrows=True)
     db.update_solver_schedule(time, period_seconds)
     db.close()

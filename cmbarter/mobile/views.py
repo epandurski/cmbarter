@@ -28,40 +28,87 @@
 ## web interface.
 ##
 from __future__ import with_statement
-import os, re, base64, datetime, hashlib
+import os, re, base64, datetime, hashlib, urllib
 from random import random
 from functools import wraps
 import pytz
 from django.conf import settings
+from django import forms
 from django.shortcuts import render_to_response
 from django.core.urlresolvers import reverse
 from django.utils.translation import get_language
-from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotAllowed, HttpResponseForbidden, Http404
+from django.http import (
+    HttpResponse, HttpResponseRedirect, HttpResponseNotAllowed, HttpResponseForbidden, Http404)
 from django.utils.translation import ugettext_lazy as _
 from cmbarter.modules import curiousorm, utils
 from cmbarter.users.decorators import report_transaction_cost
+from cmbarter.users.views import get_client_ip
 import cmbarter.users.forms
 import cmbarter.profiles.forms
 import cmbarter.orders.forms
 import cmbarter.deposits.forms
 
 
-db = curiousorm.Database(settings.CMBARTER_DSN)
+db = curiousorm.Database(settings.CMBARTER_DSN, dictrows=True)
 
-TRX_FIELD = re.compile('^trx-(\d{1,15})$')
-HANDOFF_FIELD = re.compile('^handoff-(\d{1,9})$')
-DEAL_FIELD = re.compile('^deal-(\d{1,9})-(\d{1,9})-(\d{1,9})$')
-A_TURN_IS_RUNNING = re.compile('a turn is running')
+TRX_FIELD = re.compile(r'^trx-([0-9]{1,15})$')
+HANDOFF_FIELD = re.compile(r'^handoff-([0-9]{1,9})$')
+DEAL_FIELD = re.compile(r'^deal-([0-9]{1,9})-([0-9]{1,9})-([0-9]{1,9})$')
+A_TURN_IS_RUNNING = re.compile(r'a turn is running')
+
+
+class MakeDepositForm(cmbarter.deposits.forms.MakeDepositForm):
+    amount = forms.FloatField(
+        widget=forms.TextInput(),
+        label=_('Amount to deposit'),
+        error_messages={'invalid':_('Enter a valid amount.')})
+
+    reason = forms.CharField(
+        max_length=300,
+        widget=forms.TextInput(),
+        label=_('Comment'),
+        required=False)
+
+
+class MakeWithdrawalForm(cmbarter.deposits.forms.MakeWithdrawalForm):
+    amount = forms.FloatField(
+        widget=forms.TextInput(),
+        label=_('Amount to withdraw'),
+        error_messages={'invalid':_('Enter a valid amount.')},)
+
+    reason = forms.CharField(
+        max_length=300,        
+        widget=forms.TextInput(),
+        label=_('Comment'),        
+        required=False)
+
+
+class CreateOrderForm(cmbarter.orders.forms.CreateOrderForm):
+    amount = forms.FloatField(
+        widget=forms.TextInput(),
+        label=_('Amount of product'),
+        error_messages={'invalid':_('Enter a valid amount.')})
+
+    instruction = forms.CharField(
+        max_length=300,
+        widget=forms.TextInput(),
+        label=_('Comment'),
+        required=False)
 
 
 def render(request, tmpl, c={}):
-    for mimetype in 'application/vnd.wap.xhtml+xml', 'application/xhtml+xml':
-        if mimetype in request.META['HTTP_ACCEPT']:
-            break
-    else:
-        mimetype = 'text/html'
+    http_accept = request.META.get('HTTP_ACCEPT', '')
 
-    response = render_to_response(tmpl, c, mimetype=mimetype)
+    for mimetype in 'application/vnd.wap.xhtml+xml', 'application/xhtml+xml', 'text/html':
+        if mimetype in http_accept:
+            break
+
+    try:
+        response = render_to_response(tmpl, c, content_type=mimetype)
+    except TypeError:
+        # TODO: Remove this when supporting Django 1.4 is irrelevant.
+        response = render_to_response(tmpl, c, mimetype=mimetype)
+
     if mimetype == 'text/html':
         # If the response is served as 'text/html' we must explicitly
         # specify the encoding, because the <?xml ...?> declaration
@@ -77,21 +124,28 @@ def logged_in(view):
     @wraps(view)
     def fn(request, secret, *args, **kargs):
         try:
-            trader_id = db.get_loginkey_trader_id(hashlib.md5(secret).hexdigest())
+            trader_id, trader_has_not_visited_lately = db.get_loginkey_info(
+                hashlib.md5(secret.encode('ascii')).hexdigest() )
             if trader_id:
+                if trader_has_not_visited_lately and settings.CMBARTER_MAINTAIN_IP_WHITELIST:
+                    client_ip = get_client_ip(request)
+                    if client_ip:
+                        db.insert_whitelist_entry(trader_id, client_ip)
                 # Render the response with some HTTP-headers added.
                 response = view(request, secret, trader_id, *args, **kargs)
                 if 'Cache-Control' not in response:
                     response['Cache-Control'] = 'no-cache, must-revalidate'
                     response['Expires'] = 'Mon, 26 Jul 1997 05:00:00 GMT'
-                    response['Last-Modified'] = datetime.datetime.now(pytz.utc).strftime("%d %b %Y %H:%M:%S GMT")
+                    response['Last-Modified'] = datetime.datetime.now(pytz.utc).strftime(
+                        "%d %b %Y %H:%M:%S GMT")
                     response['Pragma'] = 'no-cache'
                 return response
             else:
                 return login(request, method='GET')
 
         except curiousorm.PgError, e:
-            if getattr(e, 'pgcode', '')==curiousorm.RAISE_EXCEPTION and A_TURN_IS_RUNNING.search(getattr(e, 'pgerror', '')):
+            if (getattr(e, 'pgcode', '')==curiousorm.RAISE_EXCEPTION and 
+                    A_TURN_IS_RUNNING.search(getattr(e, 'pgerror', ''))):
                 return render(request, settings.CMBARTER_TURN_IS_RUNNING_MOBILE_TEMPLATE)
             else:
                 raise
@@ -118,7 +172,8 @@ def has_profile(view):
             if not hasattr(request, '_cmbarter_trx_cost'):
                 request._cmbarter_trx_cost = 0.0
             try:
-                response = view(request, secret, userinfo, *args, **kargs)  # This may affect request._cmbarter_trx_cost
+                # The next call may affect request._cmbarter_trx_cost
+                response = view(request, secret, userinfo, *args, **kargs)
             except Http404:
                 report_transaction_cost(db, trader_id, request._cmbarter_trx_cost)
                 request._cmbarter_trx_cost = 0.0
@@ -137,6 +192,7 @@ def set_language(request, lang):
         key=settings.LANGUAGE_COOKIE_NAME,
         value=lang,
         max_age=60*60*24*365*10)
+    request.session['django_language'] = lang
     return r
 
 
@@ -146,7 +202,7 @@ def report_no_profile(request, tmpl='xhtml-mp/no_profile.html'):
     return render(request, tmpl, c)
 
 
-@curiousorm.retry_transient_errors
+@curiousorm.retry_on_deadlock
 def login(request, tmpl='xhtml-mp/login.html', method=None):
     method = method or request.GET.get('method') or request.method    
     if method == 'POST':
@@ -158,24 +214,25 @@ def login(request, tmpl='xhtml-mp/login.html', method=None):
 
             authentication = db.login_trader(username, password_hash)
 
-            if settings.CMBARTER_SHOW_CAPTCHA_ON_REPETITIVE_LOGIN and authentication['needs_captcha']:
+            if (settings.CMBARTER_SHOW_CAPTCHA_ON_REPETITIVE_LOGIN_FAILURE and 
+                    authentication['needs_captcha']):
                 form.needs_captcha = True
 
             elif authentication['is_valid']:
                 # Log the user in and redirect him to his start-page.
                 while 1:
-                    secret = base64.urlsafe_b64encode(os.urandom(15))
-                    if db.replace_loginkey(authentication['trader_id'], hashlib.md5(secret).hexdigest()):
+                    secret = base64.urlsafe_b64encode(os.urandom(15)).decode('ascii')
+                    if db.replace_loginkey(authentication['trader_id'], 
+                                           hashlib.md5(secret.encode('ascii')).hexdigest()):
                         break
+                if settings.CMBARTER_MAINTAIN_IP_WHITELIST:
+                    client_ip = get_client_ip(request)
+                    if client_ip:
+                        db.insert_whitelist_entry(authentication['trader_id'], client_ip)
                 r = HttpResponseRedirect(reverse(show_shopping_list, args=[secret]))
                 r.set_cookie(
-                    key='loginkey',
-                    value=secret,
-                    secure=request.is_secure(),
-                    max_age=60*60*24*365*10)
-                r.set_cookie(
                     key='username',
-                    value=username,
+                    value=base64.b16encode(username.encode('utf-8')).decode('ascii'),
                     max_age=60*60*24*365*10)
                 return r
             
@@ -183,13 +240,13 @@ def login(request, tmpl='xhtml-mp/login.html', method=None):
                 form.incorrect_login = True
 
     else:
-        if 'loginkey' in request.COOKIES:
-            secret = request.COOKIES['loginkey']
-            if db.get_loginkey_trader_id(hashlib.md5(secret).hexdigest()):
-                return HttpResponseRedirect(reverse(show_shopping_list, args=[secret]))
-
+        try:
+            username = base64.b16decode(
+                request.COOKIES.get('username', '').encode('ascii') ).decode('utf-8')
+        except:
+            username = u''
         form = cmbarter.users.forms.LoginForm(
-            initial={'username': request.COOKIES.get('username')})
+            initial={'username': username })
 
     # Render everything.
     c = {'settings': settings, 'form': form }
@@ -206,11 +263,10 @@ def show_image(request, secret, user, trader_id_str, photograph_id_str):
     if img:
         # Render the image with the right MIME-type.
         img_buffer = img['raw_content']
-        response = HttpResponse(content_type='image/jpeg')
+        response = HttpResponse(img_buffer, content_type='image/jpeg')
         response['Content-Encoding'] = 'identity'
         response['Content-Length'] = len(img_buffer)
-        response['Cache-Control'] = "max-age=1209600"
-        response.write(str(img_buffer))
+        response['Cache-Control'] = "max-age=12096000, public"
         return response
 
     return HttpResponseRedirect(reverse('profiles-no-image'))
@@ -221,6 +277,8 @@ def show_shopping_list(request, secret, user, tmpl='xhtml-mp/shopping_list.html'
 
     # Get user's shopping list.
     items = db.get_shopping_item_list(user['trader_id'])
+    items.sort(key=lambda row: (
+            row['name'].lower(), row['title'].lower(), row['unit'].lower(), row['promise_id']))
 
     # Render everything.
     c = {'settings': settings, 'secret': secret, 'user': user, 'items' : items }
@@ -279,8 +337,9 @@ def show_profile(request, secret, user, trader_id_str, tmpl='xhtml-mp/contact_in
 
 
 @has_profile
-@curiousorm.retry_transient_errors
-def add_partner(request, secret, user, partner_id_str, tmpl='xhtml-mp/add_partner.html', method=None):
+@curiousorm.retry_on_deadlock
+def add_partner(request, secret, user, partner_id_str, tmpl='xhtml-mp/add_partner.html', 
+                method=None):
     partner_id = int(partner_id_str)
 
     method = method or request.GET.get('method') or request.method
@@ -327,7 +386,8 @@ def add_partner(request, secret, user, partner_id_str, tmpl='xhtml-mp/add_partne
 
 
 @has_profile
-def show_partner_pricelist(request, secret, user, partner_id_str, tmpl='xhtml-mp/partner_pricelist.html'):
+def show_partner_pricelist(request, secret, user, partner_id_str, 
+                           tmpl='xhtml-mp/partner_pricelist.html'):
     partner_id = int(partner_id_str)
 
     # Make sure this is really a user's partner.
@@ -341,7 +401,9 @@ def show_partner_pricelist(request, secret, user, partner_id_str, tmpl='xhtml-mp
             
         # Get partners's pricelist.
         products = []
-        for o in db.get_product_offer_list(partner_id):
+        offers = db.get_product_offer_list(partner_id)
+        offers.sort(key=lambda row: (row['title'].lower(), row['unit'].lower(), row['promise_id']))
+        for o in offers:
             promise_id = o['promise_id']
             p = { 'offer': o,
                   'is_chosen': promise_id in chosen_products }
@@ -356,7 +418,8 @@ def show_partner_pricelist(request, secret, user, partner_id_str, tmpl='xhtml-mp
 
 
 @has_profile
-def show_product(request, secret, user, issuer_id_str, promise_id_str, tmpl='xhtml-mp/product.html'):
+def show_product(request, secret, user, issuer_id_str, promise_id_str, 
+                 tmpl='xhtml-mp/product.html'):
     issuer_id  = int(issuer_id_str) 
     promise_id = int(promise_id_str)
     
@@ -385,7 +448,7 @@ def show_product(request, secret, user, issuer_id_str, promise_id_str, tmpl='xht
 
 
 @has_profile
-@curiousorm.retry_transient_errors
+@curiousorm.retry_on_deadlock
 def add_shopping_list_item(request, secret, user, issuer_id_str, promise_id_str, method=None):
     issuer_id  = int(issuer_id_str) 
     promise_id = int(promise_id_str)
@@ -402,14 +465,15 @@ def add_shopping_list_item(request, secret, user, issuer_id_str, promise_id_str,
 
 
 @has_profile
-@curiousorm.retry_transient_errors
-def create_order(request, secret, user, partner_id_str, promise_id_str, tmpl='xhtml-mp/create_order.html', method=None):
+@curiousorm.retry_on_deadlock
+def create_order(request, secret, user, partner_id_str, promise_id_str, 
+                 tmpl='xhtml-mp/create_order.html', method=None):
     partner_id = int(partner_id_str)
     promise_id = int(promise_id_str)
     
     method = method or request.GET.get('method') or request.method    
     if method == 'POST':
-        form = cmbarter.orders.forms.CreateOrderForm(request.POST)
+        form = CreateOrderForm(request.POST)
         if form.is_valid():
             request._cmbarter_trx_cost += 8.0
             order_id = db.insert_delivery_order(
@@ -423,11 +487,12 @@ def create_order(request, secret, user, partner_id_str, promise_id_str, tmpl='xh
             if order_id:
                 return show_my_order(request, secret, order_id, method='GET')
             else:
-                form.avl_amount = db.get_deposit_avl_amount(user['trader_id'], partner_id, promise_id)
+                form.avl_amount = db.get_deposit_avl_amount(user['trader_id'], partner_id, 
+                                                            promise_id)
                 form.show_avl_amount = form.avl_amount < form.cleaned_data['amount']
                 form.insufficient_amount = True
     else:
-        form = cmbarter.orders.forms.CreateOrderForm()
+        form = CreateOrderForm()
 
     # Get partner's name.
     trust = db.get_trust(user['trader_id'], partner_id)
@@ -450,16 +515,17 @@ def create_order(request, secret, user, partner_id_str, promise_id_str, tmpl='xh
 
 
 @has_profile
-@curiousorm.retry_transient_errors
-def show_payments(request, secret, user, partner_id_str, promise_id_str, tmpl='xhtml-mp/pending_payments.html', method=None):
+@curiousorm.retry_on_deadlock
+def show_payments(request, secret, user, partner_id_str, promise_id_str, 
+                  tmpl='xhtml-mp/pending_payments.html', method=None):
     partner_id = int(partner_id_str)
     promise_id = int(promise_id_str)
 
     method = method or request.GET.get('method') or request.method
     if method == 'POST':
         try:
-            payer_id = int(request.POST.get('payer_id', '')[:30])
-            order_id = int(request.POST.get('order_id', '')[:30])
+            payer_id = int(request.POST.get('payer_id', u'')[:30])
+            order_id = int(request.POST.get('order_id', u'')[:30])
             if not (1 <= payer_id <= 999999999 and 1 <= payer_id <= 999999999):
                 raise ValueError()
         except ValueError:
@@ -494,8 +560,10 @@ def show_payments(request, secret, user, partner_id_str, promise_id_str, tmpl='x
 
 
 @has_profile
-@curiousorm.retry_transient_errors
-def show_unconfirmed_transactions(request, secret, user, tmpl='xhtml-mp/unconfirmed_transactions.html', method=None, payments=None):
+@curiousorm.retry_on_deadlock
+def show_unconfirmed_transactions(request, secret, user, 
+                                  tmpl='xhtml-mp/unconfirmed_transactions.html', method=None, 
+                                  payments=None):
     method = method or request.GET.get('method') or request.method    
     if method == 'POST':
         
@@ -522,7 +590,7 @@ def show_unconfirmed_transactions(request, secret, user, tmpl='xhtml-mp/unconfir
 
 
 @has_profile
-@curiousorm.retry_transient_errors
+@curiousorm.retry_on_deadlock
 def show_my_order(request, secret, user, order_id_str, tmpl='xhtml-mp/my_order.html', method=None):
     order_id = int(order_id_str)
 
@@ -568,7 +636,8 @@ def show_my_order_list(request, secret, user, tmpl='xhtml-mp/my_orders.html'):
 
 
 @has_profile
-def report_my_order_deleted(request, secret, user, order_id_str, tmpl='xhtml-mp/my_order_deleted.html'):
+def report_my_order_deleted(request, secret, user, order_id_str, 
+                            tmpl='xhtml-mp/my_order_deleted.html'):
     order_id = int(order_id_str)
     
     # Render everything.    
@@ -577,7 +646,8 @@ def report_my_order_deleted(request, secret, user, order_id_str, tmpl='xhtml-mp/
 
 
 @has_profile
-def report_my_order_unexpected_execution(request, secret, user, order_id_str, tmpl='xhtml-mp/my_order_executed.html'):
+def report_my_order_unexpected_execution(request, secret, user, order_id_str, 
+                                         tmpl='xhtml-mp/my_order_executed.html'):
     order_id = int(order_id_str)
     
     # Render everything.
@@ -617,6 +687,8 @@ def show_deposits(request, secret, user, customer_id_str, tmpl='xhtml-mp/deposit
     if trader:
         # Get customer's list of deposits.
         deposits = db.get_deposit_list(customer_id, user['trader_id'])
+        deposits.sort(key=lambda row: (
+                row['title'].lower(), row['unit'].lower(), row['promise_id']))
 
         # Render everything.
         c = {'settings': settings, 'secret': secret,
@@ -627,13 +699,14 @@ def show_deposits(request, secret, user, customer_id_str, tmpl='xhtml-mp/deposit
 
 
 @has_profile
-@curiousorm.retry_transient_errors
-def make_deposit(request, secret, user, customer_id_str, tmpl='xhtml-mp/make_deposit.html', method=None):
+@curiousorm.retry_on_deadlock
+def make_deposit(request, secret, user, customer_id_str, tmpl='xhtml-mp/make_deposit.html', 
+                 method=None):
     customer_id = int(customer_id_str)
 
     method = method or request.GET.get('method') or request.method    
     if method == 'POST':
-        form = cmbarter.deposits.forms.MakeDepositForm(request.POST)
+        form = MakeDepositForm(request.POST)
         if form.is_valid():
             request._cmbarter_trx_cost += 1.0
             with db.Transaction() as trx:
@@ -671,16 +744,17 @@ def make_deposit(request, secret, user, customer_id_str, tmpl='xhtml-mp/make_dep
             if amount_is_available:
                 return report_transaction_commit(
                     request, secret, method='GET',
-                    backref=request.GET.get('backref', '/mobile/'))
+                    backref=request.GET.get('backref', u'/mobile/'))
             else:
                 form.insufficient_amount = True
     else:
-        form = cmbarter.deposits.forms.MakeDepositForm(initial={'subtract': user['trader_id'] != customer_id })
+        form = MakeDepositForm(initial={'subtract': user['trader_id'] != customer_id })
 
     # Get user's product-offers and fetch them in the form's
     # product-select-box.  If two or more products happen to have the
     # same names, only the most recently created product is shown.
     products = db.get_product_offer_list(user['trader_id'])
+    products.sort(key=lambda row: (row['title'].lower(), row['unit'].lower(), row['promise_id']))
     choices = []
     choices_name_index = {}
     for p in products:
@@ -715,14 +789,15 @@ def make_deposit(request, secret, user, customer_id_str, tmpl='xhtml-mp/make_dep
 
 
 @has_profile
-@curiousorm.retry_transient_errors
-def make_withdrawal(request, secret, user, customer_id_str, promise_id_str, tmpl='xhtml-mp/make_withdrawal.html', method=None):
+@curiousorm.retry_on_deadlock
+def make_withdrawal(request, secret, user, customer_id_str, promise_id_str, 
+                    tmpl='xhtml-mp/make_withdrawal.html', method=None):
     customer_id = int(customer_id_str)
     promise_id = int(promise_id_str)
 
     method = method or request.GET.get('method') or request.method    
     if method == 'POST':
-        form = cmbarter.deposits.forms.MakeWithdrawalForm(request.POST)
+        form = MakeWithdrawalForm(request.POST)
         if form.is_valid():
             request._cmbarter_trx_cost += 12.0
             if db.insert_transaction(
@@ -735,11 +810,11 @@ def make_withdrawal(request, secret, user, customer_id_str, promise_id_str, tmpl
 
                 return report_transaction_commit(
                     request, secret, method='GET',
-                    backref=request.GET.get('backref', '/mobile/'))
+                    backref=request.GET.get('backref', u'/mobile/'))
             else:
                 form.insufficient_amount = True
     else:
-        form = cmbarter.deposits.forms.MakeWithdrawalForm(initial={
+        form = MakeWithdrawalForm(initial={
             'amount': request.GET.get('amount'),
             'reason': request.GET.get('reason')})
 
@@ -765,7 +840,8 @@ def make_withdrawal(request, secret, user, customer_id_str, promise_id_str, tmpl
 
 
 @has_profile
-def show_unknown_product(request, secret, user, issuer_id_str, tmpl='xhtml-mp/unknown_product.html'):
+def show_unknown_product(request, secret, user, issuer_id_str, 
+                         tmpl='xhtml-mp/unknown_product.html'):
     issuer_id  = int(issuer_id_str) 
 
     # Render everything.
@@ -775,8 +851,9 @@ def show_unknown_product(request, secret, user, issuer_id_str, tmpl='xhtml-mp/un
 
 
 @has_profile
-@curiousorm.retry_transient_errors
-def show_unconfirmed_deals(request, secret, user, tmpl='xhtml-mp/unconfirmed_deals.html', method=None):
+@curiousorm.retry_on_deadlock
+def show_unconfirmed_deals(request, secret, user, tmpl='xhtml-mp/unconfirmed_deals.html', 
+                           method=None):
     method = method or request.GET.get('method') or request.method    
     if method == 'POST':
 
@@ -803,8 +880,9 @@ def show_unconfirmed_deals(request, secret, user, tmpl='xhtml-mp/unconfirmed_dea
 
 
 @has_profile
-@curiousorm.retry_transient_errors
-def report_transaction_commit(request, secret, user, tmpl='xhtml-mp/unconfirmed_receipt.html', method=None, backref=None):
+@curiousorm.retry_on_deadlock
+def report_transaction_commit(request, secret, user, tmpl='xhtml-mp/unconfirmed_receipt.html', 
+                              method=None, backref=''):
     method = method or request.GET.get('method') or request.method    
     if method == 'POST':
 
@@ -819,7 +897,9 @@ def report_transaction_commit(request, secret, user, tmpl='xhtml-mp/unconfirmed_
                 request._cmbarter_trx_cost += 2.0
                 trx.confirm_receipt(user['trader_id'], int(hof.group(1)))
 
-        redirect_to = backref or request.GET.get('backref') or reverse(
+        backref1 = urllib.quote(backref)
+        backref2 = urllib.quote(request.GET.get('backref', u''))
+        redirect_to = backref1 or backref2 or reverse(
             show_shopping_list,
             args=[secret])
             
@@ -849,8 +929,9 @@ def report_transaction_commit(request, secret, user, tmpl='xhtml-mp/unconfirmed_
 
 
 @has_profile
-@curiousorm.retry_transient_errors
-def edit_profile(request, secret, user, tmpl='xhtml-mp/edit_contact_information.html', method=None):
+@curiousorm.retry_on_deadlock
+def edit_profile(request, secret, user, tmpl='xhtml-mp/edit_contact_information.html', 
+                 method=None):
     method = method or request.GET.get('method') or request.method    
     if method == 'POST':
         form = cmbarter.profiles.forms.EditProfileForm(request.POST)
@@ -893,7 +974,7 @@ def report_trader_not_found(request, secret, user, tmpl='xhtml-mp/trader_not_fou
 
 
 @has_profile
-@curiousorm.retry_transient_errors
+@curiousorm.retry_on_deadlock
 def logout(request, secret, user, tmpl='xhtml-mp/logout.html', method=None):
 
     method = method or request.GET.get('method') or request.method    

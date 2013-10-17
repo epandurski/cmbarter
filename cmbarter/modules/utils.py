@@ -38,13 +38,12 @@ from email.mime.text import MIMEText
 from email.header import Header
 from decimal import Decimal
 from math import log10, floor
-from StringIO import StringIO
 import string, random, hashlib, base64, pytz
 from cmbarter.modules import curiousorm
 
 
 
-_PASSWORD_SALT_CHARS = string.digits + string.letters + string.punctuation
+_PASSWORD_SALT_CHARS = string.digits + string.ascii_letters + string.punctuation
 
 
 
@@ -91,7 +90,7 @@ def generate_password_salt():
 def calc_crypt_hash(message):
     sha = hashlib.sha256()
     sha.update(message.encode('utf-8'))
-    return base64.urlsafe_b64encode(sha.digest())
+    return base64.urlsafe_b64encode(sha.digest()).decode('ascii')
 
 
 
@@ -158,7 +157,7 @@ def _formataddr(mailbox, display_name=None, header_name=None):
     if display_name:
         display_name_no_control_chars = remove_control_chars(display_name)
         header.append(display_name_no_control_chars)
-        if _SPECIALS.search(str(header)):
+        if _SPECIALS.search(header.encode()):
             header = Header(header_name=header_name)
             header.append('"%s"' % email.utils.quote(display_name_no_control_chars))
         header.append("<%s>" % encode_domain_as_idna(mailbox))
@@ -174,13 +173,13 @@ def _formatdate(date):
 
 
 def encode_domain_as_idna(s):
-    if s and u'@' in s:
-        parts = s.split(u'@')
+    if s and '@' in s:
+        parts = s.split('@')
         try:
-            parts[-1] = parts[-1].encode('idna')
+            parts[-1] = parts[-1].encode('idna').decode('ascii')
         except UnicodeError:
             pass
-        return u'@'.join(parts)
+        return '@'.join(parts)
     else:
         return s
 
@@ -198,7 +197,7 @@ def compose_email(to_mailbox, from_mailbox, subject, content,
                  id = None, orig_date = None, **kw):
     
     # Constructs the email and adds the content
-    msg = MIMEText(content.encode('utf-8'), _charset='utf-8')
+    msg = MIMEText(content, _charset='utf-8')
 
     # Add mandatory headers
     msg['Message-Id'] = email.utils.make_msgid(str(id)) if id else email.utils.make_msgid()
@@ -212,7 +211,8 @@ def compose_email(to_mailbox, from_mailbox, subject, content,
 
     # Add "Reply-To" if given
     if reply_to_mailbox:
-        msg['Reply-To'] = _formataddr(reply_to_mailbox, reply_to_display_name, header_name="Reply-To")
+        msg['Reply-To'] = _formataddr(reply_to_mailbox, reply_to_display_name, 
+                                      header_name="Reply-To")
 
     # Add "Sender" if given
     if sender_mailbox:
@@ -225,7 +225,8 @@ def compose_email(to_mailbox, from_mailbox, subject, content,
 def send_email(connection, email_dict):
     sender = email_dict['sender_mailbox']
     
-    from_ = encode_domain_as_idna(sender) if sender else encode_domain_as_idna(email_dict['from_mailbox'])
+    from_ = encode_domain_as_idna(sender) if sender else encode_domain_as_idna(
+        email_dict['from_mailbox'])
     to_ = encode_domain_as_idna(email_dict['to_mailbox'])
     msg = compose_email(**email_dict)
 
@@ -238,7 +239,7 @@ def get_ugettext(lang):
     
     localedir = os.path.join(os.path.dirname(__file__), '../locale')
     translation = gettext.translation('django', localedir, [lang], fallback=True)
-    return translation.ugettext
+    return translation.ugettext  # PYTHON3: return translation.gettext
 
 
 
@@ -277,31 +278,3 @@ def wrap_text(s, width=72):
     s = re.sub(r'\r\n|\r|\n', '\n', s)  # normalize newlines
     lines = [wrap_line(l, width) for l in s.split('\n')]
     return '\n'.join(lines)
-
-
-
-############################################################
-# Utility functions for buffered database reading/writing.
-############################################################
-
-BUFFER_SIZE = 10000
-
-
-
-def buffered_cursor_iter(dsn, query, query_params=[], buffer_size=BUFFER_SIZE):
-    o = curiousorm.connect(dsn)
-    try:
-        c = curiousorm.create_server_side_cursor(o)
-        c.arraysize = buffer_size
-        c.execute(query, query_params)
-        while True:
-            rows = c.fetchmany(buffer_size)
-            if rows:
-                for row in rows:
-                    yield row
-            else:
-                break
-        c.close()
-
-    finally:
-        o.close()

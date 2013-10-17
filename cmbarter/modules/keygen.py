@@ -58,7 +58,7 @@ class InvalidCharacter(ValueError):
 class SncCode:
     width = 5
 
-    _char_list = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'  # 32 characters
+    _char_list = u'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'  # 32 characters
     _char_dict = {}
     for i, c in enumerate(_char_list):
         _char_dict[c] = i
@@ -76,16 +76,19 @@ SNC = SncCode()  # Serial Number Code
 
 
 
-class AsciiCode:
+class Latin1Code:
     width = 8
 
     def chr(self, i):
-        return chr(i)
+        assert 0 <= i <= 0xff
+        return unichr(i)
     
     def ord(self, char):
-        return ord(char)
+        i = ord(char)
+        assert 0 <= i <= 0xff
+        return i
 
-ASCII = AsciiCode()  # ASCII code
+LATIN1 = Latin1Code()
 
 
 
@@ -96,9 +99,9 @@ class Keygen:
     >>> valid_key = gen.generate(seqnum=0)
     >>> gen.validate(valid_key) == valid_key
     True
-    >>> gen.validate(u'\u6234') == u''
+    >>> gen.validate(u'\u6234') == ''
     True
-    >>> gen.validate(u'x') == u''
+    >>> gen.validate('x') == ''
     True
     >>> bool(gen.validate(gen.generate(2**32-1)))
     True
@@ -108,7 +111,7 @@ class Keygen:
 
     def __init__(self, secret, prefix=u''):
         m = hashlib.md5()
-        m.update(secret)
+        m.update(secret.encode('utf-8'))
         self.cipher = CIPHER.new(m.digest(), CIPHER.MODE_ECB)
         self.prefix = prefix
         self.block_width = 8 * CIPHER.block_size
@@ -120,10 +123,11 @@ class Keygen:
         while shift < self.block_width:
             chars.append(code.chr((i >> shift) & mask))
             shift += code.width
-        return ''.join(chars)
+        return u''.join(chars).encode('latin-1')
 
 
     def _decode(self, s, code):
+        s = s.decode('latin-1')
         i, weight = 0, 1
         for c in s:
             i += code.ord(c) * weight
@@ -133,21 +137,21 @@ class Keygen:
 
     def generate(self, seqnum):
         assert 0 <= seqnum <= 0xffffffff
-        block = self._encode(seqnum, ASCII)
+        block = self._encode(seqnum, LATIN1)
         block = self.cipher.encrypt(block)
-        return self.prefix + self._encode(self._decode(block, ASCII), SNC).decode('ascii')
+        return self.prefix + self._encode(self._decode(block, LATIN1), SNC).decode('ascii')
 
 
     def validate(self, s):
         if s.startswith(self.prefix):
             s = s[len(self.prefix):]  # Removes the prefix
             try:
-                block = self._encode(self._decode(s.encode('ascii'), SNC), ASCII)
+                block = self._encode(self._decode(s.encode('ascii'), SNC), LATIN1)
                 block = self.cipher.decrypt(block)
-                i = self._decode(block, ASCII)
+                i = self._decode(block, LATIN1)
                 if 0 <= i <= 0xffffffff:
                     return self.generate(i)  # Returns the canonical representation of the key
-            except (InvalidCharacter, UnicodeEncodeError):
+            except (InvalidCharacter, UnicodeError):
                 pass
         
         return u''  # Invalid key

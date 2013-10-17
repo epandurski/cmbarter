@@ -43,6 +43,7 @@ DROP TABLE IF EXISTS delivery_status CASCADE;
 DROP TABLE IF EXISTS delivery_description CASCADE;
 DROP TABLE IF EXISTS delivery_automation CASCADE;
 DROP TABLE IF EXISTS loginkey CASCADE;
+DROP TABLE IF EXISTS whitelist_entry CASCADE;
 
 
 -- Base64 over SHA-256 (URL-safe).
@@ -502,6 +503,18 @@ CREATE TABLE loginkey (
   last_recorded_use_ts timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
   CONSTRAINT at_most_one_loginkey_key_per_trader UNIQUE (trader_id)
 );
+
+-- Signifies an evidence that a given trader is associated with a
+-- given network address.
+CREATE TABLE whitelist_entry (
+  id bigserial PRIMARY KEY CHECK (id > 0),
+  trader_id int NOT NULL REFERENCES trader_status,
+  network_address text NOT NULL,
+  occurred_more_than_once boolean NOT NULL DEFAULT FALSE,
+  insertion_ts timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+CREATE INDEX whitelist_entry_trader_idx ON whitelist_entry (trader_id);
+CLUSTER whitelist_entry USING whitelist_entry_trader_idx;
 
 ----------------------------------------------------------------------
 -- Relations in the following section represent temporary information

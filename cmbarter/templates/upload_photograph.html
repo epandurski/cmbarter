@@ -13,8 +13,13 @@
 {% block main %}
 <h2>{% trans "Upload your photograph" %}</h2>
 <form method="post" enctype="multipart/form-data" action="">{% csrf_token %}
-  {% if form.file_too_big %}<ul class="errorlist"><li>{% blocktrans with settings.CMBARTER_MAX_IMAGE_SIZE|megabytes|floatformat as max_size %}ERROR: The file should be no bigger than {{max_size}}MB.{% endblocktrans %}</li></ul>{% endif %}
+  {% if form.file_too_big %}<ul class="errorlist"><li>{% blocktrans with settings.CMBARTER_MAX_IMAGE_SIZE|kilobytes as max_size %}ERROR: The file should not be empty or bigger than {{max_size}}KB.{% endblocktrans %}</li></ul>{% endif %}
   {{form.as_p}}
   <p class="submit"><input type="submit" value="{% trans "Submit" %}"></p>
+  <p class="remark">
+    {% blocktrans with settings.CMBARTER_MAX_IMAGE_SIZE|kilobytes as max_size %}
+    <strong>Note:</strong> The file should be no bigger than {{max_size}} kilobytes!
+    {% endblocktrans %}
+  </p>
 </form>
 {% endblock %}

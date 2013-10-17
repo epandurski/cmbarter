@@ -346,7 +346,9 @@ def _test_bond_matcher(trader_count, bond_count):
     bond_list = []
     while len(bond_list) < bond_count:
         producer = random.choice(producer_list)
-        trader_list_index = (producer[0] - 1 + random.randrange(locality_distance+1)) % trader_count
+        trader_list_index = (
+            producer[0] - 1 + random.randrange(locality_distance+1)
+            ) % trader_count
         trader = trader_list[trader_list_index]
         if random.random() < sellers_ratio:
             amount = int(random.expovariate(lambd_sell))

@@ -1,2 +1,3 @@
 ExpiresActive on
-ExpiresDefault "access plus 2 weeks"
+ExpiresDefault "access plus 20 weeks"
+Header append Cache-Control public

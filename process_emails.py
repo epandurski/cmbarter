@@ -34,7 +34,7 @@ import pytz
 from cmbarter.settings import CMBARTER_HOST, CMBARTER_DSN
 from cmbarter.modules import curiousorm
 from cmbarter.modules import messages
-from cmbarter.modules.utils import buffered_cursor_iter, send_email, get_ugettext, wrap_text
+from cmbarter.modules.utils import send_email, get_ugettext, wrap_text
 
 
 USAGE = """Usage: process_emails.py [OPTIONS]
@@ -94,14 +94,14 @@ def parse_args(argv):
 
 
 def process_email_validations(db):
-    trader_records = buffered_cursor_iter(dsn, """
+    trader_records = curiousorm.Cursor(dsn, """
         SELECT ev.trader_id, ev.email, ts.last_request_language_code
         FROM email_verification ev, trader_status ts
         WHERE
           ev.email_verification_code IS NULL AND
           ts.trader_id=ev.trader_id AND
           ts.max_email_verification_count> 0
-        """)
+        """, dictrows=True)
 
     for trader_id, email, lang_code in trader_records:
 
@@ -114,7 +114,7 @@ def process_email_validations(db):
         if has_email_verification_rights:
             
             # Generate a verification secret.
-            email_verificaton_code = base64.urlsafe_b64encode(os.urandom(15))
+            email_verification_code = base64.urlsafe_b64encode(os.urandom(15)).decode('ascii')
 
             # Compose an email message containing the secret.
             _ = get_ugettext(lang_code)
@@ -123,13 +123,13 @@ def process_email_validations(db):
                 "site_domain": site_domain,
                 "traderid": str(trader_id).zfill(9),
                 "email": email,
-                "secret_code": email_verificaton_code }
+                "secret_code": email_verification_code }
             orig_date = datetime.datetime.now(pytz.utc)
 
             with db.Transaction() as trx:
                 trx.set_asynchronous_commit()
                 
-                if trx.update_email_verification_code(trader_id, email, email_verificaton_code):
+                if trx.update_email_verification_code(trader_id, email, email_verification_code):
                     
                     # Only when the verification secret is written to
                     # user's profile, we insert the composed message
@@ -143,10 +143,10 @@ def process_email_validations(db):
 
 
 def process_outgoing_customer_broadcasts(db):
-    broadcasts = buffered_cursor_iter(dsn, """
+    broadcasts = curiousorm.Cursor(dsn, """
         SELECT id, trader_id, from_mailbox, subject, content, insertion_ts
         FROM outgoing_customer_broadcast
-        """, buffer_size=100)
+        """, buffer_size=100, dictrows=True)
 
     for broadcast_id, issuer_id, issuer_mailbox, subject, content, orig_date in broadcasts:
 
@@ -176,7 +176,7 @@ def process_outgoing_customer_broadcasts(db):
 
                     trx.insert_outgoing_email(
                         subject,
-                        "%s\n\n-- \n%s" % (content, wrap_text(signature)),  # joins the signature and the content
+                        "%s\n\n-- \n%s" % (content, wrap_text(signature)),
                         orig_date,
                         issuer_mailbox, row['issuer_display_name'],  # From
                         row['mailbox'], '',  # To
@@ -201,13 +201,16 @@ def process_outgoing_customer_broadcasts(db):
 
 
 def process_notifications(db):
-    notification_records = buffered_cursor_iter(dsn, """
-        SELECT n.id, n.trader_id, n.to_mailbox, n.email_cancellation_code, ts.last_request_language_code
+    notification_records = curiousorm.Cursor(dsn, """
+        SELECT
+          n.id, n.trader_id, n.to_mailbox, n.email_cancellation_code, 
+          ts.last_request_language_code
         FROM outgoing_notification n, trader_status ts
         WHERE ts.trader_id=n.trader_id
-        """)
+        """, dictrows=True)
 
-    for notification_id, trader_id, to_mailbox, email_cancellation_code, lang_code in notification_records:
+    for notification_id, trader_id, to_mailbox, email_cancellation_code, lang_code in \
+            notification_records:
 
         exit_if_deadline_has_been_passed()
 
@@ -238,7 +241,7 @@ def process_notifications(db):
 
 
 def send_outgoing_emails(db):
-    outgoing_emails = buffered_cursor_iter(dsn, """
+    outgoing_emails = curiousorm.Cursor(dsn, """
         SELECT
           id, subject, content, orig_date,
           from_mailbox, from_display_name,
@@ -246,7 +249,7 @@ def send_outgoing_emails(db):
           reply_to_mailbox, reply_to_display_name,
           sender_mailbox, sender_display_name
         FROM outgoing_email
-        """, buffer_size=100)
+        """, buffer_size=100, dictrows=True)
 
     smtp_connection = smtplib.SMTP(smtp_host)
     try:
@@ -279,7 +282,7 @@ if __name__ == "__main__":
     site_domain = CMBARTER_HOST
     dsn = CMBARTER_DSN
     parse_args(sys.argv[1:])
-    db = curiousorm.Connection(dsn)
+    db = curiousorm.Connection(dsn, dictrows=True)
 
     # We must ensure that at most one process in running at a time, so
     # we try to obtain an advisory database lock. This lock is held by

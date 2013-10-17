@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python -R
 ####################################################
 # Copy this file in the Web Root directory of      #
 # your shared hosting account. Make sure it has    #
