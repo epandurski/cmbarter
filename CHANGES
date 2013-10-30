@@ -1,5 +1,8 @@
-October 17th, 2013
+October 30th, 2013
+v1.11 -- Improved the way session files are garbage-collected. This
+         closes a potential DoS-attack vector.
 
+October 17th, 2013
 v1.10 -- Fixed a serious security problem in the WAP-application.
 
       -- Disabled "django.middleware.gzip.GZipMiddleware" because of

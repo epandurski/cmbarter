@@ -156,7 +156,7 @@ def parse_args(argv):
                 level = max(int(arg), 0)
             except ValueError:
                 print(USAGE)
-                sys.exit()
+                sys.exit(2)
         elif opt in ('-n', '--no-cluster'):
             no_cluster = True
 

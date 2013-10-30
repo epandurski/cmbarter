@@ -29,11 +29,11 @@ source code in your */usr/local/share/* directory::
 
   # cd /usr/local/share/
   # wget http://sourceforge.net/projects/cmb/files/tarballs/\
-  cmbarter-1.10.tar.gz/download -O cmbarter-1.10.tar.gz
+  cmbarter-1.11.tar.gz/download -O cmbarter-1.11.tar.gz
   ...
 
-  # tar -xzf cmbarter-1.10.tar.gz 
-  # mv cmbarter-1.10 cmbarter
+  # tar -xzf cmbarter-1.11.tar.gz 
+  # mv cmbarter-1.11 cmbarter
 
 Also, make sure a *Python 2.x* interpreter (version 2.6 at least) is
 installed on your server.
@@ -253,8 +253,8 @@ Here are the configuration steps that you should perform:
      0,10,20,30,40,50 * * * * sudo -u cmbarter python /usr/local/share...
        /cmbarter/execute_turn.py
 
-     0,10,20,30,40,50 * * * * sudo -u cmbarter python /usr/local/share...
-       /cmbarter/check_sessions.py
+     * * * * * sudo -u cmbarter python /usr/local/share/cmbarter/check...
+       _sessions.py --repeat-interval=5
 
      * * * * * sudo -u cmbarter python /usr/local/share/cmbarter/proce...
        ss_emails.py
@@ -331,11 +331,11 @@ Here are the installation steps that you should perform:
 
      $ cd ~
      $ wget http://sourceforge.net/projects/cmb/files/tarballs/\
-     cmbarter-1.10.tar.gz/download -O cmbarter-1.10.tar.gz
+     cmbarter-1.11.tar.gz/download -O cmbarter-1.11.tar.gz
      ...
 
-     $ tar -xzf cmbarter-1.10.tar.gz 
-     $ mv cmbarter-1.10 cmbarter
+     $ tar -xzf cmbarter-1.11.tar.gz 
+     $ mv cmbarter-1.11 cmbarter
 
 3. Restrict access to those source files that may contain sensitive
    information::
@@ -434,7 +434,7 @@ Here are the configuration steps that you should perform:
 
      0,10,20,30,40,50 * * * * python ~/cmbarter/execute_turn.py
 
-     0,10,20,30,40,50 * * * * python ~/cmbarter/check_sessions.py
+     * * * * * python ~/cmbarter/check_sessions.py
 
      * * * * * python ~/cmbarter/process_emails.py --smtp='mailserve...
        rname' --smtp-username='noreply@yourdomainname.foo' --smtp-pa...

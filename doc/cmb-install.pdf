@@ -1038,7 +1038,7 @@ endobj
 % 'R59': class PDFInfo 
 59 0 obj
 << /Author (Evgeni Pandurksi)
- /CreationDate (D:20131013092509-02'00')
+ /CreationDate (D:20131030155719-02'00')
  /Creator (\(unspecified\))
  /Keywords ()
  /Producer (ReportLab PDF Library - www.reportlab.com)
@@ -1594,7 +1594,7 @@ n -6 -6 468.6898 96 re B*
 Q
 q
 0 0 0 rg
-BT 1 0 0 1 0 74 Tm /F4 10 Tf 12 TL (# cd /usr/local/share/) Tj T* (# wget http://sourceforge.net/projects/cmb/files/tarballs/\\) Tj T* (cmbarter-1.10.tar.gz/download -O cmbarter-1.10.tar.gz) Tj T* (...) Tj T*  T* (# tar -xzf cmbarter-1.10.tar.gz) Tj T* (# mv cmbarter-1.10 cmbarter) Tj T* ET
+BT 1 0 0 1 0 74 Tm /F4 10 Tf 12 TL (# cd /usr/local/share/) Tj T* (# wget http://sourceforge.net/projects/cmb/files/tarballs/\\) Tj T* (cmbarter-1.11.tar.gz/download -O cmbarter-1.11.tar.gz) Tj T* (...) Tj T*  T* (# tar -xzf cmbarter-1.11.tar.gz) Tj T* (# mv cmbarter-1.11 cmbarter) Tj T* ET
 Q
 Q
 Q
@@ -2691,7 +2691,7 @@ endobj
 % 'R80': class PDFStream 
 80 0 obj
 % page stream
-<< /Length 6875 >>
+<< /Length 6880 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
 q
@@ -2807,7 +2807,7 @@ n -6 -6 442.6898 108 re B*
 Q
 q
 0 0 0 rg
-BT 1 0 0 1 0 86 Tm /F4 10 Tf 12 TL (0,10,20,30,40,50 * * * * sudo -u cmbarter python /usr/local/share...) Tj T* (  /cmbarter/execute_turn.py) Tj T*  T* (0,10,20,30,40,50 * * * * sudo -u cmbarter python /usr/local/share...) Tj T* (  /cmbarter/check_sessions.py) Tj T*  T* (* * * * * sudo -u cmbarter python /usr/local/share/cmbarter/proce...) Tj T* (  ss_emails.py) Tj T* ET
+BT 1 0 0 1 0 86 Tm /F4 10 Tf 12 TL (0,10,20,30,40,50 * * * * sudo -u cmbarter python /usr/local/share...) Tj T* (  /cmbarter/execute_turn.py) Tj T*  T* (* * * * * sudo -u cmbarter python /usr/local/share/cmbarter/check...) Tj T* (  _sessions.py --repeat-interval=5) Tj T*  T* (* * * * * sudo -u cmbarter python /usr/local/share/cmbarter/proce...) Tj T* (  ss_emails.py) Tj T* ET
 Q
 Q
 Q
@@ -3221,7 +3221,7 @@ n -6 -6 442.6898 96 re B*
 Q
 q
 0 0 0 rg
-BT 1 0 0 1 0 74 Tm /F4 10 Tf 12 TL ($ cd ~) Tj T* ($ wget http://sourceforge.net/projects/cmb/files/tarballs/\\) Tj T* (cmbarter-1.10.tar.gz/download -O cmbarter-1.10.tar.gz) Tj T* (...) Tj T*  T* ($ tar -xzf cmbarter-1.10.tar.gz) Tj T* ($ mv cmbarter-1.10 cmbarter) Tj T* ET
+BT 1 0 0 1 0 74 Tm /F4 10 Tf 12 TL ($ cd ~) Tj T* ($ wget http://sourceforge.net/projects/cmb/files/tarballs/\\) Tj T* (cmbarter-1.11.tar.gz/download -O cmbarter-1.11.tar.gz) Tj T* (...) Tj T*  T* ($ tar -xzf cmbarter-1.11.tar.gz) Tj T* ($ mv cmbarter-1.11 cmbarter) Tj T* ET
 Q
 Q
 Q
@@ -3466,7 +3466,7 @@ endobj
 % 'R82': class PDFStream 
 82 0 obj
 % page stream
-<< /Length 5232 >>
+<< /Length 5217 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
 q
@@ -3691,7 +3691,7 @@ n -6 -6 442.6898 120 re B*
 Q
 q
 0 0 0 rg
-BT 1 0 0 1 0 98 Tm /F4 10 Tf 12 TL (0,10,20,30,40,50 * * * * python ~/cmbarter/execute_turn.py) Tj T*  T* (0,10,20,30,40,50 * * * * python ~/cmbarter/check_sessions.py) Tj T*  T* (* * * * * python ~/cmbarter/process_emails.py --smtp='mailserve...) Tj T* (  rname' --smtp-username='noreply@yourdomainname.foo' --smtp-pa...) Tj T* (  ssword='yourpassword') Tj T*  T* (0 * * * * touch ~/public_html/cmbarter.fcgi) Tj T* ET
+BT 1 0 0 1 0 98 Tm /F4 10 Tf 12 TL (0,10,20,30,40,50 * * * * python ~/cmbarter/execute_turn.py) Tj T*  T* (* * * * * python ~/cmbarter/check_sessions.py) Tj T*  T* (* * * * * python ~/cmbarter/process_emails.py --smtp='mailserve...) Tj T* (  rname' --smtp-username='noreply@yourdomainname.foo' --smtp-pa...) Tj T* (  ssword='yourpassword') Tj T*  T* (0 * * * * touch ~/public_html/cmbarter.fcgi) Tj T* ET
 Q
 Q
 Q
@@ -4143,26 +4143,26 @@ xref
 0000032495 00000 n
 0000041501 00000 n
 0000045356 00000 n
-0000052330 00000 n
-0000060351 00000 n
-0000065682 00000 n
-0000072553 00000 n
-0000072737 00000 n
-0000072814 00000 n
-0000072891 00000 n
-0000072968 00000 n
-0000073045 00000 n
-0000073122 00000 n
-0000073199 00000 n
-0000073276 00000 n
+0000052335 00000 n
+0000060356 00000 n
+0000065672 00000 n
+0000072543 00000 n
+0000072727 00000 n
+0000072804 00000 n
+0000072881 00000 n
+0000072958 00000 n
+0000073035 00000 n
+0000073112 00000 n
+0000073189 00000 n
+0000073266 00000 n
 trailer
 << /ID 
  % ReportLab generated PDF document -- digest (http://www.reportlab.com) 
- [(\274VD\231j\201\325 j\343\223\363\012\210}\203) (\274VD\231j\201\325 j\343\223\363\012\210}\203)] 
+ [(*\346\331F\310\026\020\314\226\362\\\323\326A\207\353) (*\346\331F\310\026\020\314\226\362\\\323\326A\207\353)] 
 
  /Info 59 0 R
  /Root 58 0 R
  /Size 93 >>
 startxref
-73323
+73313
 %%EOF

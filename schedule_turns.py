@@ -86,7 +86,7 @@ def parse_args(argv):
                     raise ValueError
             except ValueError:
                 print(USAGE)
-                sys.exit()                  
+                sys.exit(2)                  
         elif opt == '--dsn':
             dsn = arg
 
