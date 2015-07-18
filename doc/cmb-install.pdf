@@ -122,7 +122,7 @@ endobj
  /Dest [ 38 0 R
  /XYZ
  62.69291
- 179.0236
+ 167.0236
  0 ]
  /Rect [ 82.69291
  566.7736
@@ -140,7 +140,7 @@ endobj
  /Dest [ 38 0 R
  /XYZ
  62.69291
- 179.0236
+ 167.0236
  0 ]
  /Rect [ 527.0227
  566.7736
@@ -158,7 +158,7 @@ endobj
  /Dest [ 43 0 R
  /XYZ
  62.69291
- 296.6236
+ 278.6236
  0 ]
  /Rect [ 82.69291
  548.7736
@@ -176,7 +176,7 @@ endobj
  /Dest [ 43 0 R
  /XYZ
  62.69291
- 296.6236
+ 278.6236
  0 ]
  /Rect [ 527.0227
  548.7736
@@ -194,7 +194,7 @@ endobj
  /Dest [ 43 0 R
  /XYZ
  62.69291
- 224.6236
+ 206.6236
  0 ]
  /Rect [ 82.69291
  530.7736
@@ -212,7 +212,7 @@ endobj
  /Dest [ 43 0 R
  /XYZ
  62.69291
- 224.6236
+ 206.6236
  0 ]
  /Rect [ 527.0227
  530.7736
@@ -230,7 +230,7 @@ endobj
  /Dest [ 46 0 R
  /XYZ
  62.69291
- 701.8236
+ 689.8236
  0 ]
  /Rect [ 82.69291
  512.7736
@@ -248,7 +248,7 @@ endobj
  /Dest [ 46 0 R
  /XYZ
  62.69291
- 701.8236
+ 689.8236
  0 ]
  /Rect [ 527.0227
  512.7736
@@ -266,7 +266,7 @@ endobj
  /Dest [ 46 0 R
  /XYZ
  62.69291
- 432.6236
+ 420.6236
  0 ]
  /Rect [ 62.69291
  494.7736
@@ -284,7 +284,7 @@ endobj
  /Dest [ 46 0 R
  /XYZ
  62.69291
- 432.6236
+ 420.6236
  0 ]
  /Rect [ 527.0227
  494.7736
@@ -302,7 +302,7 @@ endobj
  /Dest [ 46 0 R
  /XYZ
  62.69291
- 357.6236
+ 345.6236
  0 ]
  /Rect [ 82.69291
  476.7736
@@ -320,7 +320,7 @@ endobj
  /Dest [ 46 0 R
  /XYZ
  62.69291
- 357.6236
+ 345.6236
  0 ]
  /Rect [ 527.0227
  476.7736
@@ -338,7 +338,7 @@ endobj
  /Dest [ 46 0 R
  /XYZ
  62.69291
- 141.6236
+ 129.6236
  0 ]
  /Rect [ 82.69291
  458.7736
@@ -356,7 +356,7 @@ endobj
  /Dest [ 46 0 R
  /XYZ
  62.69291
- 141.6236
+ 129.6236
  0 ]
  /Rect [ 527.0227
  458.7736
@@ -374,7 +374,7 @@ endobj
  /Dest [ 47 0 R
  /XYZ
  62.69291
- 341.4236
+ 329.4236
  0 ]
  /Rect [ 82.69291
  440.7736
@@ -392,7 +392,7 @@ endobj
  /Dest [ 47 0 R
  /XYZ
  62.69291
- 341.4236
+ 329.4236
  0 ]
  /Rect [ 527.0227
  440.7736
@@ -620,12 +620,12 @@ endobj
  /Dest [ 57 0 R
  /XYZ
  68.69291
- 540.9843
+ 544.9197
  0 ]
  /Rect [ 149.2629
- 675.7736
+ 663.7736
  153.7109
- 687.7736 ]
+ 675.7736 ]
  /Subtype /Link
  /Type /Annot >>
 endobj
@@ -638,12 +638,12 @@ endobj
  /Dest [ 57 0 R
  /XYZ
  68.69291
- 504.9843
+ 508.9197
  0 ]
  /Rect [ 144.0429
- 642.7736
+ 630.7736
  148.4909
- 654.7736 ]
+ 642.7736 ]
  /Subtype /Link
  /Type /Annot >>
 endobj
@@ -677,12 +677,12 @@ endobj
  /Dest [ 57 0 R
  /XYZ
  68.69291
- 480.9843
+ 484.9197
  0 ]
- /Rect [ 222.9394
- 552.7736
- 227.3874
- 564.7736 ]
+ /Rect [ 222.7901
+ 534.7736
+ 227.2381
+ 546.7736 ]
  /Subtype /Link
  /Type /Annot >>
 endobj
@@ -695,12 +695,12 @@ endobj
  /Dest [ 57 0 R
  /XYZ
  68.69291
- 444.9843
+ 448.9197
  0 ]
  /Rect [ 199.0629
- 306.3736
+ 288.3736
  203.5109
- 318.3736 ]
+ 300.3736 ]
  /Subtype /Link
  /Type /Annot >>
 endobj
@@ -713,12 +713,12 @@ endobj
  /Dest [ 57 0 R
  /XYZ
  68.69291
- 265.7843
+ 269.7197
  0 ]
  /Rect [ 177.2484
- 249.3736
+ 231.3736
  181.6964
- 261.3736 ]
+ 243.3736 ]
  /Subtype /Link
  /Type /Annot >>
 endobj
@@ -731,12 +731,12 @@ endobj
  /Dest [ 57 0 R
  /XYZ
  68.69291
- 196.5843
+ 200.5197
  0 ]
- /Rect [ 504.0889
- 96.37362
- 508.5369
- 108.3736 ]
+ /Rect [ 501.2764
+ 78.37362
+ 505.7244
+ 90.37362 ]
  /Subtype /Link
  /Type /Annot >>
 endobj
@@ -791,12 +791,12 @@ endobj
  /Dest [ 57 0 R
  /XYZ
  68.69291
- 160.5843
+ 164.5197
  0 ]
  /Rect [ 156.8229
- 472.3736
+ 460.3736
  163.4949
- 484.3736 ]
+ 472.3736 ]
  /Subtype /Link
  /Type /Annot >>
 endobj
@@ -883,12 +883,12 @@ endobj
  /Dest [ 38 0 R
  /XYZ
  149.2629
- 689.0236
+ 677.0236
  0 ]
  /Rect [ 68.69291
- 527.7343
+ 531.6697
  74.25291
- 539.7343 ]
+ 543.6697 ]
  /Subtype /Link
  /Type /Annot >>
 endobj
@@ -901,12 +901,12 @@ endobj
  /Dest [ 38 0 R
  /XYZ
  144.0429
- 656.0236
+ 644.0236
  0 ]
  /Rect [ 68.69291
- 491.7343
+ 495.6697
  74.25291
- 503.7343 ]
+ 507.6697 ]
  /Subtype /Link
  /Type /Annot >>
 endobj
@@ -919,12 +919,12 @@ endobj
  /Dest [ 43 0 R
  /XYZ
  219.0829
- 566.0236
+ 548.0236
  0 ]
  /Rect [ 68.69291
- 467.7343
+ 471.6697
  74.25291
- 479.7343 ]
+ 483.6697 ]
  /Subtype /Link
  /Type /Annot >>
 endobj
@@ -937,12 +937,12 @@ endobj
  /Dest [ 43 0 R
  /XYZ
  199.0629
- 319.6236
+ 301.6236
  0 ]
  /Rect [ 68.69291
- 431.7343
+ 435.6697
  74.25291
- 443.7343 ]
+ 447.6697 ]
  /Subtype /Link
  /Type /Annot >>
 endobj
@@ -955,12 +955,12 @@ endobj
  /Dest [ 43 0 R
  /XYZ
  171.6329
- 262.6236
+ 244.6236
  0 ]
  /Rect [ 68.69291
- 252.5343
+ 256.4697
  74.25291
- 264.5343 ]
+ 268.4697 ]
  /Subtype /Link
  /Type /Annot >>
 endobj
@@ -973,12 +973,12 @@ endobj
  /Dest [ 43 0 R
  /XYZ
  493.6529
- 109.6236
+ 91.62362
  0 ]
  /Rect [ 68.69291
- 183.3343
+ 187.2697
  74.25291
- 195.3343 ]
+ 199.2697 ]
  /Subtype /Link
  /Type /Annot >>
 endobj
@@ -991,12 +991,12 @@ endobj
  /Dest [ 46 0 R
  /XYZ
  156.8229
- 485.6236
+ 473.6236
  0 ]
  /Rect [ 68.69291
- 147.3343
+ 151.2697
  74.25291
- 159.3343 ]
+ 163.2697 ]
  /Subtype /Link
  /Type /Annot >>
 endobj
@@ -1038,7 +1038,7 @@ endobj
 % 'R59': class PDFInfo 
 59 0 obj
 << /Author (Evgeni Pandurksi)
- /CreationDate (D:20131030155719-02'00')
+ /CreationDate (D:20140628190352-02'00')
  /Creator (\(unspecified\))
  /Keywords ()
  /Producer (ReportLab PDF Library - www.reportlab.com)
@@ -1082,7 +1082,7 @@ endobj
 << /Dest [ 38 0 R
  /XYZ
  62.69291
- 179.0236
+ 167.0236
  0 ]
  /Next 64 0 R
  /Parent 61 0 R
@@ -1094,7 +1094,7 @@ endobj
 << /Dest [ 43 0 R
  /XYZ
  62.69291
- 296.6236
+ 278.6236
  0 ]
  /Next 65 0 R
  /Parent 61 0 R
@@ -1106,7 +1106,7 @@ endobj
 << /Dest [ 43 0 R
  /XYZ
  62.69291
- 224.6236
+ 206.6236
  0 ]
  /Next 66 0 R
  /Parent 61 0 R
@@ -1118,7 +1118,7 @@ endobj
 << /Dest [ 46 0 R
  /XYZ
  62.69291
- 701.8236
+ 689.8236
  0 ]
  /Parent 61 0 R
  /Prev 65 0 R
@@ -1130,7 +1130,7 @@ endobj
  /Dest [ 46 0 R
  /XYZ
  62.69291
- 432.6236
+ 420.6236
  0 ]
  /First 68 0 R
  /Last 73 0 R
@@ -1144,7 +1144,7 @@ endobj
 << /Dest [ 46 0 R
  /XYZ
  62.69291
- 357.6236
+ 345.6236
  0 ]
  /Next 69 0 R
  /Parent 67 0 R
@@ -1155,7 +1155,7 @@ endobj
 << /Dest [ 46 0 R
  /XYZ
  62.69291
- 141.6236
+ 129.6236
  0 ]
  /Next 70 0 R
  /Parent 67 0 R
@@ -1167,7 +1167,7 @@ endobj
 << /Dest [ 47 0 R
  /XYZ
  62.69291
- 341.4236
+ 329.4236
  0 ]
  /Next 71 0 R
  /Parent 67 0 R
@@ -1237,7 +1237,7 @@ endobj
 % 'R76': class PDFStream 
 76 0 obj
 % page stream
-<< /Length 7537 >>
+<< /Length 7512 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
 q
@@ -1594,7 +1594,7 @@ n -6 -6 468.6898 96 re B*
 Q
 q
 0 0 0 rg
-BT 1 0 0 1 0 74 Tm /F4 10 Tf 12 TL (# cd /usr/local/share/) Tj T* (# wget http://sourceforge.net/projects/cmb/files/tarballs/\\) Tj T* (cmbarter-1.11.tar.gz/download -O cmbarter-1.11.tar.gz) Tj T* (...) Tj T*  T* (# tar -xzf cmbarter-1.11.tar.gz) Tj T* (# mv cmbarter-1.11 cmbarter) Tj T* ET
+BT 1 0 0 1 0 74 Tm /F4 10 Tf 12 TL (# cd /usr/local/share/) Tj T* (# wget http://sourceforge.net/projects/cmb/files/tarballs/\\) Tj T* (cmbarter-1.12.tar.gz/download -O cmbarter-1.12.tar.gz) Tj T* (...) Tj T*  T* (# tar -xzf cmbarter-1.12.tar.gz) Tj T* (# mv cmbarter-1.12 cmbarter) Tj T* ET
 Q
 Q
 Q
@@ -1603,7 +1603,7 @@ Q
 q
 1 0 0 1 62.69291 134.8236 cm
 q
-BT 1 0 0 1 0 2 Tm 12 TL /F1 10 Tf 0 0 0 rg (Also, make sure a ) Tj /F3 10 Tf (Python 2.x ) Tj /F1 10 Tf (interpreter \(version 2.6 at least\) is installed on your server.) Tj T* ET
+BT 1 0 0 1 0 2 Tm 12 TL /F1 10 Tf 0 0 0 rg (Also, make sure a ) Tj /F3 10 Tf (Python 2.7 ) Tj /F1 10 Tf (interpreter is installed on your server.) Tj T* ET
 Q
 Q
 q
@@ -1631,38 +1631,38 @@ endobj
 % 'R77': class PDFStream 
 77 0 obj
 % page stream
-<< /Length 6858 >>
+<< /Length 6554 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
 q
-1 0 0 1 62.69291 455.8236 cm
+1 0 0 1 62.69291 443.8236 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
-1 0 0 1 6 294.2 cm
+1 0 0 1 6 306.2 cm
 q
 0 0 0 rg
 BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL 5.66 0 Td (1.) Tj T* -5.66 0 Td ET
 Q
 Q
 q
-1 0 0 1 23 294.2 cm
+1 0 0 1 23 306.2 cm
 q
-BT 1 0 0 1 0 2 Tm 12 TL /F1 10 Tf 0 0 0 rg (Install the ) Tj /F3 10 Tf (Python 2.x ) Tj /F1 10 Tf (versions of the following software packages:) Tj T* ET
+BT 1 0 0 1 0 2 Tm 12 TL /F1 10 Tf 0 0 0 rg (Install the ) Tj /F3 10 Tf (Python 2 ) Tj /F1 10 Tf (versions of the following software packages:) Tj T* ET
 Q
 Q
 q
-1 0 0 1 23 288.2 cm
+1 0 0 1 23 300.2 cm
 Q
 q
-1 0 0 1 23 288.2 cm
+1 0 0 1 23 300.2 cm
 Q
 q
 1 0 0 1 23 276.2 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
-1 0 0 1 6 -3 cm
+1 0 0 1 6 9 cm
 q
 0 0 0 rg
 BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL 10.5 0 Td (\177) Tj T* -10.5 0 Td ET
@@ -1671,7 +1671,7 @@ Q
 q
 1 0 0 1 23 -3 cm
 q
-BT 1 0 0 1 0 2 Tm 12 TL /F3 10 Tf 0 0 0 rg (Django ) Tj /F1 10 Tf (\(versions 1.4, 1.5, and 1.6 have been tested\)) Tj T* ET
+BT 1 0 0 1 0 14 Tm .467318 Tw 12 TL /F3 10 Tf 0 0 0 rg (Django ) Tj /F1 10 Tf (\(Versions 1.4, 1.5, 1.6, and 1.7 have been tested; chances are that newer versions will) Tj T* 0 Tw (work too.\)) Tj T* ET
 Q
 Q
 q
@@ -1804,10 +1804,10 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 449.8236 cm
+1 0 0 1 62.69291 437.8236 cm
 Q
 q
-1 0 0 1 62.69291 392.6236 cm
+1 0 0 1 62.69291 380.6236 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -1848,10 +1848,10 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 386.6236 cm
+1 0 0 1 62.69291 374.6236 cm
 Q
 q
-1 0 0 1 62.69291 329.4236 cm
+1 0 0 1 62.69291 317.4236 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -1892,10 +1892,10 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 323.4236 cm
+1 0 0 1 62.69291 311.4236 cm
 Q
 q
-1 0 0 1 62.69291 278.2236 cm
+1 0 0 1 62.69291 266.2236 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -1937,10 +1937,10 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 272.2236 cm
+1 0 0 1 62.69291 260.2236 cm
 Q
 q
-1 0 0 1 62.69291 191.0236 cm
+1 0 0 1 62.69291 179.0236 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -1982,59 +1982,32 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 191.0236 cm
+1 0 0 1 62.69291 179.0236 cm
 Q
 q
-1 0 0 1 62.69291 161.0236 cm
+1 0 0 1 62.69291 149.0236 cm
 q
 BT 1 0 0 1 0 3 Tm 18 TL /F2 15 Tf 0 0 0 rg (Web server installation) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 119.0236 cm
+1 0 0 1 62.69291 107.0236 cm
 q
 BT 1 0 0 1 0 26 Tm 2.130651 Tw 12 TL /F1 10 Tf 0 0 0 rg (Although CMB should work well with all kinds of web servers, this document focuses specifically on) Tj T* 0 Tw 1.729213 Tw (running CMB with ) Tj /F3 10 Tf (Apache) Tj /F1 10 Tf (. Therefore, having prior experience with administering Apache would be of) Tj T* 0 Tw (help.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 101.0236 cm
+1 0 0 1 62.69291 89.02362 cm
 q
 0 0 0 rg
 BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (Here are the installation steps that you should perform:) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 95.02362 cm
+1 0 0 1 62.69291 83.02362 cm
 Q
 q
-1 0 0 1 62.69291 95.02362 cm
-Q
-q
-1 0 0 1 62.69291 77.02362 cm
-0 0 0 rg
-BT /F1 10 Tf 12 TL ET
-q
-1 0 0 1 6 3 cm
-q
-0 0 0 rg
-BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL 5.66 0 Td (1.) Tj T* -5.66 0 Td ET
-Q
-Q
-q
-1 0 0 1 23 3 cm
-q
-0 0 0 rg
-BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (Install Apache and make sure the following modules are active:) Tj T* ET
-Q
-Q
-q
-1 0 0 1 23 -3 cm
-Q
-q
-1 0 0 1 23 -3 cm
-Q
-q
-Q
+1 0 0 1 62.69291 83.02362 cm
 Q
  
 endstream
@@ -2042,14 +2015,33 @@ endobj
 % 'R78': class PDFStream 
 78 0 obj
 % page stream
-<< /Length 8907 >>
+<< /Length 9120 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
 q
-1 0 0 1 62.69291 573.0236 cm
+1 0 0 1 62.69291 555.0236 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
-BT 1 0 0 1 6 179 Tm  T* ET
+q
+1 0 0 1 6 195 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL 5.66 0 Td (1.) Tj T* -5.66 0 Td ET
+Q
+Q
+q
+1 0 0 1 23 195 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (Install Apache and make sure the following modules are active:) Tj T* ET
+Q
+Q
+q
+1 0 0 1 23 189 cm
+Q
+q
+1 0 0 1 23 189 cm
+Q
 q
 1 0 0 1 23 177 cm
 0 0 0 rg
@@ -2300,10 +2292,10 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 567.0236 cm
+1 0 0 1 62.69291 549.0236 cm
 Q
 q
-1 0 0 1 62.69291 479.8236 cm
+1 0 0 1 62.69291 461.8236 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -2316,7 +2308,7 @@ Q
 q
 1 0 0 1 23 60.2 cm
 q
-BT 1 0 0 1 0 14 Tm .964118 Tw 12 TL /F1 10 Tf 0 0 0 rg (Install and activate ) Tj /F3 10 Tf (mod_wsgi) Tj /F1 10 Tf ( ) Tj /F1 8 Tf 0 0 .501961 rg 5 Ts (3) Tj /F1 10 Tf 0 0 0 rg 0 Ts (. Make sure mod_wsgi uses the ) Tj /F3 10 Tf (Python 2.x ) Tj /F1 10 Tf (interpreter, and not the) Tj T* 0 Tw /F3 10 Tf (Python 3.x ) Tj /F1 10 Tf (one.) Tj T* ET
+BT 1 0 0 1 0 14 Tm .926784 Tw 12 TL /F1 10 Tf 0 0 0 rg (Install and activate ) Tj /F3 10 Tf (mod_wsgi) Tj /F1 10 Tf ( ) Tj /F1 8 Tf 0 0 .501961 rg 5 Ts (3) Tj /F1 10 Tf 0 0 0 rg 0 Ts (. Make sure mod_wsgi uses the ) Tj /F3 10 Tf (Python 2.7 ) Tj /F1 10 Tf (interpreter, and not the) Tj T* 0 Tw /F3 10 Tf (Python 3.x ) Tj /F1 10 Tf (one.) Tj T* ET
 Q
 Q
 q
@@ -2337,7 +2329,7 @@ q
 .662745 .662745 .662745 RG
 .5 w
 .960784 .960784 .862745 rg
-n -6 -6 442.6898 36 re B*
+n -6 -6 445.6898 36 re B*
 Q
 q
 0 0 0 rg
@@ -2351,10 +2343,10 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 473.8236 cm
+1 0 0 1 62.69291 455.8236 cm
 Q
 q
-1 0 0 1 62.69291 410.6236 cm
+1 0 0 1 62.69291 392.6236 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -2402,10 +2394,10 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 404.6236 cm
+1 0 0 1 62.69291 386.6236 cm
 Q
 q
-1 0 0 1 62.69291 392.6236 cm
+1 0 0 1 62.69291 374.6236 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -2426,10 +2418,10 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 386.6236 cm
+1 0 0 1 62.69291 368.6236 cm
 Q
 q
-1 0 0 1 62.69291 338.6236 cm
+1 0 0 1 62.69291 320.6236 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -2449,10 +2441,10 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 332.6236 cm
+1 0 0 1 62.69291 314.6236 cm
 Q
 q
-1 0 0 1 62.69291 308.6236 cm
+1 0 0 1 62.69291 290.6236 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -2472,74 +2464,71 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 308.6236 cm
+1 0 0 1 62.69291 290.6236 cm
 Q
 q
-1 0 0 1 62.69291 278.6236 cm
+1 0 0 1 62.69291 260.6236 cm
 q
 BT 1 0 0 1 0 3 Tm 18 TL /F2 15 Tf 0 0 0 rg (Mail server installation) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 236.6236 cm
+1 0 0 1 62.69291 218.6236 cm
 q
 BT 1 0 0 1 0 26 Tm .226235 Tw 12 TL /F1 10 Tf 0 0 0 rg (CMB needs a mail server only for sending outgoing e-mails. Therefore, you may install whatever server is) Tj T* 0 Tw 1.40386 Tw (most convenient for you ) Tj /F1 8 Tf 0 0 .501961 rg 5 Ts (5) Tj /F1 10 Tf 0 0 0 rg 0 Ts (. The only requirement is that the server is configured to accept anonymous) Tj T* 0 Tw (connections at ) Tj /F3 10 Tf (localhost:25) Tj /F1 10 Tf (.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 206.6236 cm
+1 0 0 1 62.69291 188.6236 cm
 q
 BT 1 0 0 1 0 3 Tm 18 TL /F2 15 Tf 0 0 0 rg (Database server installation) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 164.6236 cm
+1 0 0 1 62.69291 146.6236 cm
 q
 BT 1 0 0 1 0 26 Tm .937209 Tw 12 TL /F1 10 Tf 0 0 0 rg (CMB relies on the ) Tj /F3 10 Tf (PostgreSQL ) Tj /F1 10 Tf (open source database server to hold its data. You do not need to know) Tj T* 0 Tw 2.994269 Tw (very much about PostgreSQL to install CMB, but you definitely should obtain some experience in) Tj T* 0 Tw (administering PostgreSQL databases in order to keep your users' data safe and secure.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 146.6236 cm
+1 0 0 1 62.69291 128.6236 cm
 q
 0 0 0 rg
 BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (Here are the installation steps that you should perform:) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 140.6236 cm
+1 0 0 1 62.69291 122.6236 cm
 Q
 q
-1 0 0 1 62.69291 140.6236 cm
+1 0 0 1 62.69291 122.6236 cm
 Q
 q
-1 0 0 1 62.69291 86.62362 cm
+1 0 0 1 62.69291 76.86614 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
-1 0 0 1 6 39 cm
+1 0 0 1 6 30.75748 cm
 q
 0 0 0 rg
 BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL 5.66 0 Td (1.) Tj T* -5.66 0 Td ET
 Q
 Q
 q
-1 0 0 1 23 39 cm
+1 0 0 1 23 30.75748 cm
 q
 0 0 0 rg
 BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (Install PostgreSQL \(version 8.3 at least\).) Tj T* ET
 Q
 Q
 q
-1 0 0 1 23 -3 cm
+1 0 0 1 23 .75748 cm
 q
-BT 1 0 0 1 0 26 Tm 1.593318 Tw 12 TL /F1 10 Tf 0 0 0 rg (Keep in mind that the default PosgreSQL configuration is not very well suited for large database) Tj T* 0 Tw .695735 Tw (servers. So, you will probably need to edit your PosgreSQL configuration files at some point ) Tj /F1 8 Tf 0 0 .501961 rg 5 Ts (6) Tj /F1 10 Tf 0 0 0 rg 0 Ts (. See) Tj T* 0 Tw (PostgreSQL's documentation for more info.) Tj T* ET
-Q
-Q
-q
+BT 1 0 0 1 0 14 Tm 1.393318 Tw 12 TL /F1 10 Tf 0 0 0 rg (Keep in mind that the default PosgreSQL configuration is not very well suited for large database ) Tj T* 0 Tw .508235 Tw (servers. So, you will probably need to edit your PosgreSQL configuration files at some point ) Tj /F1 8 Tf 0 0 .501961 rg 5 Ts (6) Tj /F1 10 Tf 0 0 0 rg 0 Ts (. See) Tj T* 0 Tw ET
 Q
 Q
 q
-1 0 0 1 62.69291 80.62362 cm
+Q
 Q
  
 endstream
@@ -2547,11 +2536,29 @@ endobj
 % 'R79': class PDFStream 
 79 0 obj
 % page stream
-<< /Length 3756 >>
+<< /Length 3991 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
 q
-1 0 0 1 62.69291 623.8236 cm
+1 0 0 1 62.69291 753.0236 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+BT 1 0 0 1 6 -1 Tm  T* ET
+q
+1 0 0 1 23 -3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (PostgreSQL's documentation for more info.) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 62.69291 747.0236 cm
+Q
+q
+1 0 0 1 62.69291 605.8236 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -2592,10 +2599,10 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 617.8236 cm
+1 0 0 1 62.69291 599.8236 cm
 Q
 q
-1 0 0 1 62.69291 368.6236 cm
+1 0 0 1 62.69291 350.6236 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -2635,34 +2642,34 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 362.6236 cm
+1 0 0 1 62.69291 344.6236 cm
 Q
 q
 1 0 0 1 62.69291 76.86614 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
-1 0 0 1 6 270.7575 cm
+1 0 0 1 6 252.7575 cm
 q
 0 0 0 rg
 BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL 5.66 0 Td (4.) Tj T* -5.66 0 Td ET
 Q
 Q
 q
-1 0 0 1 23 258.7575 cm
+1 0 0 1 23 240.7575 cm
 q
 0 0 0 rg
 BT 1 0 0 1 0 14 Tm /F1 10 Tf 12 TL 1.170651 Tw (If your users' primary language is other than English, you should create a new default text-search) Tj T* 0 Tw (configuration for that language. \(The out-of-the-box configuration works well for English.\)) Tj T* ET
 Q
 Q
 q
-1 0 0 1 23 216.7575 cm
+1 0 0 1 23 198.7575 cm
 q
 BT 1 0 0 1 0 26 Tm 1.07284 Tw 12 TL /F1 10 Tf 0 0 0 rg (For example, to create a default text-search configuration for Bulgarian, you should extract the file) Tj T* 0 Tw 8.803294 Tw /F3 10 Tf (/usr/local/share/cmbarter/pgsql/tsearch_data/bulgarian.tar.gz ) Tj /F1 10 Tf (and copy its content to your) Tj T* 0 Tw (PostgreSQL "tsearch_data" directory. Then you should execute the following commands in ) Tj /F3 10 Tf (psql) Tj /F1 10 Tf (:) Tj T* ET
 Q
 Q
 q
-1 0 0 1 23 3.55748 cm
+1 0 0 1 23 -2.44252 cm
 q
 q
 1 0 0 1 0 0 cm
@@ -2672,11 +2679,11 @@ q
 .662745 .662745 .662745 RG
 .5 w
 .960784 .960784 .862745 rg
-n -6 -6 442.6898 204 re B*
+n -6 -6 442.6898 192 re B*
 Q
 q
 0 0 0 rg
-BT 1 0 0 1 0 182 Tm /F4 10 Tf 12 TL (CREATE TEXT SEARCH DICTIONARY bulgarian_ispell \() Tj T* (  TEMPLATE = ispell,) Tj T* (  DICTFILE = bulgarian,) Tj T* (  AFFFILE = bulgarian,) Tj T* (  STOPWORDS = bulgarian) Tj T* (\);) Tj T*  T* (CREATE TEXT SEARCH CONFIGURATION public.bulgarian \() Tj T* (  COPY = pg_catalog.russian) Tj T* (\);) Tj T*  T* (ALTER TEXT SEARCH CONFIGURATION bulgarian) Tj T* (  ALTER MAPPING FOR word, hword, hword_part) Tj T* (  WITH bulgarian_ispell, simple;) Tj T*  T* (ALTER DATABASE cmbarter) Tj T* ET
+BT 1 0 0 1 0 170 Tm /F4 10 Tf 12 TL (CREATE TEXT SEARCH DICTIONARY bulgarian_ispell \() Tj T* (  TEMPLATE = ispell,) Tj T* (  DICTFILE = bulgarian,) Tj T* (  AFFFILE = bulgarian,) Tj T* (  STOPWORDS = bulgarian) Tj T* (\);) Tj T*  T* (CREATE TEXT SEARCH CONFIGURATION public.bulgarian \() Tj T* (  COPY = pg_catalog.russian) Tj T* (\);) Tj T*  T* (ALTER TEXT SEARCH CONFIGURATION bulgarian) Tj T* (  ALTER MAPPING FOR word, hword, hword_part) Tj T* (  WITH bulgarian_ispell, simple;) Tj T*  T* ET
 Q
 Q
 Q
@@ -2691,14 +2698,14 @@ endobj
 % 'R80': class PDFStream 
 80 0 obj
 % page stream
-<< /Length 6880 >>
+<< /Length 6913 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
 q
-1 0 0 1 62.69291 713.8236 cm
+1 0 0 1 62.69291 701.8236 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
-BT 1 0 0 1 6 38.2 Tm  T* ET
+BT 1 0 0 1 6 50.2 Tm  T* ET
 q
 1 0 0 1 23 23 cm
 q
@@ -2710,11 +2717,11 @@ q
 .662745 .662745 .662745 RG
 .5 w
 .960784 .960784 .862745 rg
-n -6 -6 442.6898 24 re B*
+n -6 -6 442.6898 36 re B*
 Q
 q
 0 0 0 rg
-BT 1 0 0 1 0 2 Tm /F4 10 Tf 12 TL (  SET default_text_search_config TO 'public.bulgarian';) Tj T* ET
+BT 1 0 0 1 0 14 Tm /F4 10 Tf 12 TL (ALTER DATABASE cmbarter) Tj T* (  SET default_text_search_config TO 'public.bulgarian';) Tj T* ET
 Q
 Q
 Q
@@ -2731,29 +2738,29 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 713.8236 cm
+1 0 0 1 62.69291 701.8236 cm
 Q
 q
-1 0 0 1 62.69291 683.8236 cm
+1 0 0 1 62.69291 671.8236 cm
 q
 BT 1 0 0 1 0 3 Tm 18 TL /F2 15 Tf 0 0 0 rg (Application configuration) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 665.8236 cm
+1 0 0 1 62.69291 653.8236 cm
 q
 0 0 0 rg
 BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (Here are the configuration steps that you should perform:) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 659.8236 cm
+1 0 0 1 62.69291 647.8236 cm
 Q
 q
-1 0 0 1 62.69291 659.8236 cm
+1 0 0 1 62.69291 647.8236 cm
 Q
 q
-1 0 0 1 62.69291 635.8236 cm
+1 0 0 1 62.69291 623.8236 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -2773,10 +2780,10 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 629.8236 cm
+1 0 0 1 62.69291 617.8236 cm
 Q
 q
-1 0 0 1 62.69291 444.6236 cm
+1 0 0 1 62.69291 432.6236 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -2822,48 +2829,48 @@ Q
 q
 1 0 0 1 23 -3 cm
 q
-BT 1 0 0 1 0 14 Tm 1.299984 Tw 12 TL /F1 10 Tf 0 0 0 rg (Notice that the system crontab format might be slightly different on your system. Also, make sure) Tj T* 0 Tw ("python" runs the ) Tj /F3 10 Tf (Python 2.x ) Tj /F1 10 Tf (interpreter, and not the ) Tj /F3 10 Tf (Python 3.x ) Tj /F1 10 Tf (one.) Tj T* ET
+BT 1 0 0 1 0 14 Tm 1.299984 Tw 12 TL /F1 10 Tf 0 0 0 rg (Notice that the system crontab format might be slightly different on your system. Also, make sure) Tj T* 0 Tw ("python" runs the ) Tj /F3 10 Tf (Python 2.7 ) Tj /F1 10 Tf (interpreter, and not the ) Tj /F3 10 Tf (Python 3.x ) Tj /F1 10 Tf (one.) Tj T* ET
 Q
 Q
 q
 Q
 Q
 q
-1 0 0 1 62.69291 444.6236 cm
+1 0 0 1 62.69291 432.6236 cm
 Q
 q
-1 0 0 1 62.69291 411.6236 cm
+1 0 0 1 62.69291 399.6236 cm
 q
 BT 1 0 0 1 0 3.5 Tm 21 TL /F2 17.5 Tf 0 0 0 rg (Installation on a shared server) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 369.6236 cm
+1 0 0 1 62.69291 357.6236 cm
 q
 BT 1 0 0 1 0 26 Tm 1.608555 Tw 12 TL /F1 10 Tf 0 0 0 rg (Although using a dedicated server is the preferred way of installing ) Tj /F3 10 Tf (Circular Multilateral Barter ) Tj /F1 10 Tf (\(CMB\),) Tj T* 0 Tw .01528 Tw (sometimes maintaining your own server is not feasible. In such cases, an installation on a shared server is) Tj T* 0 Tw (a perfectly acceptable, and fully functional alternative.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 339.6236 cm
+1 0 0 1 62.69291 327.6236 cm
 q
 BT 1 0 0 1 0 3 Tm 18 TL /F2 15 Tf 0 0 0 rg (Choosing a hosting provider) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 309.6236 cm
+1 0 0 1 62.69291 297.6236 cm
 q
 0 0 0 rg
 BT 1 0 0 1 0 14 Tm /F1 10 Tf 12 TL 1.526412 Tw (Choosing appropriate hosting provider for your installation is probably the most difficult step. Here are) Tj T* 0 Tw (some important things that you should look for:) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 303.6236 cm
+1 0 0 1 62.69291 291.6236 cm
 Q
 q
-1 0 0 1 62.69291 303.6236 cm
+1 0 0 1 62.69291 291.6236 cm
 Q
 q
-1 0 0 1 62.69291 279.6236 cm
+1 0 0 1 62.69291 267.6236 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -2883,10 +2890,10 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 273.6236 cm
+1 0 0 1 62.69291 261.6236 cm
 Q
 q
-1 0 0 1 62.69291 261.6236 cm
+1 0 0 1 62.69291 249.6236 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -2906,10 +2913,10 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 255.6236 cm
+1 0 0 1 62.69291 243.6236 cm
 Q
 q
-1 0 0 1 62.69291 243.6236 cm
+1 0 0 1 62.69291 231.6236 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -2929,10 +2936,10 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 237.6236 cm
+1 0 0 1 62.69291 225.6236 cm
 Q
 q
-1 0 0 1 62.69291 213.6236 cm
+1 0 0 1 62.69291 201.6236 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -2952,10 +2959,10 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 207.6236 cm
+1 0 0 1 62.69291 195.6236 cm
 Q
 q
-1 0 0 1 62.69291 183.6236 cm
+1 0 0 1 62.69291 171.6236 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -2975,33 +2982,33 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 183.6236 cm
+1 0 0 1 62.69291 171.6236 cm
 Q
 q
-1 0 0 1 62.69291 153.6236 cm
+1 0 0 1 62.69291 141.6236 cm
 q
 0 0 0 rg
 BT 1 0 0 1 0 14 Tm /F1 10 Tf 12 TL .013876 Tw (CMB is quite efficient in using system resources, so you probably will not need more than few gigabytes of) Tj T* 0 Tw (disk and database space.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 123.6236 cm
+1 0 0 1 62.69291 111.6236 cm
 q
 BT 1 0 0 1 0 3 Tm 18 TL /F2 15 Tf 0 0 0 rg (Application installation) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 105.6236 cm
+1 0 0 1 62.69291 93.62362 cm
 q
 0 0 0 rg
 BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (Here are the installation steps that you should perform:) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 99.62362 cm
+1 0 0 1 62.69291 87.62362 cm
 Q
 q
-1 0 0 1 62.69291 99.62362 cm
+1 0 0 1 62.69291 87.62362 cm
 Q
  
 endstream
@@ -3009,38 +3016,38 @@ endobj
 % 'R81': class PDFStream 
 81 0 obj
 % page stream
-<< /Length 7922 >>
+<< /Length 7998 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
 q
-1 0 0 1 62.69291 591.0236 cm
+1 0 0 1 62.69291 579.0236 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
-1 0 0 1 6 159 cm
+1 0 0 1 6 171 cm
 q
 0 0 0 rg
 BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL 5.66 0 Td (1.) Tj T* -5.66 0 Td ET
 Q
 Q
 q
-1 0 0 1 23 147 cm
+1 0 0 1 23 159 cm
 q
-BT 1 0 0 1 0 14 Tm 1.66936 Tw 12 TL /F1 10 Tf 0 0 0 rg (Make sure a ) Tj /F3 10 Tf (Python 2.x ) Tj /F1 10 Tf (interpreter \(version 2.6 at least\) is installed on the hosting server. Also,) Tj T* 0 Tw (make sure the Python 2.x versions of the following software packages are installed:) Tj T* ET
+BT 1 0 0 1 0 14 Tm .654692 Tw 12 TL /F1 10 Tf 0 0 0 rg (Make sure a ) Tj /F3 10 Tf (Python 2.7 ) Tj /F1 10 Tf (interpreter is installed on the hosting server. Also, make sure the ) Tj /F3 10 Tf (Python 2) Tj T* 0 Tw /F1 10 Tf (versions of the following software packages are installed:) Tj T* ET
 Q
 Q
 q
-1 0 0 1 23 141 cm
+1 0 0 1 23 153 cm
 Q
 q
-1 0 0 1 23 141 cm
+1 0 0 1 23 153 cm
 Q
 q
 1 0 0 1 23 129 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
-1 0 0 1 6 -3 cm
+1 0 0 1 6 9 cm
 q
 0 0 0 rg
 BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL 10.5 0 Td (\177) Tj T* -10.5 0 Td ET
@@ -3049,7 +3056,7 @@ Q
 q
 1 0 0 1 23 -3 cm
 q
-BT 1 0 0 1 0 2 Tm 12 TL /F3 10 Tf 0 0 0 rg (Django ) Tj /F1 10 Tf (\(versions 1.4, 1.5, and 1.6 have been tested\)) Tj T* ET
+BT 1 0 0 1 0 14 Tm .467318 Tw 12 TL /F3 10 Tf 0 0 0 rg (Django ) Tj /F1 10 Tf (\(Versions 1.4, 1.5, 1.6, and 1.7 have been tested; chances are that newer versions will) Tj T* 0 Tw (work too.\)) Tj T* ET
 Q
 Q
 q
@@ -3186,10 +3193,10 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 585.0236 cm
+1 0 0 1 62.69291 573.0236 cm
 Q
 q
-1 0 0 1 62.69291 467.8236 cm
+1 0 0 1 62.69291 455.8236 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -3221,7 +3228,7 @@ n -6 -6 442.6898 96 re B*
 Q
 q
 0 0 0 rg
-BT 1 0 0 1 0 74 Tm /F4 10 Tf 12 TL ($ cd ~) Tj T* ($ wget http://sourceforge.net/projects/cmb/files/tarballs/\\) Tj T* (cmbarter-1.11.tar.gz/download -O cmbarter-1.11.tar.gz) Tj T* (...) Tj T*  T* ($ tar -xzf cmbarter-1.11.tar.gz) Tj T* ($ mv cmbarter-1.11 cmbarter) Tj T* ET
+BT 1 0 0 1 0 74 Tm /F4 10 Tf 12 TL ($ cd ~) Tj T* ($ wget http://sourceforge.net/projects/cmb/files/tarballs/\\) Tj T* (cmbarter-1.12.tar.gz/download -O cmbarter-1.12.tar.gz) Tj T* (...) Tj T*  T* ($ tar -xzf cmbarter-1.12.tar.gz) Tj T* ($ mv cmbarter-1.12 cmbarter) Tj T* ET
 Q
 Q
 Q
@@ -3231,10 +3238,10 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 461.8236 cm
+1 0 0 1 62.69291 449.8236 cm
 Q
 q
-1 0 0 1 62.69291 416.6236 cm
+1 0 0 1 62.69291 404.6236 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -3276,10 +3283,10 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 410.6236 cm
+1 0 0 1 62.69291 398.6236 cm
 Q
 q
-1 0 0 1 62.69291 353.4236 cm
+1 0 0 1 62.69291 341.4236 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -3321,29 +3328,29 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 353.4236 cm
+1 0 0 1 62.69291 341.4236 cm
 Q
 q
-1 0 0 1 62.69291 323.4236 cm
+1 0 0 1 62.69291 311.4236 cm
 q
 BT 1 0 0 1 0 3 Tm 18 TL /F2 15 Tf 0 0 0 rg (Apache configuration) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 305.4236 cm
+1 0 0 1 62.69291 293.4236 cm
 q
 0 0 0 rg
 BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (Here are the configuration steps that you should perform:) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 299.4236 cm
+1 0 0 1 62.69291 287.4236 cm
 Q
 q
-1 0 0 1 62.69291 299.4236 cm
+1 0 0 1 62.69291 287.4236 cm
 Q
 q
-1 0 0 1 62.69291 275.4236 cm
+1 0 0 1 62.69291 263.4236 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -3364,10 +3371,10 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 269.4236 cm
+1 0 0 1 62.69291 257.4236 cm
 Q
 q
-1 0 0 1 62.69291 212.2236 cm
+1 0 0 1 62.69291 200.2236 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -3408,10 +3415,10 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 206.2236 cm
+1 0 0 1 62.69291 194.2236 cm
 Q
 q
-1 0 0 1 62.69291 99.02362 cm
+1 0 0 1 62.69291 87.02362 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -3458,7 +3465,7 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 93.02362 cm
+1 0 0 1 62.69291 81.02362 cm
 Q
  
 endstream
@@ -3602,7 +3609,7 @@ q
 .662745 .662745 .662745 RG
 .5 w
 .960784 .960784 .862745 rg
-n -6 -6 442.6898 216 re B*
+n -6 -6 445.6898 216 re B*
 Q
 q
 BT 1 0 0 1 0 194 Tm 12 TL /F4 10 Tf 0 0 0 rg ($ cd ~/cmbarter/pgsql/) Tj T* ($ psql -d yourdatabase) Tj T*  T* (yourdatabase=) Tj (>) Tj ( create language plpgsql;) Tj T* (...) Tj T*  T* (yourdatabase=) Tj (>) Tj ( \\i schema.sql) Tj T* (...) Tj T*  T* (yourdatabase=) Tj (>) Tj ( \\i triggers.sql) Tj T* (...) Tj T*  T* (yourdatabase=) Tj (>) Tj ( \\i views.sql) Tj T* (...) Tj T*  T* (yourdatabase=) Tj (>) Tj ( \\i sprocs.sql) Tj T* (...) Tj T* ET
@@ -3802,14 +3809,14 @@ BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (You will be able to find lots of good open so
 Q
 Q
 q
-1 0 0 1 62.69291 567.3307 cm
+1 0 0 1 62.69291 571.2661 cm
 Q
 q
-1 0 0 1 62.69291 538.9843 cm
+1 0 0 1 62.69291 542.9197 cm
 n 0 14.17323 m 469.8898 14.17323 l S
 Q
 q
-1 0 0 1 62.69291 502.9843 cm
+1 0 0 1 62.69291 506.9197 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -3828,7 +3835,7 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 478.9843 cm
+1 0 0 1 62.69291 482.9197 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -3847,7 +3854,7 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 442.9843 cm
+1 0 0 1 62.69291 446.9197 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -3866,7 +3873,7 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 263.7843 cm
+1 0 0 1 62.69291 267.7197 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -3912,7 +3919,7 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 194.5843 cm
+1 0 0 1 62.69291 198.5197 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -3952,7 +3959,7 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 158.5843 cm
+1 0 0 1 62.69291 162.5197 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -3971,7 +3978,7 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 122.5843 cm
+1 0 0 1 62.69291 126.5197 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -4139,30 +4146,30 @@ xref
 0000017575 00000 n
 0000017731 00000 n
 0000017902 00000 n
-0000025538 00000 n
-0000032495 00000 n
-0000041501 00000 n
-0000045356 00000 n
-0000052335 00000 n
-0000060356 00000 n
-0000065672 00000 n
-0000072543 00000 n
-0000072727 00000 n
-0000072804 00000 n
-0000072881 00000 n
-0000072958 00000 n
-0000073035 00000 n
-0000073112 00000 n
-0000073189 00000 n
-0000073266 00000 n
+0000025513 00000 n
+0000032166 00000 n
+0000041385 00000 n
+0000045475 00000 n
+0000052487 00000 n
+0000060584 00000 n
+0000065900 00000 n
+0000072771 00000 n
+0000072955 00000 n
+0000073032 00000 n
+0000073109 00000 n
+0000073186 00000 n
+0000073263 00000 n
+0000073340 00000 n
+0000073417 00000 n
+0000073494 00000 n
 trailer
 << /ID 
  % ReportLab generated PDF document -- digest (http://www.reportlab.com) 
- [(*\346\331F\310\026\020\314\226\362\\\323\326A\207\353) (*\346\331F\310\026\020\314\226\362\\\323\326A\207\353)] 
+ [(\332\214\320\321\323{=\253\300\023z\326\3737\003") (\332\214\320\321\323{=\253\300\023z\326\3737\003")] 
 
  /Info 59 0 R
  /Root 58 0 R
  /Size 93 >>
 startxref
-73313
+73541
 %%EOF

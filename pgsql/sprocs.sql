@@ -424,6 +424,8 @@ BEGIN
 
   PERFORM _purge_trader_objects(_trader_id);
 
+  DELETE FROM whitelist_entry WHERE trader_id=_trader_id;
+
 END
 $$
 LANGUAGE plpgsql;

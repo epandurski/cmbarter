@@ -29,14 +29,14 @@ source code in your */usr/local/share/* directory::
 
   # cd /usr/local/share/
   # wget http://sourceforge.net/projects/cmb/files/tarballs/\
-  cmbarter-1.11.tar.gz/download -O cmbarter-1.11.tar.gz
+  cmbarter-1.12.tar.gz/download -O cmbarter-1.12.tar.gz
   ...
 
-  # tar -xzf cmbarter-1.11.tar.gz 
-  # mv cmbarter-1.11 cmbarter
+  # tar -xzf cmbarter-1.12.tar.gz 
+  # mv cmbarter-1.12 cmbarter
 
-Also, make sure a *Python 2.x* interpreter (version 2.6 at least) is
-installed on your server.
+Also, make sure a *Python 2.7* interpreter is installed on your
+server.
 
 
 Application installation
@@ -44,10 +44,10 @@ Application installation
 
 Here are the installation steps that you should perform:
       
-1. Install the *Python 2.x* versions of the following software
-   packages:
+1. Install the *Python 2* versions of the following software packages:
 
-   - *Django* (versions 1.4, 1.5, and 1.6 have been tested)
+   - *Django* (Versions 1.4, 1.5, 1.6, and 1.7 have been tested;
+     chances are that newer versions will work too.)
    - *psycopg2* (version 2.3 at least)
    - *Pillow* (or "Python Imaging Library")
    - *pycrypto* [1]_
@@ -118,7 +118,7 @@ Here are the installation steps that you should perform:
    Make sure *mod_deflate* is NOT ACTIVE.
 
 2. Install and activate *mod_wsgi* [3]_. Make sure mod_wsgi uses the
-   *Python 2.x* interpreter, and not the *Python 3.x* one.
+   *Python 2.7* interpreter, and not the *Python 3.x* one.
 
    For example::
 
@@ -263,7 +263,7 @@ Here are the configuration steps that you should perform:
    accepted parameters.
    
    Notice that the system crontab format might be slightly different
-   on your system. Also, make sure "python" runs the *Python 2.x*
+   on your system. Also, make sure "python" runs the *Python 2.7*
    interpreter, and not the *Python 3.x* one.
 
 
@@ -309,11 +309,12 @@ Application installation
 
 Here are the installation steps that you should perform:
       
-1. Make sure a *Python 2.x* interpreter (version 2.6 at least) is
-   installed on the hosting server. Also, make sure the Python 2.x
-   versions of the following software packages are installed:
+1. Make sure a *Python 2.7* interpreter is installed on the hosting
+   server. Also, make sure the *Python 2* versions of the following
+   software packages are installed:
 
-   - *Django* (versions 1.4, 1.5, and 1.6 have been tested)
+   - *Django* (Versions 1.4, 1.5, 1.6, and 1.7 have been tested;
+     chances are that newer versions will work too.)
    - *psycopg2* (version 2.3 at least)
    - *Pillow* (or "Python Imaging Library")
    - *pycrypto*
@@ -331,11 +332,11 @@ Here are the installation steps that you should perform:
 
      $ cd ~
      $ wget http://sourceforge.net/projects/cmb/files/tarballs/\
-     cmbarter-1.11.tar.gz/download -O cmbarter-1.11.tar.gz
+     cmbarter-1.12.tar.gz/download -O cmbarter-1.12.tar.gz
      ...
 
-     $ tar -xzf cmbarter-1.11.tar.gz 
-     $ mv cmbarter-1.11 cmbarter
+     $ tar -xzf cmbarter-1.12.tar.gz 
+     $ mv cmbarter-1.12 cmbarter
 
 3. Restrict access to those source files that may contain sensitive
    information::

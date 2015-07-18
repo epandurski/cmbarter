@@ -6,7 +6,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: cmbarter-1.11\n"
+"Project-Id-Version: cmbarter-1.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-10-30 15:59+0200\n"
 "PO-Revision-Date: 2013-09-28 01:32+0300\n"

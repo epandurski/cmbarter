@@ -187,7 +187,7 @@ class RowUpdater(collections.MutableMapping):
 class AbstractMapper(object):
     """Implements convenient methods for accessing databases."""
 
-    __prefixes = ['select_', 'insert_']
+    __prefixes = ['select_', 'insert_', 'callproc_']
     __suffixes = ['_list', '_for_share', '_for_update']
 
     def execute(self, query, values=[], onerow=False):
@@ -237,6 +237,10 @@ class AbstractMapper(object):
 
     def _X_list(self, name):
         return lambda *args : self.callproc(name, args)
+
+    _callproc_X = _X
+
+    _callproc_X_list = _X_list
         
     def _select_X(self, name):
         def f(**kwargs):
@@ -361,7 +365,9 @@ __doc__ =  """A very simple object-relational mapper for PostgreSQL.
     Traceback (most recent call last):
     ...
     Exception: nonzero account balance
-    >>> db.current_database()  # calls a stored procedure
+    >>> db.callproc_current_database()  # calls a stored procedure
+    u'curiousorm_test'
+    >>> db.current_database()  # calls the same stored procedure
     u'curiousorm_test'
     >>> db.current_database_list()  # the same, but returns a list instead
     [Record(current_database=u'curiousorm_test')]

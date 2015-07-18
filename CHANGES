@@ -1,3 +1,7 @@
+June 28th, 2014
+v1.12 -- Minor changes to the installation guide.
+      -- Dropped support for Python 2.6.
+
 October 30th, 2013
 v1.11 -- Improved the way session files are garbage-collected. This
          closes a potential DoS-attack vector.
