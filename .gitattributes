@@ -1,0 +1,33 @@
+* text=auto
+
+# These files are text and should be normalized (convert crlf = lf)
+*.html text
+*.shtml text
+*.css text
+*.js text
+*.sql text
+*.py text
+*.po text
+*.txt text
+*.conf text
+.htaccess text
+.gitignore text
+.gitattributes text
+INSTALL text
+README text
+README.md text
+CHANGES text
+LOCALIZATION text
+LICENSE text
+apache/htaccess text
+apache/cmbarter.fcgi text
+
+# These files are binary and must not be normalized
+*.gif binary
+*.png binary
+*.jpg binary
+*.pdf binary
+*.ico binary
+*.gz binary
+*.mo binary
+*.xcf binary
