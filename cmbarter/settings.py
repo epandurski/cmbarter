@@ -158,6 +158,30 @@ TEMPLATE_DIRS = (
     os.path.join(CMBARTER_PROJECT_DIR, 'templates'),
 )
 
+# Newer versions of django insist that template settings are defined
+# in one place (TEMPLATES variable). It even issues a warning if
+# old-style and new-style template settings coexist. We therefore
+# silence this warning.
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': TEMPLATE_DIRS,
+        'OPTIONS': {
+            'context_processors': [
+                'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.debug',
+                'django.template.context_processors.i18n',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'django.template.context_processors.tz',
+                'django.contrib.messages.context_processors.messages',
+            ],
+            'loaders': TEMPLATE_LOADERS
+        },
+    },
+]
+SILENCED_SYSTEM_CHECKS = ["1_8.W001"]
+
 INSTALLED_APPS = (
     'django.contrib.sessions',
     'cmbarter.users',

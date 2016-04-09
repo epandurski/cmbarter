@@ -34,7 +34,10 @@ from urllib import urlencode
 from django.conf import settings
 from django.shortcuts import render_to_response
 from django.core.urlresolvers import reverse
-from django.core.context_processors import csrf
+try:
+    from django.template.context_processors import csrf
+except:
+    from django.core.context_processors import csrf
 from django.http import (
     HttpResponse, HttpResponseRedirect, HttpResponseNotAllowed, HttpResponseForbidden, Http404)
 from django.utils.translation import get_language

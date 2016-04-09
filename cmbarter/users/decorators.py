@@ -31,7 +31,10 @@ import re
 import datetime
 from random import random
 from django.core.urlresolvers import reverse
-from django.core.context_processors import csrf
+try:
+    from django.template.context_processors import csrf
+except:
+    from django.core.context_processors import csrf
 from django.http import HttpResponseRedirect, HttpResponseForbidden, Http404
 from django.conf import settings
 from django.shortcuts import render_to_response

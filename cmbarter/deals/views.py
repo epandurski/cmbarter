@@ -32,7 +32,10 @@ import decimal, re, datetime
 from django.conf import settings
 from django.shortcuts import render_to_response
 from django.core.urlresolvers import reverse
-from django.core.context_processors import csrf
+try:
+    from django.template.context_processors import csrf
+except:
+    from django.core.context_processors import csrf
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotAllowed, Http404
 from cmbarter.users.decorators import has_profile
 from cmbarter.modules import curiousorm, utils
