@@ -40,6 +40,3 @@ Features:
 
 * Convenient to use on smartphones. Works even on very old phones (WAP
   2.0).
-
-
-Go to https://multiswap.net/about/ for more information.
