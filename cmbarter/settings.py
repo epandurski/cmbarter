@@ -158,10 +158,10 @@ TEMPLATE_DIRS = (
     os.path.join(CMBARTER_PROJECT_DIR, 'templates'),
 )
 
-# Newer versions of django insist that template settings are defined
-# in one place (TEMPLATES variable). It even issues a warning if
-# old-style and new-style template settings coexist. We therefore
-# silence this warning.
+# Newer versions of django (1.8+) insist that template settings are
+# defined in one place (the TEMPLATES variable). It even issues a
+# warning if old-style and new-style template settings coexist. We
+# therefore silence this warning.
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -181,6 +181,10 @@ TEMPLATES = [
     },
 ]
 SILENCED_SYSTEM_CHECKS = ["1_8.W001"]
+
+# We have no test, therefore we silence the warning saying that test
+# execution changed in Django 1.6.
+SILENCED_SYSTEM_CHECKS = ["1_6.W001"]
 
 INSTALLED_APPS = (
     'django.contrib.sessions',
