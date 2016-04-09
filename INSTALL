@@ -4,7 +4,7 @@
 Circular Multilateral Barter Installation Guide
 =================================================================
 :Description: Installation guide for the CMB server-side software
-:Date: 2013-01-21
+:Date: 2016-04-10
 :Author: Evgeni Pandurksi
 :Contact: epandurski@gmail.com
 :Copyright: This document has been placed in the public domain.
@@ -46,8 +46,8 @@ Here are the installation steps that you should perform:
       
 1. Install the *Python 2* versions of the following software packages:
 
-   - *Django* (Versions 1.4, 1.5, 1.6, and 1.7 have been tested;
-     chances are that newer versions will work too.)
+   - *Django* (Versions from 1.4 to 1.9 have been tested; chances are
+     that newer versions will work too.)
    - *psycopg2* (version 2.3 at least)
    - *Pillow* (or "Python Imaging Library")
    - *pycrypto* [1]_
@@ -313,8 +313,8 @@ Here are the installation steps that you should perform:
    server. Also, make sure the *Python 2* versions of the following
    software packages are installed:
 
-   - *Django* (Versions 1.4, 1.5, 1.6, and 1.7 have been tested;
-     chances are that newer versions will work too.)
+   - *Django* (Versions from 1.4 to 1.9 have been tested; chances are
+     that newer versions will work too.)
    - *psycopg2* (version 2.3 at least)
    - *Pillow* (or "Python Imaging Library")
    - *pycrypto*
