@@ -104,6 +104,7 @@ assert CMBARTER_SHOW_CAPTCHA_ON_SIGNUP or CMBARTER_REGISTRATION_KEY_IS_REQUIRED
 
 DEBUG = CMBARTER_DEBUG_MODE
 TEMPLATE_DEBUG = DEBUG
+SILENCED_SYSTEM_CHECKS = []
 
 ADMINS = (
     # ('Your Name', 'your_email@domain.com'),
@@ -180,11 +181,11 @@ TEMPLATES = [
         },
     },
 ]
-SILENCED_SYSTEM_CHECKS = ["1_8.W001"]
+SILENCED_SYSTEM_CHECKS += ["1_8.W001"]
 
 # We have no test, therefore we silence the warning saying that test
 # execution changed in Django 1.6.
-SILENCED_SYSTEM_CHECKS = ["1_6.W001"]
+SILENCED_SYSTEM_CHECKS += ["1_6.W001"]
 
 INSTALLED_APPS = (
     'django.contrib.sessions',
