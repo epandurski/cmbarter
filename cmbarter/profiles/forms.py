@@ -32,7 +32,11 @@ from django import forms
 from django.forms import widgets
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
-from django.utils.functional import allow_lazy
+try:
+    from django.utils.functional import keep_lazy
+    allow_lazy = lambda func, *resultclasses: keep_lazy(*resultclasses)(func)
+except:
+    from django.utils.functional import allow_lazy
 from django.core.files.uploadhandler import FileUploadHandler
 from django.core.files.uploadedfile import UploadedFile
 

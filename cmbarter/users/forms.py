@@ -31,7 +31,11 @@ from django import forms
 from django.forms import widgets
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
-from django.utils.functional import allow_lazy
+try:
+    from django.utils.functional import keep_lazy
+    allow_lazy = lambda func, *resultclasses: keep_lazy(*resultclasses)(func)
+except:
+    from django.utils.functional import allow_lazy
 
 format_lazy = allow_lazy(lambda x, y: x%y, unicode)
 

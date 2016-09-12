@@ -151,6 +151,17 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.locale.LocaleMiddleware',
 )
 
+# Newer versions of django (1.10+) insist that middleware settings are
+# defined in the TEMPLATES variable. It even issues a warning if
+# old-style and new-style template settings coexist. We therefore
+# silence this warning.
+MIDDLEWARE = [
+    'django.middleware.common.CommonMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
+]
+SILENCED_SYSTEM_CHECKS += ["1_10.W001"]
+
 ROOT_URLCONF = 'cmbarter.urls'
 
 WSGI_APPLICATION = 'cmbarter.wsgi.application'

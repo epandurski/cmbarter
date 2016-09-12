@@ -31,7 +31,10 @@ from __future__ import with_statement
 import re, decimal, urllib
 from django.conf import settings
 from django.shortcuts import render_to_response
-from django.core.urlresolvers import reverse
+try:
+    from django.urls import reverse
+except:
+    from django.core.urlresolvers import reverse
 try:
     from django.template.context_processors import csrf
 except:

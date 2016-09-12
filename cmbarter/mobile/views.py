@@ -35,7 +35,10 @@ import pytz
 from django.conf import settings
 from django import forms
 from django.shortcuts import render_to_response
-from django.core.urlresolvers import reverse
+try:
+    from django.urls import reverse
+except:
+    from django.core.urlresolvers import reverse
 from django.utils.translation import get_language
 from django.http import (
     HttpResponse, HttpResponseRedirect, HttpResponseNotAllowed, HttpResponseForbidden, Http404)

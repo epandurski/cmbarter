@@ -30,7 +30,10 @@ from __future__ import with_statement
 import re
 import datetime
 from random import random
-from django.core.urlresolvers import reverse
+try:
+    from django.urls import reverse
+except:
+    from django.core.urlresolvers import reverse
 try:
     from django.template.context_processors import csrf
 except:
