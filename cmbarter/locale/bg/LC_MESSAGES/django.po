@@ -6,9 +6,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: cmbarter-1.13\n"
+"Project-Id-Version: cmbarter-1.14\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-10 01:11+0300\n"
+"POT-Creation-Date: 2016-09-12 22:29+0300\n"
 "PO-Revision-Date: 2013-09-28 01:32+0300\n"
 "Last-Translator: Evgeni Pandurski <epandurski@gmail.com>\n"
 "Language-Team: Bulgarian <epandurski@gmail.com>\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: deposits/forms.py:43 profiles/forms.py:79
+#: deposits/forms.py:43 profiles/forms.py:83
 msgid "Trader ID"
 msgstr "ID на търговеца"
 
-#: deposits/forms.py:44 profiles/forms.py:80
+#: deposits/forms.py:44 profiles/forms.py:84
 msgid "Enter a valid value."
 msgstr "Въведете валидна стойност."
 
@@ -37,13 +37,13 @@ msgstr "Въведете валидна стойност."
 msgid "Product"
 msgstr "Продукт"
 
-#: deposits/forms.py:56 mobile/views.py:63
+#: deposits/forms.py:56 mobile/views.py:66
 msgid "Amount to deposit"
 msgstr "Количество за внасяне"
 
 #: deposits/forms.py:57 deposits/forms.py:78 deposits/forms.py:86
-#: deposits/forms.py:99 mobile/views.py:64 mobile/views.py:77
-#: mobile/views.py:90 orders/forms.py:36 orders/forms.py:53
+#: deposits/forms.py:99 mobile/views.py:67 mobile/views.py:80
+#: mobile/views.py:93 orders/forms.py:36 orders/forms.py:53
 msgid "Enter a valid amount."
 msgstr "Въведете валидно количество."
 
@@ -51,32 +51,32 @@ msgstr "Въведете валидно количество."
 msgid "Withdraw the same amount from \"My items for sale\""
 msgstr "Изтегли същото количество от \"Стока за продан\""
 
-#: deposits/forms.py:66 deposits/forms.py:91 mobile/views.py:69
-#: mobile/views.py:82 mobile/views.py:95 orders/forms.py:46
+#: deposits/forms.py:66 deposits/forms.py:91 mobile/views.py:72
+#: mobile/views.py:85 mobile/views.py:98 orders/forms.py:46
 #: templates/customer_order.html:28 templates/my_order.html:28
 #: templates/xhtml-mp/my_order.html:14
 msgid "Comment"
 msgstr "Коментар"
 
 #: deposits/forms.py:68 deposits/forms.py:93 orders/forms.py:47
-#: products/forms.py:68 profiles/forms.py:244
+#: products/forms.py:68 profiles/forms.py:248
 msgid "optional"
 msgstr " "
 
-#: deposits/forms.py:85 mobile/views.py:76
+#: deposits/forms.py:85 mobile/views.py:79
 msgid "Amount to withdraw"
 msgstr "Количество за изтегляне"
 
-#: deposits/views.py:164 mobile/views.py:771
+#: deposits/views.py:167 mobile/views.py:774
 msgid "Choose a product..."
 msgstr "Изберете продукт..."
 
-#: deposits/views.py:223 mobile/views.py:832
+#: deposits/views.py:226 mobile/views.py:835
 #, python-format
 msgid "may not exceed %(amount)s"
 msgstr "не повече от %(amount)s"
 
-#: mobile/views.py:89 orders/forms.py:35
+#: mobile/views.py:92 orders/forms.py:35
 msgid "Amount of product"
 msgstr "Количество от продукта"
 
@@ -169,10 +169,10 @@ msgid "Recipient"
 msgstr "Получател"
 
 #: orders/forms.py:62 products/forms.py:75 products/forms.py:83
-#: products/forms.py:90 profiles/forms.py:143 profiles/forms.py:150
-#: profiles/forms.py:231 profiles/forms.py:251 profiles/forms.py:280
-#: profiles/forms.py:287 users/forms.py:79 users/forms.py:101
-#: users/forms.py:164 users/forms.py:171
+#: products/forms.py:90 profiles/forms.py:147 profiles/forms.py:154
+#: profiles/forms.py:235 profiles/forms.py:255 profiles/forms.py:284
+#: profiles/forms.py:291 users/forms.py:83 users/forms.py:105
+#: users/forms.py:168 users/forms.py:175
 msgid "This field is required."
 msgstr "Това поле е задължително."
 
@@ -246,134 +246,134 @@ msgstr "Добави този продукт към списъка с покуп
 msgid "Remove this product from my pricelist"
 msgstr "Изтрий този продукт от моята ценова листа"
 
-#: profiles/forms.py:90 templates/contact_information.html:20
-#: templates/xhtml-mp/contact_information.html:10 users/forms.py:107
+#: profiles/forms.py:94 templates/contact_information.html:20
+#: templates/xhtml-mp/contact_information.html:10 users/forms.py:111
 msgid "Full name"
 msgstr "Име"
 
-#: profiles/forms.py:92 users/forms.py:112
+#: profiles/forms.py:96 users/forms.py:116
 msgid "A short summary about you or your business"
 msgstr "Накратко за вас или вашата фирма"
 
-#: profiles/forms.py:96 templates/contact_information.html:21
-#: templates/xhtml-mp/contact_information.html:11 users/forms.py:117
+#: profiles/forms.py:100 templates/contact_information.html:21
+#: templates/xhtml-mp/contact_information.html:11 users/forms.py:121
 msgid "Email"
 msgstr "E-mail адрес"
 
-#: profiles/forms.py:103 templates/contact_information.html:22
-#: templates/xhtml-mp/contact_information.html:12 users/forms.py:125
+#: profiles/forms.py:107 templates/contact_information.html:22
+#: templates/xhtml-mp/contact_information.html:12 users/forms.py:129
 msgid "Home page"
 msgstr "Интернет адрес"
 
-#: profiles/forms.py:107 templates/contact_information.html:23
-#: templates/xhtml-mp/contact_information.html:13 users/forms.py:129
+#: profiles/forms.py:111 templates/contact_information.html:23
+#: templates/xhtml-mp/contact_information.html:13 users/forms.py:133
 msgid "Phone"
 msgstr "Телефон"
 
-#: profiles/forms.py:112 templates/contact_information.html:24
-#: templates/xhtml-mp/contact_information.html:14 users/forms.py:134
+#: profiles/forms.py:116 templates/contact_information.html:24
+#: templates/xhtml-mp/contact_information.html:14 users/forms.py:138
 msgid "Fax"
 msgstr "Факс"
 
-#: profiles/forms.py:117 templates/contact_information.html:25
-#: templates/xhtml-mp/contact_information.html:15 users/forms.py:139
+#: profiles/forms.py:121 templates/contact_information.html:25
+#: templates/xhtml-mp/contact_information.html:15 users/forms.py:143
 msgid "Address"
 msgstr "Адрес"
 
-#: profiles/forms.py:122 templates/contact_information.html:26
-#: templates/xhtml-mp/contact_information.html:16 users/forms.py:144
+#: profiles/forms.py:126 templates/contact_information.html:26
+#: templates/xhtml-mp/contact_information.html:16 users/forms.py:148
 msgid "Postal code"
 msgstr "Пощенски код"
 
-#: profiles/forms.py:127 templates/contact_information.html:27
-#: templates/xhtml-mp/contact_information.html:17 users/forms.py:149
+#: profiles/forms.py:131 templates/contact_information.html:27
+#: templates/xhtml-mp/contact_information.html:17 users/forms.py:153
 msgid "Country"
 msgstr "Държава"
 
-#: profiles/forms.py:132
+#: profiles/forms.py:136
 msgid "Allow other traders to see your partners list"
 msgstr "Разрешавате на други търговци да разглеждат вашия списък с доставчици"
 
-#: profiles/forms.py:134 templates/contact_information.html:28
-#: templates/xhtml-mp/contact_information.html:18 users/forms.py:153
+#: profiles/forms.py:138 templates/contact_information.html:28
+#: templates/xhtml-mp/contact_information.html:18 users/forms.py:157
 msgid "Time zone"
 msgstr "Часова зона"
 
-#: profiles/forms.py:177 templates/upload_photograph.html:16
+#: profiles/forms.py:181 templates/upload_photograph.html:16
 #, python-format
 msgid "ERROR: The file should not be empty or bigger than %(max_size)sKB."
 msgstr "ГРЕШКА: Файлът не може да е празен или по-голям от %(max_size)sKB."
 
-#: profiles/forms.py:179
+#: profiles/forms.py:183
 msgid "Image file"
 msgstr "Изберете файл"
 
-#: profiles/forms.py:186 profiles/forms.py:198 profiles/forms.py:223
-#: users/forms.py:53 users/forms.py:93
+#: profiles/forms.py:190 profiles/forms.py:202 profiles/forms.py:227
+#: users/forms.py:57 users/forms.py:97
 msgid "Ensure this value has at most 64 characters."
 msgstr "Това поле може да има най-много 64 символа."
 
-#: profiles/forms.py:187
+#: profiles/forms.py:191
 msgid "Enter your old password"
 msgstr "Въведете старата парола"
 
-#: profiles/forms.py:193
+#: profiles/forms.py:197
 msgid "Choose a new password"
 msgstr "Изберете нова парола"
 
-#: profiles/forms.py:196 users/forms.py:51
+#: profiles/forms.py:200 users/forms.py:55
 #, python-format
 msgid "Ensure this value has at least %(min_length)s characters."
 msgstr "Това поле трябва да има най-малко %(min_length)s символа."
 
-#: profiles/forms.py:199 users/forms.py:54
+#: profiles/forms.py:203 users/forms.py:58
 #, python-format
 msgid "at least %(min_length)s characters"
 msgstr "поне %(min_length)s символа"
 
-#: profiles/forms.py:204
+#: profiles/forms.py:208
 msgid "Re-enter the new password"
 msgstr "Въведете новата парола отново"
 
-#: profiles/forms.py:211
+#: profiles/forms.py:215
 msgid "ERROR: New passwords do not match."
 msgstr "ГРЕШКА: Новите пароли не съвпадат."
 
-#: profiles/forms.py:218
+#: profiles/forms.py:222
 msgid "Choose a new username"
 msgstr "Изберете ново потребителско име"
 
-#: profiles/forms.py:224
+#: profiles/forms.py:228
 msgid "Enter your password"
 msgstr "Въведете вашата парола"
 
-#: profiles/forms.py:237
+#: profiles/forms.py:241
 msgid "Name"
 msgstr "Име"
 
-#: profiles/forms.py:243
+#: profiles/forms.py:247
 msgid "Summary"
 msgstr "Кратка информация"
 
-#: profiles/forms.py:259 templates/transaction_commit.html:63
+#: profiles/forms.py:263 templates/transaction_commit.html:63
 #: templates/unconfirmed_receipt.html:44
 #: templates/xhtml-mp/unconfirmed_receipt.html:20
 msgid "I confirm"
 msgstr "Потвърждавам"
 
-#: profiles/forms.py:261 users/forms.py:197
+#: profiles/forms.py:265 users/forms.py:201
 msgid "You must confirm your wish before submitting."
 msgstr "Трябва да потвърдите намерението си преди да натиснете \"Изпрати\"."
 
-#: profiles/forms.py:268
+#: profiles/forms.py:272
 msgid "Subject"
 msgstr "Тема"
 
-#: profiles/forms.py:273
+#: profiles/forms.py:277
 msgid "Write your message here"
 msgstr "Напишете тук вашето съобщение"
 
-#: profiles/views.py:171 users/views.py:380
+#: profiles/views.py:174 users/views.py:383
 msgid "Select your time zone"
 msgstr "Изберете вашата часова зона"
 
@@ -2635,35 +2635,35 @@ msgstr ""
 "%(amount)s от &quot;%(product)s&quot; бяха внесени във вашата сметка при "
 "&quot;%(trader)s&quot;."
 
-#: users/forms.py:42
+#: users/forms.py:46
 msgid "Choose a username"
 msgstr "Изберете потребителско име"
 
-#: users/forms.py:48
+#: users/forms.py:52
 msgid "Choose a password"
 msgstr "Изберете парола"
 
-#: users/forms.py:59
+#: users/forms.py:63
 msgid "Re-enter the password"
 msgstr "Въведете паролата отново"
 
-#: users/forms.py:64
+#: users/forms.py:68
 msgid "Enter your registration key"
 msgstr "Въведете вашият код за регистрация"
 
-#: users/forms.py:71
+#: users/forms.py:75
 msgid "ERROR: Passwords do not match."
 msgstr "ГРЕШКА: Паролите не съвпадат."
 
-#: users/forms.py:88
+#: users/forms.py:92
 msgid "Your username"
 msgstr "Вашето потребителско име"
 
-#: users/forms.py:94
+#: users/forms.py:98
 msgid "Your password"
 msgstr "Вашата парола"
 
-#: users/forms.py:195
+#: users/forms.py:199
 #, python-format
 msgid "I do not want to receive emails from %(host)s"
 msgstr "Не искам да получавам повече писма от %(host)s"

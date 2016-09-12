@@ -189,7 +189,7 @@ endobj
 << /Outlines 61 0 R /PageLabels 86 0 R /PageMode /UseNone /Pages 76 0 R /Type /Catalog >>
 endobj
 60 0 obj
-<< /Author (Evgeni Pandurksi) /CreationDate (D:20160912200751-02'00') /Creator (\(unspecified\)) /Keywords () /Producer (ReportLab PDF Library - www.reportlab.com) /Subject (\(unspecified\)) 
+<< /Author (Evgeni Pandurksi) /CreationDate (D:20160912222824-02'00') /Creator (\(unspecified\)) /Keywords () /Producer (ReportLab PDF Library - www.reportlab.com) /Subject (\(unspecified\)) 
   /Title (Circular Multilateral Barter Installation Guide) >>
 endobj
 61 0 obj
@@ -600,7 +600,7 @@ n -6 -6 468.6898 96 re B*
 Q
 q
 0 0 0 rg
-BT 1 0 0 1 0 74 Tm /F4 10 Tf 12 TL (# cd /usr/local/share/) Tj T* (# wget http://sourceforge.net/projects/cmb/files/tarballs/\\) Tj T* (cmbarter-1.12.tar.gz/download -O cmbarter-1.12.tar.gz) Tj T* (...) Tj T*  T* (# tar -xzf cmbarter-1.12.tar.gz) Tj T* (# mv cmbarter-1.12 cmbarter) Tj T* ET
+BT 1 0 0 1 0 74 Tm /F4 10 Tf 12 TL (# cd /usr/local/share/) Tj T* (# wget http://sourceforge.net/projects/cmb/files/tarballs/\\) Tj T* (cmbarter-1.14.tar.gz/download -O cmbarter-1.14.tar.gz) Tj T* (...) Tj T*  T* (# tar -xzf cmbarter-1.14.tar.gz) Tj T* (# mv cmbarter-1.14 cmbarter) Tj T* ET
 Q
 Q
 Q
@@ -2217,7 +2217,7 @@ n -6 -6 442.6898 96 re B*
 Q
 q
 0 0 0 rg
-BT 1 0 0 1 0 74 Tm /F4 10 Tf 12 TL ($ cd ~) Tj T* ($ wget http://sourceforge.net/projects/cmb/files/tarballs/\\) Tj T* (cmbarter-1.12.tar.gz/download -O cmbarter-1.12.tar.gz) Tj T* (...) Tj T*  T* ($ tar -xzf cmbarter-1.12.tar.gz) Tj T* ($ mv cmbarter-1.12 cmbarter) Tj T* ET
+BT 1 0 0 1 0 74 Tm /F4 10 Tf 12 TL ($ cd ~) Tj T* ($ wget http://sourceforge.net/projects/cmb/files/tarballs/\\) Tj T* (cmbarter-1.14.tar.gz/download -O cmbarter-1.14.tar.gz) Tj T* (...) Tj T*  T* ($ tar -xzf cmbarter-1.14.tar.gz) Tj T* ($ mv cmbarter-1.14 cmbarter) Tj T* ET
 Q
 Q
 Q
@@ -3152,7 +3152,7 @@ xref
 trailer
 << /ID 
  % ReportLab generated PDF document -- digest (http://www.reportlab.com)
- [(\001t\260\000\331o\023\271\0242\302\240\332\024\361\365) (\001t\260\000\331o\023\271\0242\302\240\332\024\361\365)]
+ [(\210\004i\271|J\342\(\207>y\017\344\362\356\356) (\210\004i\271|J\342\(\207>y\017\344\362\356\356)]
  /Info 60 0 R /Root 59 0 R /Size 96 >>
 startxref
 68357
