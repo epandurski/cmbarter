@@ -189,7 +189,7 @@ endobj
 << /Outlines 61 0 R /PageLabels 86 0 R /PageMode /UseNone /Pages 76 0 R /Type /Catalog >>
 endobj
 60 0 obj
-<< /Author (Evgeni Pandurksi) /CreationDate (D:20160410004201-02'00') /Creator (\(unspecified\)) /Keywords () /Producer (ReportLab PDF Library - www.reportlab.com) /Subject (\(unspecified\)) 
+<< /Author (Evgeni Pandurksi) /CreationDate (D:20160912200751-02'00') /Creator (\(unspecified\)) /Keywords () /Producer (ReportLab PDF Library - www.reportlab.com) /Subject (\(unspecified\)) 
   /Title (Circular Multilateral Barter Installation Guide) >>
 endobj
 61 0 obj
@@ -635,7 +635,7 @@ Q
 endstream
 endobj
 78 0 obj
-<< /Length 6547 >>
+<< /Length 6548 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
 q
@@ -675,7 +675,7 @@ Q
 q
 1 0 0 1 23 -3 cm
 q
-BT 1 0 0 1 0 14 Tm .691984 Tw 12 TL /F3 10 Tf 0 0 0 rg (Django ) Tj /F1 10 Tf (\(Versions from 1.4 to 1.9 have been tested; chances are that newer versions will work) Tj T* 0 Tw (too.\)) Tj T* ET
+BT 1 0 0 1 0 14 Tm .321318 Tw 12 TL /F3 10 Tf 0 0 0 rg (Django ) Tj /F1 10 Tf (\(Versions from 1.4 to 1.10 have been tested; chances are that newer versions will work) Tj T* 0 Tw (too.\)) Tj T* ET
 Q
 Q
 q
@@ -1986,7 +1986,7 @@ Q
 endstream
 endobj
 82 0 obj
-<< /Length 7976 >>
+<< /Length 7977 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
 q
@@ -2045,7 +2045,7 @@ Q
 q
 1 0 0 1 23 -3 cm
 q
-BT 1 0 0 1 0 14 Tm .691984 Tw 12 TL /F3 10 Tf 0 0 0 rg (Django ) Tj /F1 10 Tf (\(Versions from 1.4 to 1.9 have been tested; chances are that newer versions will work) Tj T* 0 Tw (too.\)) Tj T* ET
+BT 1 0 0 1 0 14 Tm .321318 Tw 12 TL /F3 10 Tf 0 0 0 rg (Django ) Tj /F1 10 Tf (\(Versions from 1.4 to 1.10 have been tested; chances are that newer versions will work) Tj T* 0 Tw (too.\)) Tj T* ET
 Q
 Q
 q
@@ -3132,28 +3132,28 @@ xref
 0000012932 00000 n
 0000013052 00000 n
 0000020621 00000 n
-0000027225 00000 n
-0000035996 00000 n
-0000040310 00000 n
-0000046976 00000 n
-0000055009 00000 n
-0000060659 00000 n
-0000067250 00000 n
-0000067902 00000 n
-0000068022 00000 n
-0000068059 00000 n
-0000068096 00000 n
-0000068133 00000 n
-0000068170 00000 n
-0000068207 00000 n
-0000068244 00000 n
-0000068281 00000 n
-0000068318 00000 n
+0000027226 00000 n
+0000035997 00000 n
+0000040311 00000 n
+0000046977 00000 n
+0000055011 00000 n
+0000060661 00000 n
+0000067252 00000 n
+0000067904 00000 n
+0000068024 00000 n
+0000068061 00000 n
+0000068098 00000 n
+0000068135 00000 n
+0000068172 00000 n
+0000068209 00000 n
+0000068246 00000 n
+0000068283 00000 n
+0000068320 00000 n
 trailer
 << /ID 
  % ReportLab generated PDF document -- digest (http://www.reportlab.com)
- [(\351\007\340\240\037 \217\222\024 \356\353\005\270\323\277) (\351\007\340\240\037 \217\222\024 \356\353\005\270\323\277)]
+ [(\001t\260\000\331o\023\271\0242\302\240\332\024\361\365) (\001t\260\000\331o\023\271\0242\302\240\332\024\361\365)]
  /Info 60 0 R /Root 59 0 R /Size 96 >>
 startxref
-68355
+68357
 %%EOF
