@@ -152,8 +152,8 @@ MIDDLEWARE_CLASSES = (
 )
 
 # Newer versions of django (1.10+) insist that middleware settings are
-# defined in the TEMPLATES variable. It even issues a warning if
-# old-style and new-style template settings coexist. We therefore
+# defined in the MIDDLEWARE variable. It even issues a warning if
+# old-style and new-style middleware definitions coexist. We therefore
 # silence this warning.
 MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
