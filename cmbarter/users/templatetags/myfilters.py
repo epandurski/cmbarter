@@ -17,7 +17,8 @@ def deal_value(amount, price):
 
 @register.simple_tag
 def show_captcha(error=None):
-    return captcha.displayhtml(settings.RECAPTCHA_PUBLIC_KEY, use_ssl=True, error=error)
+    return captcha.displayhtml(settings.CMBARTER_RECAPTCHA_PUBLIC_KEY,
+                               use_ssl=True, error=error)
 
 
 def truncate_amount(amount, epsilon, negate=False):

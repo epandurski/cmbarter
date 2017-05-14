@@ -38,6 +38,13 @@ CONFIG = {
     'CMBARTER_REGISTRATION_KEY_IS_REQUIRED' : False,
     'CMBARTER_REGISTRATION_KEY_PREFIX' : '',
     
+    # By default, CMB is configured to show CAPTHCA on sign-up, and after
+    # five unsuccessful attempts to log-in. If you have not altered the
+    # default behavior, you should obtain your own public/private key pair
+    # from www.google.com/recaptcha, and put it here:
+    'CMBARTER_RECAPTCHA_PUBLIC_KEY' : '6Ledx7wSAAAAAICFw8vB-2ghpDjzGogPRi6-3FCr',
+    'CMBARTER_RECAPTCHA_PIVATE_KEY' : '6Ledx7wSAAAAAEskQ7Mbi-oqneHDSFVUkxGitn_y',
+    
     # If a registration key is required for signing up, the next setting
     # should point to an URL where users will be instructed how to obtain
     # a registration key.  Run "../generate_regkeys.py --help" to learn
@@ -70,12 +77,24 @@ CONFIG = {
     # If you use reverse proxy servers, list their IPs here.
     'CMBARTER_REVERSE_PROXIES' : ['127.0.0.1', '::1'],
     
-    # By default, CMB is configured to show CAPTHCA on sign-up, and after
-    # five unsuccessful attempts to log-in. If you have not altered the
-    # default behavior, you should obtain your own public/private key pair
-    # from www.google.com/recaptcha, and put it here:
-    'RECAPTCHA_PUBLIC_KEY' : '6Ledx7wSAAAAAICFw8vB-2ghpDjzGogPRi6-3FCr',
-    'RECAPTCHA_PIVATE_KEY' : '6Ledx7wSAAAAAEskQ7Mbi-oqneHDSFVUkxGitn_y',
+    # Usually, you do not need to change anything bellow this line.
+    'CMBARTER_MAINTAIN_IP_WHITELIST' : True,
+    'CMBARTER_HTTP_X_FORWARDED_FOR_IS_TRUSTWORTHY' : False,
+    'CMBARTER_INSERT_BIDI_MARKS' : False ,
+    'CMBARTER_HOST_IS_SPAM_LISTED' : False,
+    'CMBARTER_HISTORY_HORISON_DAYS' : 26,
+    'CMBARTER_SESSION_TOUCH_MINUTES' : 10,
+    'CMBARTER_PRICE_PREFIXES' : set([u'', u'$', u'\u00A3', u'\u20AC']),
+    'CMBARTER_PRICE_SUFFIXES' : set([u'', u'\u20AC', u'ЛВ', u'ЛВ.']),
+    'CMBARTER_TRX_COST_QUOTA' : 50000.0,
+    'CMBARTER_SEARCH_MAX_PER_SECOND' : 10,
+    'CMBARTER_SEARCH_MAX_BURST' : 100,
+    'CMBARTER_TURN_IS_RUNNING_TEMPLATE' : 'turn_is_running.html',
+    'CMBARTER_TURN_IS_RUNNING_MOBILE_TEMPLATE' : 'xhtml-mp/turn_is_running.html',
+    'CMBARTER_DOC_ROOT_URL' : '/doc',
+    'CMBARTER_PROJECT_DIR' : os.path.dirname(__file__),
+    'CMBARTER_DEV_DOC_ROOT' : os.path.join(os.path.dirname(__file__), '../doc'),
+    'CMBARTER_DEV_STATIC_ROOT' : os.path.join(os.path.dirname(__file__), '../static'),
 }    
 
 for (key, defalut) in CONFIG.iteritems():
@@ -85,25 +104,6 @@ for (key, defalut) in CONFIG.iteritems():
     elif defalut.__class__ is not str:
         v = eval(v)
     locals()[key] = v
-
-# Usually, you do not need to change anything bellow this line.
-CMBARTER_MAINTAIN_IP_WHITELIST = True
-CMBARTER_HTTP_X_FORWARDED_FOR_IS_TRUSTWORTHY = False
-CMBARTER_INSERT_BIDI_MARKS = False 
-CMBARTER_HOST_IS_SPAM_LISTED = False
-CMBARTER_HISTORY_HORISON_DAYS = 26
-CMBARTER_SESSION_TOUCH_MINUTES = 10
-CMBARTER_PRICE_PREFIXES = set([u'', u'$', u'\u00A3', u'\u20AC'])
-CMBARTER_PRICE_SUFFIXES = set([u'', u'\u20AC', u'ЛВ', u'ЛВ.'])
-CMBARTER_TRX_COST_QUOTA = 50000.0
-CMBARTER_SEARCH_MAX_PER_SECOND = 10
-CMBARTER_SEARCH_MAX_BURST = 100
-CMBARTER_TURN_IS_RUNNING_TEMPLATE = 'turn_is_running.html'
-CMBARTER_TURN_IS_RUNNING_MOBILE_TEMPLATE = 'xhtml-mp/turn_is_running.html'
-CMBARTER_DOC_ROOT_URL = '/doc'
-CMBARTER_PROJECT_DIR = os.path.dirname(__file__)
-CMBARTER_DEV_DOC_ROOT = os.path.join(CMBARTER_PROJECT_DIR, '../doc')
-CMBARTER_DEV_STATIC_ROOT = os.path.join(CMBARTER_PROJECT_DIR, '../static')
 
 
 

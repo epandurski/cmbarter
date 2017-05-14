@@ -137,7 +137,7 @@ def login_captcha(request, tmpl='login_captcha.html'):
         captcha_response = captcha.submit(
             request.POST.get('recaptcha_challenge_field'),
             request.POST.get('recaptcha_response_field'),
-            settings.RECAPTCHA_PIVATE_KEY,
+            settings.CMBARTER_RECAPTCHA_PIVATE_KEY,
             request.META['REMOTE_ADDR'])
         captcha_error = captcha_response.error_code
 
@@ -296,7 +296,7 @@ def signup(request, tmpl='signup.html'):
             captcha_response = captcha.submit(
                 request.POST.get('recaptcha_challenge_field'),
                 request.POST.get('recaptcha_response_field'),
-                settings.RECAPTCHA_PIVATE_KEY,
+                settings.CMBARTER_RECAPTCHA_PIVATE_KEY,
                 request.META['REMOTE_ADDR'])
             captcha_error = captcha_response.error_code
             captcha_passed = captcha_response.is_valid
