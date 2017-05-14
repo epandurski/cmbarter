@@ -1,79 +1,86 @@
 # -*- coding: utf-8 -*-
+import os
 import os.path
 
 #############################################################
 ##   Circular Multilateral Barter Application Settings:    ##
 #############################################################
 
-# Set this to your web server domain name.
-CMBARTER_HOST = 'yourdomainname.foo'
+CONFIG = {
+    # Set this to your web server domain name.
+    'CMBARTER_HOST' : 'yourdomainname.foo',
+    
+    # Set this to the PostgreSQL database connection string. For example:
+    # 'host=localhost port=5432 dbname=cmbarter user=cmbarter
+    # password=PASSWORD'. For more information, see the PostgreSQL
+    # documentation. 'dbname=cmbarter' will probably work if you followed
+    # the instructions in the Installation Guide's "Installation on a
+    # dedicated server" section.
+    'CMBARTER_DSN' : 'dbname=cmbarter',
+    
+    # Make this unique, and don't share it with anybody.
+    'CMBARTER_SECRET_KEY' : 'vjgz%^^7f6-=#%f&5y8qw2ous-l6zz!h+rkpzmxx(ozp%^xeb)',
+    
+    # This should point to a writable directory that will contain django's
+    # session files.
+    'CMBARTER_SESSION_DIR' : '/var/tmp/cmbarter',
+    
+    # This should point to a page telling more about you.
+    'CMBARTER_ABOUT_US_URL' : 'https://sourceforge.net/projects/cmb/',
+    
+    # This should be "False" in production.
+    'CMBARTER_DEBUG_MODE' : True  ,
+    
+    # Sign-up and log-in settings:
+    'CMBARTER_MIN_PASSWORD_LENGTH' : 8,
+    'CMBARTER_SHOW_CAPTCHA_ON_SIGNUP' : True,
+    'CMBARTER_SHOW_CAPTCHA_ON_REPETITIVE_LOGIN_FAILURE' : True,
+    'CMBARTER_REGISTRATION_KEY_IS_REQUIRED' : False,
+    'CMBARTER_REGISTRATION_KEY_PREFIX' : '',
+    
+    # If a registration key is required for signing up, the next setting
+    # should point to an URL where users will be instructed how to obtain
+    # a registration key.  Run "../generate_regkeys.py --help" to learn
+    # how to generate valid registration keys.
+    'CMBARTER_REGISTRATION_KEY_HELP_URL' : '',
+    
+    # The time zone of your users. For example: 'Europe/Rome'
+    'CMBARTER_DEFAULT_USERS_TIME_ZONE' : ''  ,
+    
+    # Set this to a page where users can search for trusted partners.
+    'CMBARTER_SEARCH_PARTNERS_URL' : '',
+    
+    # This is the maximum size in bytes for users' uploaded photographs.
+    # If you decide to increase this value, do not forget to increase the
+    # "LimitRequestBody" directive in your Apache configuration
+    # accordingly.
+    'CMBARTER_MAX_IMAGE_SIZE' : 716800,
+    
+    # This is the maximum amount of pixels (width * height) in users'
+    # uploaded photographs.
+    'CMBARTER_MAX_IMAGE_PIXELS' : 30000000,
+    
+    # By default, CMB is configured to maintain a whitelist of "good" IP
+    # addresses. This auto-generated whitelist can be used to configure
+    # your firewall to protect your web-servers from DoS attacks (see the
+    # "show_whitelist.py" command-line tool).
+    # To be able to reliably determine the IP addresses of your clients,
+    # CMB should know the IP address(es) of the reverse proxy server(s) in
+    # your network.
+    # If you use reverse proxy servers, list their IPs here.
+    'CMBARTER_REVERSE_PROXIES' : ['127.0.0.1', '::1'],
+    
+    # By default, CMB is configured to show CAPTHCA on sign-up, and after
+    # five unsuccessful attempts to log-in. If you have not altered the
+    # default behavior, you should obtain your own public/private key pair
+    # from www.google.com/recaptcha, and put it here:
+    'RECAPTCHA_PUBLIC_KEY' : '6Ledx7wSAAAAAICFw8vB-2ghpDjzGogPRi6-3FCr',
+    'RECAPTCHA_PIVATE_KEY' : '6Ledx7wSAAAAAEskQ7Mbi-oqneHDSFVUkxGitn_y',
+}    
 
-# Set this to the PostgreSQL database connection string. For example:
-# 'host=localhost port=5432 dbname=cmbarter user=cmbarter
-# password=PASSWORD'. For more information, see the PostgreSQL
-# documentation. 'dbname=cmbarter' will probably work if you followed
-# the instructions in the Installation Guide's "Installation on a
-# dedicated server" section.
-CMBARTER_DSN = 'dbname=cmbarter'
-
-# Make this unique, and don't share it with anybody.
-CMBARTER_SECRET_KEY = 'vjgz%^^7f6-=#%f&5y8qw2ous-l6zz!h+rkpzmxx(ozp%^xeb)'
-
-# This should point to a writable directory that will contain django's
-# session files.
-CMBARTER_SESSION_DIR = '/var/tmp/cmbarter'
-
-# This should point to a page telling more about you.
-CMBARTER_ABOUT_US_URL = 'https://sourceforge.net/projects/cmb/'
-
-# This should be "False" in production.
-CMBARTER_DEBUG_MODE = True  
-
-# Sign-up and log-in settings:
-CMBARTER_MIN_PASSWORD_LENGTH = 8
-CMBARTER_SHOW_CAPTCHA_ON_SIGNUP = True
-CMBARTER_SHOW_CAPTCHA_ON_REPETITIVE_LOGIN_FAILURE = True
-CMBARTER_REGISTRATION_KEY_IS_REQUIRED = False
-CMBARTER_REGISTRATION_KEY_PREFIX = ''
-
-# If a registration key is required for signing up, the next setting
-# should point to an URL where users will be instructed how to obtain
-# a registration key.  Run "../generate_regkeys.py --help" to learn
-# how to generate valid registration keys.
-CMBARTER_REGISTRATION_KEY_HELP_URL = ''
-
-# By default, CMB is configured to show CAPTHCA on sign-up, and after
-# five unsuccessful attempts to log-in. If you have not altered the
-# default behavior, you should obtain your own public/private key pair
-# from www.google.com/recaptcha, and put it here:
-RECAPTCHA_PUBLIC_KEY='6Ledx7wSAAAAAICFw8vB-2ghpDjzGogPRi6-3FCr'
-RECAPTCHA_PIVATE_KEY='6Ledx7wSAAAAAEskQ7Mbi-oqneHDSFVUkxGitn_y'
-
-# The time zone of your users. For example: 'Europe/Rome'
-CMBARTER_DEFAULT_USERS_TIME_ZONE = ''  
-
-# Set this to a page where users can search for trusted partners.
-CMBARTER_SEARCH_PARTNERS_URL = ''
-
-# This is the maximum size in bytes for users' uploaded photographs.
-# If you decide to increase this value, do not forget to increase the
-# "LimitRequestBody" directive in your Apache configuration
-# accordingly.
-CMBARTER_MAX_IMAGE_SIZE = 716800
-
-# This is the maximum amount of pixels (width * height) in users'
-# uploaded photographs.
-CMBARTER_MAX_IMAGE_PIXELS = 30000000
-
-# By default, CMB is configured to maintain a whitelist of "good" IP
-# addresses. This auto-generated whitelist can be used to configure
-# your firewall to protect your web-servers from DoS attacks (see the
-# "show_whitelist.py" command-line tool).
-# To be able to reliably determine the IP addresses of your clients,
-# CMB should know the IP address(es) of the reverse proxy server(s) in
-# your network.
-# If you use reverse proxy servers, list their IPs here.
-CMBARTER_REVERSE_PROXIES = ['127.0.0.1', '::1']
+for (key, defalut) in CONFIG.iteritems():
+    value = os.environ.get(key)
+    locals()[key] = value if value is not None else defalut
 
 # Usually, you do not need to change anything bellow this line.
 CMBARTER_MAINTAIN_IP_WHITELIST = True
