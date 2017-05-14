@@ -79,8 +79,12 @@ CONFIG = {
 }    
 
 for (key, defalut) in CONFIG.iteritems():
-    value = os.environ.get(key)
-    locals()[key] = value if value is not None else defalut
+    v = os.environ.get(key)
+    if v is None:
+        v = defalut
+    elif defalut.__class__ is not str:
+        v = eval(v)
+    locals()[key] = v
 
 # Usually, you do not need to change anything bellow this line.
 CMBARTER_MAINTAIN_IP_WHITELIST = True
