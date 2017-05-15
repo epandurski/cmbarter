@@ -1,5 +1,4 @@
 FROM debian:latest
-ENV WEB_CONCURRENCY 1
 
 # Install the necessary packages:
 RUN apt-get update && apt-get install -y \
