@@ -3,8 +3,8 @@ version: '3'
 services:
   webserver:
     build:
-      context: .
-      dockerfile: Dockerfile-webserver
+      context: ..
+      dockerfile: docker/Dockerfile-webserver
     depends_on:
       - dbserver
     links:
@@ -14,16 +14,15 @@ services:
     volumes:
       - session-volume:/var/tmp/cmbarter
     environment:
-      CMBARTER_HOST: 'multiswap.net'
       CMBARTER_DSN: 'host=dbserver user=postgres password=mysecretpassword'
-  
+    env_file: config.env
+
   dbserver:
     build:
-      context: .
-      dockerfile: Dockerfile-dbserver
+      context: ..
+      dockerfile: docker/Dockerfile-dbserver
     volumes:
       - data-volume:/var/lib/postgresql/data
-      
 
 volumes:
   data-volume:

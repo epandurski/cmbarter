@@ -1,8 +1,6 @@
 FROM postgres:latest
 ENV POSTGRES_PASSWORD mysecretpassword
 
-# The database resides at /var/lib/postgresql/data
-
 WORKDIR /docker-entrypoint-initdb.d
 COPY pgsql/schema.sql 1-schema.sql
 COPY pgsql/triggers.sql 2-triggers.sql
