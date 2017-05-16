@@ -36,8 +36,7 @@ USAGE = """Usage: check_sessions.py [OPTIONS]
 Delete old session files.
 
 Will exit immediately if another copy of the program is already
-running. In this case, the process ID of the currently running process
-can be found in the ./cmbarter/check_sessions.lock file.
+running.
 
   -h, --help           display this help and exit
   --dir=DIRECTORY      give the session directory explicitly
