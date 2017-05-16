@@ -12,7 +12,7 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - session-volume:/var/tmp/cmbarter
+      - sessions-volume:/var/tmp/cmbarter
     environment:
       CMBARTER_DSN: 'host=dbserver user=postgres password=mysecretpassword'
     env_file: config.env
@@ -24,6 +24,15 @@ services:
     volumes:
       - data-volume:/var/lib/postgresql/data
 
+  mailserver:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile-mailserver
+    volumes:
+      - mailqueue-volume:/var/lib/postgresql/data
+
+
 volumes:
   data-volume:
-  session-volume:
+  sessions-volume:
+  mailqueue-volume:
