@@ -29,7 +29,7 @@ services:
       context: ..
       dockerfile: docker/Dockerfile-mailserver
     volumes:
-      - mailqueue-volume:/var/lib/postgresql/data
+      - mailqueue-volume:/var/spool/exim4
 
 
 volumes:

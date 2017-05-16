@@ -1,9 +1,13 @@
 FROM postgres:latest
 ENV POSTGRES_PASSWORD mysecretpassword
 
+# Initialize application's database:
 WORKDIR /docker-entrypoint-initdb.d
 COPY pgsql/schema.sql 1-schema.sql
 COPY pgsql/triggers.sql 2-triggers.sql
 COPY pgsql/views.sql 3-views.sql
 COPY pgsql/sprocs.sql 4-sprocs.sql
 CMD ["postgres"]
+
+# The volume that will contain the data:
+VOLUME /var/lib/postgresql/data
