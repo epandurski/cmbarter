@@ -240,5 +240,8 @@ DATA_UPLOAD_MAX_MEMORY_SIZE = 50000
 # Newer versions of django (1.10+) add the "required" HTML attribute
 # to the generated forms, which breaks our mobile views. So, we
 # disable this feature here.
-from django.forms import Form
-Form.use_required_attribute = False
+try:
+    from django.forms import Form
+    Form.use_required_attribute = False
+except ImportError:
+    pass
