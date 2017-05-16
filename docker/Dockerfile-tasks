@@ -1,0 +1,25 @@
+FROM debian:latest
+ENV PYTHONPATH /usr/local/share/cmbarter
+
+# Install the necessary packages:
+RUN apt-get update && apt-get install -y \
+    python-psycopg2 \
+    python-crypto \
+    python-tz \
+ && rm -rf /var/lib/apt/lists/*
+ 
+# Copy the files we need:
+COPY cmbarter /usr/local/share/cmbarter/cmbarter/
+COPY check_sessions.py \
+     execute_turn.py \
+     generate_regkeys.py \
+     process_emails.py \
+     schedule_turns.py \
+     show_emails.py \
+     show_whitelist.py \
+     /bin/
+
+# The volume that will contain django's session files:
+VOLUME /var/tmp/cmbarter
+
+CMD ["process_emails.py", "--smtp=mailserver"]
