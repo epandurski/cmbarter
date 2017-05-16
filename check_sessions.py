@@ -35,8 +35,7 @@ from cmbarter.settings import CMBARTER_SESSION_DIR, CMBARTER_PROJECT_DIR
 USAGE = """Usage: check_sessions.py [OPTIONS]
 Delete old session files.
 
-Will exit immediately if another copy of the program is already
-running.
+Will exit immediately if another copy of the program is already running.
 
   -h, --help           display this help and exit
   --dir=DIRECTORY      give the session directory explicitly
