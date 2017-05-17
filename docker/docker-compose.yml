@@ -5,9 +5,9 @@ services:
     build:
       context: ..
       dockerfile: docker/Dockerfile-web
+    networks:
+      internal:
     depends_on:
-      - db
-    links:
       - db
     ports:
       - "8000:8000"
@@ -21,6 +21,8 @@ services:
     build:
       context: ..
       dockerfile: docker/Dockerfile-db
+    networks:
+      internal:
     volumes:
       - data-volume:/var/lib/postgresql/data
 
@@ -28,6 +30,8 @@ services:
     build:
       context: ..
       dockerfile: docker/Dockerfile-mail
+    networks:
+      internal:
     volumes:
       - mailqueue-volume:/var/spool/exim4
 
@@ -35,10 +39,9 @@ services:
     build:
       context: ..
       dockerfile: docker/Dockerfile-tasks
+    networks:
+      internal:
     depends_on:
-      - db
-      - mail
-    links:
       - db
       - mail
     volumes:
@@ -52,3 +55,7 @@ volumes:
   data-volume:
   sessions-volume:
   mailqueue-volume:
+
+
+networks:
+  internal:
