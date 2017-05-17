@@ -1,5 +1,4 @@
 FROM postgres:latest
-ENV POSTGRES_PASSWORD mysecretpassword
 
 # Initialize application's database:
 WORKDIR /docker-entrypoint-initdb.d

@@ -25,6 +25,8 @@ services:
       internal:
     volumes:
       - data-volume:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: 'mysecretpassword'
 
   mail:
     build:
