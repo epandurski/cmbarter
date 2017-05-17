@@ -34,6 +34,7 @@ services:
       internal:
     volumes:
       - mailqueue-volume:/var/spool/exim4
+    stop_signal: SIGKILL
 
   tasks:
     build:
