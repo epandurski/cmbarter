@@ -17,9 +17,10 @@ COPY check_sessions.py \
      schedule_turns.py \
      show_emails.py \
      show_whitelist.py \
+     docker/repeat_esential_tasks.py \
      /bin/
 
 # The volume that will contain django's session files:
 VOLUME /var/tmp/cmbarter
 
-CMD ["process_emails.py", "--smtp=mailserver"]
+CMD ["repeat_esential_tasks.py"]
