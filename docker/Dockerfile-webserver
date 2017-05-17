@@ -1,14 +1,7 @@
-FROM debian:latest
+FROM pypy:2
 
 # Install the necessary packages:
-RUN apt-get update && apt-get install -y \
-    python-django \
-    python-psycopg2 \
-    python-imaging \
-    python-crypto \
-    python-tz \
-    gunicorn \
- && rm -rf /var/lib/apt/lists/*
+RUN pip install Django psycopg2cffi Pillow pytz gunicorn
  
 # Create the directory that will contain application's source files:
 WORKDIR /usr/local/share/cmbarter
