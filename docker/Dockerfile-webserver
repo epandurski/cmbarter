@@ -20,4 +20,4 @@ COPY static static/
 VOLUME /var/tmp/cmbarter
 
 EXPOSE 8000
-CMD ["gunicorn", "-b :8000", "--log-level=info", "--access-logfile=-", "--error-logfile=-", "cmbarter.wsgi"]
+CMD ["gunicorn", "-b :8000", "--log-level=warning", "--access-logfile=-", "--error-logfile=-", "cmbarter.wsgi"]
