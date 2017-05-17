@@ -1,33 +1,33 @@
 version: '3'
 
 services:
-  webserver:
+  web:
     build:
       context: ..
-      dockerfile: docker/Dockerfile-webserver
+      dockerfile: docker/Dockerfile-web
     depends_on:
-      - dbserver
+      - db
     links:
-      - dbserver
+      - db
     ports:
       - "8000:8000"
     volumes:
       - sessions-volume:/var/tmp/cmbarter
     environment:
-      CMBARTER_DSN: 'host=dbserver user=postgres password=mysecretpassword'
+      CMBARTER_DSN: 'host=db user=postgres password=mysecretpassword'
     env_file: config.env
 
-  dbserver:
+  db:
     build:
       context: ..
-      dockerfile: docker/Dockerfile-dbserver
+      dockerfile: docker/Dockerfile-db
     volumes:
       - data-volume:/var/lib/postgresql/data
 
-  mailserver:
+  mail:
     build:
       context: ..
-      dockerfile: docker/Dockerfile-mailserver
+      dockerfile: docker/Dockerfile-mail
     volumes:
       - mailqueue-volume:/var/spool/exim4
 
@@ -36,15 +36,15 @@ services:
       context: ..
       dockerfile: docker/Dockerfile-tasks
     depends_on:
-      - dbserver
-      - mailserver
+      - db
+      - mail
     links:
-      - dbserver
-      - mailserver
+      - db
+      - mail
     volumes:
       - sessions-volume:/var/tmp/cmbarter
     environment:
-      CMBARTER_DSN: 'host=dbserver user=postgres password=mysecretpassword'
+      CMBARTER_DSN: 'host=db user=postgres password=mysecretpassword'
     env_file: config.env
 
 

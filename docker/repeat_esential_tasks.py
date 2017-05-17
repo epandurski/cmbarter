@@ -10,7 +10,7 @@ def run(cmd):
 counter = 0
 while True:
     run("check_sessions.py")
-    run(["process_emails.py", "--smtp=mailserver"])
+    run(["process_emails.py", "--smtp=mail"])
     if counter % 10 == 0:
         run(["pypy", "/bin/execute_turn.py"])
     counter += 1
