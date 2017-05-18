@@ -2,6 +2,7 @@ version: '3'
 
 services:
   web:
+    image: epandurski/cmbarter:1.15-web
     build:
       context: ..
       dockerfile: docker/Dockerfile-web
@@ -21,6 +22,7 @@ services:
       replicas: 1
       
   db:
+    image: epandurski/cmbarter:1-db
     build:
       context: ..
       dockerfile: docker/Dockerfile-db
@@ -34,6 +36,7 @@ services:
       mode: global
       
   mail:
+    image: epandurski/cmbarter:1.15-mail
     build:
       context: ..
       dockerfile: docker/Dockerfile-mail
@@ -45,6 +48,7 @@ services:
       mode: global
 
   tasks:
+    image: epandurski/cmbarter:1.15-tasks
     build:
       context: ..
       dockerfile: docker/Dockerfile-tasks

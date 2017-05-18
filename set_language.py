@@ -45,19 +45,27 @@ def parse_args(argv):
 
 
 def set_language_bg(db):
-    db.execute("""
-      CREATE TEXT SEARCH DICTIONARY bulgarian_ispell (
-        TEMPLATE = ispell,
-        DICTFILE = bulgarian,
-        AFFFILE = bulgarian,
-        STOPWORDS = bulgarian
-      );
-      """)
-    db.execute("""
-      CREATE TEXT SEARCH CONFIGURATION public.bulgarian (
-        COPY = pg_catalog.russian
-      );
-      """)
+    try:
+        db.execute("""
+          CREATE TEXT SEARCH DICTIONARY bulgarian_ispell (
+            TEMPLATE = ispell,
+            DICTFILE = bulgarian,
+            AFFFILE = bulgarian,
+            STOPWORDS = bulgarian
+          );
+          """)
+    except curiousorm.PgError:
+        pass
+    
+    try:
+        db.execute("""
+          CREATE TEXT SEARCH CONFIGURATION public.bulgarian (
+            COPY = pg_catalog.russian
+          );
+          """)
+    except curiousorm.PgError:
+        pass
+
     db.execute("""
       ALTER TEXT SEARCH CONFIGURATION bulgarian
         ALTER MAPPING FOR word, hword, hword_part WITH bulgarian_ispell, simple;
@@ -66,7 +74,7 @@ def set_language_bg(db):
       ALTER DATABASE cmbarter
         SET default_text_search_config TO 'public.bulgarian';
       """)
-    
+        
         
 if __name__ == "__main__":
     dsn = CMBARTER_DSN
@@ -77,8 +85,5 @@ if __name__ == "__main__":
             set_language_bg(db)
         else:
             print("ERROR: {} is not supported.".format(language))
-    except curiousorm.PgError as e:
-        print(e.message)
-        sys.exit(1)
     finally:
         db.close()
