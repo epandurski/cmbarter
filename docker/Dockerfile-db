@@ -9,4 +9,5 @@ COPY pgsql/schema.sql /docker-entrypoint-initdb.d/1-schema.sql
 COPY pgsql/triggers.sql /docker-entrypoint-initdb.d/2-triggers.sql
 COPY pgsql/views.sql /docker-entrypoint-initdb.d/3-views.sql
 COPY pgsql/sprocs.sql /docker-entrypoint-initdb.d/4-sprocs.sql
+
 CMD ["postgres"]
