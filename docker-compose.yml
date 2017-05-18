@@ -4,7 +4,7 @@ services:
   web:
     image: epandurski/cmbarter:1.15-web
     build:
-      context: ..
+      context: .
       dockerfile: docker/Dockerfile-web
     networks:
       internal:
@@ -16,7 +16,7 @@ services:
       - sessions-volume:/var/tmp/cmbarter
     environment:
       CMBARTER_DSN: 'host=db dbname=cmbarter user=postgres password=mysecretpassword'
-    env_file: config.env
+    env_file: docker-compose.config
     deploy:
       mode: replicated
       replicas: 1
@@ -24,7 +24,7 @@ services:
   db:
     image: epandurski/cmbarter:1-db
     build:
-      context: ..
+      context: .
       dockerfile: docker/Dockerfile-db
     networks:
       internal:
@@ -36,9 +36,9 @@ services:
       mode: global
       
   mail:
-    image: epandurski/cmbarter:1.15-mail
+    image: epandurski/cmbarter:mail
     build:
-      context: ..
+      context: .
       dockerfile: docker/Dockerfile-mail
     networks:
       internal:
@@ -50,7 +50,7 @@ services:
   tasks:
     image: epandurski/cmbarter:1.15-tasks
     build:
-      context: ..
+      context: .
       dockerfile: docker/Dockerfile-tasks
     networks:
       internal:
@@ -61,7 +61,7 @@ services:
       - sessions-volume:/var/tmp/cmbarter
     environment:
       CMBARTER_DSN: 'host=db dbname=cmbarter user=postgres password=mysecretpassword'
-    env_file: config.env
+    env_file: docker-compose.config
     deploy:
       mode: global
 
