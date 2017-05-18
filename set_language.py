@@ -17,6 +17,7 @@ Example:
 """
 
 LANGUAGES = """\
+en
 bg"""
 
 def parse_args(argv):
@@ -44,6 +45,13 @@ def parse_args(argv):
         sys.exit(2)
 
 
+def set_language_en(db):
+    db.execute("""
+      ALTER DATABASE cmbarter
+        SET default_text_search_config TO 'english';
+      """)
+        
+        
 def set_language_bg(db):
     try:
         db.execute("""
@@ -81,7 +89,9 @@ if __name__ == "__main__":
     parse_args(sys.argv[1:])
     db = curiousorm.Connection(dsn, dictrows=True)
     try:
-        if language.lower() == "bg":
+        if language.lower() == "en":
+            set_language_en(db)
+        elif language.lower() == "bg":
             set_language_bg(db)
         else:
             print("ERROR: {} is not supported.".format(language))
