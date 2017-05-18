@@ -16,7 +16,10 @@ services:
     environment:
       CMBARTER_DSN: 'host=db dbname=cmbarter user=postgres password=mysecretpassword'
     env_file: config.env
-
+    deploy:
+      mode: replicated
+      replicas: 1
+      
   db:
     build:
       context: ..
@@ -27,7 +30,9 @@ services:
       - data-volume:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: 'mysecretpassword'
-
+    deploy:
+      mode: global
+      
   mail:
     build:
       context: ..
@@ -37,6 +42,8 @@ services:
     volumes:
       - mailqueue-volume:/var/spool/exim4
     stop_signal: SIGKILL
+    deploy:
+      mode: global
 
   tasks:
     build:
@@ -53,6 +60,8 @@ services:
       CMBARTER_DSN: 'host=db dbname=cmbarter user=postgres password=mysecretpassword'
     env_file: config.env
     stop_signal: SIGINT
+    deploy:
+      mode: global
 
 
 volumes:

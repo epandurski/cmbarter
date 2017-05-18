@@ -207,36 +207,9 @@ Here are the installation steps that you should perform:
      cmbarter=> \i sprocs.sql
      ...
                 
-4. If your users' primary language is other than English, you should
-   create a new default text-search configuration for that
-   language. (The out-of-the-box configuration works well for
-   English.)
-   
-   For example, to create a default text-search configuration for
-   Bulgarian, you should extract the file
-   */usr/local/share/cmbarter/pgsql/tsearch_data/bulgarian.tar.gz* and
-   copy its content to your PostgreSQL "tsearch_data" directory. Then
-   you should execute the following commands in *psql*::
-   
-     CREATE TEXT SEARCH DICTIONARY bulgarian_ispell (
-       TEMPLATE = ispell,
-       DICTFILE = bulgarian,
-       AFFFILE = bulgarian,
-       STOPWORDS = bulgarian
-     );
-
-     CREATE TEXT SEARCH CONFIGURATION public.bulgarian (
-       COPY = pg_catalog.russian
-     );
-
-     ALTER TEXT SEARCH CONFIGURATION bulgarian
-       ALTER MAPPING FOR word, hword, hword_part
-       WITH bulgarian_ispell, simple;
-
-     ALTER DATABASE cmbarter 
-       SET default_text_search_config TO 'public.bulgarian';
-          
-   See PostgreSQL's documentation for more info.
+4. If your users' primary language is other than English, you can use
+   the *set_language.py* script to create a new default text-search
+   configuration for that language.
  
 
 Application configuration
@@ -511,5 +484,6 @@ these tasks, though.
 
 .. [7] The important commands are: *execute_turn.py,
    process_emails.py, check_sessions.py, generate_regkeys.py,
-   schedule_turns.py, show_whitelist.py, show_emails.py*. "manage.py"
-   is Django's standard administration tool.
+   schedule_turns.py, show_whitelist.py, show_emails.py,
+   set_language.py*. "manage.py" is Django's standard administration
+   tool.
