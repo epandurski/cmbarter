@@ -12,6 +12,6 @@ while True:
     run("check_sessions.py")
     run(["process_emails.py", "--smtp=mail"])
     if counter % 10 == 0:
-        run(["pypy", "/bin/execute_turn.py"])
+        run(["pypy", "/usr/local/bin/execute_turn.py"])
     counter += 1
     time.sleep(60)
