@@ -9,9 +9,9 @@ def run(cmd):
     
 counter = 0
 while True:
+    time.sleep(60)
     run("check_sessions.py")
     run(["process_emails.py", "--smtp=mail"])
     if counter % 10 == 0:
         run(["pypy", "/usr/local/bin/execute_turn.py"])
     counter += 1
-    time.sleep(60)
