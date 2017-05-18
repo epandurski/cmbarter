@@ -14,7 +14,7 @@ services:
     volumes:
       - sessions-volume:/var/tmp/cmbarter
     environment:
-      CMBARTER_DSN: 'host=db user=postgres password=mysecretpassword'
+      CMBARTER_DSN: 'host=db dbname=cmbarter user=postgres password=mysecretpassword'
     env_file: config.env
 
   db:
@@ -50,8 +50,9 @@ services:
     volumes:
       - sessions-volume:/var/tmp/cmbarter
     environment:
-      CMBARTER_DSN: 'host=db user=postgres password=mysecretpassword'
+      CMBARTER_DSN: 'host=db dbname=cmbarter user=postgres password=mysecretpassword'
     env_file: config.env
+    stop_signal: SIGINT
 
 
 volumes:

@@ -1,4 +1,8 @@
-FROM postgres:latest
+FROM postgres:9.6
+ENV POSTGRES_DB cmbarter
+
+# Copy the text search dictionaries:
+ADD pgsql/tsearch_data/*.tar.gz /usr/share/postgresql/9.6/tsearch_data/
 
 # Initialize application's database:
 WORKDIR /docker-entrypoint-initdb.d
@@ -7,6 +11,3 @@ COPY pgsql/triggers.sql 2-triggers.sql
 COPY pgsql/views.sql 3-views.sql
 COPY pgsql/sprocs.sql 4-sprocs.sql
 CMD ["postgres"]
-
-# The volume that will contain the data:
-VOLUME /var/lib/postgresql/data
