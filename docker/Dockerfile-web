@@ -1,7 +1,7 @@
 FROM pypy:2
 
 # Install the necessary packages:
-RUN pip install Django psycopg2cffi Pillow pytz gunicorn
+RUN pip install Django~=1.11 psycopg2cffi Pillow pytz gunicorn
  
 # Create the directory that will contain application's source files:
 WORKDIR /usr/local/share/cmbarter
