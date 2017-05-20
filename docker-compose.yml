@@ -60,6 +60,18 @@ services:
       CMBARTER_DSN: 'host=db dbname=cmbarter user=postgres password=mysecretpassword'
     env_file: docker-compose.config
 
+  proxy:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile-proxy
+    networks:
+      internal:
+      external:
+    depends_on:
+      - web
+    ports:
+      - "80:80"
+
 
 volumes:
   data-volume:
@@ -69,3 +81,4 @@ volumes:
 
 networks:
   internal:
+  external:

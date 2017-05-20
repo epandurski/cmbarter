@@ -12,6 +12,8 @@ RUN update-exim4.conf
 # The volume that will contain the mail queue:
 VOLUME /var/spool/exim4
 
+STOPSIGNAL SIGKILL
+
 EXPOSE 25
 CMD ["exim", "-bd", "-q15m", "-v"]
 

@@ -1,0 +1,4 @@
+FROM nginx:latest
+COPY doc /usr/share/nginx/html/doc/
+COPY static /usr/share/nginx/html/static/
+COPY docker/nginx.conf /etc/nginx/nginx.conf
