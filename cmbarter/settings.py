@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 import os.path
+import socket
 
 #############################################################
 ##   Circular Multilateral Barter Application Settings:    ##
@@ -97,12 +98,18 @@ CONFIG = {
     'CMBARTER_DEV_STATIC_ROOT' : os.path.join(os.path.dirname(__file__), '../static'),
 }    
 
+def ip_addresses(hostname):
+    try:
+        return socket.gethostbyname_ex(hostname)[2]
+    except socket.gaierror:
+        return []
+
 for (key, defalut) in CONFIG.iteritems():
     v = os.environ.get(key)
     if v is None:
         v = defalut
     elif defalut.__class__ is not str:
-        v = eval(v)
+        v = eval(v, {'ip_addresses': ip_addresses})
     locals()[key] = v
 
 

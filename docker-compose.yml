@@ -7,11 +7,9 @@ services:
       context: .
       dockerfile: docker/Dockerfile-web
     networks:
-      internal:
+      internal_nw:
     depends_on:
       - db
-    ports:
-      - "8000:8000"
     volumes:
       - sessions-volume:/var/tmp/cmbarter
     environment:
@@ -24,7 +22,7 @@ services:
       context: .
       dockerfile: docker/Dockerfile-db
     networks:
-      internal:
+      internal_nw:
     volumes:
       - data-volume:/var/lib/postgresql/data
     environment:
@@ -38,7 +36,7 @@ services:
       context: .
       dockerfile: docker/Dockerfile-mail
     networks:
-      internal:
+      internal_nw:
     volumes:
       - mailqueue-volume:/var/spool/exim4
     deploy:
@@ -50,7 +48,7 @@ services:
       context: .
       dockerfile: docker/Dockerfile-tasks
     networks:
-      internal:
+      internal_nw:
     depends_on:
       - db
       - mail
@@ -65,8 +63,7 @@ services:
       context: .
       dockerfile: docker/Dockerfile-proxy
     networks:
-      internal:
-      external:
+      internal_nw:
     depends_on:
       - web
     ports:
@@ -80,5 +77,4 @@ volumes:
 
 
 networks:
-  internal:
-  external:
+  internal_nw:
