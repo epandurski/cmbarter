@@ -1,4 +1,6 @@
 #! /usr/bin/env python
+#
+# This file is needed by "Dockerfile-tasks".
 
 import sys, time, subprocess
 
