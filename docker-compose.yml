@@ -59,6 +59,7 @@ services:
     env_file: docker-compose.config
 
   proxy:
+    image: epandurski/cmbarter:proxy
     build:
       context: .
       dockerfile: docker/Dockerfile-proxy
