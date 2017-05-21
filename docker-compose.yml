@@ -1,4 +1,4 @@
-version: '3'
+version: '3.1'
 
 services:
   web:
@@ -64,10 +64,16 @@ services:
       dockerfile: docker/Dockerfile-proxy
     networks:
       internal_nw:
+    secrets:
+      - source: ssl_certificate
+        target: cert.pem
+      - source: ssl_certificate_key
+        target: key.pem
     depends_on:
       - web
     ports:
       - "80:80"
+      - "443:443"
 
 
 volumes:
@@ -78,3 +84,10 @@ volumes:
 
 networks:
   internal_nw:
+
+
+secrets:
+  ssl_certificate:
+    file: ./cert.pem
+  ssl_certificate_key:
+    file: ./key.pem
