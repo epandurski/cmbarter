@@ -140,7 +140,7 @@ Here are the installation steps that you should perform:
 4. Obtain a proper SSL certificate for your server.
 
 5. Use the prototype configuration in
-   */usr/local/share/cmbarter/apache/httpd.conf* to configure your
+   */usr/local/share/cmbarter/webserver/httpd.conf* to configure your
    Apache. Notice that you will have to make some changes to the
    prototype configuration in order to adapt it to your specific
    setup. In particular, do not forget to replace "yourdomainname.foo"
@@ -342,10 +342,10 @@ Here are the configuration steps that you should perform:
      $ ln -s ~/cmbarter/static/ ~/public_html/static
      $ ln -s ~/cmbarter/doc/ ~/public_html/doc
 
-3. Copy *~/cmbarter/apache/cmbarter.fcgi* to your web root
+3. Copy *~/cmbarter/webserver/cmbarter.fcgi* to your web root
    directory. Make sure it is executable. For example::
 
-     $ cp ~/cmbarter/apache/cmbarter.fcgi ~/public_html/
+     $ cp ~/cmbarter/webserver/cmbarter.fcgi ~/public_html/
      $ chmod a+x ~/public_html/cmbarter.fcgi
 
    You will need to make some changes in the newly created
@@ -353,10 +353,10 @@ Here are the configuration steps that you should perform:
    setup. Do not forget to replace "yourusername" with your real
    username.
 
-4. Add the content of *~/cmbarter/apache/htaccess* to your *.htaccess*
+4. Add the content of *~/cmbarter/webserver/htaccess* to your *.htaccess*
    file in the web root directory. For example::
 
-     $ cat ~/cmbarter/apache/htaccess >> ~/public_html/.htaccess
+     $ cat ~/cmbarter/webserver/htaccess >> ~/public_html/.htaccess
 
    You will need to make some changes in the *.htaccess* file in order
    to adapt it to your specific setup. Do not forget to replace

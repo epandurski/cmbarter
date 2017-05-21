@@ -1,5 +1,4 @@
 .git/**
-apache/**
 gimpfiles/**
 py2venv/**
 *.log
