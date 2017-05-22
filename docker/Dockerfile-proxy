@@ -1,6 +1,14 @@
 FROM nginx:1
 COPY doc /usr/share/nginx/html/doc/
 COPY static /usr/share/nginx/html/static/
-COPY webserver/nginx.conf /etc/nginx/nginx.conf
+COPY webserver/nginx.conf /etc/nginx/nginx.template
+COPY docker/generate_configuration_file.sh /usr/local/bin/
 
 EXPOSE 80 443
+
+ENTRYPOINT ["generate_configuration_file.sh"]
+
+CMD ["nginx", "-g", "daemon off;"]
+
+ENV PROXY_PASS_TO web:8000
+ENV CMBARTER_HOST localhost
