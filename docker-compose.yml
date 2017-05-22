@@ -55,6 +55,7 @@ services:
     volumes:
       - sessions-volume:/var/tmp/cmbarter
     environment:
+      SMTP_HOST: 'mail'
       CMBARTER_DSN: 'host=db dbname=cmbarter user=postgres password=mysecretpassword'
     env_file: docker-compose.config
 
