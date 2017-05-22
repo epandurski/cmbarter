@@ -6,8 +6,6 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile-web
-    networks:
-      internal_nw:
     depends_on:
       - db
     volumes:
@@ -19,8 +17,6 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile-db
-    networks:
-      internal_nw:
     volumes:
       - data-volume:/var/lib/postgresql/data
       
@@ -29,8 +25,6 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile-mail
-    networks:
-      internal_nw:
     volumes:
       - mailqueue-volume:/var/spool/exim4
 
@@ -39,8 +33,6 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile-tasks
-    networks:
-      internal_nw:
     depends_on:
       - db
       - mail
@@ -53,8 +45,6 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile-proxy
-    networks:
-      internal_nw:
     secrets:
       - source: ssl_certificate
         target: cert.pem
@@ -71,10 +61,6 @@ volumes:
   data-volume:
   sessions-volume:
   mailqueue-volume:
-
-
-networks:
-  internal_nw:
 
 
 secrets:
