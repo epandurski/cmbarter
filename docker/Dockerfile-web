@@ -16,3 +16,4 @@ CMD ["gunicorn", "-b :8000", "--log-level=warning", "--access-logfile=-", "--err
 EXPOSE 8000
 
 ENV PYTHONPATH /usr/local/share/cmbarter
+ENV CMBARTER_DSN host=db dbname=cmbarter user=postgres password=mysecretpassword

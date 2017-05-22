@@ -12,8 +12,6 @@ services:
       - db
     volumes:
       - sessions-volume:/var/tmp/cmbarter
-    environment:
-      CMBARTER_DSN: 'host=db dbname=cmbarter user=postgres password=mysecretpassword'
     env_file: docker-compose.config
       
   db:
@@ -25,10 +23,6 @@ services:
       internal_nw:
     volumes:
       - data-volume:/var/lib/postgresql/data
-    environment:
-      POSTGRES_PASSWORD: 'mysecretpassword'
-    deploy:
-      mode: global
       
   mail:
     image: epandurski/cmbarter:mail
@@ -39,8 +33,6 @@ services:
       internal_nw:
     volumes:
       - mailqueue-volume:/var/spool/exim4
-    deploy:
-      mode: global
 
   tasks:
     image: epandurski/cmbarter:1.15-tasks
@@ -54,9 +46,6 @@ services:
       - mail
     volumes:
       - sessions-volume:/var/tmp/cmbarter
-    environment:
-      SMTP_HOST: 'mail'
-      CMBARTER_DSN: 'host=db dbname=cmbarter user=postgres password=mysecretpassword'
     env_file: docker-compose.config
 
   proxy:
