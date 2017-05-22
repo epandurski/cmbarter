@@ -48,7 +48,7 @@ from django.utils.translation import get_language
 from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.csrf import csrf_protect
 from cmbarter.users import forms
-from cmbarter.users.decorators import logged_in, has_profile, max_age
+from cmbarter.users.decorators import logged_in, has_profile, max_age, is_logged_in
 from cmbarter.modules import curiousorm, utils, captcha, keygen, limiter
 from pytz import common_timezones
 
@@ -98,6 +98,7 @@ def login(request, tmpl='login.html'):
                 request.session['auth_username'] = username
                 request.session['auth_is_valid'] = authentication['is_valid']
                 request.session['auth_trader_id'] = authentication['trader_id']
+                request.session['auth_ts'] = datetime.datetime.now(pytz.utc)
                 return HttpResponseRedirect(reverse(login_captcha))
 
             elif authentication['is_valid']:
@@ -145,12 +146,14 @@ def login_captcha(request, tmpl='login_captcha.html'):
             if request.session.get('auth_is_valid'):
                 # a successful login
                 trader_id = request.session['auth_trader_id']
+                ts = request.session['auth_ts']
                 del request.session['auth_username']
                 del request.session['auth_is_valid']
                 del request.session['auth_trader_id']
+                del request.session['auth_ts']
                 db.report_login_captcha_success(trader_id)
                 request.session['trader_id'] = trader_id
-                request.session['ts'] = datetime.datetime.now(pytz.utc)
+                request.session['ts'] = ts
                 if settings.CMBARTER_MAINTAIN_IP_WHITELIST:
                     client_ip = get_client_ip(request)
                     if client_ip:
@@ -237,7 +240,7 @@ def show_about(request, tmpl='about.html'):
 def show_trader(request, trader_id_str):
     trader_id = int(trader_id_str)
 
-    if 'trader_id' in request.session:
+    if is_logged_in(request.session, request.session.get('trader_id')):
         return HttpResponseRedirect(reverse(
             'products-partner-pricelist',
             args=[request.session['trader_id'], trader_id]))

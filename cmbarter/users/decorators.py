@@ -49,13 +49,25 @@ import pytz
 
 
 A_TURN_IS_RUNNING = re.compile(r'a turn is running')
-YEAR_1900 = datetime.datetime(1900, 1, 1)
-SII = datetime.timedelta(minutes=settings.CMBARTER_SESSION_INVALIDATION_MINUTES)
-SESSION_TOUCH_INTERVAL = SII // 4
+YEAR_1900 = datetime.datetime(1900, 1, 1, tzinfo=pytz.utc)
+INVALIDATION_INTERVAL = datetime.timedelta(minutes=settings.CMBARTER_SESSION_INVALIDATION_MINUTES)
+TOUCH_INTERVAL = INVALIDATION_INTERVAL // 4
 
 
 class CmbAppError(Exception):
     pass
+
+
+def is_logged_in(session, trader_id):
+    ts = session.get('ts', YEAR_1900)
+    now = datetime.datetime.now(pytz.utc)
+    if trader_id == session.get('trader_id') and now < ts + INVALIDATION_INTERVAL:
+        # Update session's timestamp if necessary.
+        if now >= ts + TOUCH_INTERVAL:
+            session['ts'] = now
+        return True
+    else:
+        return False
 
 
 def report_transaction_cost(db, trader_id, trx_cost):
@@ -87,14 +99,8 @@ def logged_in(view):
     @wraps(view)
     def fn(request, trader_id_str, *args, **kargs):
         try:
-            ts = request.session.get('ts', YEAR_1900)
-            now = datetime.datetime.now(pytz.utc)
             trader_id = int(trader_id_str)
-            if trader_id == request.session.get('trader_id') and now < ts + SII:
-                # Update session's timestamp if necessary.
-                if now >= ts + SESSION_TOUCH_INTERVAL:
-                    request.session['ts'] = now
-
+            if is_logged_in(request.session, trader_id):
                 # Render the response with some HTTP-headers added.
                 response = view(request, trader_id, *args, **kargs)
                 if 'Cache-Control' not in response:
