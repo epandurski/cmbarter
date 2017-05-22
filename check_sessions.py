@@ -41,9 +41,6 @@ Will exit immediately if another copy of the program is already running.
   --dir=DIRECTORY      give the session directory explicitly
   --prefix=PREFIX      specify the session file prefix (default: 'sessionid')
   --maxage=SECONDS     specify the maximum session age (default: 2400 seconds)
-  --maxfiles=NUMBER    specify the maximum number of files in a directory 
-                       that the OS can handle without serious performance
-                       degradation (default: 50000 files)
 
   --repeat-interval=N  if N=0 (the default), the program will exit after one 
                        check is done;
@@ -58,10 +55,10 @@ Example:
 
 
 def parse_args(argv):
-    global prefix, directory, duration, maxfiles, repeat_interval
+    global prefix, directory, duration, repeat_interval
     try:                                
         opts, args = getopt.gnu_getopt(argv, 'h', ['prefix=', 'dir=', 'maxage=', 
-                                                   'maxfiles=', 'repeat-interval=', 'help'])
+                                                   'repeat-interval=', 'help'])
     except getopt.GetoptError:
         print(USAGE)
         sys.exit(2)
@@ -78,12 +75,6 @@ def parse_args(argv):
             prefix = arg
         elif opt == '--dir':
             directory = arg
-        elif opt == '--maxfiles':
-            try:
-                maxfiles = int(arg)
-            except ValueError:
-                print(USAGE)
-                sys.exit(2)                  
         elif opt == '--repeat-interval':
             try:
                 repeat_interval = int(arg)
@@ -102,13 +93,11 @@ def examine_sessions():
     while True:
         current_time = time.time()
         fname_list = os.listdir(directory)
-        aggressive = len(fname_list) > maxfiles
         for fname in fname_list:
             if fname.startswith(prefix):
                 fabsname = os.path.join(directory, fname)
                 try:
-                    if ( (aggressive and os.path.getsize(fabsname) < 1000) or
-                         (current_time - os.path.getmtime(fabsname) > duration) ):
+                    if current_time - os.path.getmtime(fabsname) > duration:
                         os.unlink(fabsname)
                 except OSError:
                     pass
@@ -122,7 +111,6 @@ if __name__ == "__main__":
     prefix = 'sessionid'
     directory = CMBARTER_SESSION_DIR
     duration = 2400.0
-    maxfiles = 50000
     repeat_interval = 0
     parse_args(sys.argv[1:])
 

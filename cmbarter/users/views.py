@@ -29,6 +29,7 @@
 ##
 from __future__ import with_statement
 import random
+import datetime, pytz
 import re, os
 from urllib import urlencode
 from django.conf import settings
@@ -56,10 +57,9 @@ db = curiousorm.Database(settings.CMBARTER_DSN, dictrows=True)
 
 TRADER_ID_STRING = re.compile(r'^[0-9]{1,9}$')
 SSI_HOST = re.compile(br'<!--\s*#echo\s*var="HTTP_HOST"\s*-->')
-GARBAGE = 1000 * ' '
 
 search_limiter = limiter.Limiter(
-    os.path.join(settings.CMBARTER_SESSION_DIR, "cmbarter_search_limiter"),
+    os.path.join(settings.CMBARTER_PROJECT_DIR, "cmbarter_search_limiter"),
     settings.CMBARTER_SEARCH_MAX_PER_SECOND,
     settings.CMBARTER_SEARCH_MAX_BURST)
 
@@ -103,7 +103,7 @@ def login(request, tmpl='login.html'):
             elif authentication['is_valid']:
                 # Log the user in and redirect him to his start-page.
                 trader_id = request.session['trader_id'] = authentication['trader_id']
-                request.session['garbage'] = GARBAGE  # we tell "real" sessions by the size
+                request.session['ts'] = datetime.datetime.now(pytz.utc)
                 if settings.CMBARTER_MAINTAIN_IP_WHITELIST:
                     client_ip = get_client_ip(request)
                     if client_ip:
@@ -150,7 +150,7 @@ def login_captcha(request, tmpl='login_captcha.html'):
                 del request.session['auth_trader_id']
                 db.report_login_captcha_success(trader_id)
                 request.session['trader_id'] = trader_id
-                request.session['garbage'] = GARBAGE
+                request.session['ts'] = datetime.datetime.now(pytz.utc)
                 if settings.CMBARTER_MAINTAIN_IP_WHITELIST:
                     client_ip = get_client_ip(request)
                     if client_ip:
@@ -340,6 +340,7 @@ def signup(request, tmpl='signup.html'):
                     # the IP to the whitelist, and redirect the user
                     # to copmlete his profile.
                     request.session['trader_id'] = trader_id
+                    request.session['ts'] = datetime.datetime.now(pytz.utc)
                     if settings.CMBARTER_MAINTAIN_IP_WHITELIST:
                         client_ip = get_client_ip(request)
                         if client_ip:

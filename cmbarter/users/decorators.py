@@ -49,7 +49,9 @@ import pytz
 
 
 A_TURN_IS_RUNNING = re.compile(r'a turn is running')
-SESSION_TOUCH_INTERVAL = datetime.timedelta(minutes=settings.CMBARTER_SESSION_TOUCH_MINUTES)
+YEAR_1900 = datetime.datetime(1900, 1, 1)
+SII = datetime.timedelta(minutes=settings.CMBARTER_SESSION_INVALIDATION_MINUTES)
+SESSION_TOUCH_INTERVAL = SII // 4
 
 
 class CmbAppError(Exception):
@@ -85,15 +87,13 @@ def logged_in(view):
     @wraps(view)
     def fn(request, trader_id_str, *args, **kargs):
         try:
+            ts = request.session.get('ts', YEAR_1900)
+            now = datetime.datetime.now(pytz.utc)
             trader_id = int(trader_id_str)
-            if trader_id == request.session.get('trader_id'):
-                # Update session's "Last Session Touch Time Stamp" if
-                # necessary.  We need to do this in order to be able
-                # to recognize stale sessions and kill them.
-                lstts = request.session.get('lstts')
-                now = datetime.datetime.now(pytz.utc)
-                if not lstts or lstts + SESSION_TOUCH_INTERVAL <= now:
-                    request.session['lstts'] = now
+            if trader_id == request.session.get('trader_id') and now < ts + SII:
+                # Update session's timestamp if necessary.
+                if now >= ts + SESSION_TOUCH_INTERVAL:
+                    request.session['ts'] = now
 
                 # Render the response with some HTTP-headers added.
                 response = view(request, trader_id, *args, **kargs)
