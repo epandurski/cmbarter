@@ -3,14 +3,16 @@ FROM pypy:2
 # Install the necessary packages:
 RUN pip install Django~=1.11 psycopg2cffi Pillow pytz gunicorn
  
-# Create the directory that will contain application's source files:
-WORKDIR /usr/local/share/cmbarter
-COPY cmbarter cmbarter/
-COPY doc doc/
-COPY static static/
+# Copy the files we need:
+COPY cmbarter /usr/local/share/cmbarter/cmbarter/
+COPY doc /usr/local/share/cmbarter/doc/
+COPY static /usr/local/share/cmbarter/static/
 
 # The volume that will contain django's session files:
 VOLUME /var/tmp/cmbarter
 
-EXPOSE 8000
 CMD ["gunicorn", "-b :8000", "--log-level=warning", "--access-logfile=-", "--error-logfile=-", "cmbarter.wsgi"]
+
+EXPOSE 8000
+
+ENV PYTHONPATH /usr/local/share/cmbarter
