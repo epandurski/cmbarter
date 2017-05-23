@@ -51,7 +51,7 @@ Here are the installation steps that you should perform:
       
 1. Install the *Python 2* versions of the following software packages:
 
-   - *Django* (Versions from 1.4 to 1.11 have been tested; chances are
+   - *Django* (Versions from 1.7 to 1.11 have been tested; chances are
      that newer versions will work too.)
    - *psycopg2* (version 2.3 at least)
    - *Pillow* (or "Python Imaging Library")
@@ -281,7 +281,7 @@ Here are the installation steps that you should perform:
    server. Also, make sure the *Python 2* versions of the following
    software packages are installed:
 
-   - *Django* (Versions from 1.4 to 1.11 have been tested; chances are
+   - *Django* (Versions from 1.7 to 1.11 have been tested; chances are
      that newer versions will work too.)
    - *psycopg2* (version 2.3 at least)
    - *Pillow* (or "Python Imaging Library")
