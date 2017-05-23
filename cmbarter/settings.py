@@ -229,7 +229,7 @@ INSTALLED_APPS = (
 
 FILE_UPLOAD_HANDLERS = ("cmbarter.profiles.forms.PhotographUploadHandler",)
 
-SESSION_ENGINE='django.contrib.sessions.backends.file'
+SESSION_ENGINE='django.contrib.sessions.backends.signed_cookies'
 SESSION_FILE_PATH=CMBARTER_SESSION_DIR
 SESSION_COOKIE_SECURE=False if DEBUG else True
 SESSION_EXPIRE_AT_BROWSER_CLOSE=True

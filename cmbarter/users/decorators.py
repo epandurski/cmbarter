@@ -60,7 +60,7 @@ class CmbAppError(Exception):
 def is_logged_in(session, trader_id):
     ts = session.get('ts', 0.0)
     now = time.time()
-    if trader_id == session.get('trader_id') and now < ts + INVALIDATION_INTERVAL:
+    if trader_id == session.get('trader_id') and abs(now - ts) <  INVALIDATION_INTERVAL:
         # Update session's timestamp if necessary.
         if now >= ts + TOUCH_INTERVAL:
             session['ts'] = now
