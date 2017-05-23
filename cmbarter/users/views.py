@@ -29,7 +29,7 @@
 ##
 from __future__ import with_statement
 import random
-import datetime, pytz
+import time
 import re, os
 from urllib import urlencode
 from django.conf import settings
@@ -98,13 +98,13 @@ def login(request, tmpl='login.html'):
                 request.session['auth_username'] = username
                 request.session['auth_is_valid'] = authentication['is_valid']
                 request.session['auth_trader_id'] = authentication['trader_id']
-                request.session['auth_ts'] = datetime.datetime.now(pytz.utc)
+                request.session['auth_ts'] = time.time()
                 return HttpResponseRedirect(reverse(login_captcha))
 
             elif authentication['is_valid']:
                 # Log the user in and redirect him to his start-page.
                 trader_id = request.session['trader_id'] = authentication['trader_id']
-                request.session['ts'] = datetime.datetime.now(pytz.utc)
+                request.session['ts'] = time.time()
                 if settings.CMBARTER_MAINTAIN_IP_WHITELIST:
                     client_ip = get_client_ip(request)
                     if client_ip:
@@ -343,7 +343,7 @@ def signup(request, tmpl='signup.html'):
                     # the IP to the whitelist, and redirect the user
                     # to copmlete his profile.
                     request.session['trader_id'] = trader_id
-                    request.session['ts'] = datetime.datetime.now(pytz.utc)
+                    request.session['ts'] = time.time()
                     if settings.CMBARTER_MAINTAIN_IP_WHITELIST:
                         client_ip = get_client_ip(request)
                         if client_ip:

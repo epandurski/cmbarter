@@ -28,7 +28,7 @@
 ##
 from __future__ import with_statement
 import re
-import datetime
+import datetime, time
 from random import random
 try:
     from django.urls import reverse
@@ -49,9 +49,8 @@ import pytz
 
 
 A_TURN_IS_RUNNING = re.compile(r'a turn is running')
-YEAR_1900 = datetime.datetime(1900, 1, 1, tzinfo=pytz.utc)
-INVALIDATION_INTERVAL = datetime.timedelta(minutes=settings.CMBARTER_SESSION_INVALIDATION_MINUTES)
-TOUCH_INTERVAL = INVALIDATION_INTERVAL // 4
+INVALIDATION_INTERVAL = 60.0 * settings.CMBARTER_SESSION_INVALIDATION_MINUTES
+TOUCH_INTERVAL = INVALIDATION_INTERVAL / 4
 
 
 class CmbAppError(Exception):
@@ -59,8 +58,8 @@ class CmbAppError(Exception):
 
 
 def is_logged_in(session, trader_id):
-    ts = session.get('ts', YEAR_1900)
-    now = datetime.datetime.now(pytz.utc)
+    ts = session.get('ts', 0.0)
+    now = time.time()
     if trader_id == session.get('trader_id') and now < ts + INVALIDATION_INTERVAL:
         # Update session's timestamp if necessary.
         if now >= ts + TOUCH_INTERVAL:
