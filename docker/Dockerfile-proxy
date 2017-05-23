@@ -3,6 +3,10 @@ COPY doc /usr/share/nginx/html/doc/
 COPY static /usr/share/nginx/html/static/
 COPY webserver/nginx.conf /etc/nginx/nginx.template
 COPY docker/generate_configuration_file.sh /usr/local/bin/
+COPY docker/cert.pem docker/key.pem /etc/nginx/ssl/
+
+# The volume that will contain the SSL certificates:
+VOLUME /etc/nginx/ssl
 
 EXPOSE 80 443
 

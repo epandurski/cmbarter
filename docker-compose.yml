@@ -1,4 +1,4 @@
-version: '3.1'
+version: '2'
 
 services:
   web:
@@ -39,13 +39,10 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile-proxy
-    secrets:
-      - source: ssl_certificate
-        target: cert.pem
-      - source: ssl_certificate_key
-        target: key.pem
     depends_on:
       - web
+    volumes:
+      - certificates-volume:/etc/nginx/ssl
     ports:
       - "80:80"
       - "443:443"
@@ -54,10 +51,4 @@ services:
 volumes:
   data-volume:
   mailqueue-volume:
-
-
-secrets:
-  ssl_certificate:
-    file: ./cert.pem
-  ssl_certificate_key:
-    file: ./key.pem
+  certificates-volume:
