@@ -51,7 +51,7 @@ Here are the installation steps that you should perform:
       
 1. Install the *Python 2* versions of the following software packages:
 
-   - *Django* (Versions from 1.4 to 1.11 have been tested; chances are
+   - *Django* (Versions from 1.7 to 1.11 have been tested; chances are
      that newer versions will work too.)
    - *psycopg2* (version 2.3 at least)
    - *Pillow* (or "Python Imaging Library")
@@ -90,13 +90,6 @@ Here are the installation steps that you should perform:
    
      # chmod og-r /usr/local/share/cmbarter/cmbarter/settings.py
       
-5. Create the directory that will contain django's session files::
-
-     # mkdir /var/tmp/cmbarter
-     # chown cmbarter /var/tmp/cmbarter
-     # chgrp cmbarter /var/tmp/cmbarter
-     # chmod og-rx /var/tmp/cmbarter
-
   
 Web server installation
 ------------------------
@@ -231,9 +224,6 @@ Here are the configuration steps that you should perform:
      0,10,20,30,40,50 * * * * sudo -u cmbarter python /usr/local/share...
        /cmbarter/execute_turn.py
 
-     * * * * * sudo -u cmbarter python /usr/local/share/cmbarter/check...
-       _sessions.py --repeat-interval=5
-
      * * * * * sudo -u cmbarter python /usr/local/share/cmbarter/proce...
        ss_emails.py
    
@@ -291,7 +281,7 @@ Here are the installation steps that you should perform:
    server. Also, make sure the *Python 2* versions of the following
    software packages are installed:
 
-   - *Django* (Versions from 1.4 to 1.11 have been tested; chances are
+   - *Django* (Versions from 1.7 to 1.11 have been tested; chances are
      that newer versions will work too.)
    - *psycopg2* (version 2.3 at least)
    - *Pillow* (or "Python Imaging Library")
@@ -320,11 +310,6 @@ Here are the installation steps that you should perform:
    information::
    
      $ chmod og-r ~/cmbarter/cmbarter/settings.py
-      
-4. Create the directory that will contain django's session files::
-
-     $ mkdir ~/tmp/cmbarter
-     $ chmod og-rx ~/tmp/cmbarter
 
   
 Apache configuration
@@ -413,8 +398,6 @@ Here are the configuration steps that you should perform:
 
      0,10,20,30,40,50 * * * * python ~/cmbarter/execute_turn.py
 
-     * * * * * python ~/cmbarter/check_sessions.py
-
      * * * * * python ~/cmbarter/process_emails.py --smtp='mailserve...
        rname' --smtp-username='noreply@yourdomainname.foo' --smtp-pa...
        ssword='yourpassword'
@@ -488,7 +471,6 @@ these tasks, though.
    random_page_cost*
 
 .. [7] The important commands are: *execute_turn.py,
-   process_emails.py, check_sessions.py, generate_regkeys.py,
-   schedule_turns.py, show_whitelist.py, show_emails.py,
-   set_language.py*. "manage.py" is Django's standard administration
-   tool.
+   process_emails.py, generate_regkeys.py, schedule_turns.py,
+   show_whitelist.py, show_emails.py, set_language.py*. "manage.py" is
+   Django's standard administration tool.

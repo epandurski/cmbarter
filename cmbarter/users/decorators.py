@@ -28,7 +28,7 @@
 ##
 from __future__ import with_statement
 import re
-import datetime
+import datetime, time
 from random import random
 try:
     from django.urls import reverse
@@ -49,11 +49,24 @@ import pytz
 
 
 A_TURN_IS_RUNNING = re.compile(r'a turn is running')
-SESSION_TOUCH_INTERVAL = datetime.timedelta(minutes=settings.CMBARTER_SESSION_TOUCH_MINUTES)
+INVALIDATION_INTERVAL = 60.0 * settings.CMBARTER_SESSION_INVALIDATION_MINUTES
+TOUCH_INTERVAL = INVALIDATION_INTERVAL / 4
 
 
 class CmbAppError(Exception):
     pass
+
+
+def is_logged_in(session, trader_id):
+    ts = session.get('ts', 0.0)
+    now = time.time()
+    if trader_id == session.get('trader_id') and abs(now - ts) <  INVALIDATION_INTERVAL:
+        # Update session's timestamp if necessary.
+        if now >= ts + TOUCH_INTERVAL:
+            session['ts'] = now
+        return True
+    else:
+        return False
 
 
 def report_transaction_cost(db, trader_id, trx_cost):
@@ -86,15 +99,7 @@ def logged_in(view):
     def fn(request, trader_id_str, *args, **kargs):
         try:
             trader_id = int(trader_id_str)
-            if trader_id == request.session.get('trader_id'):
-                # Update session's "Last Session Touch Time Stamp" if
-                # necessary.  We need to do this in order to be able
-                # to recognize stale sessions and kill them.
-                lstts = request.session.get('lstts')
-                now = datetime.datetime.now(pytz.utc)
-                if not lstts or lstts + SESSION_TOUCH_INTERVAL <= now:
-                    request.session['lstts'] = now
-
+            if is_logged_in(request.session, trader_id):
                 # Render the response with some HTTP-headers added.
                 response = view(request, trader_id, *args, **kargs)
                 if 'Cache-Control' not in response:

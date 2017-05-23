@@ -29,7 +29,8 @@
 ##
 from __future__ import with_statement
 import random
-import re, os
+import time
+import re, os, hashlib
 from urllib import urlencode
 from django.conf import settings
 from django.shortcuts import render_to_response
@@ -47,8 +48,10 @@ from django.utils.translation import get_language
 from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.csrf import csrf_protect
 from cmbarter.users import forms
-from cmbarter.users.decorators import logged_in, has_profile, max_age
+from cmbarter.users.decorators import logged_in, has_profile, max_age, is_logged_in
 from cmbarter.modules import curiousorm, utils, captcha, keygen, limiter
+from cmbarter.modules.keygen import CIPHER
+from base64 import b64encode, b64decode
 from pytz import common_timezones
 
 
@@ -56,12 +59,17 @@ db = curiousorm.Database(settings.CMBARTER_DSN, dictrows=True)
 
 TRADER_ID_STRING = re.compile(r'^[0-9]{1,9}$')
 SSI_HOST = re.compile(br'<!--\s*#echo\s*var="HTTP_HOST"\s*-->')
-GARBAGE = 1000 * ' '
 
 search_limiter = limiter.Limiter(
-    os.path.join(settings.CMBARTER_SESSION_DIR, "cmbarter_search_limiter"),
+    os.path.join(settings.CMBARTER_PROJECT_DIR, "cmbarter_search_limiter"),
     settings.CMBARTER_SEARCH_MAX_PER_SECOND,
     settings.CMBARTER_SEARCH_MAX_BURST)
+
+
+_secret = hashlib.md5()
+_secret.update(settings.SECRET_KEY.encode('utf-8'))
+_secret.update(u'and some other text too'.encode('utf-8'))
+cipher = CIPHER.new(_secret.digest(), CIPHER.MODE_ECB)
 
 
 def get_client_ip(request):
@@ -94,16 +102,26 @@ def login(request, tmpl='login.html'):
 
             if (settings.CMBARTER_SHOW_CAPTCHA_ON_REPETITIVE_LOGIN_FAILURE and 
                     authentication['needs_captcha']):
+                # Generate a cryptographic nonce and if authentication
+                # was not valid -- invert its bits. The calculation
+                # should take the same amount of time in both cases.
+                nonce1 = os.urandom(16)
+                a = bytearray(nonce1)
+                modifier = { True: 0, False: 0xff }[authentication['is_valid']]
+                for i in xrange(16):
+                    a[i] ^= modifier
+                nonce2 = bytes(a)
+
                 # Challenge the user with a captcha.
-                request.session['auth_username'] = username
-                request.session['auth_is_valid'] = authentication['is_valid']
-                request.session['auth_trader_id'] = authentication['trader_id']
+                request.session['auth'] = (b64encode(nonce1),
+                                           b64encode(cipher.encrypt(nonce2)),
+                                           authentication['trader_id'], time.time(), username)
                 return HttpResponseRedirect(reverse(login_captcha))
 
             elif authentication['is_valid']:
                 # Log the user in and redirect him to his start-page.
                 trader_id = request.session['trader_id'] = authentication['trader_id']
-                request.session['garbage'] = GARBAGE  # we tell "real" sessions by the size
+                request.session['ts'] = time.time()
                 if settings.CMBARTER_MAINTAIN_IP_WHITELIST:
                     client_ip = get_client_ip(request)
                     if client_ip:
@@ -142,27 +160,31 @@ def login_captcha(request, tmpl='login_captcha.html'):
         captcha_error = captcha_response.error_code
 
         if captcha_response.is_valid:
-            if request.session.get('auth_is_valid'):
+            auth = request.session.get('auth')
+            if auth:
+                nonce, encrypted, trader_id, ts, username = auth
+                auth_is_valid = cipher.decrypt(b64decode(encrypted)) == b64decode(nonce)
+            else:
+                username = u''
+                auth_is_valid = False
+
+            if auth_is_valid:
                 # a successful login
-                trader_id = request.session['auth_trader_id']
-                del request.session['auth_username']
-                del request.session['auth_is_valid']
-                del request.session['auth_trader_id']
+                del request.session['auth']
                 db.report_login_captcha_success(trader_id)
                 request.session['trader_id'] = trader_id
-                request.session['garbage'] = GARBAGE
+                request.session['ts'] = ts
                 if settings.CMBARTER_MAINTAIN_IP_WHITELIST:
                     client_ip = get_client_ip(request)
                     if client_ip:
                         db.insert_whitelist_entry(trader_id, client_ip)
                 return HttpResponseRedirect(reverse(
                     'profiles-check-email', args=[trader_id]))
-
             else:
                 # an incorrect login
                 return HttpResponseRedirect("%s?%s" % (
                     reverse(login),
-                    urlencode({'username': request.session.get('auth_username', u'') })))
+                    urlencode({'username': username })))
                 
     # Render everything adding CSRF protection.
     c = {'settings': settings, 'captcha_error': captcha_error }
@@ -237,7 +259,7 @@ def show_about(request, tmpl='about.html'):
 def show_trader(request, trader_id_str):
     trader_id = int(trader_id_str)
 
-    if 'trader_id' in request.session:
+    if is_logged_in(request.session, request.session.get('trader_id')):
         return HttpResponseRedirect(reverse(
             'products-partner-pricelist',
             args=[request.session['trader_id'], trader_id]))
@@ -340,6 +362,7 @@ def signup(request, tmpl='signup.html'):
                     # the IP to the whitelist, and redirect the user
                     # to copmlete his profile.
                     request.session['trader_id'] = trader_id
+                    request.session['ts'] = time.time()
                     if settings.CMBARTER_MAINTAIN_IP_WHITELIST:
                         client_ip = get_client_ip(request)
                         if client_ip:

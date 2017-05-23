@@ -12,7 +12,6 @@ def run(cmd):
 counter = 0
 while True:
     time.sleep(60)
-    run("check_sessions.py")
     run("process_emails.py")
     if counter % 10 == 0:
         run(["pypy", "/usr/local/bin/execute_turn.py"])

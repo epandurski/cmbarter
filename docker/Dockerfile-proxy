@@ -3,6 +3,10 @@ COPY doc /usr/share/nginx/html/doc/
 COPY static /usr/share/nginx/html/static/
 COPY webserver/nginx.conf /etc/nginx/nginx.template
 COPY docker/generate_configuration_file.sh /usr/local/bin/
+COPY docker/cert.pem docker/key.pem /etc/nginx/ssl/
+
+# The volume that will contain the SSL certificates:
+VOLUME /etc/nginx/ssl
 
 EXPOSE 80 443
 
@@ -10,5 +14,11 @@ ENTRYPOINT ["generate_configuration_file.sh"]
 
 CMD ["nginx", "-g", "daemon off;"]
 
+################################################################################
+
+# Set this to the name and the port of the web server to which the
+# requests will be forwarded.
 ENV PROXY_PASS_TO web:8000
+
+# Set this to your site domain name.
 ENV CMBARTER_HOST localhost

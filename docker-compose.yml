@@ -1,4 +1,4 @@
-version: '3.1'
+version: '2'
 
 services:
   web:
@@ -8,10 +8,7 @@ services:
       dockerfile: docker/Dockerfile-web
     depends_on:
       - db
-    volumes:
-      - sessions-volume:/var/tmp/cmbarter
-    env_file: docker-compose.config
-      
+
   db:
     image: epandurski/cmbarter:1-db
     build:
@@ -36,22 +33,16 @@ services:
     depends_on:
       - db
       - mail
-    volumes:
-      - sessions-volume:/var/tmp/cmbarter
-    env_file: docker-compose.config
 
   proxy:
     image: epandurski/cmbarter:proxy
     build:
       context: .
       dockerfile: docker/Dockerfile-proxy
-    secrets:
-      - source: ssl_certificate
-        target: cert.pem
-      - source: ssl_certificate_key
-        target: key.pem
     depends_on:
       - web
+    volumes:
+      - certificates-volume:/etc/nginx/ssl
     ports:
       - "80:80"
       - "443:443"
@@ -59,12 +50,5 @@ services:
 
 volumes:
   data-volume:
-  sessions-volume:
   mailqueue-volume:
-
-
-secrets:
-  ssl_certificate:
-    file: ./cert.pem
-  ssl_certificate_key:
-    file: ./key.pem
+  certificates-volume:

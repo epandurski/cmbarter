@@ -22,10 +22,6 @@ CONFIG = {
     # Make this unique, and don't share it with anybody.
     'CMBARTER_SECRET_KEY' : 'vjgz%^^7f6-=#%f&5y8qw2ous-l6zz!h+rkpzmxx(ozp%^xeb)',
     
-    # This should point to a writable directory that will contain django's
-    # session files.
-    'CMBARTER_SESSION_DIR' : '/var/tmp/cmbarter',
-    
     # This should point to a page telling more about you.
     'CMBARTER_ABOUT_US_URL' : 'https://sourceforge.net/projects/cmb/',
     
@@ -84,7 +80,7 @@ CONFIG = {
     'CMBARTER_INSERT_BIDI_MARKS' : False ,
     'CMBARTER_HOST_IS_SPAM_LISTED' : False,
     'CMBARTER_HISTORY_HORISON_DAYS' : 26,
-    'CMBARTER_SESSION_TOUCH_MINUTES' : 10,
+    'CMBARTER_SESSION_INVALIDATION_MINUTES' : 60,
     'CMBARTER_PRICE_PREFIXES' : set([u'', u'$', u'\u00A3', u'\u20AC']),
     'CMBARTER_PRICE_SUFFIXES' : set([u'', u'\u20AC', u'ЛВ', u'ЛВ.']),
     'CMBARTER_TRX_COST_QUOTA' : 50000.0,
@@ -229,9 +225,7 @@ INSTALLED_APPS = (
 
 FILE_UPLOAD_HANDLERS = ("cmbarter.profiles.forms.PhotographUploadHandler",)
 
-SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
-SESSION_ENGINE='django.contrib.sessions.backends.file'
-SESSION_FILE_PATH=CMBARTER_SESSION_DIR
+SESSION_ENGINE='django.contrib.sessions.backends.signed_cookies'
 SESSION_COOKIE_SECURE=False if DEBUG else True
 SESSION_EXPIRE_AT_BROWSER_CLOSE=True
 SESSION_COOKIE_DOMAIN=None
