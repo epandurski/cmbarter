@@ -229,7 +229,6 @@ INSTALLED_APPS = (
 
 FILE_UPLOAD_HANDLERS = ("cmbarter.profiles.forms.PhotographUploadHandler",)
 
-SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 SESSION_ENGINE='django.contrib.sessions.backends.file'
 SESSION_FILE_PATH=CMBARTER_SESSION_DIR
 SESSION_COOKIE_SECURE=False if DEBUG else True
