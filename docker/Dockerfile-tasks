@@ -19,9 +19,6 @@ COPY execute_turn.py \
      docker/repeat_esential_tasks.py \
      /usr/local/bin/
 
-# The volume that will contain django's session files:
-VOLUME /var/tmp/cmbarter
-
 STOPSIGNAL SIGINT
 
 CMD ["repeat_esential_tasks.py"]

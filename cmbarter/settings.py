@@ -22,10 +22,6 @@ CONFIG = {
     # Make this unique, and don't share it with anybody.
     'CMBARTER_SECRET_KEY' : 'vjgz%^^7f6-=#%f&5y8qw2ous-l6zz!h+rkpzmxx(ozp%^xeb)',
     
-    # This should point to a writable directory that will contain django's
-    # session files.
-    'CMBARTER_SESSION_DIR' : '/var/tmp/cmbarter',
-    
     # This should point to a page telling more about you.
     'CMBARTER_ABOUT_US_URL' : 'https://sourceforge.net/projects/cmb/',
     
@@ -230,7 +226,6 @@ INSTALLED_APPS = (
 FILE_UPLOAD_HANDLERS = ("cmbarter.profiles.forms.PhotographUploadHandler",)
 
 SESSION_ENGINE='django.contrib.sessions.backends.signed_cookies'
-SESSION_FILE_PATH=CMBARTER_SESSION_DIR
 SESSION_COOKIE_SECURE=False if DEBUG else True
 SESSION_EXPIRE_AT_BROWSER_CLOSE=True
 SESSION_COOKIE_DOMAIN=None

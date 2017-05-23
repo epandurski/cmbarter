@@ -90,13 +90,6 @@ Here are the installation steps that you should perform:
    
      # chmod og-r /usr/local/share/cmbarter/cmbarter/settings.py
       
-5. Create the directory that will contain django's session files::
-
-     # mkdir /var/tmp/cmbarter
-     # chown cmbarter /var/tmp/cmbarter
-     # chgrp cmbarter /var/tmp/cmbarter
-     # chmod og-rx /var/tmp/cmbarter
-
   
 Web server installation
 ------------------------
@@ -317,11 +310,6 @@ Here are the installation steps that you should perform:
    information::
    
      $ chmod og-r ~/cmbarter/cmbarter/settings.py
-      
-4. Create the directory that will contain django's session files::
-
-     $ mkdir ~/tmp/cmbarter
-     $ chmod og-rx ~/tmp/cmbarter
 
   
 Apache configuration

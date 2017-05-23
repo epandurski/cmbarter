@@ -8,9 +8,6 @@ COPY cmbarter /usr/local/share/cmbarter/cmbarter/
 COPY doc /usr/local/share/cmbarter/doc/
 COPY static /usr/local/share/cmbarter/static/
 
-# The volume that will contain django's session files:
-VOLUME /var/tmp/cmbarter
-
 CMD ["gunicorn", "-b :8000", "--log-level=warning", "--access-logfile=-", "--error-logfile=-", "cmbarter.wsgi"]
 
 EXPOSE 8000

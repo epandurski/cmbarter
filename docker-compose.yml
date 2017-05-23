@@ -8,8 +8,6 @@ services:
       dockerfile: docker/Dockerfile-web
     depends_on:
       - db
-    volumes:
-      - sessions-volume:/var/tmp/cmbarter
     env_file: docker-compose.config
       
   db:
@@ -36,8 +34,6 @@ services:
     depends_on:
       - db
       - mail
-    volumes:
-      - sessions-volume:/var/tmp/cmbarter
     env_file: docker-compose.config
 
   proxy:
@@ -59,7 +55,6 @@ services:
 
 volumes:
   data-volume:
-  sessions-volume:
   mailqueue-volume:
 
 
