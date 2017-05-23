@@ -95,10 +95,8 @@ def login(request, tmpl='login.html'):
             if (settings.CMBARTER_SHOW_CAPTCHA_ON_REPETITIVE_LOGIN_FAILURE and 
                     authentication['needs_captcha']):
                 # Challenge the user with a captcha.
-                request.session['auth_username'] = username
-                request.session['auth_is_valid'] = authentication['is_valid']
-                request.session['auth_trader_id'] = authentication['trader_id']
-                request.session['auth_ts'] = time.time()
+                request.session['auth'] = (authentication['is_valid'],
+                                           authentication['trader_id'], time.time(), username)
                 return HttpResponseRedirect(reverse(login_captcha))
 
             elif authentication['is_valid']:
@@ -142,15 +140,11 @@ def login_captcha(request, tmpl='login_captcha.html'):
             request.META['REMOTE_ADDR'])
         captcha_error = captcha_response.error_code
 
+        auth_is_valid, trader_id, ts, username = request.session.get('auth', (False, None, None, u''))
         if captcha_response.is_valid:
-            if request.session.get('auth_is_valid'):
+            if auth_is_valid:
                 # a successful login
-                trader_id = request.session['auth_trader_id']
-                ts = request.session['auth_ts']
-                del request.session['auth_username']
-                del request.session['auth_is_valid']
-                del request.session['auth_trader_id']
-                del request.session['auth_ts']
+                del request.session['auth']
                 db.report_login_captcha_success(trader_id)
                 request.session['trader_id'] = trader_id
                 request.session['ts'] = ts
@@ -165,7 +159,7 @@ def login_captcha(request, tmpl='login_captcha.html'):
                 # an incorrect login
                 return HttpResponseRedirect("%s?%s" % (
                     reverse(login),
-                    urlencode({'username': request.session.get('auth_username', u'') })))
+                    urlencode({'username': username })))
                 
     # Render everything adding CSRF protection.
     c = {'settings': settings, 'captcha_error': captcha_error }
