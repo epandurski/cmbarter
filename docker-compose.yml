@@ -8,8 +8,7 @@ services:
       dockerfile: docker/Dockerfile-web
     depends_on:
       - db
-    env_file: docker-compose.config
-      
+
   db:
     image: epandurski/cmbarter:1-db
     build:
@@ -34,7 +33,6 @@ services:
     depends_on:
       - db
       - mail
-    env_file: docker-compose.config
 
   proxy:
     image: epandurski/cmbarter:proxy

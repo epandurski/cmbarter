@@ -10,4 +10,8 @@ COPY pgsql/views.sql /docker-entrypoint-initdb.d/3-views.sql
 COPY pgsql/sprocs.sql /docker-entrypoint-initdb.d/4-sprocs.sql
 
 ENV POSTGRES_DB cmbarter
+
+################################################################################
+
+# Set this to the password for the user "postgres".
 ENV POSTGRES_PASSWORD mysecretpassword

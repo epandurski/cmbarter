@@ -24,5 +24,14 @@ STOPSIGNAL SIGINT
 CMD ["repeat_esential_tasks.py"]
 
 ENV PYTHONPATH /usr/local/share/cmbarter
+
+################################################################################
+
+# Set this to the name of the outgoing mail server.
 ENV SMTP_HOST mail
+
+# Set this to your site domain name.
+ENV CMBARTER_HOST localhost
+
+# Set this to the PostgreSQL database connection string.
 ENV CMBARTER_DSN host=db dbname=cmbarter user=postgres password=mysecretpassword
