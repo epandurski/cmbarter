@@ -231,9 +231,6 @@ Here are the configuration steps that you should perform:
      0,10,20,30,40,50 * * * * sudo -u cmbarter python /usr/local/share...
        /cmbarter/execute_turn.py
 
-     * * * * * sudo -u cmbarter python /usr/local/share/cmbarter/check...
-       _sessions.py --repeat-interval=5
-
      * * * * * sudo -u cmbarter python /usr/local/share/cmbarter/proce...
        ss_emails.py
    
@@ -413,8 +410,6 @@ Here are the configuration steps that you should perform:
 
      0,10,20,30,40,50 * * * * python ~/cmbarter/execute_turn.py
 
-     * * * * * python ~/cmbarter/check_sessions.py
-
      * * * * * python ~/cmbarter/process_emails.py --smtp='mailserve...
        rname' --smtp-username='noreply@yourdomainname.foo' --smtp-pa...
        ssword='yourpassword'
@@ -488,7 +483,6 @@ these tasks, though.
    random_page_cost*
 
 .. [7] The important commands are: *execute_turn.py,
-   process_emails.py, check_sessions.py, generate_regkeys.py,
-   schedule_turns.py, show_whitelist.py, show_emails.py,
-   set_language.py*. "manage.py" is Django's standard administration
-   tool.
+   process_emails.py, generate_regkeys.py, schedule_turns.py,
+   show_whitelist.py, show_emails.py, set_language.py*. "manage.py" is
+   Django's standard administration tool.
