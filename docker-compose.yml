@@ -80,6 +80,12 @@ services:
     environment:
       # Set this to your site domain name.
       CMBARTER_HOST: 'localhost'
+      
+      # This variable must have the same value as its counterpart in
+      # the "web" service configuration. This applies to
+      # "CMBARTER_DSN" and "CMBARTER_REGISTRATION_KEY_PREFIX" as well,
+      # if you decide to set them in the "web" service configuration.
+      CMBARTER_SECRET_KEY: 'your secret key'
 
 
 volumes:
