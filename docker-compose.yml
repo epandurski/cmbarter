@@ -1,0 +1,54 @@
+version: '3'
+
+services:
+  web:
+    image: epandurski/cmbarter:1.15-web
+    build:
+      context: .
+      dockerfile: docker/Dockerfile-web
+    depends_on:
+      - db
+      - tasks
+
+  db:
+    image: epandurski/cmbarter:1-db
+    build:
+      context: .
+      dockerfile: docker/Dockerfile-db
+    volumes:
+      - data-volume:/var/lib/postgresql/data
+    deploy:
+      mode: global
+      
+  mail:
+    image: epandurski/cmbarter:mail
+    build:
+      context: .
+      dockerfile: docker/Dockerfile-mail
+    volumes:
+      - mailqueue-volume:/var/spool/exim4
+
+  tasks:
+    image: epandurski/cmbarter:1.15-tasks
+    build:
+      context: .
+      dockerfile: docker/Dockerfile-tasks
+    depends_on:
+      - db
+      - mail
+
+  proxy:
+    image: epandurski/cmbarter:proxy
+    build:
+      context: .
+      dockerfile: docker/Dockerfile-proxy
+    depends_on:
+      - web
+    ports:
+      - "80:80"
+      - "443:443"
+
+
+volumes:
+  data-volume:
+  mailqueue-volume:

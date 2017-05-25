@@ -1,3 +1,7 @@
+June 3th, 2017
+v1.15 -- Added support for Docker.
+      -- Uses cookie-based sessions instead of file-based sessions.
+
 September 12th, 2016
 v1.14 -- Fixed issues with supporting Django 1.10.
 

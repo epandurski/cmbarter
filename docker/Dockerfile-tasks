@@ -1,0 +1,37 @@
+FROM pypy:2
+
+# Install the necessary packages:
+RUN pip install pytz psycopg2cffi
+RUN apt-get update && apt-get install -y \
+    python-psycopg2 \
+    python-tz \
+ && rm -rf /var/lib/apt/lists/*
+ 
+# Copy the files we need:
+COPY cmbarter /usr/local/share/cmbarter/cmbarter/
+COPY execute_turn.py \
+     generate_regkeys.py \
+     process_emails.py \
+     schedule_turns.py \
+     show_emails.py \
+     show_whitelist.py \
+     set_language.py \
+     docker/repeat_esential_tasks.py \
+     /usr/local/bin/
+
+STOPSIGNAL SIGINT
+
+CMD ["repeat_esential_tasks.py"]
+
+ENV PYTHONPATH /usr/local/share/cmbarter
+
+################################################################################
+
+# Set this to the name of the outgoing mail server.
+ENV SMTP_HOST mail
+
+# Set this to your site domain name.
+ENV CMBARTER_HOST localhost
+
+# Set this to the PostgreSQL database connection string.
+ENV CMBARTER_DSN host=db dbname=cmbarter user=postgres password=mysecretpassword

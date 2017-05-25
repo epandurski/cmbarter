@@ -13,12 +13,17 @@ Circular Multilateral Barter Installation Guide
    :depth: 2
 
 
+Installation with Docker
+============================
+
+Read the instructions at `Docker Hub <https://hub.docker.com/r/epandurski/cmbarter/>`_.
+
 
    
 Installation on a dedicated server
 ===================================
 
-Using a dedicated server (or servers) is the preferred way of
+Using a dedicated server (or a virtual one) is the preferred way of
 installing *Circular Multilateral Barter* (CMB). This method gives the
 maximum amount of control, flexibility, and privacy. It is the
 recommended approach in all cases where maintaining dedicated
@@ -29,11 +34,11 @@ source code in your */usr/local/share/* directory::
 
   # cd /usr/local/share/
   # wget http://sourceforge.net/projects/cmb/files/tarballs/\
-  cmbarter-1.14.tar.gz/download -O cmbarter-1.14.tar.gz
+  cmbarter-1.15.tar.gz/download -O cmbarter-1.14.tar.gz
   ...
 
-  # tar -xzf cmbarter-1.14.tar.gz 
-  # mv cmbarter-1.14 cmbarter
+  # tar -xzf cmbarter-1.15.tar.gz 
+  # mv cmbarter-1.15 cmbarter
 
 Also, make sure a *Python 2.7* interpreter is installed on your
 server.
@@ -46,7 +51,7 @@ Here are the installation steps that you should perform:
       
 1. Install the *Python 2* versions of the following software packages:
 
-   - *Django* (Versions from 1.4 to 1.10 have been tested; chances are
+   - *Django* (Versions from 1.7 to 1.11 have been tested; chances are
      that newer versions will work too.)
    - *psycopg2* (version 2.3 at least)
    - *Pillow* (or "Python Imaging Library")
@@ -85,13 +90,6 @@ Here are the installation steps that you should perform:
    
      # chmod og-r /usr/local/share/cmbarter/cmbarter/settings.py
       
-5. Create the directory that will contain django's session files::
-
-     # mkdir /var/tmp/cmbarter
-     # chown cmbarter /var/tmp/cmbarter
-     # chgrp cmbarter /var/tmp/cmbarter
-     # chmod og-rx /var/tmp/cmbarter
-
   
 Web server installation
 ------------------------
@@ -135,7 +133,7 @@ Here are the installation steps that you should perform:
 4. Obtain a proper SSL certificate for your server.
 
 5. Use the prototype configuration in
-   */usr/local/share/cmbarter/apache/httpd.conf* to configure your
+   */usr/local/share/cmbarter/webserver/httpd.conf* to configure your
    Apache. Notice that you will have to make some changes to the
    prototype configuration in order to adapt it to your specific
    setup. In particular, do not forget to replace "yourdomainname.foo"
@@ -207,36 +205,9 @@ Here are the installation steps that you should perform:
      cmbarter=> \i sprocs.sql
      ...
                 
-4. If your users' primary language is other than English, you should
-   create a new default text-search configuration for that
-   language. (The out-of-the-box configuration works well for
-   English.)
-   
-   For example, to create a default text-search configuration for
-   Bulgarian, you should extract the file
-   */usr/local/share/cmbarter/pgsql/tsearch_data/bulgarian.tar.gz* and
-   copy its content to your PostgreSQL "tsearch_data" directory. Then
-   you should execute the following commands in *psql*::
-   
-     CREATE TEXT SEARCH DICTIONARY bulgarian_ispell (
-       TEMPLATE = ispell,
-       DICTFILE = bulgarian,
-       AFFFILE = bulgarian,
-       STOPWORDS = bulgarian
-     );
-
-     CREATE TEXT SEARCH CONFIGURATION public.bulgarian (
-       COPY = pg_catalog.russian
-     );
-
-     ALTER TEXT SEARCH CONFIGURATION bulgarian
-       ALTER MAPPING FOR word, hword, hword_part
-       WITH bulgarian_ispell, simple;
-
-     ALTER DATABASE cmbarter 
-       SET default_text_search_config TO 'public.bulgarian';
-          
-   See PostgreSQL's documentation for more info.
+4. If your users' primary language is other than English, you can use
+   the *set_language.py* script to create a new default text-search
+   configuration for that language.
  
 
 Application configuration
@@ -252,9 +223,6 @@ Here are the configuration steps that you should perform:
 
      0,10,20,30,40,50 * * * * sudo -u cmbarter python /usr/local/share...
        /cmbarter/execute_turn.py
-
-     * * * * * sudo -u cmbarter python /usr/local/share/cmbarter/check...
-       _sessions.py --repeat-interval=5
 
      * * * * * sudo -u cmbarter python /usr/local/share/cmbarter/proce...
        ss_emails.py
@@ -313,7 +281,7 @@ Here are the installation steps that you should perform:
    server. Also, make sure the *Python 2* versions of the following
    software packages are installed:
 
-   - *Django* (Versions from 1.4 to 1.10 have been tested; chances are
+   - *Django* (Versions from 1.7 to 1.11 have been tested; chances are
      that newer versions will work too.)
    - *psycopg2* (version 2.3 at least)
    - *Pillow* (or "Python Imaging Library")
@@ -332,21 +300,16 @@ Here are the installation steps that you should perform:
 
      $ cd ~
      $ wget http://sourceforge.net/projects/cmb/files/tarballs/\
-     cmbarter-1.14.tar.gz/download -O cmbarter-1.14.tar.gz
+     cmbarter-1.15.tar.gz/download -O cmbarter-1.14.tar.gz
      ...
 
-     $ tar -xzf cmbarter-1.14.tar.gz 
-     $ mv cmbarter-1.14 cmbarter
+     $ tar -xzf cmbarter-1.15.tar.gz 
+     $ mv cmbarter-1.15 cmbarter
 
 3. Restrict access to those source files that may contain sensitive
    information::
    
      $ chmod og-r ~/cmbarter/cmbarter/settings.py
-      
-4. Create the directory that will contain django's session files::
-
-     $ mkdir ~/tmp/cmbarter
-     $ chmod og-rx ~/tmp/cmbarter
 
   
 Apache configuration
@@ -364,10 +327,10 @@ Here are the configuration steps that you should perform:
      $ ln -s ~/cmbarter/static/ ~/public_html/static
      $ ln -s ~/cmbarter/doc/ ~/public_html/doc
 
-3. Copy *~/cmbarter/apache/cmbarter.fcgi* to your web root
+3. Copy *~/cmbarter/webserver/cmbarter.fcgi* to your web root
    directory. Make sure it is executable. For example::
 
-     $ cp ~/cmbarter/apache/cmbarter.fcgi ~/public_html/
+     $ cp ~/cmbarter/webserver/cmbarter.fcgi ~/public_html/
      $ chmod a+x ~/public_html/cmbarter.fcgi
 
    You will need to make some changes in the newly created
@@ -375,10 +338,10 @@ Here are the configuration steps that you should perform:
    setup. Do not forget to replace "yourusername" with your real
    username.
 
-4. Add the content of *~/cmbarter/apache/htaccess* to your *.htaccess*
+4. Add the content of *~/cmbarter/webserver/htaccess* to your *.htaccess*
    file in the web root directory. For example::
 
-     $ cat ~/cmbarter/apache/htaccess >> ~/public_html/.htaccess
+     $ cat ~/cmbarter/webserver/htaccess >> ~/public_html/.htaccess
 
    You will need to make some changes in the *.htaccess* file in order
    to adapt it to your specific setup. Do not forget to replace
@@ -434,8 +397,6 @@ Here are the configuration steps that you should perform:
 2. Add the following lines to your *cron* jobs::
 
      0,10,20,30,40,50 * * * * python ~/cmbarter/execute_turn.py
-
-     * * * * * python ~/cmbarter/check_sessions.py
 
      * * * * * python ~/cmbarter/process_emails.py --smtp='mailserve...
        rname' --smtp-username='noreply@yourdomainname.foo' --smtp-pa...
@@ -510,6 +471,6 @@ these tasks, though.
    random_page_cost*
 
 .. [7] The important commands are: *execute_turn.py,
-   process_emails.py, check_sessions.py, generate_regkeys.py,
-   schedule_turns.py, show_whitelist.py, show_emails.py*. "manage.py"
-   is Django's standard administration tool.
+   process_emails.py, generate_regkeys.py, schedule_turns.py,
+   show_whitelist.py, show_emails.py, set_language.py*. "manage.py" is
+   Django's standard administration tool.

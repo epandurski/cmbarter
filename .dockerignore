@@ -1,3 +1,5 @@
+.git/**
+gimpfiles/**
 py2venv/**
 *.log
 *.pot
