@@ -3,6 +3,22 @@ import os
 import os.path
 import socket
 
+def dedupe(l):
+    l1 = sorted(l)
+    l2 = []
+    prev = object()
+    for curr in l1:
+        if curr != prev:
+            l2.append(curr)
+        prev = curr
+    return l2
+
+def hosts(*args):
+    lst = []
+    for host in args:
+        lst.extend([x[4][0] for x in socket.getaddrinfo(host, None)])
+    return dedupe(lst)
+
 #############################################################
 ##   Circular Multilateral Barter Application Settings:    ##
 #############################################################
@@ -66,13 +82,14 @@ CONFIG = {
     
     # By default, CMB is configured to maintain a whitelist of "good" IP
     # addresses. This auto-generated whitelist can be used to configure
-    # your firewall to protect your web-servers from DoS attacks (see the
-    # "show_whitelist.py" command-line tool).
-    # To be able to reliably determine the IP addresses of your clients,
-    # CMB should know the IP address(es) of the reverse proxy server(s) in
-    # your network.
-    # If you use reverse proxy servers, list their IPs here.
-    'CMBARTER_REVERSE_PROXIES' : ['127.0.0.1', '::1'],
+    # your firewall to protect your web-servers from DoS attacks. To be
+    # able to reliably determine the IP addresses of your clients, CMB
+    # should know the IP address(es) of all reverse proxy servers in your
+    # network. Normally, here you should substitute 'localhost' with the
+    # name or the IP of your reverse-proxy server. If you have more than
+    # one reverse-proxy in your network, you should pass them all like
+    # this: hosts('proxy1', 'proxy2', 'proxy3')
+    'CMBARTER_REVERSE_PROXIES' : hosts('localhost'),
     
     # Usually, you do not need to change anything bellow this line.
     'CMBARTER_MAINTAIN_IP_WHITELIST' : True,
@@ -94,18 +111,12 @@ CONFIG = {
     'CMBARTER_DEV_STATIC_ROOT' : os.path.join(os.path.dirname(__file__), '../static'),
 }    
 
-def ip_addresses(hostname):
-    try:
-        return socket.gethostbyname_ex(hostname)[2]
-    except socket.gaierror:
-        return []
-
 for (key, defalut) in CONFIG.iteritems():
     v = os.environ.get(key)
     if v is None:
         v = defalut
     elif defalut.__class__ is not str:
-        v = eval(v, {'ip_addresses': ip_addresses})
+        v = eval(v, {'hosts': hosts})
     locals()[key] = v
 
 
