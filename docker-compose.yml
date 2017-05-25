@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 
 services:
   web:
@@ -17,6 +17,8 @@ services:
       dockerfile: docker/Dockerfile-db
     volumes:
       - data-volume:/var/lib/postgresql/data
+    deploy:
+      mode: global
       
   mail:
     image: epandurski/cmbarter:mail
@@ -43,7 +45,7 @@ services:
     depends_on:
       - web
     volumes:
-      - certificates-volume:/etc/nginx/ssl
+      - certificate-volume:/etc/nginx/ssl
     ports:
       - "80:80"
       - "443:443"
@@ -52,4 +54,4 @@ services:
 volumes:
   data-volume:
   mailqueue-volume:
-  certificates-volume:
+  certificate-volume:
