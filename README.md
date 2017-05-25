@@ -40,3 +40,6 @@ Features:
 
 * Convenient to use on smartphones. Works even on very old phones (WAP
   2.0).
+
+The easiest way to install CMB is from
+[the docker images](https://hub.docker.com/r/epandurski/cmbarter/).
