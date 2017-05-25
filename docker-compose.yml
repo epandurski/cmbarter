@@ -9,6 +9,13 @@ services:
     depends_on:
       - db
       - tasks
+    environment:
+      WEB_CONCURRENCY: 1
+      CMBARTER_HOST: 'localhost'
+      CMBARTER_SECRET_KEY: 'your secret key'
+      CMBARTER_RECAPTCHA_PUBLIC_KEY: '6Ledx7wSAAAAAICFw8vB-2ghpDjzGogPRi6-3FCr'
+      CMBARTER_RECAPTCHA_PIVATE_KEY: '6Ledx7wSAAAAAEskQ7Mbi-oqneHDSFVUkxGitn_y'
+      CMBARTER_ABOUT_US_URL: 'https://sourceforge.net/projects/cmb/'
 
   db:
     image: epandurski/cmbarter:1-db
@@ -36,6 +43,8 @@ services:
     depends_on:
       - db
       - mail
+    environment:
+      CMBARTER_HOST: 'localhost'
 
   proxy:
     image: epandurski/cmbarter:proxy
@@ -47,6 +56,8 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    environment:
+      CMBARTER_HOST: 'localhost'
 
 
 volumes:
