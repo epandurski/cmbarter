@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cmbarter-1.15\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-12 22:29+0300\n"
+"POT-Creation-Date: 2017-05-25 17:00+0300\n"
 "PO-Revision-Date: 2013-09-28 01:32+0300\n"
 "Last-Translator: Evgeni Pandurski <epandurski@gmail.com>\n"
 "Language-Team: Bulgarian <epandurski@gmail.com>\n"
@@ -373,7 +373,7 @@ msgstr "Тема"
 msgid "Write your message here"
 msgstr "Напишете тук вашето съобщение"
 
-#: profiles/views.py:174 users/views.py:383
+#: profiles/views.py:174 users/views.py:406
 msgid "Select your time zone"
 msgstr "Изберете вашата часова зона"
 
