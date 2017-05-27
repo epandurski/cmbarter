@@ -36,3 +36,16 @@ ENV CMBARTER_HOST localhost
 
 # Set this to the PostgreSQL database connection string.
 ENV CMBARTER_DSN host=db dbname=cmbarter user=postgres password=mysecretpassword
+
+# The minimum cycle value (MCV) is the monetary value below which a
+# trading cycle is considered not worthy of being executed. Bigger
+# MCVs may speed up the execution of trading turns, but too big MCVs
+# may miss worthy deals. "TRIVIAL_DECIMAL_DIGITS" controls how big the
+# minimum cycle value should be:
+#  0  =>  MCV=0.01
+#  1  =>  MCV=0.1
+#  2  =>  MCV=1
+#  3  =>  MCV=10
+#  4  =>  MCV=100
+# and so forth...
+ENV TRIVIAL_DECIMAL_DIGITS 0

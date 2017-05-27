@@ -48,18 +48,19 @@ Executes a trading turn if the time has come.
          Give explicitly the database source name.
 
   --level=INTEGER
-         Set the order of magnitude of the MTV.
+         Controls how big the MCV should be.
 
-         MTV stands for "Minimum Transferable Value".  It is the value
-         under which a trading cycle will not be considered worth it
-         being executed.
+         MCV stands for "Minimum Cycle Value". It is the monetary
+         value below which a trading cycle is considered not worthy of
+         being executed. Bigger MCVs may speed up the execution of
+         trading turns, but too big MCVs may miss worthy deals.
 
          Typical values:
-         --level=0 (MTV=0.01 the default)
-         --level=1 (MTV=0.1)
-         --level=2 (MTV=1)
-         --level=3 (MTV=10)
-         --level=4 (MTV=100)
+         --level=0 (MCV=0.01 the default)
+         --level=1 (MCV=0.1)
+         --level=2 (MCV=1)
+         --level=3 (MCV=10)
+         --level=4 (MCV=100)
                                
 Example:
   $ ./execute_turn.py -n --level=3
