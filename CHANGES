@@ -1,6 +1,7 @@
-XXX YYth, 2017
+May 30th, 2017
 v1.16.0 -- Support for different password hashing methods.
         -- Minor change in the database schema.
+        -- Improved docker compose file.
         -- Adopted semantic versioning scheme.
 
            In the future if the database schema is changed, or other
