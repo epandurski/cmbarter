@@ -5,6 +5,7 @@ RUN pip install pytz psycopg2cffi
 RUN apt-get update && apt-get install -y \
     python-psycopg2 \
     python-tz \
+    postgresql-client \
  && rm -rf /var/lib/apt/lists/*
  
 # Copy the files we need:
