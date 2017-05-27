@@ -1,4 +1,4 @@
-version: '3'
+version: '3.1'
 
 services:
   web:
@@ -44,17 +44,17 @@ services:
       CMBARTER_REGISTRATION_KEY_PREFIX: ${CMBARTER_REGISTRATION_KEY_PREFIX}
 
   proxy:
-    # This image uses a self-signed SSL certificate. You will need to
-    # overwrite /etc/nginx/ssl/cert.pem and /etc/nginx/ssl/key.pem
-    # with a proper certificate and a private key. Then create an
-    # updated image.
-    
     image: epandurski/cmbarter:1.16-proxy
     build:
       context: .
       dockerfile: docker/Dockerfile-proxy
     depends_on:
       - web
+    secrets:
+      - source: ssl_cert
+        target: cert.pem
+      - source: ssl_key
+        target: key.pem
     environment:
       CMBARTER_HOST: ${CMBARTER_HOST}
     ports:
@@ -63,8 +63,12 @@ services:
 
 
 volumes:
-  # This volume will contain the PostgreSQL database.
   data-volume:
-  
-  # This volume will contain the outgoing mail queue.
   mailqueue-volume:
+
+
+secrets:
+  ssl_cert:
+    file: ./docker/cert.pem
+  ssl_key:
+    file: ./docker/key.pem
