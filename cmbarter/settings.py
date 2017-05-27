@@ -48,8 +48,6 @@ CONFIG = {
     'CMBARTER_MIN_PASSWORD_LENGTH' : 8,
     'CMBARTER_SHOW_CAPTCHA_ON_SIGNUP' : True,
     'CMBARTER_SHOW_CAPTCHA_ON_REPETITIVE_LOGIN_FAILURE' : True,
-    'CMBARTER_REGISTRATION_KEY_IS_REQUIRED' : False,
-    'CMBARTER_REGISTRATION_KEY_PREFIX' : '',
     
     # By default, CMB is configured to show CAPTHCA on sign-up, and after
     # five unsuccessful attempts to log-in. If you have not altered the
@@ -58,10 +56,15 @@ CONFIG = {
     'CMBARTER_RECAPTCHA_PUBLIC_KEY' : '6Ledx7wSAAAAAICFw8vB-2ghpDjzGogPRi6-3FCr',
     'CMBARTER_RECAPTCHA_PIVATE_KEY' : '6Ledx7wSAAAAAEskQ7Mbi-oqneHDSFVUkxGitn_y',
     
-    # If a registration key is required for signing up, the next setting
-    # should point to an URL where users will be instructed how to obtain
-    # a registration key.  Run "../generate_regkeys.py --help" to learn
-    # how to generate valid registration keys.
+    # CMB can be configured to require a registration key for signing up
+    # -- in this case "generate_regkeys.py" can be used to generate user
+    # registration keys. In case of leaked registration keys, CMB can be
+    # configured to accept only registration keys that start with a given
+    # sequence of characters (prefix). Also, an URL can be specified that
+    # redirects to a web page where users are told how to obtain a
+    # registration key.
+    'CMBARTER_REGISTRATION_KEY_IS_REQUIRED' : False,
+    'CMBARTER_REGISTRATION_KEY_PREFIX' : '',
     'CMBARTER_REGISTRATION_KEY_HELP_URL' : '',
     
     # The time zone of your users. For example: 'Europe/Rome'
