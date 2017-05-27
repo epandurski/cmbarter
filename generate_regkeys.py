@@ -27,7 +27,7 @@
 ######################################################################
 ## This file implements the registration key generation tool.
 ##
-import sys, os, getopt, hashlib
+import sys, os, getopt
 from cmbarter.modules import keygen
 from cmbarter.settings import CMBARTER_REGISTRATION_KEY_PREFIX, SECRET_KEY
 
