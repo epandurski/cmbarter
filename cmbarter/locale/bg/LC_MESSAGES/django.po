@@ -6,9 +6,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: cmbarter-1.15\n"
+"Project-Id-Version: cmbarter-1.16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-25 17:00+0300\n"
+"POT-Creation-Date: 2017-05-27 18:37+0300\n"
 "PO-Revision-Date: 2013-09-28 01:32+0300\n"
 "Last-Translator: Evgeni Pandurski <epandurski@gmail.com>\n"
 "Language-Team: Bulgarian <epandurski@gmail.com>\n"

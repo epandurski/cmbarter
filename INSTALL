@@ -34,11 +34,11 @@ source code in your */usr/local/share/* directory::
 
   # cd /usr/local/share/
   # wget http://sourceforge.net/projects/cmb/files/tarballs/\
-  cmbarter-1.15.tar.gz/download -O cmbarter-1.14.tar.gz
+  cmbarter-1.16.0.tar.gz/download -O cmbarter-1.14.tar.gz
   ...
 
-  # tar -xzf cmbarter-1.15.tar.gz 
-  # mv cmbarter-1.15 cmbarter
+  # tar -xzf cmbarter-1.16.0.tar.gz
+  # mv cmbarter-1.16.0 cmbarter
 
 Also, make sure a *Python 2.7* interpreter is installed on your
 server.
@@ -300,11 +300,11 @@ Here are the installation steps that you should perform:
 
      $ cd ~
      $ wget http://sourceforge.net/projects/cmb/files/tarballs/\
-     cmbarter-1.15.tar.gz/download -O cmbarter-1.14.tar.gz
+     cmbarter-1.16.0.tar.gz/download -O cmbarter-1.14.tar.gz
      ...
 
-     $ tar -xzf cmbarter-1.15.tar.gz 
-     $ mv cmbarter-1.15 cmbarter
+     $ tar -xzf cmbarter-1.16.0.tar.gz
+     $ mv cmbarter-1.16.0 cmbarter
 
 3. Restrict access to those source files that may contain sensitive
    information::

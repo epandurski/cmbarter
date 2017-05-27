@@ -2,7 +2,7 @@ version: '3'
 
 services:
   web:
-    image: epandurski/cmbarter:1.15-web
+    image: epandurski/cmbarter:1.16-web
     build:
       context: .
       dockerfile: docker/Dockerfile-web
@@ -51,7 +51,7 @@ services:
       - mailqueue-volume:/var/spool/exim4
 
   tasks:
-    image: epandurski/cmbarter:1.15-tasks
+    image: epandurski/cmbarter:1.16-tasks
     build:
       context: .
       dockerfile: docker/Dockerfile-tasks

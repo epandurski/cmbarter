@@ -195,7 +195,7 @@ endobj
 << /Outlines 63 0 R /PageLabels 88 0 R /PageMode /UseNone /Pages 79 0 R /Type /Catalog >>
 endobj
 62 0 obj
-<< /Author (Evgeni Pandurksi) /CreationDate (D:20170525160149-02'00') /Creator (\(unspecified\)) /Keywords () /Producer (ReportLab PDF Library - www.reportlab.com) /Subject (\(unspecified\)) 
+<< /Author (Evgeni Pandurksi) /CreationDate (D:20170527184225-02'00') /Creator (\(unspecified\)) /Keywords () /Producer (ReportLab PDF Library - www.reportlab.com) /Subject (\(unspecified\)) 
   /Title (Circular Multilateral Barter Installation Guide) >>
 endobj
 63 0 obj
@@ -252,7 +252,7 @@ endobj
 << /Count 8 /Kids [ 38 0 R 41 0 R 46 0 R 48 0 R 49 0 R 51 0 R 55 0 R 60 0 R ] /Type /Pages >>
 endobj
 80 0 obj
-<< /Length 7515 >>
+<< /Length 7521 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
 q
@@ -635,7 +635,7 @@ n -6 -6 468.6898 96 re B*
 Q
 q
 0 0 0 rg
-BT 1 0 0 1 0 74 Tm /F4 10 Tf 12 TL (# cd /usr/local/share/) Tj T* (# wget http://sourceforge.net/projects/cmb/files/tarballs/\\) Tj T* (cmbarter-1.15.tar.gz/download -O cmbarter-1.14.tar.gz) Tj T* (...) Tj T*  T* (# tar -xzf cmbarter-1.15.tar.gz) Tj T* (# mv cmbarter-1.15 cmbarter) Tj T* ET
+BT 1 0 0 1 0 74 Tm /F4 10 Tf 12 TL (# cd /usr/local/share/) Tj T* (# wget http://sourceforge.net/projects/cmb/files/tarballs/\\) Tj T* (cmbarter-1.16.0.tar.gz/download -O cmbarter-1.14.tar.gz) Tj T* (...) Tj T*  T* (# tar -xzf cmbarter-1.16.0.tar.gz) Tj T* (# mv cmbarter-1.16.0 cmbarter) Tj T* ET
 Q
 Q
 Q
@@ -1752,7 +1752,7 @@ Q
 endstream
 endobj
 84 0 obj
-<< /Length 8573 >>
+<< /Length 8579 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
 q
@@ -2136,7 +2136,7 @@ n -6 -6 445.6898 96 re B*
 Q
 q
 0 0 0 rg
-BT 1 0 0 1 0 74 Tm /F4 10 Tf 12 TL ($ cd ~) Tj T* ($ wget http://sourceforge.net/projects/cmb/files/tarballs/\\) Tj T* (cmbarter-1.15.tar.gz/download -O cmbarter-1.14.tar.gz) Tj T* (...) Tj T*  T* ($ tar -xzf cmbarter-1.15.tar.gz) Tj T* ($ mv cmbarter-1.15 cmbarter) Tj T* ET
+BT 1 0 0 1 0 74 Tm /F4 10 Tf 12 TL ($ cd ~) Tj T* ($ wget http://sourceforge.net/projects/cmb/files/tarballs/\\) Tj T* (cmbarter-1.16.0.tar.gz/download -O cmbarter-1.14.tar.gz) Tj T* (...) Tj T*  T* ($ tar -xzf cmbarter-1.16.0.tar.gz) Tj T* ($ mv cmbarter-1.16.0 cmbarter) Tj T* ET
 Q
 Q
 Q
@@ -3004,27 +3004,27 @@ xref
 0000013306 00000 n
 0000013422 00000 n
 0000013535 00000 n
-0000021107 00000 n
-0000027878 00000 n
-0000036845 00000 n
-0000041706 00000 n
-0000050336 00000 n
-0000056550 00000 n
-0000062200 00000 n
-0000065479 00000 n
-0000065590 00000 n
-0000065627 00000 n
-0000065664 00000 n
-0000065701 00000 n
-0000065738 00000 n
-0000065775 00000 n
-0000065812 00000 n
-0000065849 00000 n
+0000021113 00000 n
+0000027884 00000 n
+0000036851 00000 n
+0000041712 00000 n
+0000050348 00000 n
+0000056562 00000 n
+0000062212 00000 n
+0000065491 00000 n
+0000065602 00000 n
+0000065639 00000 n
+0000065676 00000 n
+0000065713 00000 n
+0000065750 00000 n
+0000065787 00000 n
+0000065824 00000 n
+0000065861 00000 n
 trailer
 << /ID 
  % ReportLab generated PDF document -- digest (http://www.reportlab.com)
- [(\010\352\272\363\211\344\226\034'L\245\250\316D<\372) (\010\352\272\363\211\344\226\034'L\245\250\316D<\372)]
+ [(X\267\353\337\272P/\212;\264\274`\370\275\221 ) (X\267\353\337\272P/\212;\264\274`\370\275\221 )]
  /Info 62 0 R /Root 61 0 R /Size 97 >>
 startxref
-65886
+65898
 %%EOF

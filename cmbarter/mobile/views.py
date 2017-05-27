@@ -213,7 +213,7 @@ def login(request, tmpl='xhtml-mp/login.html', method=None):
         if form.is_valid():
             username = form.cleaned_data['username']
             password_salt = db.get_password_salt(username)
-            password_hash = utils.calc_crypt_hash(password_salt + form.cleaned_data['password'])
+            password_hash = utils.calc_crypt_hash(password_salt, form.cleaned_data['password'])
 
             authentication = db.login_trader(username, password_hash)
 

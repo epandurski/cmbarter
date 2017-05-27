@@ -92,6 +92,7 @@ CONFIG = {
     'CMBARTER_REVERSE_PROXIES' : hosts('localhost'),
     
     # Usually, you do not need to change anything bellow this line.
+    'CMBARTER_PASSWORD_HASHING_METHOD': '6',
     'CMBARTER_MAINTAIN_IP_WHITELIST' : True,
     'CMBARTER_HTTP_X_FORWARDED_FOR_IS_TRUSTWORTHY' : False,
     'CMBARTER_INSERT_BIDI_MARKS' : False ,

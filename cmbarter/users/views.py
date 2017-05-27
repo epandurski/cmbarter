@@ -96,7 +96,7 @@ def login(request, tmpl='login.html'):
         if form.is_valid():
             username = form.cleaned_data['username']
             password_salt = db.get_password_salt(username)
-            password_hash = utils.calc_crypt_hash(password_salt + form.cleaned_data['password'])
+            password_hash = utils.calc_crypt_hash(password_salt, form.cleaned_data['password'])
 
             authentication = db.login_trader(username, password_hash)
 
@@ -328,8 +328,8 @@ def signup(request, tmpl='signup.html'):
         form = forms.SignupForm(request.POST)
         if captcha_passed and form.is_valid():
             username = form.cleaned_data['username']            
-            password_salt = utils.generate_password_salt()
-            password_hash = utils.calc_crypt_hash(password_salt + form.cleaned_data['password'])
+            password_salt = utils.generate_password_salt(settings.CMBARTER_PASSWORD_HASHING_METHOD)
+            password_hash = utils.calc_crypt_hash(password_salt, form.cleaned_data['password'])
             if settings.CMBARTER_REGISTRATION_KEY_IS_REQUIRED:
                 registration_key = keygen.Keygen(
                     settings.SECRET_KEY, settings.CMBARTER_REGISTRATION_KEY_PREFIX

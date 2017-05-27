@@ -46,8 +46,8 @@ DROP TABLE IF EXISTS loginkey CASCADE;
 DROP TABLE IF EXISTS whitelist_entry CASCADE;
 
 
--- Base64 over SHA-256 (URL-safe).
-CREATE DOMAIN crypt_hash AS char(44);
+-- Base64 encoded, possibly having a "Modular Crypt Format" header.
+CREATE DOMAIN crypt_hash AS text;
 
 -- A measure of abstract value.
 CREATE DOMAIN value AS decimal(15,2);

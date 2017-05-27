@@ -258,8 +258,8 @@ def change_password(request, user, tmpl='change_password.html'):
             request._cmbarter_trx_cost += 2.0
             if db.update_password(
                   user['trader_id'],
-                  utils.calc_crypt_hash(password_salt + form.cleaned_data['old_password']),
-                  utils.calc_crypt_hash(password_salt + form.cleaned_data['password'])):
+                  utils.calc_crypt_hash(password_salt, form.cleaned_data['old_password']),
+                  utils.calc_crypt_hash(password_salt, form.cleaned_data['password'])):
 
                 return HttpResponseRedirect(reverse(
                     report_change_password_success,
@@ -285,7 +285,7 @@ def change_username(request, user, tmpl='change_username.html'):
             request._cmbarter_trx_cost += 4.0
             error = db.update_username(
                   user['trader_id'],
-                  utils.calc_crypt_hash(password_salt + form.cleaned_data['password']),
+                  utils.calc_crypt_hash(password_salt, form.cleaned_data['password']),
                   form.cleaned_data['username'])
 
             if 2==error:

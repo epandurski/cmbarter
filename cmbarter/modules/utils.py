@@ -40,10 +40,11 @@ from decimal import Decimal
 from math import log10, floor
 import string, random, hashlib, base64, pytz
 from cmbarter.modules import curiousorm
+from crypt import crypt
 
 
 
-_PASSWORD_SALT_CHARS = string.digits + string.ascii_letters + string.punctuation
+_PASSWORD_SALT_CHARS = string.digits + string.ascii_letters + './'
 
 
 
@@ -79,18 +80,15 @@ def get_tzinfo(tz_name):
 
 
 
-def generate_password_salt():
-    salt = ''
-    while len(salt) < 16:
-        salt += random.choice(_PASSWORD_SALT_CHARS)
+def generate_password_salt(method):
+    salt = '$%s$' % method if method else ''
+    salt += ''.join(random.choice(_PASSWORD_SALT_CHARS) for char in xrange(16))
     return salt
     
 
 
-def calc_crypt_hash(message):
-    sha = hashlib.sha256()
-    sha.update(message.encode('utf-8'))
-    return base64.urlsafe_b64encode(sha.digest()).decode('ascii')
+def calc_crypt_hash(salt, message):
+    return crypt(message.encode('utf-8'), salt)  # PYTHON3: remove ".encode('utf-8')"
 
 
 
