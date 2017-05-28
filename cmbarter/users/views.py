@@ -67,8 +67,7 @@ search_limiter = limiter.Limiter(
 
 
 _secret = hashlib.md5()
-_secret.update(settings.SECRET_KEY.encode('utf-8'))
-_secret.update(u'and some other text too'.encode('utf-8'))
+_secret.update(settings.CMBARTER_SECRET_KEY.encode('utf-8'))
 cipher = CIPHER.new(_secret.digest(), CIPHER.MODE_ECB)
 
 
@@ -330,9 +329,9 @@ def signup(request, tmpl='signup.html'):
             username = form.cleaned_data['username']            
             password_salt = utils.generate_password_salt(settings.CMBARTER_PASSWORD_HASHING_METHOD)
             password_hash = utils.calc_crypt_hash(password_salt, form.cleaned_data['password'])
-            if settings.CMBARTER_REGISTRATION_KEY_IS_REQUIRED:
+            if settings.CMBARTER_REGISTRATION_SECRET:
                 registration_key = keygen.Keygen(
-                    settings.SECRET_KEY, settings.CMBARTER_REGISTRATION_KEY_PREFIX
+                    settings.CMBARTER_REGISTRATION_SECRET, settings.CMBARTER_REGISTRATION_KEY_PREFIX
                     ).validate(form.cleaned_data['registration_key'])
             else:
                 registration_key = None

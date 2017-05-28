@@ -63,7 +63,7 @@ class SignupForm(forms.Form):
         label=_('Re-enter the password'))
 
     registration_key = forms.CharField(
-        required=settings.CMBARTER_REGISTRATION_KEY_IS_REQUIRED,
+        required=bool(settings.CMBARTER_REGISTRATION_SECRET),
         max_length=32,
         label=_('Enter your registration key'))
 

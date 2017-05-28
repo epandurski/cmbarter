@@ -28,15 +28,6 @@ ENV PYTHONPATH /usr/local/share/cmbarter
 
 ################################################################################
 
-# Set this to the name of the outgoing mail server.
-ENV SMTP_HOST mail
-
-# Set this to your site domain name.
-ENV CMBARTER_HOST localhost
-
-# Set this to the PostgreSQL database connection string.
-ENV CMBARTER_DSN host=db dbname=cmbarter user=postgres password=mysecretpassword
-
 # The minimum cycle value (MCV) is the monetary value below which a
 # trading cycle is considered not worthy of being executed. Bigger
 # MCVs may speed up the execution of trading turns, but too big MCVs
@@ -49,3 +40,17 @@ ENV CMBARTER_DSN host=db dbname=cmbarter user=postgres password=mysecretpassword
 #  4  =>  MCV=100
 # and so forth...
 ENV TRIVIAL_DECIMAL_DIGITS 0
+
+# Set this to the name of the outgoing mail server.
+ENV SMTP_HOST mail
+
+# Set this to your site domain name.
+ENV CMBARTER_HOST localhost
+
+# Set this to the PostgreSQL database connection string.
+ENV CMBARTER_DSN host=db dbname=cmbarter user=postgres password=mysecretpassword
+
+# The next two variables must have the same values as their
+# counterparts in the "web" service configuration.
+ENV CMBARTER_REGISTRATION_SECRET=
+ENV CMBARTER_REGISTRATION_KEY_PREFIX=

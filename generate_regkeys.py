@@ -29,7 +29,7 @@
 ##
 import sys, os, getopt
 from cmbarter.modules import keygen
-from cmbarter.settings import CMBARTER_REGISTRATION_KEY_PREFIX, SECRET_KEY
+from cmbarter.settings import CMBARTER_REGISTRATION_KEY_PREFIX, CMBARTER_REGISTRATION_SECRET
 
 USAGE = """Usage: generate_regkeys.py --start=INTEGER --count=INTEGER
 Print a sequence of valid registration keys.
@@ -87,6 +87,6 @@ if __name__ == '__main__':
         print(USAGE)
         sys.exit()
 
-    gen = keygen.Keygen(SECRET_KEY, CMBARTER_REGISTRATION_KEY_PREFIX)
+    gen = keygen.Keygen(CMBARTER_REGISTRATION_SECRET, CMBARTER_REGISTRATION_KEY_PREFIX)
     for i in range(start, start + count):
         print gen.generate(i)

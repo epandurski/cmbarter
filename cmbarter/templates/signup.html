@@ -23,7 +23,7 @@
   {% if form.invalid_regkey %}<ul class="errorlist"><li>{% trans "ERROR: Invalid registration key." %}</li></ul>{% endif %}
   {% if form.username_taken %}<ul class="errorlist"><li>{% trans "ERROR: The username you requested is already taken." %}</li></ul>{% endif %}
 
-  {% if settings.CMBARTER_REGISTRATION_KEY_IS_REQUIRED %}
+  {% if settings.CMBARTER_REGISTRATION_SECRET %}
   {{form.registration_key.errors}}
   <p><label for="id_registration_key">{{form.registration_key.label}}:</label> {{form.registration_key}}{% if settings.CMBARTER_REGISTRATION_KEY_HELP_URL %} <a id="obtain-regkey-link" href="{{settings.CMBARTER_REGISTRATION_KEY_HELP_URL}}" target="_blank">{% trans "obtain a registration key" %}</a>{% endif %}</p>
   <p>&nbsp;</p>
