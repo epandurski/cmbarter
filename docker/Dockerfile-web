@@ -35,7 +35,7 @@ ENV CMBARTER_HOST localhost
 # Set this to the PostgreSQL database connection string.
 ENV CMBARTER_DSN host=db dbname=cmbarter user=postgres password=mysecretpassword
 
-# Make this random and long, and don't share it with anybody.
+# Leave this variable empty or set it to a random, long, secret string.
 ENV CMBARTER_SECRET_KEY=
 
 # This should point to a page telling more about the site.
