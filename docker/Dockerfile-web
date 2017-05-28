@@ -7,6 +7,13 @@ RUN pip install Django~=1.11 psycopg2cffi Pillow pytz gunicorn
 COPY cmbarter /usr/local/share/cmbarter/cmbarter/
 COPY doc /usr/local/share/cmbarter/doc/
 COPY static /usr/local/share/cmbarter/static/
+COPY docker/read_secret_key.sh /usr/local/bin/
+
+# "read_secret_key.sh" verifies if the CMBARTER_SECRET_KEY environment
+# variable is set. If it is not, it tries to set it to the contents of
+# the file /run/secrets/CMBARTER_SECRET_KEY. If this fails too -- it
+# exits with an error.
+ENTRYPOINT ["read_secret_key.sh"]
 
 CMD ["gunicorn", "-b :8000", "--log-level=warning", "--access-logfile=-", "--error-logfile=-", "cmbarter.wsgi"]
 
@@ -28,8 +35,8 @@ ENV CMBARTER_HOST localhost
 # Set this to the PostgreSQL database connection string.
 ENV CMBARTER_DSN host=db dbname=cmbarter user=postgres password=mysecretpassword
 
-# Make this long and unique, and don't share it with anybody.
-ENV CMBARTER_SECRET_KEY vjgz%^^7f6-=#%f&5y8qw2ous-l6zz!h+rkpzmxx(ozp%^xeb)
+# Make this random and long, and don't share it with anybody.
+ENV CMBARTER_SECRET_KEY=
 
 # This should point to a page telling more about the site.
 ENV CMBARTER_ABOUT_US_URL https://sourceforge.net/projects/cmb/
