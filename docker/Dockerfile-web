@@ -1,7 +1,7 @@
 FROM pypy:2
 
 # Install the necessary packages:
-RUN pip install Django~=1.11 psycopg2cffi Pillow pytz gunicorn
+RUN pip install Django~=1.11 psycopg2cffi Pillow pytz gevent gunicorn
  
 # Copy the files we need:
 COPY cmbarter /usr/local/share/cmbarter/cmbarter/
@@ -15,11 +15,12 @@ COPY docker/read_secret_key.sh /usr/local/bin/
 # exits with an error.
 ENTRYPOINT ["read_secret_key.sh"]
 
-CMD ["gunicorn", "-b :8000", "--log-level=warning", "--access-logfile=-", "--error-logfile=-", "cmbarter.wsgi"]
+CMD ["gunicorn", "cmbarter.wsgi"]
 
 EXPOSE 8000
 
 ENV PYTHONPATH /usr/local/share/cmbarter
+ENV GUNICORN_CMD_ARGS -b :8000 -k gevent --log-level=warning --access-logfile=- --error-logfile=-
 
 ################################################################################
 
