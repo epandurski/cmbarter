@@ -25,6 +25,9 @@ STOPSIGNAL SIGINT
 CMD ["repeat_esential_tasks.py"]
 
 ENV PYTHONPATH /usr/local/share/cmbarter
+ENV PGHOST db
+ENV PGDATABASE cmbarter
+ENV PGUSER postgres
 
 ################################################################################
 
