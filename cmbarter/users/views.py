@@ -331,8 +331,7 @@ def signup(request, tmpl='signup.html'):
             password_hash = utils.calc_crypt_hash(password_salt, form.cleaned_data['password'])
             if settings.CMBARTER_REGISTRATION_SECRET:
                 registration_key = keygen.Keygen(
-                    settings.CMBARTER_REGISTRATION_SECRET, settings.CMBARTER_REGISTRATION_KEY_PREFIX
-                    ).validate(form.cleaned_data['registration_key'])
+                    settings.CMBARTER_REGISTRATION_SECRET).validate(form.cleaned_data['registration_key'])
             else:
                 registration_key = None
             

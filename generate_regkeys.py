@@ -29,23 +29,26 @@
 ##
 import sys, os, getopt
 from cmbarter.modules import keygen
-from cmbarter.settings import CMBARTER_REGISTRATION_KEY_PREFIX, CMBARTER_REGISTRATION_SECRET
 
-USAGE = """Usage: generate_regkeys.py --start=INTEGER --count=INTEGER
-Print a sequence of valid registration keys.
+USAGE = """Usage: generate_regkeys.py [OPTIONS] [REGISTRATION_SECRET]
+Print a sequence of registration keys.
 
-  --start=INTEGER     the sequential number of the first key in the
-                      sequence (must be between 0 and 4294967295)
-  --count=INTEGER     number of consecutive keys to be printed
+  --start=INTEGER   the sequential number of the first key in the printed
+                    sequence (between 0 and 4294967295, the default is 0)
+
+  --count=INTEGER   number of consecutive keys to be printed (100 by default)
+
+  If REGISTRATION_SECRET is omitted, the value of CMBARTER_REGISTRATION_SECRET
+  environment variable will be used.
 
 Example:
-  $ ./generate_regkeys.py --start=0 --count=100
-  ... [Prints registration keys with sequence numbers 0-99]
+  $ ./generate_regkeys.py --start=10 --count=10 my-very-secret-string
+  ... [Prints registration keys with sequence numbers 10-19]
 """
 
 
 def parse_args(argv):
-    global start, count
+    global start, count, secret
 
     try:                                
         opts, args = getopt.gnu_getopt(argv, 'h', ['start=', 'count=', 'help'])
@@ -53,9 +56,13 @@ def parse_args(argv):
         print(USAGE)
         sys.exit(2)
 
-    if len(args) != 0:
+    if len(args) > 1:
         print(USAGE)
         sys.exit(2)
+    try:
+        secret = args[0]
+    except IndexError:
+        pass
 
     def srt2int(s):
         try:
@@ -80,13 +87,14 @@ def parse_args(argv):
 
 
 if __name__ == '__main__':
-    start = None
-    count = 0
+    secret = os.environ.get('CMBARTER_REGISTRATION_SECRET')
+    start = 0
+    count = 100
     parse_args(sys.argv[1:])
-    if (start is None) or (count == 0):
-        print(USAGE)
+    if not secret:
+        print("ERROR: a registration secret must be supplied.")
         sys.exit()
 
-    gen = keygen.Keygen(CMBARTER_REGISTRATION_SECRET, CMBARTER_REGISTRATION_KEY_PREFIX)
+    gen = keygen.Keygen(secret)
     for i in range(start, start + count):
         print gen.generate(i)

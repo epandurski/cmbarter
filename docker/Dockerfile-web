@@ -7,13 +7,14 @@ RUN pip install Django~=1.11 psycopg2cffi Pillow pytz gevent gunicorn
 COPY cmbarter /usr/local/share/cmbarter/cmbarter/
 COPY doc /usr/local/share/cmbarter/doc/
 COPY static /usr/local/share/cmbarter/static/
-COPY docker/read_secret_key.sh /usr/local/bin/
+COPY generate_regkeys.py /usr/local/bin/
+COPY docker/read_secrets.sh /usr/local/bin/
 
-# "read_secret_key.sh" verifies if the CMBARTER_SECRET_KEY environment
-# variable is set. If it is not, it tries to set it to the contents of
-# the file /run/secrets/CMBARTER_SECRET_KEY. If this fails too -- it
-# exits with an error.
-ENTRYPOINT ["read_secret_key.sh"]
+# "read_secrets.sh" verifies if CMBARTER_REGISTRATION_SECRET and
+#  CMBARTER_SECRET_KEY environment variables are set. If one is not
+#  set, it tries to set it to the contents of the file with the same
+#  name (the name of the variable) in the /run/secrets/ directory.
+ENTRYPOINT ["read_secrets.sh"]
 
 CMD ["gunicorn", "cmbarter.wsgi"]
 
@@ -58,15 +59,11 @@ ENV CMBARTER_RECAPTCHA_PUBLIC_KEY 6Ledx7wSAAAAAICFw8vB-2ghpDjzGogPRi6-3FCr
 ENV CMBARTER_RECAPTCHA_PIVATE_KEY 6Ledx7wSAAAAAEskQ7Mbi-oqneHDSFVUkxGitn_y
 
 # If a non-empty string is set as registration secret, CMB will
-# require a registration key for users to sign up (in this case
-# "generate_regkeys.py" is used to generate user registration
-# keys). In case of leaked registration keys, CMB can be
-# configured to accept only registration keys that start with a
-# given sequence of characters (prefix). Also, an URL can be
-# specified that redirects to a web page where users are told how
-# to obtain a registration key.
+# require a registration key for users to sign up. In this case
+# "generate_regkeys.py" can be used to generate user registration
+# keys. Also, an URL can be specified that redirects to a web page
+# where users are told how to obtain a registration key.
 ENV CMBARTER_REGISTRATION_SECRET=
-ENV CMBARTER_REGISTRATION_KEY_PREFIX=
 ENV CMBARTER_REGISTRATION_KEY_HELP_URL=
 
 # The time zone of your users. For example: Europe/Rome

@@ -57,15 +57,11 @@ CONFIG = {
     'CMBARTER_RECAPTCHA_PIVATE_KEY' : '6Ledx7wSAAAAAEskQ7Mbi-oqneHDSFVUkxGitn_y',
     
     # If a non-empty string is set as registration secret, CMB will
-    # require a registration key for users to sign up (in this case
-    # "generate_regkeys.py" is used to generate user registration
-    # keys). In case of leaked registration keys, CMB can be
-    # configured to accept only registration keys that start with a
-    # given sequence of characters (prefix). Also, an URL can be
-    # specified that redirects to a web page where users are told how
-    # to obtain a registration key.
+    # require a registration key for users to sign up. In this case
+    # "generate_regkeys.py" can be used to generate user registration
+    # keys. Also, an URL can be specified that redirects to a web page
+    # where users are told how to obtain a registration key.
     'CMBARTER_REGISTRATION_SECRET' : '',
-    'CMBARTER_REGISTRATION_KEY_PREFIX' : '',
     'CMBARTER_REGISTRATION_KEY_HELP_URL' : '',
     
     # The time zone of your users. For example: 'Europe/Rome'
@@ -74,10 +70,10 @@ CONFIG = {
     # Set this to a page where users can search for trusted partners.
     'CMBARTER_SEARCH_PARTNERS_URL' : '',
     
-    # This is the maximum size in bytes for users' uploaded photographs.
-    # If you decide to increase this value, do not forget to increase the
-    # "LimitRequestBody" directive in your Apache configuration
-    # accordingly.
+    # This is the maximum size in bytes for users' uploaded
+    # photographs.  If you decide to increase this value, do not
+    # forget to change the request-body limit in your web server
+    # configuration accordingly.
     'CMBARTER_MAX_IMAGE_SIZE' : 716800,
     
     # This is the maximum amount of pixels (width * height) in users'

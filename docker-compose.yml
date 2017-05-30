@@ -10,8 +10,10 @@ services:
       - db
       - tasks
     secrets:
-      - source: web_secret_key
+      - source: secret_key
         target: CMBARTER_SECRET_KEY
+      - source: registration_secret
+        target: CMBARTER_REGISTRATION_SECRET
     env_file: .env
 
   db:
@@ -43,8 +45,6 @@ services:
     environment:
       CMBARTER_HOST: ${CMBARTER_HOST}
       CMBARTER_DSN: ${CMBARTER_DSN}
-      CMBARTER_REGISTRATION_SECRET: ${CMBARTER_REGISTRATION_SECRET}
-      CMBARTER_REGISTRATION_KEY_PREFIX: ${CMBARTER_REGISTRATION_KEY_PREFIX}
 
   proxy:
     # This image tries to find an SSL certificate and a private key at
@@ -79,5 +79,7 @@ secrets:
     file: ./docker/cert.pem
   ssl_key:
     file: ./docker/key.pem
-  web_secret_key:
+  secret_key:
     file: ./LICENSE
+  registration_secret:
+    external: true

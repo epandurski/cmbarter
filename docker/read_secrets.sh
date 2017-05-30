@@ -11,4 +11,10 @@ if [[ -z $CMBARTER_SECRET_KEY ]]; then
     fi
 fi
 
+if [[ -z $CMBARTER_REGISTRATION_SECRET ]]; then
+    if [[ -s /run/secrets/CMBARTER_REGISTRATION_SECRET ]]; then
+	export CMBARTER_REGISTRATION_SECRET=$(cat /run/secrets/CMBARTER_REGISTRATION_SECRET)
+    fi
+fi
+
 exec "$@"
