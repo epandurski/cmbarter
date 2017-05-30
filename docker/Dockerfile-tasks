@@ -53,7 +53,6 @@ ENV CMBARTER_HOST localhost
 # Set this to the PostgreSQL database connection string.
 ENV CMBARTER_DSN host=db dbname=cmbarter user=postgres password=mysecretpassword
 
-# The next two variables must have the same values as their
-# counterparts in the "web" service configuration.
+# The next variable must have the same value as its counterpart in the
+# "web" service configuration.
 ENV CMBARTER_REGISTRATION_SECRET=
-ENV CMBARTER_REGISTRATION_KEY_PREFIX=

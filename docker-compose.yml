@@ -44,7 +44,6 @@ services:
       CMBARTER_HOST: ${CMBARTER_HOST}
       CMBARTER_DSN: ${CMBARTER_DSN}
       CMBARTER_REGISTRATION_SECRET: ${CMBARTER_REGISTRATION_SECRET}
-      CMBARTER_REGISTRATION_KEY_PREFIX: ${CMBARTER_REGISTRATION_KEY_PREFIX}
 
   proxy:
     # This image tries to find an SSL certificate and a private key at

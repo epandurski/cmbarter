@@ -109,11 +109,10 @@ class Keygen:
     False
     """
 
-    def __init__(self, secret, prefix=u''):
+    def __init__(self, secret):
         m = hashlib.md5()
         m.update(secret.encode('utf-8'))
         self.cipher = CIPHER.new(m.digest(), CIPHER.MODE_ECB)
-        self.prefix = prefix
         self.block_width = 8 * CIPHER.block_size
 
 
@@ -139,21 +138,19 @@ class Keygen:
         assert 0 <= seqnum <= 0xffffffff
         block = self._encode(seqnum, LATIN1)
         block = self.cipher.encrypt(block)
-        return self.prefix + self._encode(self._decode(block, LATIN1), SNC).decode('ascii')
+        return self._encode(self._decode(block, LATIN1), SNC).decode('ascii')
 
 
     def validate(self, s):
-        if s.startswith(self.prefix):
-            s = s[len(self.prefix):]  # Removes the prefix
-            try:
-                block = self._encode(self._decode(s.encode('ascii'), SNC), LATIN1)
-                block = self.cipher.decrypt(block)
-                i = self._decode(block, LATIN1)
-                if 0 <= i <= 0xffffffff:
-                    return self.generate(i)  # Returns the canonical representation of the key
-            except (InvalidCharacter, UnicodeError):
-                pass
-        
+        try:
+            block = self._encode(self._decode(s.encode('ascii'), SNC), LATIN1)
+            block = self.cipher.decrypt(block)
+            i = self._decode(block, LATIN1)
+            if 0 <= i <= 0xffffffff:
+                return self.generate(i)  # Returns the canonical representation of the key
+        except (InvalidCharacter, UnicodeError):
+            pass
+
         return u''  # Invalid key
 
 
