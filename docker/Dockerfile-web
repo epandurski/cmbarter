@@ -7,12 +7,13 @@ RUN pip install Django~=1.11 psycopg2cffi Pillow pytz gevent gunicorn
 COPY cmbarter /usr/local/share/cmbarter/cmbarter/
 COPY doc /usr/local/share/cmbarter/doc/
 COPY static /usr/local/share/cmbarter/static/
+COPY generate_regkeys.py /usr/local/bin/
 COPY docker/read_secrets.sh /usr/local/bin/
 
-# "read_secrets.sh" verifies if the CMBARTER_SECRET_KEY environment
-# variable is set. If it is not, it tries to set it to the contents of
-# the file /run/secrets/CMBARTER_SECRET_KEY. If this fails too -- it
-# exits with an error.
+# "read_secrets.sh" verifies if CMBARTER_REGISTRATION_SECRET and
+#  CMBARTER_SECRET_KEY environment variables are set. If one is not
+#  set, it tries to set it to the contents of the file with the same
+#  name (the name of the variable) in the /run/secrets/ directory.
 ENTRYPOINT ["read_secrets.sh"]
 
 CMD ["gunicorn", "cmbarter.wsgi"]

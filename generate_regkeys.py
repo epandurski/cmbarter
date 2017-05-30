@@ -91,7 +91,7 @@ if __name__ == '__main__':
     start = 0
     count = 100
     parse_args(sys.argv[1:])
-    if secret is None:
+    if not secret:
         print("ERROR: a registration secret must be supplied.")
         sys.exit()
 

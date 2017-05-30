@@ -10,8 +10,10 @@ services:
       - db
       - tasks
     secrets:
-      - source: web_secret_key
+      - source: secret_key
         target: CMBARTER_SECRET_KEY
+      - source: registration_secret
+        target: CMBARTER_REGISTRATION_SECRET
     env_file: .env
 
   db:
@@ -77,5 +79,7 @@ secrets:
     file: ./docker/cert.pem
   ssl_key:
     file: ./docker/key.pem
-  web_secret_key:
+  secret_key:
     file: ./LICENSE
+  registration_secret:
+    external: true
