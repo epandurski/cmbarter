@@ -70,10 +70,10 @@ CONFIG = {
     # Set this to a page where users can search for trusted partners.
     'CMBARTER_SEARCH_PARTNERS_URL' : '',
     
-    # This is the maximum size in bytes for users' uploaded photographs.
-    # If you decide to increase this value, do not forget to increase the
-    # "LimitRequestBody" directive in your Apache configuration
-    # accordingly.
+    # This is the maximum size in bytes for users' uploaded
+    # photographs.  If you decide to increase this value, do not
+    # forget to change the request-body limit in your web server
+    # configuration accordingly.
     'CMBARTER_MAX_IMAGE_SIZE' : 716800,
     
     # This is the maximum amount of pixels (width * height) in users'
