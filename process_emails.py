@@ -183,10 +183,10 @@ def process_outgoing_customer_broadcasts(db):
                         subject,
                         "%s\n\n-- \n%s" % (content, wrap_text(signature)),
                         orig_date,
-                        issuer_mailbox, row['issuer_display_name'],  # From
+                        "noreply@%s" % site_domain, row['issuer_display_name'],  # From
                         row['mailbox'], '',  # To
-                        issuer_mailbox, '', # Reply-To
-                        "noreply@%s" % site_domain, '')  # Sender
+                        '', '', # Reply-To
+                        '', '')  # Sender
                     
             else:
                 recipients = []
