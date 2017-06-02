@@ -150,7 +150,8 @@ Mail server installation
 CMB needs a mail server only for sending outgoing e-mails. Therefore,
 you may install whatever server is most convenient for you [5]_. The
 only requirement is that the server is configured to accept anonymous
-connections at *localhost:25*.
+connections at *localhost:25*. Do not forget to set a reverse DNS
+lookup record for the IP address of your server.
 
 
 Database server installation
