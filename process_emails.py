@@ -41,7 +41,7 @@ USAGE = """Usage: process_emails.py [OPTIONS]
 Fetches pending messages to the outgoing e-mail server.
 
   -h, --help                display this help and exit
-  --smtp=SMTP_HOST          supply SMTP server name
+  --smtp-host=SMTP_HOST     supply SMTP server name
 
                             If omitted, the value of the SMTP_HOST
                             environment variable is used. If it is
@@ -53,7 +53,7 @@ Fetches pending messages to the outgoing e-mail server.
   --site-domain=DOMANNAME   give explicitly the site's domainname
 
 Example:
-  $ ./process_emails.py --smtp=mail.foo.com --smtp-username=cmbarter --smtp-password='mypassword'
+  $ ./process_emails.py --smtp-host=mail.foo.com --smtp-username=cmbarter --smtp-password='mypassword'
 """
 
 
@@ -71,7 +71,7 @@ def parse_args(argv):
     global site_domain, dsn, smtp_host, smtp_username, smtp_password
     try:                                
         opts, args = getopt.gnu_getopt(argv, 'h', [
-                'smtp=', 'smtp-username=','smtp-password=', 
+                'smtp-host=', 'smtp-username=','smtp-password=',
                 'site-domain=', 'dsn=', 'help'])
     except getopt.GetoptError:
         print(USAGE)
@@ -87,7 +87,7 @@ def parse_args(argv):
             sys.exit()                  
         elif opt == '--dsn':
             dsn = arg
-        elif opt == '--smtp':
+        elif opt == '--smtp-host':
             smtp_host = arg
         elif opt == '--smtp-username':
             smtp_username = arg
