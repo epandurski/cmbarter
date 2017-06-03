@@ -43,10 +43,10 @@ endobj
 << /Border [ 0 0 0 ] /Contents () /Dest [ 46 0 R /XYZ 62.69291 296.6236 0 ] /Rect [ 527.0227 530.7736 532.5827 542.7736 ] /Subtype /Link /Type /Annot >>
 endobj
 15 0 obj
-<< /Border [ 0 0 0 ] /Contents () /Dest [ 46 0 R /XYZ 62.69291 212.6236 0 ] /Rect [ 82.69291 512.7736 206.0729 524.7736 ] /Subtype /Link /Type /Annot >>
+<< /Border [ 0 0 0 ] /Contents () /Dest [ 46 0 R /XYZ 62.69291 224.6236 0 ] /Rect [ 82.69291 512.7736 206.0729 524.7736 ] /Subtype /Link /Type /Annot >>
 endobj
 16 0 obj
-<< /Border [ 0 0 0 ] /Contents () /Dest [ 46 0 R /XYZ 62.69291 212.6236 0 ] /Rect [ 527.0227 512.7736 532.5827 524.7736 ] /Subtype /Link /Type /Annot >>
+<< /Border [ 0 0 0 ] /Contents () /Dest [ 46 0 R /XYZ 62.69291 224.6236 0 ] /Rect [ 527.0227 512.7736 532.5827 524.7736 ] /Subtype /Link /Type /Annot >>
 endobj
 17 0 obj
 << /Border [ 0 0 0 ] /Contents () /Dest [ 48 0 R /XYZ 62.69291 326.6236 0 ] /Rect [ 82.69291 494.7736 191.6329 506.7736 ] /Subtype /Link /Type /Annot >>
@@ -138,7 +138,7 @@ endobj
 << /Border [ 0 0 0 ] /Contents () /Dest [ 60 0 R /XYZ 68.69291 587.8236 0 ] /Rect [ 177.2484 249.3736 181.6964 261.3736 ] /Subtype /Link /Type /Annot >>
 endobj
 45 0 obj
-<< /Border [ 0 0 0 ] /Contents () /Dest [ 60 0 R /XYZ 68.69291 518.6236 0 ] /Rect [ 504.0889 90.37362 508.5369 102.3736 ] /Subtype /Link /Type /Annot >>
+<< /Border [ 0 0 0 ] /Contents () /Dest [ 60 0 R /XYZ 68.69291 518.6236 0 ] /Rect [ 504.0889 96.37362 508.5369 108.3736 ] /Subtype /Link /Type /Annot >>
 endobj
 46 0 obj
 << /Annots [ 42 0 R 43 0 R 44 0 R 45 0 R ] /Contents 82 0 R /MediaBox [ 0 0 595.2756 841.8898 ] /Parent 79 0 R /Resources << /Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ] >> /Rotate 0 
@@ -182,7 +182,7 @@ endobj
 << /Border [ 0 0 0 ] /Contents () /Dest [ 46 0 R /XYZ 171.6329 262.6236 0 ] /Rect [ 68.69291 574.5736 74.25291 586.5736 ] /Subtype /Link /Type /Annot >>
 endobj
 58 0 obj
-<< /Border [ 0 0 0 ] /Contents () /Dest [ 46 0 R /XYZ 493.6529 103.6236 0 ] /Rect [ 68.69291 505.3736 74.25291 517.3736 ] /Subtype /Link /Type /Annot >>
+<< /Border [ 0 0 0 ] /Contents () /Dest [ 46 0 R /XYZ 493.6529 109.6236 0 ] /Rect [ 68.69291 505.3736 74.25291 517.3736 ] /Subtype /Link /Type /Annot >>
 endobj
 59 0 obj
 << /Border [ 0 0 0 ] /Contents () /Dest [ 48 0 R /XYZ 156.8229 146.4236 0 ] /Rect [ 68.69291 469.3736 74.25291 481.3736 ] /Subtype /Link /Type /Annot >>
@@ -195,7 +195,7 @@ endobj
 << /Outlines 63 0 R /PageLabels 88 0 R /PageMode /UseNone /Pages 79 0 R /Type /Catalog >>
 endobj
 62 0 obj
-<< /Author (Evgeni Pandurksi) /CreationDate (D:20170602165328-02'00') /Creator (\(unspecified\)) /Keywords () /Producer (ReportLab PDF Library - www.reportlab.com) /Subject (\(unspecified\)) 
+<< /Author (Evgeni Pandurksi) /CreationDate (D:20170603120643-02'00') /Creator (\(unspecified\)) /Keywords () /Producer (ReportLab PDF Library - www.reportlab.com) /Subject (\(unspecified\)) 
   /Title (Circular Multilateral Barter Installation Guide) >>
 endobj
 63 0 obj
@@ -218,7 +218,7 @@ endobj
 << /Dest [ 46 0 R /XYZ 62.69291 296.6236 0 ] /Next 69 0 R /Parent 65 0 R /Prev 67 0 R /Title (Mail server installation) >>
 endobj
 69 0 obj
-<< /Dest [ 46 0 R /XYZ 62.69291 212.6236 0 ] /Next 70 0 R /Parent 65 0 R /Prev 68 0 R /Title (Database server installation) >>
+<< /Dest [ 46 0 R /XYZ 62.69291 224.6236 0 ] /Next 70 0 R /Parent 65 0 R /Prev 68 0 R /Title (Database server installation) >>
 endobj
 70 0 obj
 << /Dest [ 48 0 R /XYZ 62.69291 326.6236 0 ] /Parent 65 0 R /Prev 69 0 R /Title (Application configuration) >>
@@ -1034,7 +1034,7 @@ Q
 endstream
 endobj
 82 0 obj
-<< /Length 9120 >>
+<< /Length 8910 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
 q
@@ -1473,62 +1473,54 @@ BT 1 0 0 1 0 3 Tm 18 TL /F2 15 Tf 0 0 0 rg (Mail server installation) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 224.6236 cm
+1 0 0 1 62.69291 236.6236 cm
 q
-BT 1 0 0 1 0 38 Tm .226235 Tw 12 TL /F1 10 Tf 0 0 0 rg (CMB needs a mail server only for sending outgoing e-mails. Therefore, you may install whatever server is) Tj T* 0 Tw 1.40386 Tw (most convenient for you ) Tj /F1 8 Tf 0 0 .501961 rg 5 Ts (5) Tj /F1 10 Tf 0 0 0 rg 0 Ts (. The only requirement is that the server is configured to accept anonymous) Tj T* 0 Tw .660542 Tw (connections at ) Tj /F3 10 Tf (localhost:25) Tj /F1 10 Tf (. Do not forget to set a reverse DNS lookup record for the IP address of your) Tj T* 0 Tw (server.) Tj T* ET
+BT 1 0 0 1 0 26 Tm .226235 Tw 12 TL /F1 10 Tf 0 0 0 rg (CMB needs a mail server only for sending outgoing e-mails. Therefore, you may install whatever server is) Tj T* 0 Tw 1.40386 Tw (most convenient for you ) Tj /F1 8 Tf 0 0 .501961 rg 5 Ts (5) Tj /F1 10 Tf 0 0 0 rg 0 Ts (. The only requirement is that the server is configured to accept anonymous) Tj T* 0 Tw (connections at ) Tj /F3 10 Tf (localhost:25) Tj /F1 10 Tf (.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 194.6236 cm
+1 0 0 1 62.69291 206.6236 cm
 q
 BT 1 0 0 1 0 3 Tm 18 TL /F2 15 Tf 0 0 0 rg (Database server installation) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 152.6236 cm
+1 0 0 1 62.69291 164.6236 cm
 q
 BT 1 0 0 1 0 26 Tm .937209 Tw 12 TL /F1 10 Tf 0 0 0 rg (CMB relies on the ) Tj /F3 10 Tf (PostgreSQL ) Tj /F1 10 Tf (open source database server to hold its data. You do not need to know) Tj T* 0 Tw 2.994269 Tw (very much about PostgreSQL to install CMB, but you definitely should obtain some experience in) Tj T* 0 Tw (administering PostgreSQL databases in order to keep your users' data safe and secure.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 134.6236 cm
+1 0 0 1 62.69291 146.6236 cm
 q
 0 0 0 rg
 BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (Here are the installation steps that you should perform:) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 128.6236 cm
+1 0 0 1 62.69291 140.6236 cm
 Q
 q
-1 0 0 1 62.69291 128.6236 cm
+1 0 0 1 62.69291 140.6236 cm
 Q
 q
-1 0 0 1 62.69291 116.6236 cm
+1 0 0 1 62.69291 86.62362 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
-1 0 0 1 6 -3 cm
+1 0 0 1 6 39 cm
 q
 0 0 0 rg
 BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL 5.66 0 Td (1.) Tj T* -5.66 0 Td ET
 Q
 Q
 q
-1 0 0 1 23 -3 cm
+1 0 0 1 23 39 cm
 q
 0 0 0 rg
 BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (Install PostgreSQL \(version 8.3 at least\).) Tj T* ET
 Q
 Q
-q
-Q
-Q
-q
-1 0 0 1 62.69291 80.62362 cm
-0 0 0 rg
-BT /F1 10 Tf 12 TL ET
-BT 1 0 0 1 6 23 Tm  T* ET
 q
 1 0 0 1 23 -3 cm
 q
@@ -1539,7 +1531,7 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 76.86614 cm
+1 0 0 1 62.69291 80.62362 cm
 Q
  
 endstream
@@ -3014,25 +3006,25 @@ xref
 0000013535 00000 n
 0000021113 00000 n
 0000027884 00000 n
-0000037061 00000 n
-0000041922 00000 n
-0000050558 00000 n
-0000056772 00000 n
-0000062422 00000 n
-0000065701 00000 n
-0000065812 00000 n
-0000065849 00000 n
-0000065886 00000 n
-0000065923 00000 n
-0000065960 00000 n
-0000065997 00000 n
-0000066034 00000 n
-0000066071 00000 n
+0000036851 00000 n
+0000041712 00000 n
+0000050348 00000 n
+0000056562 00000 n
+0000062212 00000 n
+0000065491 00000 n
+0000065602 00000 n
+0000065639 00000 n
+0000065676 00000 n
+0000065713 00000 n
+0000065750 00000 n
+0000065787 00000 n
+0000065824 00000 n
+0000065861 00000 n
 trailer
 << /ID 
  % ReportLab generated PDF document -- digest (http://www.reportlab.com)
- [(#\177\2105C\344n+\036z\261!Z\036\332\223) (#\177\2105C\344n+\036z\261!Z\036\332\223)]
+ [(&*\311\240\032\177\367Od4G'\022\206\316\214) (&*\311\240\032\177\367Od4G'\022\206\316\214)]
  /Info 62 0 R /Root 61 0 R /Size 97 >>
 startxref
-66108
+65898
 %%EOF
