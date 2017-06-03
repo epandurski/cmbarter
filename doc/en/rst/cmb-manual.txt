@@ -76,8 +76,8 @@ But there is more!
 * You can send messages to your customers, as well as receive messages
   from your partners.
 
-* You can use :ssi:`<b><!--#echo var="HTTP_HOST" -->/mobile/</b>` from
-  any Internet-connected cell phone.
+* You can use :ssi:`<b><!--#echo var="HTTP_HOST" -->/mobile/</b>` even
+  on very old phones (WAP 2.0).
 
 * You can start a local exchange trading system.
 

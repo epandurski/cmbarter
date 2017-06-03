@@ -5,7 +5,7 @@
 <meta name="HandheldFriendly" content="True" />
 <meta name="viewport" content="initial-scale=1.0" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="Docutils 0.8.1: http://docutils.sourceforge.net/" />
+<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
 <title>Въведение</title>
 <style type="text/css">
 
@@ -108,8 +108,8 @@ p:first-letter { text-transform: uppercase; }
 <li>Да продавате обратно стоки която сте купили, но вече не ви трябват.</li>
 <li>Да изпращате съобщения до вашите клиенти, както и да получавате
 съобщения от вашите доставчици.</li>
-<li>Да използвате <span class="ssi"><b><!--#echo var="HTTP_HOST" -->/mobile/</b></span> от
-всеки мобилен телефон, който има връзка с Интернет.</li>
+<li>Да използвате <span class="ssi"><b><!--#echo var="HTTP_HOST" -->/mobile/</b></span>
+дори от много стари мобилни телефони (WAP 2.0).</li>
 <li>Да организирате локална система за разменна търговия.</li>
 </ul>
 </div>

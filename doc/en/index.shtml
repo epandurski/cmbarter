@@ -5,7 +5,7 @@
 <meta name="HandheldFriendly" content="True" />
 <meta name="viewport" content="initial-scale=1.0" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="Docutils 0.8.1: http://docutils.sourceforge.net/" />
+<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
 <title>A quick introduction</title>
 <style type="text/css">
 
@@ -109,8 +109,8 @@ that you own.</li>
 them anymore.</li>
 <li>You can send messages to your customers, as well as receive messages
 from your partners.</li>
-<li>You can use <span class="ssi"><b><!--#echo var="HTTP_HOST" -->/mobile/</b></span> from
-any Internet-connected cell phone.</li>
+<li>You can use <span class="ssi"><b><!--#echo var="HTTP_HOST" -->/mobile/</b></span> even
+on very old phones (WAP 2.0).</li>
 <li>You can start a local exchange trading system.</li>
 </ul>
 </div>
