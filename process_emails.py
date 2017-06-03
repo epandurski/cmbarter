@@ -41,14 +41,24 @@ USAGE = """Usage: process_emails.py [OPTIONS]
 Fetches pending messages to the outgoing e-mail server.
 
   -h, --help                     display this help and exit
-  --smtp-host=SMTP_HOST[:PORT]   supply SMTP server name and optional port
+
+  --smtp-host=HOST[:PORT]        supply SMTP server name and optional port
 
                                  If omitted, the value of the SMTP_HOST
                                  environment variable is used. If it is
-                                 empty "localhost" is presumed.
+                                 empty -- "localhost" is presumed.
 
-  --smtp-username=USERNAME  supply SMTP login name (default: no authentication)
-  --smtp-password=PASSWORD  supply SMTP password
+  --smtp-username=USERNAME       supply SMTP login name
+
+                                 If omitted, the value of the SMTP_USERNAME
+                                 environment variable is used. If it is
+                                 empty -- no authentication is presumed.
+
+  --smtp-password=PASSWORD       supply SMTP password
+
+                                 If omitted, the value of the SMTP_PASSWORD
+                                 environment variable is used.
+
   -s, --ssl                 use an SSL/TLS connection
   -S, --starttls            use opportunistic TLS connection (STARTTLS)
   --dsn=DSN                 give explicitly the database source name
@@ -292,8 +302,8 @@ def send_outgoing_emails(db, ssl=False, starttls=False):
 
 if __name__ == "__main__":
     smtp_host = os.environ.get('SMTP_HOST', 'localhost')
-    smtp_username = ''
-    smtp_password = ''
+    smtp_username = os.environ.get('SMTP_USERNAME', '')
+    smtp_password = os.environ.get('SMTP_PASSWORD', '')
     ssl = False
     starttls = False
     site_domain = CMBARTER_HOST
