@@ -55,6 +55,9 @@ ENV SMTP_USERNAME=
 # empty if authentication is not required by the mail server.
 ENV SMTP_PASSWORD=
 
+# Set this to "none", "SSL", or "STARTTLS".
+ENV SMTP_ENCRYPTION none
+
 # Set this to your site domain name.
 ENV CMBARTER_HOST localhost
 
