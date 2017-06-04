@@ -60,12 +60,13 @@ CREATE TABLE solver (
   is_unique boolean PRIMARY KEY CHECK (is_unique=TRUE),
   status int NOT NULL CHECK (status >= 0),  -- 0: serving users; 1: performing turn
   turn_interval interval NOT NULL CHECK (turn_interval >= interval '1 second'),
-  next_turn_start_ts timestamp with time zone NOT NULL
+  next_turn_start_ts timestamp with time zone NOT NULL,
+  db_schema_version int NOT NULL CHECK (db_schema_version > 0)
 );
 INSERT INTO solver (
-  is_unique, status, turn_interval, next_turn_start_ts)
+  is_unique, status, turn_interval, next_turn_start_ts, db_schema_version)
 VALUES (
-  TRUE, 0, interval '1 day', 'tomorrow'::timestamp with time zone + interval '2 hours');
+  TRUE, 0, interval '1 day', 'tomorrow'::timestamp with time zone + interval '2 hours', 1);
 
 -- Signifies a successfully executed trading turn.
 CREATE TABLE turn (
