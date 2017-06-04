@@ -17,7 +17,7 @@ services:
     env_file: .env
 
   db:
-    image: epandurski/cmbarter:1-db
+    image: epandurski/cmbarter:1.16.0-db
     build:
       context: .
       dockerfile: docker/Dockerfile-db
