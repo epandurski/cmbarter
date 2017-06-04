@@ -44,8 +44,19 @@ ENV PGUSER postgres
 # and so forth...
 ENV MINOR_DIGITS 0
 
-# Set this to the name of the outgoing mail server.
-ENV SMTP_HOST mail
+# Set this to the name and the port of the outgoing mail server.
+ENV SMTP_HOST mail:25
+
+# Set this to the username for the SMTP authentication, or leave it
+# empty if authentication is not required by the mail server.
+ENV SMTP_USERNAME=
+
+# Set this to the password for the SMTP authentication, or leave it
+# empty if authentication is not required by the mail server.
+ENV SMTP_PASSWORD=
+
+# Set this to "none", "SSL", or "STARTTLS".
+ENV SMTP_ENCRYPTION none
 
 # Set this to your site domain name.
 ENV CMBARTER_HOST localhost

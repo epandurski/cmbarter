@@ -26,14 +26,6 @@ services:
     deploy:
       mode: global
       
-  mail:
-    image: epandurski/cmbarter:mail
-    build:
-      context: .
-      dockerfile: docker/Dockerfile-mail
-    volumes:
-      - mailqueue-volume:/var/spool/exim4
-
   tasks:
     image: epandurski/cmbarter:1.16.0-tasks
     build:
@@ -41,7 +33,6 @@ services:
       dockerfile: docker/Dockerfile-tasks
     depends_on:
       - db
-      - mail
     environment:
       CMBARTER_HOST: ${CMBARTER_HOST}
       CMBARTER_DSN: ${CMBARTER_DSN}
@@ -71,7 +62,6 @@ services:
 
 volumes:
   data-volume:
-  mailqueue-volume:
 
 
 secrets:

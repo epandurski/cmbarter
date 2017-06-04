@@ -40,17 +40,29 @@ from cmbarter.modules.utils import send_email, get_ugettext, wrap_text
 USAGE = """Usage: process_emails.py [OPTIONS]
 Fetches pending messages to the outgoing e-mail server.
 
-  -h, --help                display this help and exit
-  --smtp-host=SMTP_HOST     supply SMTP server name
+  -h, --help                     display this help and exit
 
-                            If omitted, the value of the SMTP_HOST
-                            environment variable is used. If it is
-                            empty "localhost" is presumed.
+  --smtp-host=HOST[:PORT]        supply SMTP server name and optional port
 
-  --smtp-username=USERNAME  supply SMTP login name (default: no authentication)
-  --smtp-password=PASSWORD  supply SMTP password
+                                 If omitted, the value of the SMTP_HOST
+                                 environment variable is used. If it is
+                                 empty -- "localhost" is presumed.
+
+  --smtp-username=USERNAME       supply SMTP login name
+
+                                 If omitted, the value of the SMTP_USERNAME
+                                 environment variable is used. If it is
+                                 empty -- no authentication is presumed.
+
+  --smtp-password=PASSWORD       supply SMTP password
+
+                                 If omitted, the value of the SMTP_PASSWORD
+                                 environment variable is used.
+
+  -s, --ssl                 use an SSL/TLS connection
+  -S, --starttls            use opportunistic TLS connection (STARTTLS)
   --dsn=DSN                 give explicitly the database source name
-  --site-domain=DOMANNAME   give explicitly the site's domainname
+  --site-domain=DOMANNAME   give explicitly the site domainname
 
 Example:
   $ ./process_emails.py --smtp-host=mail.foo.com --smtp-username=cmbarter --smtp-password='mypassword'
@@ -68,10 +80,11 @@ def exit_if_deadline_has_been_passed():
 
 
 def parse_args(argv):
-    global site_domain, dsn, smtp_host, smtp_username, smtp_password
+    global site_domain, dsn, smtp_host, smtp_username, smtp_password, ssl, starttls
     try:                                
-        opts, args = getopt.gnu_getopt(argv, 'h', [
+        opts, args = getopt.gnu_getopt(argv, 'hsS', [
                 'smtp-host=', 'smtp-username=','smtp-password=',
+                'ssl', 'starttls',
                 'site-domain=', 'dsn=', 'help'])
     except getopt.GetoptError:
         print(USAGE)
@@ -95,6 +108,10 @@ def parse_args(argv):
             smtp_password = arg
         elif opt == '--site-domain':
             site_domain = arg
+        elif opt in ('-s', '--ssl'):
+            ssl = True
+        elif opt in ('-S', '--starttls'):
+            starttls = True
 
 
 
@@ -245,7 +262,7 @@ def process_notifications(db):
                 
 
 
-def send_outgoing_emails(db):
+def send_outgoing_emails(db, ssl=False, starttls=False):
     outgoing_emails = curiousorm.Cursor(dsn, """
         SELECT
           id, subject, content, orig_date,
@@ -256,8 +273,11 @@ def send_outgoing_emails(db):
         FROM outgoing_email
         """, buffer_size=100, dictrows=True)
 
-    smtp_connection = smtplib.SMTP(smtp_host)
+    connect = smtplib.SMTP_SSL if ssl else smtplib.SMTP
+    smtp_connection = connect(smtp_host)
     try:
+        if not ssl and starttls:
+            smtp_connection.starttls()
         if smtp_username:
             smtp_connection.login(smtp_username, smtp_password)
         
@@ -282,8 +302,10 @@ def send_outgoing_emails(db):
 
 if __name__ == "__main__":
     smtp_host = os.environ.get('SMTP_HOST', 'localhost')
-    smtp_username = ''
-    smtp_password = ''
+    smtp_username = os.environ.get('SMTP_USERNAME', '')
+    smtp_password = os.environ.get('SMTP_PASSWORD', '')
+    ssl = False
+    starttls = False
     site_domain = CMBARTER_HOST
     dsn = CMBARTER_DSN
     parse_args(sys.argv[1:])
@@ -298,7 +320,7 @@ if __name__ == "__main__":
             process_email_validations(db)
             process_outgoing_customer_broadcasts(db)
             process_notifications(db)
-            send_outgoing_emails(db)
+            send_outgoing_emails(db, ssl=ssl, starttls=starttls)
         finally:
             db.pg_advisory_unlock(1)
 
