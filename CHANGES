@@ -1,15 +1,14 @@
-May 30th, 2017
+June 5th, 2017
 v1.16.0 -- Support for different password hashing methods.
         -- Increased the default minimum password length to 10.
         -- Minor change in the database schema.
         -- Improved docker support.
-        -- Sent emails are more spam-filter friendly now.
         -- Fixed possible leak of sensitive info when replying to emails.
         -- Adopted semantic versioning scheme.
 
-           In the future if the database schema is changed, or other
-           incompatible change is introduced, the major version number
-           will be incremented.
+           In the future, when an incompatible change in the database
+           schema is made -- the major version number will be
+           incremented.
 
 May 25th, 2017
 v1.15 -- Added support for Docker.
