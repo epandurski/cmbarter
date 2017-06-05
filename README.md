@@ -43,3 +43,5 @@ Features:
 
 The easiest way to install CMB is from
 [the docker images](https://hub.docker.com/r/epandurski/cmbarter/).
+
+You can see it working [here](https://scripmint.me/about/).
