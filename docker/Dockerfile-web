@@ -2,6 +2,24 @@ FROM pypy:2
 
 # Install the necessary packages:
 RUN pip install Django~=1.11 psycopg2cffi Pillow pytz gevent gunicorn
+
+# Install pgbouncer:
+ENV DEBIAN_FRONTEND noninteractive
+RUN apt-get update && apt-get -y --no-install-recommends install \
+    postgresql-common \
+ && apt-get clean && rm -rf /var/lib/apt/lists/* \
+ && mkdir -p /opt \
+ && cd /opt \
+ && git clone https://github.com/pgbouncer/pgbouncer.git \
+ && cd /opt/pgbouncer \
+ && git checkout pgbouncer_1_7_2 \
+ && git submodule init \
+ && git submodule update \
+ && ./autogen.sh \
+ && ./configure --enable-evdns=no \
+ && make \
+ && make install \
+ && rm -rf /opt/pgbouncer
  
 # Copy the files we need:
 COPY cmbarter /usr/local/share/cmbarter/cmbarter/
