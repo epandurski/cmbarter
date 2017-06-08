@@ -17,12 +17,10 @@ COPY execute_turn.py \
      show_emails.py \
      show_whitelist.py \
      set_language.py \
-     docker/repeat_esential_tasks.py \
+     docker/repeat_tasks.sh \
      /usr/local/bin/
 
-STOPSIGNAL SIGINT
-
-CMD ["repeat_esential_tasks.py"]
+CMD ["repeat_tasks.sh"]
 
 ENV PYTHONPATH /usr/local/share/cmbarter
 ENV PGHOST db
