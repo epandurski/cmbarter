@@ -20,11 +20,26 @@ esac
 
 execute_turn="pypy /usr/local/bin/execute_turn.py --level=${MINOR_DIGITS-0}"
 
+wait_for() {
+    [[ -z $terminated ]] || return
+    "$@" &
+    pid=$!
+    [[ -z $terminated ]] || kill $pid
+    wait
+    unset pid
+}
+
+terminate() {
+    terminated=true
+    [[ -z $pid ]] || kill $pid
+}
+
 counter=0
-trap "terminate=true" SIGTERM
-while [[ $terminate != true ]]; do
+unset terminated
+trap terminate SIGTERM SIGINT
+while [[ -z $terminated ]]; do
     sleep 1
     ((counter += 1))
-    ((counter % 60)) || $process_emails
-    ((counter % 600)) || $execute_turn
+    ((counter % 60)) || wait_for $process_emails
+    ((counter % 600)) || wait_for $execute_turn
 done
