@@ -6,9 +6,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: cmbarter-1.16.0\n"
+"Project-Id-Version: cmbarter-1.16.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-03 11:39+0300\n"
+"POT-Creation-Date: 2017-06-09 23:38+0300\n"
 "PO-Revision-Date: 2013-09-28 01:32+0300\n"
 "Last-Translator: Evgeni Pandurski <epandurski@gmail.com>\n"
 "Language-Team: Bulgarian <epandurski@gmail.com>\n"
@@ -773,8 +773,8 @@ msgstr "Език"
 #: templates/base_trader.html:6 templates/customer_deals.html:37
 #: templates/my_deals.html:36 templates/my_order.html:20
 #: templates/my_order.html.py:22 templates/my_order.html:25
-#: templates/my_orders.html:56 templates/my_orders.html.py:58
-#: templates/my_orders.html:63 templates/partners.html:39
+#: templates/my_orders.html:59 templates/my_orders.html.py:61
+#: templates/my_orders.html:66 templates/partners.html:39
 #: templates/pending_payments.html:103 templates/product.html:77
 #: templates/search.html:23 templates/shopping_list.html:54
 #: templates/suggested_partners.html:32 templates/transaction_commit.html:54
@@ -1197,7 +1197,7 @@ msgid "PENDING"
 msgstr "ЧАКА ИЗПЪЛНЕНИЕ"
 
 #: templates/customer_order.html:40 templates/my_order.html:40
-#: templates/my_orders.html:51 templates/xhtml-mp/my_order.html:22
+#: templates/my_orders.html:52 templates/xhtml-mp/my_order.html:22
 msgid "FAILED"
 msgstr "ПЛАЩАНЕТО Е НЕУСПЕШНО"
 
@@ -1221,12 +1221,12 @@ msgstr "№"
 msgid "The person or organization entitled to receive the goods"
 msgstr "Това е лицето или фирмата, на които трябва да се достави стоката."
 
-#: templates/customer_orders.html:42
+#: templates/customer_orders.html:35
 #, python-format
 msgid "%(amount)s of \"%(product)s\""
 msgstr "%(amount)s от \"%(product)s\""
 
-#: templates/customer_orders.html:50
+#: templates/customer_orders.html:51
 msgid ""
 "\n"
 "  Each order in this table authorizes a particular person or\n"
@@ -1239,7 +1239,7 @@ msgstr ""
 "фирма, да получи определено количество стока от сметката на\n"
 "търговеца."
 
-#: templates/customer_orders.html:58 templates/my_orders.html:76
+#: templates/customer_orders.html:59 templates/my_orders.html:79
 #: templates/xhtml-mp/my_orders.html:19
 msgid "No orders"
 msgstr "Няма нареждания"
@@ -1592,11 +1592,11 @@ msgstr "Това е количеството продукт, което тряб
 msgid "ADD NEW ORDER"
 msgstr "НОВО НАРЕЖДАНЕ"
 
-#: templates/my_orders.html:45
+#: templates/my_orders.html:44
 msgid "COMPLETED"
 msgstr "ПЛАЩАНЕТО Е ИЗВЪРШЕНО"
 
-#: templates/my_orders.html:69
+#: templates/my_orders.html:72
 msgid ""
 "\n"
 "  Click on the number of the payment order to see details, or to\n"
@@ -1607,7 +1607,7 @@ msgstr ""
 "Кликнете върху номера на платежното нареждане за да видите подробности\n"
 "за него, или за да го изтриете."
 
-#: templates/my_orders.html:78
+#: templates/my_orders.html:81
 msgid "ADD PAYMENT ORDER"
 msgstr "ПЛАТЕЖНО НАРЕЖДАНЕ"
 

@@ -195,7 +195,7 @@ endobj
 << /Outlines 63 0 R /PageLabels 88 0 R /PageMode /UseNone /Pages 79 0 R /Type /Catalog >>
 endobj
 62 0 obj
-<< /Author (Evgeni Pandurksi) /CreationDate (D:20170603170527-02'00') /Creator (\(unspecified\)) /Keywords () /Producer (ReportLab PDF Library - www.reportlab.com) /Subject (\(unspecified\)) 
+<< /Author (Evgeni Pandurksi) /CreationDate (D:20170609171057-02'00') /Creator (\(unspecified\)) /Keywords () /Producer (ReportLab PDF Library - www.reportlab.com) /Subject (\(unspecified\)) 
   /Title (Circular Multilateral Barter Installation Guide) >>
 endobj
 63 0 obj
@@ -635,7 +635,7 @@ n -6 -6 468.6898 96 re B*
 Q
 q
 0 0 0 rg
-BT 1 0 0 1 0 74 Tm /F4 10 Tf 12 TL (# cd /usr/local/share/) Tj T* (# wget http://sourceforge.net/projects/cmb/files/tarballs/\\) Tj T* (cmbarter-1.16.0.tar.gz/download -O cmbarter-1.14.tar.gz) Tj T* (...) Tj T*  T* (# tar -xzf cmbarter-1.16.0.tar.gz) Tj T* (# mv cmbarter-1.16.0 cmbarter) Tj T* ET
+BT 1 0 0 1 0 74 Tm /F4 10 Tf 12 TL (# cd /usr/local/share/) Tj T* (# wget http://sourceforge.net/projects/cmb/files/tarballs/\\) Tj T* (cmbarter-1.16.1.tar.gz/download -O cmbarter-1.14.tar.gz) Tj T* (...) Tj T*  T* (# tar -xzf cmbarter-1.16.1.tar.gz) Tj T* (# mv cmbarter-1.16.1 cmbarter) Tj T* ET
 Q
 Q
 Q
@@ -2136,7 +2136,7 @@ n -6 -6 445.6898 96 re B*
 Q
 q
 0 0 0 rg
-BT 1 0 0 1 0 74 Tm /F4 10 Tf 12 TL ($ cd ~) Tj T* ($ wget http://sourceforge.net/projects/cmb/files/tarballs/\\) Tj T* (cmbarter-1.16.0.tar.gz/download -O cmbarter-1.14.tar.gz) Tj T* (...) Tj T*  T* ($ tar -xzf cmbarter-1.16.0.tar.gz) Tj T* ($ mv cmbarter-1.16.0 cmbarter) Tj T* ET
+BT 1 0 0 1 0 74 Tm /F4 10 Tf 12 TL ($ cd ~) Tj T* ($ wget http://sourceforge.net/projects/cmb/files/tarballs/\\) Tj T* (cmbarter-1.16.1.tar.gz/download -O cmbarter-1.14.tar.gz) Tj T* (...) Tj T*  T* ($ tar -xzf cmbarter-1.16.1.tar.gz) Tj T* ($ mv cmbarter-1.16.1 cmbarter) Tj T* ET
 Q
 Q
 Q
@@ -3023,7 +3023,7 @@ xref
 trailer
 << /ID 
  % ReportLab generated PDF document -- digest (http://www.reportlab.com)
- [(\254[\016\037\213\223+\360\0311\001*\264|}\015) (\254[\016\037\213\223+\360\0311\001*\264|}\015)]
+ [(\337Wz\330q\254-qd\027\3513\336$\277\014) (\337Wz\330q\254-qd\027\3513\336$\277\014)]
  /Info 62 0 R /Root 61 0 R /Size 97 >>
 startxref
 65903

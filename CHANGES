@@ -1,3 +1,8 @@
+June 10th, 2017
+v1.16.1 -- Use pgbouncer in "web" docker image.
+        -- The "tasks" image responds to SIGTERM.
+        -- Improved visual style on hand-held devices.
+
 June 5th, 2017
 v1.16.0 -- Support for different password hashing methods.
         -- Increased the default minimum password length to 10.
