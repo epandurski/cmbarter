@@ -59,12 +59,12 @@
       </td>
       <td>
 	<input type="hidden" name="old-need-{{row.issuer_id}}-{{row.promise_id}}" value="{% truncate_amount row.need_amount row.epsilon %}">
-	<input type="text" name="need-{{row.issuer_id}}-{{row.promise_id}}" value="{% truncate_amount row.need_amount row.epsilon %}">
+	<input type="number" step="any" name="need-{{row.issuer_id}}-{{row.promise_id}}" value="{% truncate_amount row.need_amount row.epsilon %}">
       </td>
       <td>{% if row.issuer_price %}{{row.issuer_price}}{% else %}{% trans "N/A"%}{% endif %}</td>
       <td>
 	<input type="hidden" name="old-price-{{row.issuer_id}}-{{row.promise_id}}" value="{{row.recipient_price|default:""}}">
-	<input type="text" name="price-{{row.issuer_id}}-{{row.promise_id}}" value="{{row.recipient_price|default:""}}">{% bad_price row.need_amount row.have_amount row.epsilon row.issuer_price row.recipient_price %}
+	<input type="number" step="any" name="price-{{row.issuer_id}}-{{row.promise_id}}" value="{{row.recipient_price|default:""}}">{% bad_price row.need_amount row.have_amount row.epsilon row.issuer_price row.recipient_price %}
       </td>
     </tr>
     {% endfor %}
@@ -79,7 +79,7 @@
   <strong>Note: </strong>Make sure you have
   read <a href="{{manual}}/{{lang}}/#my-shopping-list" target="_blank"> 
   the manual</a> before making your bids!  To remove an item from your
-  shopping list &mdash; enter "REMOVE" in its "My price" field.  To
+  shopping list &mdash; enter "0" in its "My price" field.  To
   make a payment order, or accept an incoming payment &mdash; click on
   the name of the product.
   {% endblocktrans %}
