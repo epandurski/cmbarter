@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cmbarter-1.16.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-09 23:22+0300\n"
+"POT-Creation-Date: 2017-06-09 23:38+0300\n"
 "PO-Revision-Date: 2013-09-28 01:32+0300\n"
 "Last-Translator: Evgeni Pandurski <epandurski@gmail.com>\n"
 "Language-Team: Bulgarian <epandurski@gmail.com>\n"
@@ -1221,12 +1221,12 @@ msgstr "№"
 msgid "The person or organization entitled to receive the goods"
 msgstr "Това е лицето или фирмата, на които трябва да се достави стоката."
 
-#: templates/customer_orders.html:42
+#: templates/customer_orders.html:35
 #, python-format
 msgid "%(amount)s of \"%(product)s\""
 msgstr "%(amount)s от \"%(product)s\""
 
-#: templates/customer_orders.html:50
+#: templates/customer_orders.html:51
 msgid ""
 "\n"
 "  Each order in this table authorizes a particular person or\n"
@@ -1239,7 +1239,7 @@ msgstr ""
 "фирма, да получи определено количество стока от сметката на\n"
 "търговеца."
 
-#: templates/customer_orders.html:58 templates/my_orders.html:79
+#: templates/customer_orders.html:59 templates/my_orders.html:79
 #: templates/xhtml-mp/my_orders.html:19
 msgid "No orders"
 msgstr "Няма нареждания"

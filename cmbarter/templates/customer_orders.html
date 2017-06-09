@@ -32,6 +32,7 @@
     {% for row in orders %}
     <tr>
       <td scope="row">
+	<a href='/{{user.trader_id}}/traders/{{trader.trader_id}}/orders/{{row.order_id}}/' title='{% blocktrans with row|order_truncate_amount as amount and row|product|escape as product %}{{amount}} of "{{product}}"{% endblocktrans %}'>
 	{% if row.execution_ts %}
 	<img src="/static/green_accept.gif" alt="(V)">
 	{% else %}{% if row.issuer_message == None %}
@@ -39,7 +40,7 @@
 	{% else %}
 	<img src="/static/red_reject.gif" alt="(X)">
 	{% endif %}{% endif %}
-	<div><a href='/{{user.trader_id}}/traders/{{trader.trader_id}}/orders/{{row.order_id}}/' title='{% blocktrans with row|order_truncate_amount as amount and row|product|escape as product %}{{amount}} of "{{product}}"{% endblocktrans %}'><strong>{{row.order_id}}</strong></a></div>
+	<div><strong>{{row.order_id}}</strong></div></a>
       </td>
       <td><span{% if row.instructions %} title="{{row.instructions|truncatechars:130|escape}}"{% endif %}>{{row.carrier|escape}}</span></td>
     </tr>
