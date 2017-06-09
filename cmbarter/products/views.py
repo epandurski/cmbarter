@@ -361,7 +361,7 @@ def update_shopping_list(request, user, tmpl='shopping_list.html'):
                 if request._cmbarter_trx_cost > 500.0:
                     # This seems to be a DoS attempt, so we stop here.
                     break
-                elif price_str.strip() == '0':
+                elif price_str.strip() in ('REMOVE', 'remove', 'Remove'):
                     request._cmbarter_trx_cost += 2.0
                     trx.delete_shopping_item(user['trader_id'], issuer_id, promise_id)
                 else:

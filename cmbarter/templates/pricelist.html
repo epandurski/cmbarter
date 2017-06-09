@@ -62,7 +62,7 @@
       <td><abbr dir="ltr" title="{{row.amount}}">{% truncate_amount row.amount row.epsilon %}</abbr></td>
       <td>
 	<input type="hidden" name="old-price-{{row.promise_id}}" value="{{row.price|default:""}}">
-	<input type="number" step="any" name="price-{{row.promise_id}}" value="{{row.price|default:""}}" size="10">{% if not row.price%}<span class="noprint" title="{% trans "The price is missing." %}">*</span>{% endif %}
+	<input type="text" name="price-{{row.promise_id}}" value="{{row.price|default:""}}" size="10">{% if not row.price%}<span class="noprint" title="{% trans "The price is missing." %}">*</span>{% endif %}
       </td>
     </tr>
     {% endfor %}
