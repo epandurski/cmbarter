@@ -41,14 +41,17 @@
     <tr>
       <td scope="row">
 	{% if row.execution_ts %}
+	<a href="/{{user.trader_id}}/orders/{{row.order_id}}/" title="{% if row.issuer_message %}{{row.issuer_message}}{% else %}{% trans "COMPLETED" %}{% endif %}">
 	<img src="/static/green_accept.gif" alt="(V)">
-	<div><a href="/{{user.trader_id}}/orders/{{row.order_id}}/" title="{% if row.issuer_message %}{{row.issuer_message}}{% else %}{% trans "COMPLETED" %}{% endif %}"><strong>{{row.order_id}}</strong></a></div>
+	<div><strong>{{row.order_id}}</strong></div></a>
 	{% else %}{% if row.issuer_message == None %}
+	<a href="/{{user.trader_id}}/orders/{{row.order_id}}/" title="{% trans "PENDING" %}">
 	<img src="/static/blue_exclamation.gif" alt="(!)">
-	<div><a href="/{{user.trader_id}}/orders/{{row.order_id}}/" title="{% trans "PENDING" %}"><strong>{{row.order_id}}</strong></a></div>
+	<div><strong>{{row.order_id}}</strong></div></a>
 	{% else %}
+	<a href="/{{user.trader_id}}/orders/{{row.order_id}}/" title="{% if row.issuer_message %}{{row.issuer_message}}{% else %}{% trans "FAILED" %}{% endif %}">
 	<img src="/static/red_reject.gif" alt="(X)">
-	<div><a href="/{{user.trader_id}}/orders/{{row.order_id}}/" title="{% if row.issuer_message %}{{row.issuer_message}}{% else %}{% trans "FAILED" %}{% endif %}"><strong>{{row.order_id}}</strong></a></div>
+	<div><strong>{{row.order_id}}</strong></div></a>
 	{% endif %}{% endif %}
       </td>
       <td>
