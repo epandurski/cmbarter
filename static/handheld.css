@@ -25,6 +25,7 @@ html, body, div, h1, h2, h3, h4, h5, h6, p, address, img, dl, dt, dd, ol, ul, li
 #breadcrumbs strong { display: none; }
 
 #main { padding: 3px; background-color: white; }
+#main p.submit input { height: 1.8em; margin-top: 0.8em }
 
 #navigation { padding: 1em 3px; color: black; background-color: #F6F9FB; border-top: 1px solid #E1E1E1; }
 #navigation li { padding: 0.33em 0; }
