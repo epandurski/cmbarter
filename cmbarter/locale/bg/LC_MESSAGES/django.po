@@ -6,9 +6,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: cmbarter-1.16.2\n"
+"Project-Id-Version: cmbarter-1.16.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-09 23:38+0300\n"
+"POT-Creation-Date: 2017-06-14 01:44+0300\n"
 "PO-Revision-Date: 2013-09-28 01:32+0300\n"
 "Last-Translator: Evgeni Pandurski <epandurski@gmail.com>\n"
 "Language-Team: Bulgarian <epandurski@gmail.com>\n"
@@ -67,11 +67,11 @@ msgstr " "
 msgid "Amount to withdraw"
 msgstr "Количество за изтегляне"
 
-#: deposits/views.py:167 mobile/views.py:774
+#: deposits/views.py:167 mobile/views.py:780
 msgid "Choose a product..."
 msgstr "Изберете продукт..."
 
-#: deposits/views.py:226 mobile/views.py:835
+#: deposits/views.py:226 mobile/views.py:841
 #, python-format
 msgid "may not exceed %(amount)s"
 msgstr "не повече от %(amount)s"
@@ -620,7 +620,7 @@ msgstr "ГРЕШКА: Това име вече се използва."
 #: templates/xhtml-mp/edit_contact_information.html:17
 #: templates/xhtml-mp/find_customer.html:16
 #: templates/xhtml-mp/find_partner.html:17
-#: templates/xhtml-mp/make_deposit.html:22
+#: templates/xhtml-mp/make_deposit.html:24
 #: templates/xhtml-mp/make_withdrawal.html:20
 #: templates/xhtml-mp/unconfirmed_transactions.html:32
 msgid "Submit"
@@ -2525,7 +2525,7 @@ msgid "Notices"
 msgstr "Известия"
 
 #: templates/xhtml-mp/create_order.html:20
-#: templates/xhtml-mp/make_deposit.html:19
+#: templates/xhtml-mp/make_deposit.html:21
 #: templates/xhtml-mp/make_withdrawal.html:18
 #: templates/xhtml-mp/my_order.html:13
 msgid "Amount:"
@@ -2562,7 +2562,7 @@ msgstr "Парола:"
 msgid "switch to encrypted connection"
 msgstr "премини към кодирана връзка"
 
-#: templates/xhtml-mp/make_deposit.html:20
+#: templates/xhtml-mp/make_deposit.html:22
 msgid "Deduct from my items:"
 msgstr "Извади от стоката за продан:"
 
