@@ -98,6 +98,12 @@ class CreateOrderForm(cmbarter.orders.forms.CreateOrderForm):
         label=_('Comment'),
         required=False)
 
+class EditProfileForm(cmbarter.profiles.forms.EditProfileForm):
+    advertise_trusted_partners = forms.BooleanField(
+        widget=forms.HiddenInput(),
+        required=False)
+    time_zone = None
+
 
 def render(request, tmpl, c={}):
     http_accept = request.META.get('HTTP_ACCEPT', '')
@@ -763,10 +769,10 @@ def make_deposit(request, secret, user, customer_id_str, tmpl='xhtml-mp/make_dep
     for p in products:
         name = '%s [%s]'% (p['title'], p['unit'])
         if name in choices_name_index:
-            choices[choices_name_index[name]] = (p['promise_id'], name)
+            choices[choices_name_index[name]] = (str(p['promise_id']), name)
         else:
             choices_name_index[name] = len(choices)
-            choices.append( (p['promise_id'], name) )
+            choices.append( (str(p['promise_id']), name) )
     
     if len(choices) == 1:
         form.fields['promise_id'].widget.choices = choices
@@ -937,7 +943,7 @@ def edit_profile(request, secret, user, tmpl='xhtml-mp/edit_contact_information.
                  method=None):
     method = method or request.GET.get('method') or request.method    
     if method == 'POST':
-        form = cmbarter.profiles.forms.EditProfileForm(request.POST)
+        form = EditProfileForm(request.POST)
         if form.is_valid():
             request._cmbarter_trx_cost += 5.0
             db.update_profile(user['trader_id'],
@@ -950,19 +956,15 @@ def edit_profile(request, secret, user, tmpl='xhtml-mp/edit_contact_information.
                 form.cleaned_data['phone'],
                 form.cleaned_data['fax'],
                 form.cleaned_data['www'],
-                form.cleaned_data['time_zone'],
+                user['time_zone'],
                 form.cleaned_data['advertise_trusted_partners'])
 
             return HttpResponseRedirect(reverse(
                 show_profile,
                 args=[secret, user['trader_id']]))
     else:
-        form = cmbarter.profiles.forms.EditProfileForm(
+        form = EditProfileForm(
             initial=db.get_profile(user['trader_id']))
-
-    # We do not show any time zones here, because the list is quite
-    # big and this can be a problem on old phones.
-    form.fields['time_zone'].widget.choices = []
 
     # Render everything.
     c = {'settings': settings, 'secret': secret, 'user': user, 'form': form }
