@@ -441,22 +441,10 @@ these tasks, though.
    separate PyPy-compatible WSGI server (*gunicorn* for example). You
    may consider using *nginx* as well.
  
-.. [4] Here is a simplistic, but informative *iptables* configuration
-   that limits the number of new connections from one IP address over
-   a time period::
-   
-     # iptables -A INPUT -p tcp -m conntrack \
-     --ctstate RELATED,ESTABLISHED -j ACCEPT
-
-     # iptables -A INPUT -p tcp -m recent \
-     --update --seconds 60 --hitcount 60 -j DROP
-
-     # iptables -A INPUT -p tcp -m recent --set
-
-   Also, while CMB is working, it maintains a whitelist of "good" IP
-   addresses. You can use this auto-generated whitelist to configure
-   *iptables* to further protect your web-server (see the
-   *show_whitelist.py* command-line tool).
+.. [4] While CMB is working, it maintains a whitelist of "good" IP
+   addresses. You can use this auto-generated whitelist to further
+   protect your web-server (see the *show_whitelist.py* command-line
+   tool).
 
 .. [5] Debian uses the *exim* mail server by default. You can
    reconfigure it with this command::
