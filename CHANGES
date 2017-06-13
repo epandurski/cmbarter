@@ -1,3 +1,12 @@
+June 13th, 2017
+v1.16.2 -- Minor UI fixes.
+        -- Minor fixes in docker images.
+        -- Minor change in the installation guide.
+        -- Use iptables to limit the maximum rate of incoming new
+           connections in the "proxy" docker image. This should
+           guarantee that the database can not be overloaded -- the
+           bottleneck will be the proxy server or the web servers.
+
 June 10th, 2017
 v1.16.1 -- Use pgbouncer in "web" docker image.
         -- The "tasks" image responds to SIGTERM.
