@@ -960,9 +960,9 @@ def edit_profile(request, secret, user, tmpl='xhtml-mp/edit_contact_information.
         form = cmbarter.profiles.forms.EditProfileForm(
             initial=db.get_profile(user['trader_id']))
 
-    # Fetches all known time zones in the form's time-zone-select-box.
-    form.fields['time_zone'].widget.choices = [
-        (user['time_zone'], user['time_zone'])]
+    # We do not show any time zones here, because the list is quite
+    # big and this can be a problem on old phones.
+    form.fields['time_zone'].widget.choices = []
 
     # Render everything.
     c = {'settings': settings, 'secret': secret, 'user': user, 'form': form }
