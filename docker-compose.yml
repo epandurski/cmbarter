@@ -55,6 +55,8 @@ services:
         target: key.pem
     environment:
       CMBARTER_HOST: ${CMBARTER_HOST}
+    cap_add:
+      - NET_ADMIN
     ports:
       - "80:80"
       - "443:443"

@@ -1,4 +1,9 @@
 FROM nginx:1
+
+RUN apt-get update && apt-get install -y \
+    iptables \
+ && apt-get clean && rm -rf /var/lib/apt/lists/*
+
 COPY doc /usr/share/nginx/html/doc/
 COPY static /usr/share/nginx/html/static/
 COPY webserver/nginx.conf /etc/nginx/nginx.template
