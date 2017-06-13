@@ -4,6 +4,7 @@ Tema: Blue freedom - a minimalictic layout
 
 * { margin: 0; line-height: 1.06; }
 html, body, div, h1, h2, h3, h4, h5, h6, p, address, img, dl, dt, dd, ol, ul, li, form, label, table, caption, tbody, tfoot, thead, tr, th, td { padding: 0; }
+input[type=checkbox] { min-width: 1.5em; min-height: 1.5em; }
 
 #top, #bottom, #footer, #clear { display: none; }
 
@@ -25,7 +26,7 @@ html, body, div, h1, h2, h3, h4, h5, h6, p, address, img, dl, dt, dd, ol, ul, li
 #breadcrumbs strong { display: none; }
 
 #main { padding: 3px; background-color: white; }
-#main p.submit input { height: 1.8em; margin-top: 0.8em }
+#main p.submit input { min-width: 5em; min-height: 1.8em; margin-top: 0.8em; }
 
 #navigation { padding: 1em 3px; color: black; background-color: #F6F9FB; border-top: 1px solid #E1E1E1; }
 #navigation li { padding: 0.33em 0; }
@@ -139,7 +140,7 @@ ul.prev-next-box:after { content: "."; display: block; height: 0; clear: both; v
 #pending-payments-page a.open, #pending-payments-page a.close { display: none; }
 #pending-payments-page .payment { border: 2px solid #CCCCCC; margin: 1em 0.5em 3em 0.5em; padding: 0.5em; }
 #pending-payments-page .first-payment { background-color: #f2ebce; }
-#pending-payments-page .payment input { height: 1.8em; margin-top: 0.8em }
+#pending-payments-page .payment input { min-width: 5em; min-height: 1.8em; margin-top: 0.8em; }
 
 #unconfirmed-transactions-page i { font-style: normal; color: #999999; }
 #unconfirmed-transactions-page table tbody a { text-decoration: none; color: black; }
