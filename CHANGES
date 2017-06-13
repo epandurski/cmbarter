@@ -1,3 +1,7 @@
+June 14th, 2017
+v1.16.3 -- Fixed XHTML-MP (WAP 2.0) validation problem.
+        -- Fixed minor problem in the installation guide.
+
 June 13th, 2017
 v1.16.2 -- Minor UI fixes.
         -- Minor fixes in docker images.
