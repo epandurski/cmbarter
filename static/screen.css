@@ -27,7 +27,8 @@ a:hover { text-decoration: underline; }
 #footer a { text-decoration: underline; }
 
 #header { line-height: 1; padding: 0.5em; background: #6695ED url('/static/hidr.jpg') repeat-x; color: white; }
-#header input { float: right; }
+#header input { float: right; padding: 2px 6px; border-color: #909090; background-color: #EEEEEE; }
+#header input:hover { background-color: #F4F4F4; }
 #header img { padding-right: 8px; }
 #header h1, #header h2 { margin: 0 10px; text-align: left; }
 #header h1 { padding-top: 10px; font-size: 32px; font-family: "Verdana",Arial,sans-serif; }
@@ -62,7 +63,8 @@ body, form, ul { padding: 0; margin: 0; }
 abbr { font-family: sans-serif; cursor: pointer; }
 th[title], td[title], span[title] { cursor: help; }
 input, select { font-size: 1em; }
-input, select, textarea { max-width: 88%; }
+input, select, textarea { max-width: 88%; border: solid 1px #B0B0B0; border-radius: 2px; }
+input[type=text], textarea { padding: 2px 1px; }
 h2 { margin: 0.5em 0; font-size: 1.4em; }
 h3 { margin: 0.5em 0; font-size: 1.2em; }
 p { margin-top: 0.66em; margin-bottom: 0.33em; }
@@ -79,6 +81,7 @@ dl dd p { margin-top: 0; }
 form label { display: block; font-weight: bold; color: #616161; }
 form p { margin-top: 0; color: #616161; }
 form p.submit { margin-top: 0.75em; }
+form p.submit input:hover { border-color: #707070; background-color: #EEEEEE; }
 form .errorlist { font-weight: bold; margin-top: 1em; list-style-type: none; color: #CC3333; }
 form input.highlighted { background-color: #FFFFCC; color: #000000; }
 form textarea.short_textarea { width: 30em; height: 5em; }
