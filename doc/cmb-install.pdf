@@ -195,7 +195,7 @@ endobj
 << /Outlines 63 0 R /PageLabels 88 0 R /PageMode /UseNone /Pages 79 0 R /Type /Catalog >>
 endobj
 62 0 obj
-<< /Author (Evgeni Pandurksi) /CreationDate (D:20170711193810+00'00') /Creator (\(unspecified\)) /Keywords () /ModDate (D:20170711193810+00'00') /Producer (ReportLab PDF Library - www.reportlab.com) 
+<< /Author (Evgeni Pandurksi) /CreationDate (D:20180712131155+00'00') /Creator (\(unspecified\)) /Keywords () /ModDate (D:20180712131155+00'00') /Producer (ReportLab PDF Library - www.reportlab.com) 
   /Subject (\(unspecified\)) /Title (Circular Multilateral Barter Installation Guide) /Trapped /False >>
 endobj
 63 0 obj
@@ -635,7 +635,7 @@ n -6 -6 468.6898 96 re B*
 Q
 q
 0 0 0 rg
-BT 1 0 0 1 0 74 Tm /F4 10 Tf 12 TL (# cd /usr/local/share/) Tj T* (# wget http://sourceforge.net/projects/cmb/files/tarballs/\\) Tj T* (cmbarter-1.16.4.tar.gz/download -O cmbarter-1.16.4.tar.gz) Tj T* (...) Tj T*  T* (# tar -xzf cmbarter-1.16.4.tar.gz) Tj T* (# mv cmbarter-1.16.4 cmbarter) Tj T* ET
+BT 1 0 0 1 0 74 Tm /F4 10 Tf 12 TL (# cd /usr/local/share/) Tj T* (# wget http://sourceforge.net/projects/cmb/files/tarballs/\\) Tj T* (cmbarter-1.16.5.tar.gz/download -O cmbarter-1.16.5.tar.gz) Tj T* (...) Tj T*  T* (# tar -xzf cmbarter-1.16.5.tar.gz) Tj T* (# mv cmbarter-1.16.5 cmbarter) Tj T* ET
 Q
 Q
 Q
@@ -2136,7 +2136,7 @@ n -6 -6 445.6898 96 re B*
 Q
 q
 0 0 0 rg
-BT 1 0 0 1 0 74 Tm /F4 10 Tf 12 TL ($ cd ~) Tj T* ($ wget http://sourceforge.net/projects/cmb/files/tarballs/\\) Tj T* (cmbarter-1.16.4.tar.gz/download -O cmbarter-1.16.4.tar.gz) Tj T* (...) Tj T*  T* ($ tar -xzf cmbarter-1.16.4.tar.gz) Tj T* ($ mv cmbarter-1.16.4 cmbarter) Tj T* ET
+BT 1 0 0 1 0 74 Tm /F4 10 Tf 12 TL ($ cd ~) Tj T* ($ wget http://sourceforge.net/projects/cmb/files/tarballs/\\) Tj T* (cmbarter-1.16.5.tar.gz/download -O cmbarter-1.16.5.tar.gz) Tj T* (...) Tj T*  T* ($ tar -xzf cmbarter-1.16.5.tar.gz) Tj T* ($ mv cmbarter-1.16.5 cmbarter) Tj T* ET
 Q
 Q
 Q
@@ -2996,7 +2996,7 @@ xref
 trailer
 << /ID 
  % ReportLab generated PDF document -- digest (http://www.reportlab.com)
- [(\247\357xM\205\376j\005P]\331\025\205M.x) (\247\357xM\205\376j\005P]\331\025\205M.x)]
+ [(tj\350\243f/\300H8hSEx\010X\231) (tj\350\243f/\300H8hSEx\010X\231)]
  /Info 62 0 R /Root 61 0 R /Size 97 >>
 startxref
 65100

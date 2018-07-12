@@ -152,8 +152,8 @@ def login_captcha(request, tmpl='login_captcha.html'):
     
     if request.method == 'POST':
         captcha_response = captcha.submit(
-            request.POST.get('recaptcha_challenge_field'),
-            request.POST.get('recaptcha_response_field'),
+            'g-recaptcha-challenge',
+            request.POST.get('g-recaptcha-response'),
             settings.CMBARTER_RECAPTCHA_PIVATE_KEY,
             request.META['REMOTE_ADDR'])
         captcha_error = captcha_response.error_code
@@ -315,8 +315,8 @@ def signup(request, tmpl='signup.html'):
     if request.method == 'POST':
         if settings.CMBARTER_SHOW_CAPTCHA_ON_SIGNUP:
             captcha_response = captcha.submit(
-                request.POST.get('recaptcha_challenge_field'),
-                request.POST.get('recaptcha_response_field'),
+                'g-recaptcha-challenge',
+                request.POST.get('g-recaptcha-response'),
                 settings.CMBARTER_RECAPTCHA_PIVATE_KEY,
                 request.META['REMOTE_ADDR'])
             captcha_error = captcha_response.error_code
