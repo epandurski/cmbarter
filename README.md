@@ -1,6 +1,9 @@
 cmbarter
 ========
 
+**Important note:** This project has been superseded by [the
+Swaptacular project](https://swaptacular.github.io/)
+
 "Circular Multilateral Barter" (CMB) is server-side software for
 managing peer-to-peer trading networks. CMB is aimed at supplying
 entrepreneurs with a way to exchange goods and services within a
